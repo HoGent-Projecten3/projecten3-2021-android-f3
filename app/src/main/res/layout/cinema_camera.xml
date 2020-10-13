@@ -10,11 +10,19 @@
         android:layout_centerInParent="true"
         android:layout_margin="30dp">
 
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:visibility="gone"
+            />
+
         <ImageView
             android:id="@+id/ivImage"
             android:layout_width="match_parent"
             android:layout_height="299dp"
-            android:src="#dedede" />
+            android:src="#dedede"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/btCapturePhoto"
