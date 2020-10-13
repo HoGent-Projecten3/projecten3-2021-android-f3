@@ -3,15 +3,18 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.net.Uri
-import android.opengl.Visibility
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.cinema_camera.*
+import java.io.File
+import java.io.FileOutputStream
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class CameraCinema : AppCompatActivity() {
@@ -41,9 +44,11 @@ class CameraCinema : AppCompatActivity() {
     private fun checkCameraPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
             != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
+            ActivityCompat.requestPermissions(
+                this,
                 arrayOf(Manifest.permission.CAMERA),
-                REQUEST_PERMISSION)
+                REQUEST_PERMISSION
+            )
         }
     }
     private fun openCameraPicture() {
@@ -80,23 +85,28 @@ class CameraCinema : AppCompatActivity() {
             }
         }
     }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+
+
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, intent1: Intent?) {
+        super.onActivityResult(requestCode, resultCode, intent1)
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_IMAGE_CAPTURE &&last_code==PICTURE_TAKEN) {
-                val bitmap = data?.extras?.get("data") as Bitmap
+                val bitmap = intent1?.extras?.get("data") as Bitmap
                 ivImage.setImageBitmap(bitmap)
                 ivImage.visibility = View.VISIBLE
+
             }
             else if (requestCode == REQUEST_PERMISSION && resultCode== RESULT_OK) {
-                val uri = data?.data
+                val uri = intent1?.data
                 ivImage.setImageURI(uri)
                 ivImage.visibility = View.VISIBLE
                 //todo de foto niet alleen weergeven maar ook opslaan in db
             }
             else if (requestCode == REQUEST_VIDEO_CAPTURE &&last_code==VIDEO_MADE) {
 
-                var videoUri = data?.data
+                var videoUri = intent1?.data
                 videoView.visibility=View.VISIBLE
                videoView.setVideoURI(videoUri)
 

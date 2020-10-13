@@ -11,6 +11,7 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
+
     defaultConfig {
         applicationId "com.example.faith"
         minSdkVersion 24
@@ -25,6 +26,15 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding{
+        enabled = true
+    }
+    buildFeatures{
+        dataBinding{
+            enabled=true
+
         }
     }
 }
