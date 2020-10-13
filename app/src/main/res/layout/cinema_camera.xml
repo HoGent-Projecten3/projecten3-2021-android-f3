@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
@@ -8,12 +9,12 @@
         android:orientation="vertical"
         android:layout_centerInParent="true"
         android:layout_margin="30dp">
+
         <ImageView
             android:id="@+id/ivImage"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:src="#dedede"
-            />
+            android:layout_height="299dp"
+            android:src="#dedede" />
 
         <Button
             android:id="@+id/btCapturePhoto"
@@ -21,17 +22,28 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@color/colorPrimary"
+            android:text="@string/btnFotoNemen"
             android:textColor="@android:color/white"
-            android:text="Capture Photo"
-            />
+            tools:text="@string/btnFotoNemen" />
+
+        <Button
+            android:id="@+id/btCaptureVideo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginBetweenButtons"
+            android:background="@color/colorPrimary"
+            android:text="@string/btnVideoMaken"
+            android:textColor="@android:color/white"
+            tools:text="@string/btnVideoMaken" />
+
         <Button
             android:id="@+id/btOpenGallery"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/marginBetweenButtons"
             android:background="@color/colorAccent"
+            android:text="@string/btnGalerij"
             android:textColor="@android:color/white"
-            android:text="Open Gallery"
-            />
+            tools:text="@string/btnGalerij" />
     </LinearLayout>
 </RelativeLayout>
