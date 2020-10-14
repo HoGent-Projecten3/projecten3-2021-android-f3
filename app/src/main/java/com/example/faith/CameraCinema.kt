@@ -2,7 +2,6 @@ package com.example.faith
 
 import android.Manifest
 import android.content.Intent
-import android.content.Intent.ACTION_MEDIA_SCANNER_SCAN_FILE
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
@@ -14,12 +13,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import com.android.volley.*
 import kotlinx.android.synthetic.main.cinema_camera.*
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import com.android.volley.toolbox.HttpHeaderParser
+import com.android.volley.toolbox.Volley
+import java.io.*
+import java.lang.Double.min
+import kotlin.math.min
 
 class CameraCinema : AppCompatActivity() {
     private final val REQUEST_PERMISSION = 100
@@ -47,6 +49,9 @@ class CameraCinema : AppCompatActivity() {
         }
         btCaptureVideo.setOnClickListener {
             openCameraVideo()
+        }
+        sendButton.setOnClickListener {
+            uploadImage()
         }
     }
 
@@ -100,6 +105,8 @@ class CameraCinema : AppCompatActivity() {
     }
 
     private fun openCameraPicture() {
+        hidePreviews()
+        last_code=1
 
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
             // Ensure that there's a camera activity to handle the intent
@@ -119,8 +126,10 @@ class CameraCinema : AppCompatActivity() {
                         "com.example.faith.fileprovider",
                         it
                     )
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
                     startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO)
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+
+                    createImageData(photoURI)
                 }
             }
         }
@@ -175,7 +184,7 @@ class CameraCinema : AppCompatActivity() {
                 val bitmap = theIntent?.extras?.get("data") as Bitmap
                 ivImage.setImageBitmap(bitmap)
                 ivImage.visibility = View.VISIBLE
-                galleryAddPic()
+
 
             } else if (requestCode == REQUEST_PERMISSION && resultCode == RESULT_OK) {
                 val uri = theIntent?.data
@@ -192,12 +201,148 @@ class CameraCinema : AppCompatActivity() {
             }
         }
     }
-    private fun galleryAddPic() {
-        Intent(ACTION_MEDIA_SCANNER_SCAN_FILE).also { mediaScanIntent ->
-            val f = File(currentPhotoPath)
-            mediaScanIntent.data = Uri.fromFile(f)
-            sendBroadcast(mediaScanIntent)
+
+
+
+    private var imageData: ByteArray? = null
+    private val postURL: String = "https://ptsv2.com/t/rjlgd-1602675094/post"
+
+    private fun uploadImage() {
+        imageData?: return
+        val request = object : VolleyFileUploadRequest(
+                Method.POST,
+                postURL,
+                Response.Listener {
+                    println("response is: $it")
+                },
+                Response.ErrorListener {
+                    println("error is: $it")
+                }
+        ) {
+            override fun getByteData(): MutableMap<String, FileDataPart> {
+                var params = HashMap<String, FileDataPart>()
+                params["imageFile"] = FileDataPart("image", imageData!!, "jpeg")
+                return params
+            }
+        }
+        Volley.newRequestQueue(this).add(request)
+    }
+
+    @Throws(IOException::class)
+    private fun createImageData(uri: Uri) {
+        val inputStream = contentResolver.openInputStream(uri)
+        inputStream?.buffered()?.use {
+            imageData = it.readBytes()
         }
     }
 
+    open class VolleyFileUploadRequest(
+            method: Int,
+            url: String,
+            listener: Response.Listener<NetworkResponse>,
+            errorListener: Response.ErrorListener) : Request<NetworkResponse>(method, url, errorListener) {
+        private var responseListener: Response.Listener<NetworkResponse>? = null
+        init {
+            this.responseListener = listener
+        }
+
+        private var headers: Map<String, String>? = null
+        private val divider: String = "--"
+        private val ending = "\r\n"
+        private val boundary = "imageRequest${System.currentTimeMillis()}"
+
+
+        override fun getHeaders(): MutableMap<String, String> =
+                when(headers) {
+                    null -> super.getHeaders()
+                    else -> headers!!.toMutableMap()
+                }
+
+        override fun getBodyContentType() = "multipart/form-data;boundary=$boundary"
+
+
+        @Throws(AuthFailureError::class)
+        override fun getBody(): ByteArray {
+            val byteArrayOutputStream = ByteArrayOutputStream()
+            val dataOutputStream = DataOutputStream(byteArrayOutputStream)
+            try {
+                if (params != null && params.isNotEmpty()) {
+                    processParams(dataOutputStream, params, paramsEncoding)
+                }
+                val data = getByteData() as? Map<String, FileDataPart>?
+                if (data != null && data.isNotEmpty()) {
+                    processData(dataOutputStream, data)
+                }
+                dataOutputStream.writeBytes(divider + boundary + divider + ending)
+                return byteArrayOutputStream.toByteArray()
+
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+            return super.getBody()
+        }
+
+        @Throws(AuthFailureError::class)
+        open fun getByteData(): Map<String, Any>? {
+            return null
+        }
+
+        override fun parseNetworkResponse(response: NetworkResponse): Response<NetworkResponse> {
+            return try {
+                Response.success(response, HttpHeaderParser.parseCacheHeaders(response))
+            } catch (e: Exception) {
+                Response.error(ParseError(e))
+            }
+        }
+
+        override fun deliverResponse(response: NetworkResponse) {
+            responseListener?.onResponse(response)
+        }
+
+        override fun deliverError(error: VolleyError) {
+            errorListener?.onErrorResponse(error)
+        }
+
+        @Throws(IOException::class)
+        private fun processParams(dataOutputStream: DataOutputStream, params: Map<String, String>, encoding: String) {
+            try {
+                params.forEach {
+                    dataOutputStream.writeBytes(divider + boundary + ending)
+                    dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"${it.key}\"$ending")
+                    dataOutputStream.writeBytes(ending)
+                    dataOutputStream.writeBytes(it.value + ending)
+                }
+            } catch (e: UnsupportedEncodingException) {
+                throw RuntimeException("Unsupported encoding not supported: $encoding with error: ${e.message}", e)
+            }
+        }
+
+        @Throws(IOException::class)
+        private fun processData(dataOutputStream: DataOutputStream, data: Map<String, FileDataPart>) {
+            data.forEach {
+                val dataFile = it.value
+                dataOutputStream.writeBytes("$divider$boundary$ending")
+                dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"${it.key}\"; filename=\"${dataFile.fileName}\"$ending")
+                if (dataFile.type != null && dataFile.type.trim().isNotEmpty()) {
+                    dataOutputStream.writeBytes("Content-Type: ${dataFile.type}$ending")
+                }
+                dataOutputStream.writeBytes(ending)
+                val fileInputStream = ByteArrayInputStream(dataFile.data)
+                var bytesAvailable = fileInputStream.available()
+                val maxBufferSize = 1024 * 1024
+                var bufferSize = min(bytesAvailable, maxBufferSize)
+                val buffer = ByteArray(bufferSize)
+                var bytesRead = fileInputStream.read(buffer, 0, bufferSize)
+                while (bytesRead > 0) {
+                    dataOutputStream.write(buffer, 0, bufferSize)
+                    bytesAvailable = fileInputStream.available()
+                    bufferSize = min(bytesAvailable, maxBufferSize)
+                    bytesRead = fileInputStream.read(buffer, 0, bufferSize)
+                }
+                dataOutputStream.writeBytes(ending)
+            }
+        }
+    }
+
+    class FileDataPart(var fileName: String?, var data: ByteArray, var type: String)
 }
