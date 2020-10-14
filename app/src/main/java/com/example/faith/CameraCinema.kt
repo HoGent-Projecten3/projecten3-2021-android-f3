@@ -205,7 +205,8 @@ class CameraCinema : AppCompatActivity() {
 
 
     private var imageData: ByteArray? = null
-    private val postURL: String = "https://ptsv2.com/t/rjlgd-1602675094/post"
+    //private val postURL: String = "https://ptsv2.com/t/rjlgd-1602675094/post"
+    private val postURL: String = "https://f3backend-dev-as.azurewebsites.net/api/Cinema"
 
     private fun uploadImage() {
         imageData?: return
