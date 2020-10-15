@@ -4,7 +4,6 @@ import android.Manifest
 import android.content.Intent
 import android.content.Intent.ACTION_MEDIA_SCANNER_SCAN_FILE
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -21,18 +20,21 @@ import java.util.*
 import com.android.volley.toolbox.HttpHeaderParser
 import com.android.volley.toolbox.Volley
 import java.io.*
-import java.lang.Double.min
 import kotlin.math.min
 
 class CameraCinema : AppCompatActivity() {
-    private final val REQUEST_PERMISSION = 100
-    private final val REQUEST_IMAGE_CAPTURE = 1
-    private final val REQUEST_VIDEO_CAPTURE = 1
-    private final val VIDEO_MADE = 2
-    private final val PICTURE_TAKEN = 1
+    private var imageData: ByteArray? = null
+    private val postURL: String = "http://192.168.1.37:45455/api/Cinema/imageFile"
+    private final val requestPermission = 100
+    private final val requestImageCapture = 1
+    private final val requestVideoCapture = 1
+    private final val videoMade = 2
+    private final val pictureTaken = 1
     lateinit var currentPhotoPath: String
-    var last_code = 0
-    val REQUEST_TAKE_PHOTO = 1
+    var lastCode = 0
+    val requestPhotoTaken = 1
+    var photoURI: Uri = Uri.EMPTY
+    var currentFileName:String=""
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState);
@@ -101,14 +103,15 @@ class CameraCinema : AppCompatActivity() {
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(Manifest.permission.CAMERA),
-                REQUEST_PERMISSION
+                requestPermission
             )
         }
     }
-    var photoURI:Uri=Uri.EMPTY
+
+
     private fun openCameraPicture() {
         hidePreviews()
-        last_code=1
+        lastCode = 1
 
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
             // Ensure that there's a camera activity to handle the intent
@@ -123,17 +126,14 @@ class CameraCinema : AppCompatActivity() {
                 photoFile?.also {
 
 
-                      photoURI= FileProvider.getUriForFile(
+                    photoURI = FileProvider.getUriForFile(
                         this,
                         "com.example.faith.fileprovider",
                         it
                     )
 
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                    startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO)
-
-
-
+                    startActivityForResult(takePictureIntent, requestPhotoTaken)
 
 
                 }
@@ -143,10 +143,10 @@ class CameraCinema : AppCompatActivity() {
 
     private fun openCameraVideo() {
         hidePreviews()
-        last_code = 2
+        lastCode = 2
         Intent(MediaStore.ACTION_VIDEO_CAPTURE).also { intent ->
             intent.resolveActivity(packageManager)?.also {
-                startActivityForResult(intent, REQUEST_VIDEO_CAPTURE)
+                startActivityForResult(intent, requestVideoCapture)
             }
         }
 
@@ -164,9 +164,22 @@ class CameraCinema : AppCompatActivity() {
 
             intent.type = "image/*"
             intent.resolveActivity(packageManager)?.also {
-                startActivityForResult(intent, REQUEST_PERMISSION)
+
+
+
+                val photoFile: File? = try {
+                    createImageFile()
+                } catch (ex: IOException) {
+                    null
+                }
+                // Continue only if the File was successfully created
+                photoFile?.also {
+
+
+
+                startActivityForResult(intent, requestPermission)
             }
-        }
+        }}
     }
 
     @Throws(IOException::class)
@@ -186,17 +199,20 @@ class CameraCinema : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, theIntent: Intent?) {
         super.onActivityResult(requestCode, resultCode, theIntent)
         if (resultCode == RESULT_OK) {
-            if (requestCode == REQUEST_IMAGE_CAPTURE && last_code == PICTURE_TAKEN) {
-                ivImage.setImageURI (photoURI)
+            if (requestCode == requestImageCapture && lastCode == pictureTaken) {
+                ivImage.setImageURI(photoURI)
                 ivImage.visibility = View.VISIBLE
 
 
-            } else if (requestCode == REQUEST_PERMISSION && resultCode == RESULT_OK) {
+            } else if (requestCode == requestPermission && resultCode == RESULT_OK) {
                 val uri = theIntent?.data
+                if (uri != null) {
+                    photoURI=uri
+                }
                 ivImage.setImageURI(uri)
                 ivImage.visibility = View.VISIBLE
                 //todo de foto niet alleen weergeven maar ook opslaan in db
-            } else if (requestCode == REQUEST_VIDEO_CAPTURE && last_code == VIDEO_MADE) {
+            } else if (requestCode == requestVideoCapture && lastCode == videoMade) {
 
                 var videoUri = theIntent?.data
                 videoView.visibility = View.VISIBLE
@@ -206,38 +222,26 @@ class CameraCinema : AppCompatActivity() {
             }
         }
     }
-    private fun galleryAddPic() {
-        Intent(ACTION_MEDIA_SCANNER_SCAN_FILE).also { mediaScanIntent ->
-            val f = File(currentPhotoPath)
-            mediaScanIntent.data = Uri.fromFile(f)
-            sendBroadcast(mediaScanIntent)
-        }
-    }
 
 
-
-    private var imageData: ByteArray? = null
-    //private val postURL: String = "https://ptsv2.com/t/rjlgd-1602675094/post"
-   // private val postURL: String = "https://f3backend-dev-as.azurewebsites.net/api/Cinema"
-    private val postURL: String = "http://192.168.1.37:45455/api/Cinema/imageFile"
-    //private val postURL:String = "https://5f88144d49ccbb0016178002.mockapi.io/foto"
-            private fun uploadImage() {
+    private fun uploadImage() {
         createImageData(photoURI)
 
-        imageData?: return
+        imageData ?: return
         val request = object : VolleyFileUploadRequest(
-                Method.POST,
-                postURL,
-                Response.Listener {
-                    println("response is: $it")
-                },
-                Response.ErrorListener {
-                    println("error is: $it")
-                }
+            Method.POST,
+            postURL,
+            Response.Listener {
+                println("response is: $it")
+            },
+            Response.ErrorListener {
+                println("error is: $it")
+            }
         ) {
             override fun getByteData(): MutableMap<String, FileDataPart> {
                 var params = HashMap<String, FileDataPart>()
-                params["imageFile"] = FileDataPart("image", imageData!!, "jpeg")
+                var fileNameToSend: String = randomName()
+                params["imageFile"] = FileDataPart(fileNameToSend, imageData!!, "jpeg")
                 return params
             }
         }
@@ -254,12 +258,21 @@ class CameraCinema : AppCompatActivity() {
         }
     }
 
+    private fun randomName(): String {
+        var timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        timeStamp+=".jpeg"
+        return timeStamp
+
+    }
+
     open class VolleyFileUploadRequest(
-            method: Int,
-            url: String,
-            listener: Response.Listener<NetworkResponse>,
-            errorListener: Response.ErrorListener) : Request<NetworkResponse>(method, url, errorListener) {
+        method: Int,
+        url: String,
+        listener: Response.Listener<NetworkResponse>,
+        errorListener: Response.ErrorListener
+    ) : Request<NetworkResponse>(method, url, errorListener) {
         private var responseListener: Response.Listener<NetworkResponse>? = null
+
         init {
             this.responseListener = listener
         }
@@ -271,10 +284,10 @@ class CameraCinema : AppCompatActivity() {
 
 
         override fun getHeaders(): MutableMap<String, String> =
-                when(headers) {
-                    null -> super.getHeaders()
-                    else -> headers!!.toMutableMap()
-                }
+            when (headers) {
+                null -> super.getHeaders()
+                else -> headers!!.toMutableMap()
+            }
 
         override fun getBodyContentType() = "multipart/form-data;boundary=$boundary"
 
@@ -322,7 +335,11 @@ class CameraCinema : AppCompatActivity() {
         }
 
         @Throws(IOException::class)
-        private fun processParams(dataOutputStream: DataOutputStream, params: Map<String, String>, encoding: String) {
+        private fun processParams(
+            dataOutputStream: DataOutputStream,
+            params: Map<String, String>,
+            encoding: String
+        ) {
             try {
                 params.forEach {
                     dataOutputStream.writeBytes(divider + boundary + ending)
@@ -331,12 +348,18 @@ class CameraCinema : AppCompatActivity() {
                     dataOutputStream.writeBytes(it.value + ending)
                 }
             } catch (e: UnsupportedEncodingException) {
-                throw RuntimeException("Unsupported encoding not supported: $encoding with error: ${e.message}", e)
+                throw RuntimeException(
+                    "Unsupported encoding not supported: $encoding with error: ${e.message}",
+                    e
+                )
             }
         }
 
         @Throws(IOException::class)
-        private fun processData(dataOutputStream: DataOutputStream, data: Map<String, FileDataPart>) {
+        private fun processData(
+            dataOutputStream: DataOutputStream,
+            data: Map<String, FileDataPart>
+        ) {
             data.forEach {
                 val dataFile = it.value
                 dataOutputStream.writeBytes("$divider$boundary$ending")
