@@ -2,6 +2,7 @@ package com.example.faith
 
 import android.Manifest
 import android.content.Intent
+import android.content.Intent.ACTION_MEDIA_SCANNER_SCAN_FILE
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
@@ -51,6 +52,7 @@ class CameraCinema : AppCompatActivity() {
             openCameraVideo()
         }
         sendButton.setOnClickListener {
+
             uploadImage()
         }
     }
@@ -103,7 +105,7 @@ class CameraCinema : AppCompatActivity() {
             )
         }
     }
-
+    var photoURI:Uri=Uri.EMPTY
     private fun openCameraPicture() {
         hidePreviews()
         last_code=1
@@ -121,15 +123,19 @@ class CameraCinema : AppCompatActivity() {
                 photoFile?.also {
 
 
-                    val photoURI: Uri = FileProvider.getUriForFile(
+                      photoURI= FileProvider.getUriForFile(
                         this,
                         "com.example.faith.fileprovider",
                         it
                     )
-                    startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO)
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
 
-                    createImageData(photoURI)
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                    startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO)
+
+
+
+
+
                 }
             }
         }
@@ -181,9 +187,9 @@ class CameraCinema : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, theIntent)
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_IMAGE_CAPTURE && last_code == PICTURE_TAKEN) {
-                val bitmap = theIntent?.extras?.get("data") as Bitmap
-                ivImage.setImageBitmap(bitmap)
-                ivImage.visibility = View.VISIBLE
+                //val bitmap = theIntent?.extras?.get("data") as Bitmap
+                //ivImage.setImageBitmap(bitmap)
+                //ivImage.visibility = View.VISIBLE
 
 
             } else if (requestCode == REQUEST_PERMISSION && resultCode == RESULT_OK) {
@@ -201,14 +207,24 @@ class CameraCinema : AppCompatActivity() {
             }
         }
     }
+    private fun galleryAddPic() {
+        Intent(ACTION_MEDIA_SCANNER_SCAN_FILE).also { mediaScanIntent ->
+            val f = File(currentPhotoPath)
+            mediaScanIntent.data = Uri.fromFile(f)
+            sendBroadcast(mediaScanIntent)
+        }
+    }
 
 
 
     private var imageData: ByteArray? = null
     //private val postURL: String = "https://ptsv2.com/t/rjlgd-1602675094/post"
-    private val postURL: String = "https://f3backend-dev-as.azurewebsites.net/api/Cinema"
+   // private val postURL: String = "https://f3backend-dev-as.azurewebsites.net/api/Cinema"
+    private val postURL: String = "http://192.168.1.37:45455/api/Cinema/imageFile"
+    //private val postURL:String = "https://5f88144d49ccbb0016178002.mockapi.io/foto"
+            private fun uploadImage() {
+        createImageData(photoURI)
 
-    private fun uploadImage() {
         imageData?: return
         val request = object : VolleyFileUploadRequest(
                 Method.POST,
@@ -233,7 +249,9 @@ class CameraCinema : AppCompatActivity() {
     private fun createImageData(uri: Uri) {
         val inputStream = contentResolver.openInputStream(uri)
         inputStream?.buffered()?.use {
+
             imageData = it.readBytes()
+
         }
     }
 
