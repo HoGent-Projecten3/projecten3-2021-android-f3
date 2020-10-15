@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#8FB9DD"
+        android:background="@color/hotel_theme"
         android:gravity="center_vertical"
         android:orientation="vertical">
 
@@ -45,9 +45,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
             android:ems="10"
-            android:textColor="#ffffff"
             android:gravity="center"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:textColor="#ffffff" />
 
         <TextView
             android:id="@+id/label_password"
@@ -64,9 +64,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
             android:ems="10"
-            android:textColor="#ffffff"
             android:gravity="center"
-            android:inputType="numberPassword" />
+            android:inputType="numberPassword"
+            android:textColor="#ffffff" />
 
         <Button
             android:id="@+id/button_login"

@@ -18,6 +18,15 @@
         android:id="@+id/hotelFragment"
         android:name="com.example.faith.HotelFragment"
         android:label="HotelFragment"
-        tools:layout="@layout/fragment_hotel" />
+        tools:layout="@layout/fragment_hotel" >
+        <action
+            android:id="@+id/action_hotelFragment_to_cinemaFragment"
+            app:destination="@id/cinemaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cinemaFragment"
+        android:name="com.example.faith.CinemaFragment"
+        android:label="fragment_cinema"
+        tools:layout="@layout/fragment_cinema" />
 
 </navigation>
