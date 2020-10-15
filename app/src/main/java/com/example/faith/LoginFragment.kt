@@ -25,6 +25,7 @@ class LoginFragment : Fragment() {
         //Or anonymously
         //binding.playButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_titleFragment_to_gameFragment))
 
+
         /* return */
         return binding.root
 

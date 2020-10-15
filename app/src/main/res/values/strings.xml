@@ -6,4 +6,16 @@
     <string name="text_login">Login</string>
     <string name="text_password">Wachtwoord</string>
     <string name="label_welcome">Welkom op het hotel !</string>
+    <string name="app_description">Faith is de app waarmee jongeren op interactieve manier met hun gevoelens en emoties kunnen omgaan.
+                                    Door middel van de kamers van ons hotel kan men schijven, filmen en inspreken wat ze meemaken.</string>
+    <string name="app_creators" >
+        Door :\n
+        Remi Mestdagh\n
+        Jef Seys\n
+        Lowie Scheirlinckx\n
+        Arne De Schrijver\n
+        Alexander De Baene\n
+        Bert Suffys\n
+    </string>
+
 </resources>
