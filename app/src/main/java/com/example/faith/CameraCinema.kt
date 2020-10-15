@@ -187,9 +187,8 @@ class CameraCinema : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, theIntent)
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_IMAGE_CAPTURE && last_code == PICTURE_TAKEN) {
-                //val bitmap = theIntent?.extras?.get("data") as Bitmap
-                //ivImage.setImageBitmap(bitmap)
-                //ivImage.visibility = View.VISIBLE
+                ivImage.setImageURI (photoURI)
+                ivImage.visibility = View.VISIBLE
 
 
             } else if (requestCode == REQUEST_PERMISSION && resultCode == RESULT_OK) {
