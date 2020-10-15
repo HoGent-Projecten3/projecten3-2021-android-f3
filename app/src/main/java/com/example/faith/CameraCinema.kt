@@ -25,16 +25,15 @@ import kotlin.math.min
 class CameraCinema : AppCompatActivity() {
     private var imageData: ByteArray? = null
     private val postURL: String = "http://192.168.1.37:45455/api/Cinema/imageFile"
-    private final val requestPermission = 100
-    private final val requestImageCapture = 1
-    private final val requestVideoCapture = 1
-    private final val videoMade = 2
-    private final val pictureTaken = 1
+    private val requestPermission = 100
+    private val requestImageCapture = 1
+    private val requestVideoCapture = 1
+    private val videoMade = 2
+    private val pictureTaken = 1
     lateinit var currentPhotoPath: String
-    var lastCode = 0
-    val requestPhotoTaken = 1
-    var photoURI: Uri = Uri.EMPTY
-    var currentFileName:String=""
+    private var lastCode = 0
+    private val requestPhotoTaken = 1
+    private var photoURI: Uri = Uri.EMPTY
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState);
@@ -166,7 +165,6 @@ class CameraCinema : AppCompatActivity() {
             intent.resolveActivity(packageManager)?.also {
 
 
-
                 val photoFile: File? = try {
                     createImageFile()
                 } catch (ex: IOException) {
@@ -176,10 +174,10 @@ class CameraCinema : AppCompatActivity() {
                 photoFile?.also {
 
 
-
-                startActivityForResult(intent, requestPermission)
+                    startActivityForResult(intent, requestPermission)
+                }
             }
-        }}
+        }
     }
 
     @Throws(IOException::class)
@@ -207,7 +205,7 @@ class CameraCinema : AppCompatActivity() {
             } else if (requestCode == requestPermission && resultCode == RESULT_OK) {
                 val uri = theIntent?.data
                 if (uri != null) {
-                    photoURI=uri
+                    photoURI = uri
                 }
                 ivImage.setImageURI(uri)
                 ivImage.visibility = View.VISIBLE
@@ -260,7 +258,7 @@ class CameraCinema : AppCompatActivity() {
 
     private fun randomName(): String {
         var timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        timeStamp+=".jpeg"
+        timeStamp += ".jpeg"
         return timeStamp
 
     }
