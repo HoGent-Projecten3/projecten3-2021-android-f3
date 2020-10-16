@@ -1,22 +1,27 @@
 package com.example.faith
 
+import android.content.Context
 import android.os.Bundle
+import android.telephony.TelephonyManager
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        /* Check on type of used device */
+        printTypeOfUsedDevice()
+
         /* Enabling support for the up button, allowing for a more controlled backstack */
         val navController = this.findNavController(R.id.myNavHostFragment)
         NavigationUI.setupActionBarWithNavController(this, navController)
-
-
     }
 
 
@@ -47,6 +52,28 @@ class MainActivity : AppCompatActivity() {
                 NavigationUI.onNavDestinationSelected(item!!, this.findNavController(R.id.myNavHostFragment))
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    /**
+     * Prints whether a mobile device or tablet is being used, using a toast.
+     */
+    fun printTypeOfUsedDevice()
+    {
+        val manager =
+            applicationContext.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+        if (Objects.requireNonNull(manager).phoneType == TelephonyManager.PHONE_TYPE_NONE) {
+            Toast.makeText(
+                this@MainActivity,
+                "Detected... You're using a Tablet",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else {
+            Toast.makeText(
+                this@MainActivity,
+                "Detected... You're using a Mobile Phone",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 

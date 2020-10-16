@@ -1,14 +1,14 @@
 package com.example.faith
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-
 import com.example.faith.databinding.FragmentHotelBinding
 import kotlinx.android.synthetic.main.fragment_hotel.*
 
@@ -23,7 +23,6 @@ class HotelFragment : Fragment() {
         /* Enabling data binding for fragments. slightly different because no immediate acces to root Activity */
         val binding = DataBindingUtil.inflate<FragmentHotelBinding>(inflater, R.layout.fragment_hotel, container, false)
 
-
         /* return */
         return binding.root
     }
@@ -36,6 +35,9 @@ class HotelFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         /* Enable correct routing for each hotel room */
         setRoomClickListeners()
+
+        /* Rescale hotel images to the according screen size */
+        scaleImages()
     }
 
 
@@ -74,6 +76,34 @@ class HotelFragment : Fragment() {
         }
     }
 
+
+  private fun scaleImages(){
+      val kamers : List <View> = listOf(image_cinema, image_bar, image_bibliotheek, image_infobalie, image_penthouse, image_trofeeKamer)
+
+      //Obtain screen width & height DP
+      val screenWidthDp = resources.configuration.screenWidthDp
+      val screenHeightDp = resources.configuration.screenHeightDp
+
+      //Define new size based on the screen DP. Height can be half the screen width, width has to then keep its ratio.
+      val newHeight = (screenWidthDp*0.5).toInt() //height half the screen width
+      val newWidth = (screenWidthDp*0.5).toInt()
+
+      //Updating the dimensions for all rooms in pixel (Deprecated)
+      /*
+      image_penthouse.layoutParams.height = newWidth
+      image_penthouse.layoutParams.width = newWidth
+      */
+
+      //Updating the dimensions for all rooms in DP
+      val dimensionInDp = TypedValue.applyDimension( TypedValue.COMPLEX_UNIT_DIP,newHeight.toFloat(), resources.displayMetrics ).toInt() // new DP height
+
+      //Only update height. these are constant. Width updated automatically, as wrap_content, and adjustviewbounds keeps ratio intact.
+      for(kamer in kamers)
+      {
+          kamer.layoutParams.height = dimensionInDp
+      }
+      //image_penthouse.requestLayout()
+  }
 
 
 
