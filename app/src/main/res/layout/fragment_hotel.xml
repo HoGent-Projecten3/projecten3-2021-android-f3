@@ -44,7 +44,7 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/main_logo"
+                    android:src="@drawable/img_penthouse"
                     app:layout_constraintHeight_percent="0.25"
                     app:layout_constraintWidth_percent="0.25" />
 
@@ -58,7 +58,7 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/main_logo" />
+                    android:src="@drawable/img_bibliotheek" />
 
 
                 <!-- TROFEE KAMER -->
@@ -69,7 +69,7 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/main_logo" />
+                    android:src="@drawable/img_trofeekamer" />
 
 
                 <!-- BAR -->
@@ -80,7 +80,7 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/main_logo" />
+                    android:src="@drawable/img_bar" />
 
 
                 <!-- CINEMA -->
@@ -91,7 +91,7 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/main_logo" />
+                    android:src="@drawable/img_cinema" />
 
 
                 <!-- INFOBALI -->
@@ -104,7 +104,7 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/main_logo" />
+                    android:src="@drawable/img_infobalie" />
 
 
             </GridLayout>
