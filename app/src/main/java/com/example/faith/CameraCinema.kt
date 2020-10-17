@@ -2,7 +2,6 @@ package com.example.faith
 
 import android.Manifest
 import android.content.Intent
-import android.content.Intent.ACTION_MEDIA_SCANNER_SCAN_FILE
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
@@ -30,7 +29,7 @@ class CameraCinema : AppCompatActivity() {
     private val requestVideoCapture = 1
     private val videoMade = 2
     private val pictureTaken = 1
-    lateinit var currentPhotoPath: String
+    lateinit var currentOutputPath: String
     private var lastCode = 0
     private val requestPhotoTaken = 1
     private var photoURI: Uri = Uri.EMPTY
@@ -107,6 +106,29 @@ class CameraCinema : AppCompatActivity() {
         }
     }
 
+    private fun createFile() {
+        val photoFile: File? = try {
+            if(lastCode==1){
+                createImageFile()
+            }
+            (lastCode==2)
+                createVideoFile()
+
+
+        } catch (ex: IOException) {
+            null
+        }
+        // Continue only if the File was successfully created
+        photoFile?.also {
+
+
+            photoURI = FileProvider.getUriForFile(
+                this,
+                "com.example.faith.fileprovider",
+                it
+            )
+        }
+    }
 
     private fun openCameraPicture() {
         hidePreviews()
@@ -116,35 +138,29 @@ class CameraCinema : AppCompatActivity() {
             // Ensure that there's a camera activity to handle the intent
             takePictureIntent.resolveActivity(packageManager)?.also {
                 // Create the File where the photo should go
-                val photoFile: File? = try {
-                    createImageFile()
-                } catch (ex: IOException) {
-                    null
-                }
-                // Continue only if the File was successfully created
-                photoFile?.also {
+
+                createFile()
+
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                startActivityForResult(takePictureIntent, requestPhotoTaken)
 
 
-                    photoURI = FileProvider.getUriForFile(
-                        this,
-                        "com.example.faith.fileprovider",
-                        it
-                    )
-
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                    startActivityForResult(takePictureIntent, requestPhotoTaken)
-
-
-                }
             }
         }
     }
+
 
     private fun openCameraVideo() {
         hidePreviews()
         lastCode = 2
         Intent(MediaStore.ACTION_VIDEO_CAPTURE).also { intent ->
             intent.resolveActivity(packageManager)?.also {
+                createFile()
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+
+
+
+
                 startActivityForResult(intent, requestVideoCapture)
             }
         }
@@ -179,6 +195,19 @@ class CameraCinema : AppCompatActivity() {
             }
         }
     }
+    @Throws(IOException::class)
+    private fun createVideoFile():File{
+        // Create an image file name
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val storageDir: File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile(
+            "MP4${timeStamp}_",
+            ".mp4",
+            storageDir
+        ).apply {
+            currentOutputPath = absolutePath
+        }
+    }
 
     @Throws(IOException::class)
     private fun createImageFile(): File {
@@ -190,7 +219,7 @@ class CameraCinema : AppCompatActivity() {
             ".jpg",
             storageDir
         ).apply {
-            currentPhotoPath = absolutePath
+            currentOutputPath = absolutePath
         }
     }
 
@@ -258,10 +287,21 @@ class CameraCinema : AppCompatActivity() {
 
     private fun randomName(): String {
         var timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        timeStamp += ".jpeg"
+        if(lastCode==1){
+            timeStamp += ".jpeg"
+        }
+        else{
+            timeStamp+=".mp4"
+        }
+
         return timeStamp
 
     }
+
+
+
+
+
 
     open class VolleyFileUploadRequest(
         method: Int,

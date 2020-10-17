@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name" translatable="false">Faith</string>
-    <string name="btnGalerij">Open gallery</string>
-    <string name="btnFotoNemen">Picture</string>
-    <string name="btnVideoMaken">Record</string>
-    <string name="viewPreviewImage">Preview foto</string>
+    <string name="btnGalerij">OPEN GALLERY</string>
+    <string name="btnFotoNemen">PICTURE</string>
+    <string name="btnVideoMaken">RECORD</string>
+    <string name="viewPreviewImage">PREVIEW</string>
+    <string name="upload_image">UPLOAD</string>
 </resources>
