@@ -6,24 +6,30 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.os.Message
 import android.provider.MediaStore
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import com.android.volley.*
 import kotlinx.android.synthetic.main.cinema_camera.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.Response
+
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
-import com.android.volley.toolbox.HttpHeaderParser
-import com.android.volley.toolbox.Volley
-import java.io.*
-import kotlin.math.min
 
 class CameraCinema : AppCompatActivity() {
     private var imageData: ByteArray? = null
-    private val postURL: String = "http://192.168.1.37:45455/api/Cinema/imageFile"
     private val requestPermission = 100
     private val requestImageCapture = 1
     private val requestVideoCapture = 1
@@ -33,11 +39,18 @@ class CameraCinema : AppCompatActivity() {
     private var lastCode = 0
     private val requestPhotoTaken = 1
     private var photoURI: Uri = Uri.EMPTY
+    private lateinit var service: APIInterface
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState);
 
         checkPermission()
+
+        val retrofit = Retrofit.Builder().baseUrl("http://192.168.1.37:45455/api/")
+            .addConverterFactory(GsonConverterFactory.create()).build()
+        service = retrofit.create(APIInterface::class.java)
+
+
 
 
         setContentView(R.layout.cinema_camera)
@@ -52,8 +65,8 @@ class CameraCinema : AppCompatActivity() {
             openCameraVideo()
         }
         sendButton.setOnClickListener {
+            upload()
 
-            uploadImage()
         }
     }
 
@@ -108,11 +121,11 @@ class CameraCinema : AppCompatActivity() {
 
     private fun createFile() {
         val photoFile: File? = try {
-            if(lastCode==1){
+            if (lastCode == 1) {
                 createImageFile()
             }
-            (lastCode==2)
-                createVideoFile()
+            (lastCode == 2)
+            createVideoFile()
 
 
         } catch (ex: IOException) {
@@ -175,6 +188,7 @@ class CameraCinema : AppCompatActivity() {
 
     private fun openGallery() {
         hidePreviews()
+        lastCode=0
         Intent(Intent.ACTION_PICK).also { intent ->
 
             intent.type = "image/*"
@@ -195,8 +209,9 @@ class CameraCinema : AppCompatActivity() {
             }
         }
     }
+
     @Throws(IOException::class)
-    private fun createVideoFile():File{
+    private fun createVideoFile(): File {
         // Create an image file name
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val storageDir: File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
@@ -231,49 +246,24 @@ class CameraCinema : AppCompatActivity() {
                 ivImage.visibility = View.VISIBLE
 
 
-            } else if (requestCode == requestPermission && resultCode == RESULT_OK) {
-                val uri = theIntent?.data
-                if (uri != null) {
-                    photoURI = uri
-                }
-                ivImage.setImageURI(uri)
-                ivImage.visibility = View.VISIBLE
-                //todo de foto niet alleen weergeven maar ook opslaan in db
-            } else if (requestCode == requestVideoCapture && lastCode == videoMade) {
+        } else if (requestCode == requestPermission && resultCode == RESULT_OK) {
+            val uri = theIntent?.data
+            if (uri != null) {
+                photoURI = uri
+            }
+            ivImage.setImageURI(uri)
+            ivImage.visibility = View.VISIBLE
+            //todo de foto niet alleen weergeven maar ook opslaan in db
+        } else if (requestCode == requestVideoCapture && lastCode == videoMade) {
 
                 var videoUri = theIntent?.data
                 videoView.visibility = View.VISIBLE
                 videoView.setVideoURI(videoUri)
                 videoView.start()
-
             }
         }
     }
 
-
-    private fun uploadImage() {
-        createImageData(photoURI)
-
-        imageData ?: return
-        val request = object : VolleyFileUploadRequest(
-            Method.POST,
-            postURL,
-            Response.Listener {
-                println("response is: $it")
-            },
-            Response.ErrorListener {
-                println("error is: $it")
-            }
-        ) {
-            override fun getByteData(): MutableMap<String, FileDataPart> {
-                var params = HashMap<String, FileDataPart>()
-                var fileNameToSend: String = randomName()
-                params["imageFile"] = FileDataPart(fileNameToSend, imageData!!, "jpeg")
-                return params
-            }
-        }
-        Volley.newRequestQueue(this).add(request)
-    }
 
     @Throws(IOException::class)
     private fun createImageData(uri: Uri) {
@@ -287,141 +277,51 @@ class CameraCinema : AppCompatActivity() {
 
     private fun randomName(): String {
         var timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        if(lastCode==1){
+        if (lastCode == 1 || lastCode==0) {
             timeStamp += ".jpeg"
-        }
-        else{
-            timeStamp+=".mp4"
+        } else {
+            timeStamp += ".mp4"
         }
 
         return timeStamp
 
     }
 
-
-
-
-
-
-    open class VolleyFileUploadRequest(
-        method: Int,
-        url: String,
-        listener: Response.Listener<NetworkResponse>,
-        errorListener: Response.ErrorListener
-    ) : Request<NetworkResponse>(method, url, errorListener) {
-        private var responseListener: Response.Listener<NetworkResponse>? = null
-
-        init {
-            this.responseListener = listener
+    private fun upload() {
+        createImageData(photoURI)
+        var kindOfMedia = ""
+        if (lastCode == 1 ||lastCode==0) {
+            kindOfMedia = "image/*"
+        } else {
+            kindOfMedia = "video/*"
         }
-
-        private var headers: Map<String, String>? = null
-        private val divider: String = "--"
-        private val ending = "\r\n"
-        private val boundary = "imageRequest${System.currentTimeMillis()}"
-
-
-        override fun getHeaders(): MutableMap<String, String> =
-            when (headers) {
-                null -> super.getHeaders()
-                else -> headers!!.toMutableMap()
+        val part = MultipartBody.Part.createFormData(
+            "imageFile", randomName(), RequestBody.create(
+                MediaType.get(kindOfMedia),
+                imageData
+            )
+        )
+        var call: Call<Message> = service.uploadMedia("Cinema/imageFile", part)
+        call.enqueue(object : Callback<Message?> {
+            override fun onFailure(call: Call<Message?>, t: Throwable) {}
+            override fun onResponse(call: Call<Message?>, response: retrofit2.Response<Message?>) {
+                TODO("Not yet implemented")
             }
+        })
 
-        override fun getBodyContentType() = "multipart/form-data;boundary=$boundary"
 
-
-        @Throws(AuthFailureError::class)
-        override fun getBody(): ByteArray {
-            val byteArrayOutputStream = ByteArrayOutputStream()
-            val dataOutputStream = DataOutputStream(byteArrayOutputStream)
-            try {
-                if (params != null && params.isNotEmpty()) {
-                    processParams(dataOutputStream, params, paramsEncoding)
-                }
-                val data = getByteData() as? Map<String, FileDataPart>?
-                if (data != null && data.isNotEmpty()) {
-                    processData(dataOutputStream, data)
-                }
-                dataOutputStream.writeBytes(divider + boundary + divider + ending)
-                return byteArrayOutputStream.toByteArray()
-
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-            return super.getBody()
-        }
-
-        @Throws(AuthFailureError::class)
-        open fun getByteData(): Map<String, Any>? {
-            return null
-        }
-
-        override fun parseNetworkResponse(response: NetworkResponse): Response<NetworkResponse> {
-            return try {
-                Response.success(response, HttpHeaderParser.parseCacheHeaders(response))
-            } catch (e: Exception) {
-                Response.error(ParseError(e))
-            }
-        }
-
-        override fun deliverResponse(response: NetworkResponse) {
-            responseListener?.onResponse(response)
-        }
-
-        override fun deliverError(error: VolleyError) {
-            errorListener?.onErrorResponse(error)
-        }
-
-        @Throws(IOException::class)
-        private fun processParams(
-            dataOutputStream: DataOutputStream,
-            params: Map<String, String>,
-            encoding: String
-        ) {
-            try {
-                params.forEach {
-                    dataOutputStream.writeBytes(divider + boundary + ending)
-                    dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"${it.key}\"$ending")
-                    dataOutputStream.writeBytes(ending)
-                    dataOutputStream.writeBytes(it.value + ending)
-                }
-            } catch (e: UnsupportedEncodingException) {
-                throw RuntimeException(
-                    "Unsupported encoding not supported: $encoding with error: ${e.message}",
-                    e
-                )
-            }
-        }
-
-        @Throws(IOException::class)
-        private fun processData(
-            dataOutputStream: DataOutputStream,
-            data: Map<String, FileDataPart>
-        ) {
-            data.forEach {
-                val dataFile = it.value
-                dataOutputStream.writeBytes("$divider$boundary$ending")
-                dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"${it.key}\"; filename=\"${dataFile.fileName}\"$ending")
-                if (dataFile.type != null && dataFile.type.trim().isNotEmpty()) {
-                    dataOutputStream.writeBytes("Content-Type: ${dataFile.type}$ending")
-                }
-                dataOutputStream.writeBytes(ending)
-                val fileInputStream = ByteArrayInputStream(dataFile.data)
-                var bytesAvailable = fileInputStream.available()
-                val maxBufferSize = 1024 * 1024
-                var bufferSize = min(bytesAvailable, maxBufferSize)
-                val buffer = ByteArray(bufferSize)
-                var bytesRead = fileInputStream.read(buffer, 0, bufferSize)
-                while (bytesRead > 0) {
-                    dataOutputStream.write(buffer, 0, bufferSize)
-                    bytesAvailable = fileInputStream.available()
-                    bufferSize = min(bytesAvailable, maxBufferSize)
-                    bytesRead = fileInputStream.read(buffer, 0, bufferSize)
-                }
-                dataOutputStream.writeBytes(ending)
-            }
-        }
     }
 
-    class FileDataPart(var fileName: String?, var data: ByteArray, var type: String)
 }
+
+
+
+
+
+
+
+
+
+
+
+
