@@ -66,7 +66,9 @@ class CameraCinema : AppCompatActivity() {
         }
         sendButton.setOnClickListener {
             upload()
-
+        }
+        btSendText.setOnClickListener(){
+            uploadText()
         }
     }
 
@@ -305,7 +307,23 @@ class CameraCinema : AppCompatActivity() {
         call.enqueue(object : Callback<Message?> {
             override fun onFailure(call: Call<Message?>, t: Throwable) {}
             override fun onResponse(call: Call<Message?>, response: retrofit2.Response<Message?>) {
-                TODO("Not yet implemented")
+
+            }
+        })
+
+
+    }
+
+    private fun uploadText(){
+
+        println(txfBericht.text.toString())
+        var call: Call<Message> = service.uploadText("Cinema/text", txfBericht.text.toString())
+        call.enqueue(object : Callback<Message?> {
+            override fun onFailure(call: Call<Message?>, t: Throwable) {
+                println(call.toString())
+            }
+            override fun onResponse(call: Call<Message?>, response: retrofit2.Response<Message?>) {
+                println(call.toString())
             }
         })
 

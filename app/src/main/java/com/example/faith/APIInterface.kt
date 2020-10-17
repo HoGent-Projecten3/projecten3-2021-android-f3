@@ -12,4 +12,7 @@ interface APIInterface {
     fun uploadMedia( @Url url:String,
         @Part imageFile: MultipartBody.Part
     ) : Call<Message>
+
+    @POST
+    fun uploadText(@Url url:String,@Body s:String):Call<Message>
 }

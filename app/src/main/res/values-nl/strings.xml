@@ -5,4 +5,5 @@
     <string name="btnVideoMaken">VIDEO MAKEN</string>
     <string name="viewPreviewImage">PREVIEW</string>
     <string name="upload_image">UPLOAD</string>
+    <string name="upload_text">UPLOAD TEKST</string>
 </resources>
