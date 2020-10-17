@@ -1,58 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_centerInParent="true"
-        android:layout_margin="30dp">
 
-        <VideoView
-            android:id="@+id/videoView"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:visibility="gone" />
+
+    <VideoView
+        android:id="@+id/videoView"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/btCapturePhoto"
+        app:layout_constraintTop_toTopOf="parent"/>
 
         <ImageView
             android:id="@+id/ivImage"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:src="#dedede"
-            android:visibility="gone" />
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/btCapturePhoto"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btCapturePhoto"
-            style="@style/Widget.MaterialComponents.Button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/btnFotoNemen" />
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/txfBericht"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btCapturePhoto"
+        app:layout_constraintTop_toBottomOf="@+id/videoView" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btCaptureVideo"
-            style="@style/Widget.MaterialComponents.Button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/marginBetweenButtons"
-            android:text="@string/btnVideoMaken" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btCapturePhoto"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/btnFotoNemen"
+        app:layout_constraintBottom_toTopOf="@+id/btCaptureVideo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txfBericht" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btOpenGallery"
-            style="@style/Widget.MaterialComponents.Button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/marginBetweenButtons"
-            android:text="@string/btnGalerij" />
+    <com.google.android.material.button.MaterialButton
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:id="@+id/btCaptureVideo"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btnVideoMaken"
+        app:layout_constraintTop_toBottomOf="@+id/btCapturePhoto"
+        app:layout_constraintBottom_toTopOf="@id/btOpenGallery"/>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/sendButton"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="@string/upload_image" />
-    </LinearLayout>
-</RelativeLayout>
+    <com.google.android.material.button.MaterialButton
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:id="@+id/btOpenGallery"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btnGalerij"
+        app:layout_constraintBottom_toTopOf="@+id/sendButton"
+        app:layout_constraintTop_toBottomOf="@+id/btCaptureVideo" />
+
+
+
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:id="@+id/sendButton"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginTop="18dp"
+        android:text="@string/upload_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.049"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btOpenGallery" />
+</androidx.constraintlayout.widget.ConstraintLayout>
