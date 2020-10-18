@@ -31,7 +31,7 @@
         </provider>
 
 
-        <activity android:name=".CameraCinema">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
