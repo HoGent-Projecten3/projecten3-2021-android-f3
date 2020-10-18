@@ -39,7 +39,7 @@
             android:textColor="#ffffff"
             android:textSize="20sp" />
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextTextEmailAddress"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
             android:textColor="#ffffff"
             android:textSize="20sp" />
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextNumberPassword"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
