@@ -1,6 +1,4 @@
 <resources>
     <string name="app_name">Faith</string>
     <string name="login">Log in</string>
-    <string name="api_key">averylongstringbecauseshortstringscausethebaseencriptiontocrash</string>
-
 </resources>
