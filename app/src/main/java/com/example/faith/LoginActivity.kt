@@ -10,8 +10,11 @@ import kotlinx.android.synthetic.main.login_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class LoginActivity : AppCompatActivity() {
+    private lateinit var service: GebruikerClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +22,12 @@ class LoginActivity : AppCompatActivity() {
         val txtNaam = findViewById<EditText>(R.id.txtNaam);
         val txtWachtwoord = findViewById<EditText>(R.id.txtWachtwoord);
 
+
+
+
+        val retrofit = Retrofit.Builder().baseUrl("http://192.168.1.37:45455/api/")
+            .addConverterFactory(GsonConverterFactory.create()).build()
+        service = retrofit.create(GebruikerClient::class.java)
 
         val btnLogin = findViewById<Button>(R.id.btnLogin)
         btnLogin?.setOnClickListener()
@@ -38,9 +47,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun login() {
         var login = Login(txtNaam.text.toString(), txtWachtwoord.text.toString())
-
-        val request = ServiceBuilder.buildService(GebruikerClient::class.java)
-        val call = request.login(login);
+        val call = service.login("account",login);
 
         call.enqueue(object : Callback<Gebruiker> {
             override fun onResponse(call: Call<Gebruiker>, response: Response<Gebruiker>) {
