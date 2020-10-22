@@ -28,20 +28,20 @@ class LoginFragment : Fragment() {
         //binding.lifecycleOwner = this
         binding.setLifecycleOwner(this)
 
-        binding.btnLogin.setOnClickListener() {
-            val login = Login(binding.txtNaam.text.toString(), binding.txtWachtwoord.text.toString())
+        binding.buttonLogin.setOnClickListener() {
+            val login = Login(binding.editTextTextEmailAddress.text.toString(), binding.editTextNumberPassword.text.toString())
             viewModel.login(login)
         }
 
         viewModel.loginSuccesvol.observe(this.viewLifecycleOwner, Observer {
             if (it) {
                 this.view?.findNavController()
-                    ?.navigate(R.id.action_loginFragment_to_hoofdschermFragment)
+                    ?.navigate(R.id.action_loginFragment_to_hotelFragment)
             }
         })
 
         viewModel.errorMessage.observe(this.viewLifecycleOwner, Observer {
-            binding.errorText.text = it
+            Toast.makeText(this.context, it, Toast.LENGTH_LONG).show()
         })
 
         return binding.root

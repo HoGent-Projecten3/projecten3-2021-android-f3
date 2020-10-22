@@ -39,8 +39,8 @@ class HoofdschermFragment : Fragment() {
 
             override fun onResponse(call: Call<Gebruiker>, response: Response<Gebruiker>) {
                 if (response.isSuccessful) {
-                    val gebruiker: Gebruiker = response.body()
-                    binding.helloText.text = "Welkom ${gebruiker.voornaam} ${gebruiker.achternaam}"
+                    val gebruiker: Gebruiker? = response.body()
+                    binding.helloText.text = "Welkom ${gebruiker?.voornaam} ${gebruiker?.achternaam}"
                 }else{
                     //_response.value = "${response.code().toString()}: ${response.message()}"
                 }

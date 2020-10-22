@@ -18,10 +18,20 @@ class HotelFragment : Fragment() {
     /**
      * Method called upon starting view creation
      */
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle? ): View?
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View?
     {
         /* Enabling data binding for fragments. slightly different because no immediate acces to root Activity */
-        val binding = DataBindingUtil.inflate<FragmentHotelBinding>(inflater, R.layout.fragment_hotel, container, false)
+        val binding = DataBindingUtil.inflate<FragmentHotelBinding>(
+            inflater,
+            R.layout.fragment_hotel,
+            container,
+            false
+        )
+
 
         /* return */
         return binding.root
@@ -45,7 +55,14 @@ class HotelFragment : Fragment() {
      * Sets for each room image a clicklistener, following up with a routing to another fragment
      */
     private fun setRoomClickListeners() {
-        val kamers : List <View> = listOf(image_cinema, image_bar, image_bibliotheek, image_infobalie, image_penthouse, image_trofeeKamer)
+        val kamers : List<View> = listOf(
+            image_cinema,
+            image_bar,
+            image_bibliotheek,
+            image_infobalie,
+            image_penthouse,
+            image_trofeeKamer
+        )
         for (kamer in kamers)
         {
             kamer.setOnClickListener{addRouting(kamer)}
@@ -56,29 +73,40 @@ class HotelFragment : Fragment() {
     /**
      * Analyses the given room of the hotel and enables the corresponding fragment routing
      */
-    private fun addRouting(kamer : View)
+    private fun addRouting(kamer: View)
     {
       when (kamer.id)
       {
           // TODO
-          R.id.image_bar -> Toast.makeText(activity,"Bar",Toast.LENGTH_SHORT).show()
+          R.id.image_bar -> Toast.makeText(activity, "Bar", Toast.LENGTH_SHORT).show()
           //Navigate to cinema room
-          R.id.image_cinema -> Navigation.findNavController(kamer).navigate(R.id.action_hotelFragment_to_cinemaFragment)
+          R.id.image_cinema -> Navigation.findNavController(kamer)
+              .navigate(R.id.action_hotelFragment_to_cinemaFragment)
           // TODO
-          R.id.image_infobalie -> Toast.makeText(activity,"Infobalie",Toast.LENGTH_SHORT).show()
+          R.id.image_infobalie -> Toast.makeText(activity, "Infobalie", Toast.LENGTH_SHORT).show()
           // TODO
-          R.id.image_trofeeKamer -> Toast.makeText(getActivity(),"Trofee",Toast.LENGTH_SHORT).show()
+          R.id.image_trofeeKamer -> Toast.makeText(getActivity(), "Trofee", Toast.LENGTH_SHORT)
+              .show()
           // TODO
-          R.id.image_penthouse -> Toast.makeText(getActivity(),"Penthouse",Toast.LENGTH_SHORT).show()
+          R.id.image_penthouse -> Toast.makeText(getActivity(), "Penthouse", Toast.LENGTH_SHORT)
+              .show()
           // TODO
-          R.id.image_bibliotheek -> Toast.makeText(getActivity(),"Bibliotheek",Toast.LENGTH_SHORT).show()
-          else -> Toast.makeText(getActivity(),"Dit item is niet aanklikbaar.",Toast.LENGTH_SHORT).show()
+          R.id.image_bibliotheek -> Toast.makeText(getActivity(), "Bibliotheek", Toast.LENGTH_SHORT)
+              .show()
+          else -> Toast.makeText(getActivity(), "Dit item is niet aanklikbaar.", Toast.LENGTH_SHORT).show()
         }
     }
 
 
   private fun scaleImages(){
-      val kamers : List <View> = listOf(image_cinema, image_bar, image_bibliotheek, image_infobalie, image_penthouse, image_trofeeKamer)
+      val kamers : List<View> = listOf(
+          image_cinema,
+          image_bar,
+          image_bibliotheek,
+          image_infobalie,
+          image_penthouse,
+          image_trofeeKamer
+      )
 
       //Obtain screen width & height DP
       val screenWidthDp = resources.configuration.screenWidthDp
@@ -95,7 +123,11 @@ class HotelFragment : Fragment() {
       */
 
       //Updating the dimensions for all rooms in DP
-      val dimensionInDp = TypedValue.applyDimension( TypedValue.COMPLEX_UNIT_DIP,newHeight.toFloat(), resources.displayMetrics ).toInt() // new DP height
+      val dimensionInDp = TypedValue.applyDimension(
+          TypedValue.COMPLEX_UNIT_DIP,
+          newHeight.toFloat(),
+          resources.displayMetrics
+      ).toInt() // new DP height
 
       //Only update height. these are constant. Width updated automatically, as wrap_content, and adjustviewbounds keeps ratio intact.
       for(kamer in kamers)

@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.android.navigation.TitleFragment">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.faith.LoginViewModel" />
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,7 +52,8 @@
             android:ems="10"
             android:gravity="center"
             android:inputType="textEmailAddress"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"
+            android:text="jef.seys.y0431@student.hogent.be"/>
 
         <TextView
             android:id="@+id/label_password"
@@ -66,6 +72,7 @@
             android:ems="10"
             android:gravity="center"
             android:inputType="numberPassword"
+            android:text="P@ssword123"
             android:textColor="#ffffff" />
 
         <com.google.android.material.button.MaterialButton

@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
 
         /* Check on type of used device */
         printTypeOfUsedDevice()
-
         /* Enabling support for the up button, allowing for a more controlled backstack */
         val navController = this.findNavController(R.id.myNavHostFragment)
         NavigationUI.setupActionBarWithNavController(this, navController)

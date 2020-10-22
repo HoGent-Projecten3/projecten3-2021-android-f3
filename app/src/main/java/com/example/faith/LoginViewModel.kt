@@ -29,7 +29,7 @@ class LoginViewModel : ViewModel() {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
 
                 if (response.isSuccessful) {
-                    val token = "Bearer " + response.body().string()
+                    val token = "Bearer " + response.body()?.string()
                     JWTTokenStarage.JWTToken = token
                     _loginSuccesvol.value = true
                     _loginSuccesvol.value = false
