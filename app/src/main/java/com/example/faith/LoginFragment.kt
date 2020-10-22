@@ -28,7 +28,12 @@ class LoginFragment : Fragment() {
 
         binding.btnLogin.setOnClickListener(){
             val login = Login(binding.txtNaam.text.toString(), binding.txtWachtwoord.text.toString())
-            viewModel.login(login)
+            try {
+                viewModel.login(login)
+            }catch (e: Exception){
+                binding.errorText.text = e.message
+            }
+
         }
 
         viewModel.loginSuccesvol.observe(this.viewLifecycleOwner, Observer {

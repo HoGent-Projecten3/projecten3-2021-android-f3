@@ -21,7 +21,7 @@ interface LoginApiService {
     fun getGebruiker(@Header("Authorization")token: String ): Call<Gebruiker>
 
     @Headers("Content-Type: application/json")
-    @POST("Account")
+    @POST("Account/login")
     fun login(@Body login: Login): Call<ResponseBody>
 
 
