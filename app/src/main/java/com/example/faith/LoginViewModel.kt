@@ -12,41 +12,25 @@ import retrofit2.Response
 
 class LoginViewModel: ViewModel(){
 
-    private var JWTToken: String = ""
+    private val _loginSuccesvol = MutableLiveData<Boolean>()
 
-    private val _response = MutableLiveData<String>()
-
-    val response: LiveData<String>
-        get() = _response
+    val loginSuccesvol: LiveData<Boolean>
+        get() = _loginSuccesvol
 
     fun login(login: Login){
-        LoginApi.retrofitService.login(login).enqueue(object : Callback<ResponseBody> {
+        return LoginApi.retrofitService.login(login).enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 val token = "Bearer " + response.body().string()
-                _response.value = token
-                JWTToken = token
+                JWTTokenStarage.JWTToken = token
+                _loginSuccesvol.value = true
+                _loginSuccesvol.value = false
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                _response.value = "Failure: " + t.message
+                //_response.value = "Failure: " + t.message
             }
 
         })
     }
 
-    fun getHello() {
-        LoginApi.retrofitService.getHelloWorld(JWTToken).enqueue(object : Callback<ResponseBody> {
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                _response.value = "Failure: " + t.message
-            }
-
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if (response.body() != null) {
-                    _response.value = response.body().string()
-                }else{
-                    _response.value = "${response.code().toString()}: ${response.message()}, ${response.raw()}"
-                }
-            }
-        })
-    }
 }

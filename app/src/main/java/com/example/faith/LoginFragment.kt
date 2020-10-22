@@ -9,8 +9,9 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.example.faith.databinding.FragmentLoginBinding
-import kotlinx.android.synthetic.*
+
 
 class LoginFragment : Fragment() {
 
@@ -25,19 +26,18 @@ class LoginFragment : Fragment() {
         //binding.lifecycleOwner = this
         binding.setLifecycleOwner( this )
 
-        viewModel.response.observe( viewLifecycleOwner, Observer {
-            binding.mainText.text = it
-        })
-
         binding.btnLogin.setOnClickListener(){
             val login = Login(binding.txtNaam.text.toString(), binding.txtWachtwoord.text.toString())
             viewModel.login(login)
         }
 
-        binding.helloButton.setOnClickListener(){
-            viewModel.getHello()
-        }
+        viewModel.loginSuccesvol.observe(this.viewLifecycleOwner, Observer {
+            if(it){
+                this.view?.findNavController()?.navigate(R.id.action_loginFragment_to_hoofdschermFragment)
+            }
+        })
 
         return binding.root
     }
+
 }

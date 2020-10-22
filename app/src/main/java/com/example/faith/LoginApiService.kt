@@ -18,11 +18,13 @@ private val retrofit = Retrofit.Builder()
 interface LoginApiService {
 
     @GET("Gebruiker")
-    fun getHelloWorld(@Header("Authorization")token: String ): Call<ResponseBody>
+    fun getGebruiker(@Header("Authorization")token: String ): Call<Gebruiker>
 
     @Headers("Content-Type: application/json")
-    @POST("Account/login")
+    @POST("Account")
     fun login(@Body login: Login): Call<ResponseBody>
+
+
 }
 
 object LoginApi{
