@@ -1,62 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <variable
-            name="viewModel"
-            type="com.example.faith.LoginViewModel" />
-    </data>
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.android.navigation.TitleFragment">
 
     <LinearLayout
-        android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/hotel_theme"
+        android:gravity="center_vertical"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/error_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="50dp"
+            android:gravity="center"
+            android:src="@drawable/main_logo" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/label_welcome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Naam" />
+            android:layout_marginBottom="50dp"
+            android:gravity="center_horizontal"
+            android:text="@string/label_welcome"
+            android:textColor="#ffffff"
+            android:textSize="30sp" />
 
-        <EditText
-            android:id="@+id/txtNaam"
+        <TextView
+            android:id="@+id/label_emailaddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/enter_email_address"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextTextEmailAddress"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
             android:ems="10"
-            android:hint="Naam"
-            android:text="jef.seys.y0431@student.hogent.be"
-            android:inputType="textPersonName" />
+            android:gravity="center"
+            android:inputType="textEmailAddress"
+            android:textColor="#ffffff" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/label_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Wachtwoord" />
+            android:gravity="center"
+            android:text="@string/text_password"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/txtWachtwoord"
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextNumberPassword"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
             android:ems="10"
-            android:hint="Wachtwoord"
-            android:text="P@ssword123"
-            android:inputType="textPassword" />
+            android:gravity="center"
+            android:inputType="numberPassword"
+            android:textColor="#ffffff" />
 
-        <Button
-            android:id="@+id/btnLogin"
-            android:layout_width="match_parent"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_login"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="LOGIN" />
+
+            android:layout_margin="8dp"
+            android:text="@string/text_login"
+            android:textAlignment="center" />
+
+
+
 
     </LinearLayout>
-
-
 </layout>

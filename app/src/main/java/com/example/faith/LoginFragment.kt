@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.Navigation
 import com.example.faith.databinding.FragmentLoginBinding
 
 
@@ -45,5 +46,4 @@ class LoginFragment : Fragment() {
 
         return binding.root
     }
-
 }

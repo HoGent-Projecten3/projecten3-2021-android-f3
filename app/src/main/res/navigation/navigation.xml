@@ -1,18 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
     app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.faith.LoginFragment"
-        android:label="LoginFragment" >
+
+        android:label="Login"
+        tools:layout="@layout/fragment_login">
         <action
-            android:id="@+id/action_loginFragment_to_hoofdschermFragment"
-            app:destination="@id/hoofdschermFragment" />
+            android:id="@+id/action_loginFragment_to_hotelFragment"
+            app:destination="@id/hotelFragment" />
     </fragment>
     <fragment
-        android:id="@+id/hoofdschermFragment"
-        android:name="com.example.faith.HoofdschermFragment"
-        android:label="HoofdschermFragment" />
+        android:id="@+id/hotelFragment"
+        android:name="com.example.faith.HotelFragment"
+        android:label="Het Hotel"
+        tools:layout="@layout/fragment_hotel">
+        <action
+            android:id="@+id/action_hotelFragment_to_cinemaFragment"
+            app:destination="@id/cinemaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cinemaFragment"
+        android:name="com.example.faith.CinemaFragment"
+        android:label="De Cinema"
+        tools:layout="@layout/fragment_cinema" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.example.faith.AboutFragment"
+        android:label="About"
+        tools:layout="@layout/fragment_about"/>
 </navigation>
