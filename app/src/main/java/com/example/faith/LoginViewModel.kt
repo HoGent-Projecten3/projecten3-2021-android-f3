@@ -17,25 +17,29 @@ class LoginViewModel : ViewModel() {
     val loginSuccesvol: LiveData<Boolean>
         get() = _loginSuccesvol
 
-    fun login(login: Login) {
+    private val _errorMessage = MutableLiveData<String>()
+
+    val errorMessage: LiveData<String>
+        get() = _errorMessage
+
+    fun login(login: Login){
+
         LoginApi.retrofitService.login(login).enqueue(object : Callback<ResponseBody> {
-            override fun onResponse(
-                call: Call<ResponseBody>,
-                response: Response<ResponseBody>
-            ) {
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+
                 if (response.isSuccessful) {
                     val token = "Bearer " + response.body().string()
                     JWTTokenStarage.JWTToken = token
                     _loginSuccesvol.value = true
                     _loginSuccesvol.value = false
                 } else {
-                    throw Exception("Login failed")
+                    _errorMessage.value = "Login failed"
                 }
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                //_response.value = "Failure: " + t.message
-                throw t
+                _errorMessage.value = "Failure: " + t.message
             }
 
         })
