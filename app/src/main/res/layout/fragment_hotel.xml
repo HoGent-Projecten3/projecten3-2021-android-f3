@@ -93,25 +93,5 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.215"
             app:layout_constraintStart_toEndOf="@+id/image_infobalie" />
-
-        <TextView
-            android:id="@+id/label_hotel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:shadowColor="@color/colorPrimaryDark"
-            android:shadowDx="10"
-            android:shadowDy="10"
-            android:shadowRadius="5"
-            android:text="Het Hotel"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@color/cardview_light_background"
-            android:textColorHighlight="@color/colorPrimaryDark"
-            android:textSize="@dimen/txtTitleSize"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

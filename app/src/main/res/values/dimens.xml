@@ -2,4 +2,5 @@
 <resources>
     <dimen name="marginBetweenButtons">10dp</dimen>
     <dimen name="txtTitleSize">40dp</dimen>
+    <dimen name="spaceforviews">450dp</dimen>
 </resources>

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name" translatable="false">Faith</string>
-    <string name="btnGalerij">OPEN GALLERY</string>
+    <string name="btnGalerij">GALLERY</string>
     <string name="btnFotoNemen">PICTURE</string>
     <string name="btnVideoMaken">RECORD</string>
     <string name="viewPreviewImage">PREVIEW</string>
@@ -22,5 +22,6 @@
         Alexander De Baene\n
         Bert Suffys\n
     </string>
+    <string name="txf_default">Waar denk je aan?</string>
 
 </resources>

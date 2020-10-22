@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="btnGalerij">OPEN GALERIJ</string>
-    <string name="btnFotoNemen">FOTO NEMEN</string>
-    <string name="btnVideoMaken">VIDEO MAKEN</string>
+    <string name="btnGalerij">GALERIJ</string>
+    <string name="btnFotoNemen">FOTO</string>
+    <string name="btnVideoMaken">VIDEO</string>
     <string name="viewPreviewImage">PREVIEW</string>
     <string name="upload_image">UPLOAD</string>
     <string name="upload_text">UPLOAD TEKST</string>
