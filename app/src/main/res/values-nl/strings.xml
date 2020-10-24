@@ -1,11 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">Faith</string>
-    <string name="btnGalerij">GALLERY</string>
-    <string name="btnFotoNemen">PICTURE</string>
-    <string name="btnVideoMaken">RECORD</string>
+    <string name="btnGalerij">GALERIJ</string>
+    <string name="btnFotoNemen">FOTO</string>
+    <string name="btnVideoMaken">VIDEO</string>
     <string name="viewPreviewImage">PREVIEW</string>
     <string name="upload_image">UPLOAD</string>
-    <string name="upload_text">UPLOAD TEXT</string>
+    <string name="upload_text">UPLOAD TEKST</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="enter_email_address">Email Adres</string>
     <string name="text_login">Login</string>
@@ -22,5 +22,4 @@
         Alexander De Baene\n
         Bert Suffys\n
     </string>
-    <string name="txf_default">Waar denk je aan?</string>
 </resources>

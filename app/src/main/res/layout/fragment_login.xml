@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.android.navigation.TitleFragment">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.faith.LoginViewModel" />
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,7 +44,7 @@
             android:textColor="#ffffff"
             android:textSize="20sp" />
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextTextEmailAddress"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
@@ -47,7 +52,8 @@
             android:ems="10"
             android:gravity="center"
             android:inputType="textEmailAddress"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"
+            android:text="jef.seys.y0431@student.hogent.be"/>
 
         <TextView
             android:id="@+id/label_password"
@@ -58,7 +64,7 @@
             android:textColor="#ffffff"
             android:textSize="20sp" />
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextNumberPassword"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
@@ -66,18 +72,20 @@
             android:ems="10"
             android:gravity="center"
             android:inputType="numberPassword"
+            android:text="P@ssword123"
             android:textColor="#ffffff" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/button_login"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="clip_horizontal|center|clip_vertical|center_horizontal|center_vertical"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="50dp"
-            android:background="#ffffff"
-            android:gravity="center"
+
+            android:layout_margin="8dp"
             android:text="@string/text_login"
             android:textAlignment="center" />
+
+
+
+
     </LinearLayout>
 </layout>
