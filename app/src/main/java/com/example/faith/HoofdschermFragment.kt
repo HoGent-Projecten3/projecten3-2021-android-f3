@@ -1,23 +1,24 @@
 package com.example.faith
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import com.example.faith.api.ApiService
+import com.example.faith.data.Gebruiker
+import com.example.faith.data.JWTTokenStarage
 import com.example.faith.databinding.FragmentHoofdschermBinding
-import com.example.faith.databinding.FragmentLoginBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
 class HoofdschermFragment : Fragment() {
 
     lateinit var binding: FragmentHoofdschermBinding
+    @Inject lateinit var service : ApiService;
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,7 +32,7 @@ class HoofdschermFragment : Fragment() {
     }
 
     fun getGebruiker() {
-        LoginApi.retrofitService.getGebruiker(JWTTokenStarage.JWTToken).enqueue(object :
+        service.getGebruiker(JWTTokenStarage.JWTToken).enqueue(object :
             Callback<Gebruiker> {
             override fun onFailure(call: Call<Gebruiker>, t: Throwable) {
                 //_response.value = "Failure: " + t.message

@@ -1,16 +1,23 @@
-package com.example.faith
+package com.example.faith.viewmodels
 
-import android.util.Log
-import android.widget.Toast
+import androidx.hilt.Assisted
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import com.example.faith.api.ApiService
+import com.example.faith.data.GebruikerRepository
+import com.example.faith.data.JWTTokenStarage
+import com.example.faith.data.Login
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LoginViewModel : ViewModel() {
+class LoginViewModel @ViewModelInject constructor(
+    val repository: GebruikerRepository
+) : ViewModel() {
 
     private val _loginSuccesvol = MutableLiveData<Boolean>()
 
@@ -24,7 +31,7 @@ class LoginViewModel : ViewModel() {
 
     fun login(login: Login){
 
-        LoginApi.retrofitService.login(login).enqueue(object : Callback<ResponseBody> {
+        repository.login(login).enqueue(object : Callback<ResponseBody> {
 
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
 
