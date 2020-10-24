@@ -1,14 +1,8 @@
 package com.example.faith
 
 import android.Manifest
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.content.res.Resources
-import android.graphics.Bitmap
-import android.graphics.Matrix
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -17,19 +11,18 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.DataBindingUtil.setContentView
 import androidx.fragment.app.Fragment
 import com.example.faith.R.layout.fragment_cinema
+import com.example.faith.api.ApiService
 import com.example.faith.databinding.FragmentCinemaBinding
 import kotlinx.android.synthetic.main.fragment_cinema.*
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -40,6 +33,7 @@ import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
 
 class CinemaFragment : Fragment() {
@@ -53,7 +47,7 @@ class CinemaFragment : Fragment() {
     private var lastCode = 0
     private val requestPhotoTaken = 1
     private var photoURI: Uri = Uri.EMPTY
-    private lateinit var service: APIInterface
+    @Inject lateinit var service: ApiService;
     private val Fragment.packageManager get() = activity?.packageManager
     private val Fragment.contentResolver get() = activity?.contentResolver
 
@@ -76,7 +70,7 @@ class CinemaFragment : Fragment() {
 
         val retrofit = Retrofit.Builder().baseUrl("http://192.168.1.37:45455/api/")
             .addConverterFactory(GsonConverterFactory.create()).build()
-        service = retrofit.create(APIInterface::class.java)
+        service = retrofit.create(ApiService::class.java)
 
 
 
@@ -331,14 +325,18 @@ class CinemaFragment : Fragment() {
         } else {
             kindOfMedia = "video/*"
         }
-        val part = MultipartBody.Part.createFormData(
-            "imageFile", randomName(), RequestBody.create(
-                MediaType.get(kindOfMedia),
-                imageData
+        val part = imageData?.let {
+            RequestBody.create(
+                kindOfMedia.toMediaType(),
+                it
             )
-        )
-        var call: Call<Message> = service.uploadMedia("Cinema/imageFile", part)
-        call.enqueue(object : Callback<Message?> {
+        }?.let {
+            MultipartBody.Part.createFormData(
+                "imageFile", randomName(), it
+            )
+        }
+        var call: Call<Message>? = part?.let { service.uploadMedia("Cinema/imageFile", it) }
+        call!!.enqueue(object : Callback<Message?> {
             override fun onFailure(call: Call<Message?>, t: Throwable) {}
             override fun onResponse(call: Call<Message?>, response: retrofit2.Response<Message?>) {
 
