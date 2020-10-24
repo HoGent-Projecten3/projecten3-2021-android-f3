@@ -1,4 +1,4 @@
-package com.example.faith
+package com.example.faith.data
 
 class Gebruiker (
     val voornaam: String?,

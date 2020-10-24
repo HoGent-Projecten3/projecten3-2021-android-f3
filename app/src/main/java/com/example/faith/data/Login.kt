@@ -1,4 +1,4 @@
-package com.example.faith
+package com.example.faith.data
 
 import com.google.gson.annotations.SerializedName
 
