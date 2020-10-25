@@ -29,8 +29,6 @@ class MediumListFragment : Fragment() {
     ): View? {
         val binding = FragmentMediumListBinding.inflate(inflater, container, false)
         context ?: return binding.root
-
-        val adapter = MediumAdapter()
         binding.mediumList.adapter = adapter
 
         getMedia()

@@ -32,9 +32,9 @@ class MediumAdapter : PagingDataAdapter<ApiPhoto, MediumAdapter.MediumViewHolder
         init {
             binding.setClickListener {
                 binding.photo?.let { photo ->
-                    val uri = Uri.parse(photo.url)
-                    val intent = Intent(Intent.ACTION_VIEW, uri)
-                    it.context.startActivity(intent)
+                   // val url = Uri.parse(photo.url)
+                    //val intent = Intent(Intent.ACTION_VIEW, url)
+                    //it.context.startActivity(intent)
 
                 }
             }
