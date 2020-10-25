@@ -8,8 +8,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.example.faith.databinding.FragmentAboutBinding
 import com.example.faith.databinding.FragmentCinemaBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class AboutFragment : Fragment() {
 
 

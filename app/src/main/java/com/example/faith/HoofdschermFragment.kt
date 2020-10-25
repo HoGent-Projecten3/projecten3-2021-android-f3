@@ -10,11 +10,12 @@ import com.example.faith.api.ApiService
 import com.example.faith.data.Gebruiker
 import com.example.faith.data.JWTTokenStarage
 import com.example.faith.databinding.FragmentHoofdschermBinding
+import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
-
+@AndroidEntryPoint
 class HoofdschermFragment : Fragment() {
 
     lateinit var binding: FragmentHoofdschermBinding

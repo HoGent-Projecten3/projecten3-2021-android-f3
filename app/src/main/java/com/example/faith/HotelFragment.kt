@@ -10,9 +10,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.example.faith.databinding.FragmentHotelBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_hotel.*
 
-
+@AndroidEntryPoint
 class HotelFragment : Fragment() {
 
     /**
