@@ -1,5 +1,6 @@
 package com.example.faith.api
 import android.os.Message
+import com.example.faith.data.ApiSearchResponse
 import com.example.faith.data.Gebruiker
 import com.example.faith.data.Login
 import okhttp3.MultipartBody
@@ -35,6 +36,13 @@ interface ApiService {
     @Headers("Content-Type: application/json")
     @POST("Account/login")
     fun login(@Body login: Login): Call<ResponseBody>
+
+    @GET("Cinema")
+    suspend fun getMedia(
+
+    ): ApiSearchResponse
+
+
 
     companion object {
         private const val BASE_URL = "http://192.168.1.37:45455/api/"

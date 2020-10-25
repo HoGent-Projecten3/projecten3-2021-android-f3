@@ -3,4 +3,9 @@
     <dimen name="marginBetweenButtons">10dp</dimen>
     <dimen name="txtTitleSize">40dp</dimen>
     <dimen name="spaceforviews">450dp</dimen>
+    <dimen name="gallery_header_margin">72dp</dimen>
+    <dimen name="card_side_margin">12dp</dimen>
+    <dimen name="margin_normal">16dp</dimen>
+    <dimen name="card_elevation">5dp</dimen>
+    <dimen name="card_bottom_margin">26dp</dimen>
 </resources>

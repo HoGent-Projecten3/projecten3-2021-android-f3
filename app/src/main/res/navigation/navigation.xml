@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_hotelFragment_to_cinemaFragment"
             app:destination="@id/cinemaFragment" />
+        <action
+            android:id="@+id/action_hotelFragment_to_mediumListFragment"
+            app:destination="@id/mediumListFragment" />
     </fragment>
     <fragment
         android:id="@+id/cinemaFragment"
@@ -35,4 +38,8 @@
         android:name="com.example.faith.AboutFragment"
         android:label="About"
         tools:layout="@layout/fragment_about"/>
+    <fragment
+        android:id="@+id/mediumListFragment"
+        android:name="com.example.faith.MediumListFragment"
+        android:label="MediumListFragment" />
 </navigation>

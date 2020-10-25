@@ -6,15 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.navArgs
 import com.example.faith.adapters.MediumAdapter
 import com.example.faith.databinding.FragmentMediumListBinding
 import com.example.faith.viewmodels.MediumListViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MediumListFragment : Fragment() {
 
     private val viewModel: MediumListViewModel by viewModels()
+    private var searchJob: Job? = null
+    private val adapter = MediumAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,17 +32,21 @@ class MediumListFragment : Fragment() {
 
         val adapter = MediumAdapter()
         binding.mediumList.adapter = adapter
-        subscribeUi(adapter)
 
+        getMedia()
         setHasOptionsMenu(true)
         return binding.root
     }
 
 
-    private fun subscribeUi(adapter: MediumAdapter) {
-        viewModel.media.observe(viewLifecycleOwner) { plants ->
-            adapter.submitList(plants)
+    private fun getMedia(){
+        searchJob?.cancel()
+        searchJob = lifecycleScope.launch{
+            viewModel.searchPictures().collectLatest {
+                adapter.submitData(it)
+            }
         }
+
     }
 
 

@@ -92,8 +92,8 @@ class HotelFragment : Fragment() {
           R.id.image_penthouse -> Toast.makeText(getActivity(), "Penthouse", Toast.LENGTH_SHORT)
               .show()
           // TODO
-          R.id.image_bibliotheek -> Toast.makeText(getActivity(), "Bibliotheek", Toast.LENGTH_SHORT)
-              .show()
+          R.id.image_bibliotheek -> Navigation.findNavController(kamer)
+              .navigate(R.id.action_hotelFragment_to_mediumListFragment)
           else -> Toast.makeText(getActivity(), "Dit item is niet aanklikbaar.", Toast.LENGTH_SHORT).show()
         }
     }
