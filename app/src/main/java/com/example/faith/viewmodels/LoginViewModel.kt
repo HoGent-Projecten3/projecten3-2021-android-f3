@@ -10,6 +10,7 @@ import com.example.faith.api.ApiService
 import com.example.faith.data.GebruikerRepository
 import com.example.faith.data.JWTTokenStarage
 import com.example.faith.data.Login
+import com.example.faith.data.LoginResponse
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -31,12 +32,12 @@ class LoginViewModel @ViewModelInject constructor(
 
     fun login(login: Login){
 
-        repository.login(login).enqueue(object : Callback<ResponseBody> {
+        repository.login(login).enqueue(object : Callback<LoginResponse> {
 
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
 
                 if (response.isSuccessful) {
-                    val token = "Bearer " + response.body()?.string()
+                    val token = "Bearer " + response.body()?.authToken
                     JWTTokenStarage.JWTToken = token
                     _loginSuccesvol.value = true
                     _loginSuccesvol.value = false
@@ -45,7 +46,7 @@ class LoginViewModel @ViewModelInject constructor(
                 }
             }
 
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                 _errorMessage.value = "Failure: " + t.message
             }
 

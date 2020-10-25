@@ -11,7 +11,7 @@ class GebruikerRepository @Inject constructor( private val service: ApiService) 
         return service.getGebruiker(token);
     }
 
-    fun login(login: Login):Call<ResponseBody>{
+    fun login(login: Login): Call<LoginResponse> {
         return service.login(login);
     }
 

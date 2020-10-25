@@ -1,21 +1,17 @@
 package com.example.faith
-
-
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.faith.api.ApiService
-import com.example.faith.data.Gebruiker
 import com.example.faith.data.Login
+import com.example.faith.data.LoginResponse
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.login_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -50,8 +46,18 @@ class LoginActivity : AppCompatActivity() {
         var login = Login(txtNaam.text.toString(), txtWachtwoord.text.toString())
         val call = service.login("account",login);
 
-        call.enqueue(object : Callback<Gebruiker> {
-            override fun onResponse(call: Call<Gebruiker>, response: Response<Gebruiker>) {
+        call.enqueue(object : Callback<LoginResponse> {
+            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                val loginResponse = response.body()
+                if (loginResponse != null) {
+                    //interceptor.token= loginResponse.authToken
+                }
+
+                if (loginResponse?.statusCode == 200 && loginResponse.user != null) {
+
+                } else {
+                    // Error logging in
+                }
                 if (response.isSuccessful) {
                     println("success")
                     Toast.makeText(
@@ -63,7 +69,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<Gebruiker>, t: Throwable) {
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                 Toast.makeText(this@LoginActivity, "${t.message}", Toast.LENGTH_LONG)
                     .show()
                 println("begin---")

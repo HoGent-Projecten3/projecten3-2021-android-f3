@@ -1,8 +1,12 @@
 package com.example.faith.api
+
+import MyServiceInterceptor
+import android.content.Context
 import android.os.Message
 import com.example.faith.data.ApiSearchResponse
 import com.example.faith.data.Gebruiker
 import com.example.faith.data.Login
+import com.example.faith.data.LoginResponse
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
@@ -12,36 +16,37 @@ import retrofit2.Call;
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
+import javax.inject.Inject
 
 
 interface ApiService {
 
     @Multipart
     @POST
-    fun uploadMedia( @Url url:String,
+    fun uploadMedia(
+        @Url url: String,
         @Part imageFile: MultipartBody.Part
-    ) : Call<Message>
+    ): Call<Message>
 
     @POST
-    fun uploadText(@Url url:String,@Body s:String):Call<Message>
+    fun uploadText(@Url url: String, @Body s: String): Call<Message>
 
 
-    @Headers("Content-Type: application/json")
+    @Headers("No-Authentication: true")
     @POST
-    fun login(@Url account:String,@Body login: Login): Call<Gebruiker>
+    fun login(@Url account: String, @Body login: Login): Call<LoginResponse>
+
 
     @GET("Gebruiker")
-    fun getGebruiker(@Header("Authorization")token: String ): Call<Gebruiker>
+    fun getGebruiker(@Header("Authorization") token: String): Call<Gebruiker>
 
     @Headers("Content-Type: application/json")
     @POST("Account/login")
-    fun login(@Body login: Login): Call<ResponseBody>
+    fun login(@Body login: Login): Call<LoginResponse>
 
     @GET("Cinema")
     suspend fun getMedia(
-
     ): ApiSearchResponse
-
 
 
     companion object {
@@ -51,7 +56,7 @@ interface ApiService {
             val logger = HttpLoggingInterceptor().apply { level = Level.BASIC }
 
             val client = OkHttpClient.Builder()
-                .addInterceptor(logger)
+                .addInterceptor(MyServiceInterceptor())
                 .build()
 
             return Retrofit.Builder()
@@ -62,5 +67,9 @@ interface ApiService {
                 .create(ApiService::class.java)
         }
     }
-
 }
+
+
+data class LoginResponseModel (val token:String,val
+refreshToken:String)
+
