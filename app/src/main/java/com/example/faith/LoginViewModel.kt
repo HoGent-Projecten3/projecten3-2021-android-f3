@@ -12,6 +12,7 @@ import retrofit2.Response
 
 class LoginViewModel : ViewModel() {
 
+    //PARAMETERS
     private val _loginSuccesvol = MutableLiveData<Boolean>()
 
     val loginSuccesvol: LiveData<Boolean>
@@ -22,6 +23,8 @@ class LoginViewModel : ViewModel() {
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
+
+    //METHODS
     fun login(login: Login){
 
         LoginApi.retrofitService.login(login).enqueue(object : Callback<ResponseBody> {
