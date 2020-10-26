@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.example.faith.api.ApiService
 import com.example.faith.data.Gebruiker
-import com.example.faith.data.JWTTokenStarage
 import com.example.faith.databinding.FragmentHoofdschermBinding
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
@@ -33,7 +32,7 @@ class HoofdschermFragment : Fragment() {
     }
 
     fun getGebruiker() {
-        service.getGebruiker(JWTTokenStarage.JWTToken).enqueue(object :
+        service.getGebruiker().enqueue(object :
             Callback<Gebruiker> {
             override fun onFailure(call: Call<Gebruiker>, t: Throwable) {
                 //_response.value = "Failure: " + t.message

@@ -34,7 +34,7 @@ interface ApiService {
 
 
     @GET("Gebruiker")
-    fun getGebruiker(token: String): Call<Gebruiker>
+    fun getGebruiker(): Call<Gebruiker>
 
     @Headers("Content-Type: application/json")
     @POST("Account/login")

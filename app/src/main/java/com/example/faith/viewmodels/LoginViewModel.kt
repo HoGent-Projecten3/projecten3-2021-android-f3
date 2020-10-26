@@ -1,18 +1,13 @@
 package com.example.faith.viewmodels
 
-import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.example.faith.api.ApiService
 import com.example.faith.api.MyServiceInterceptor
 import com.example.faith.data.GebruikerRepository
-import com.example.faith.data.JWTTokenStarage
 import com.example.faith.data.Login
 import com.example.faith.data.LoginResponse
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
