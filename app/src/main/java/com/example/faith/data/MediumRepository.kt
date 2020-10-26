@@ -5,6 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.faith.api.ApiService
 import kotlinx.coroutines.flow.Flow
+import retrofit2.Call
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -21,5 +22,8 @@ class MediumRepository @Inject constructor(private val mediumDao:MediumDao,priva
             pagingSourceFactory = {ApiPagingSource(service)}
 
         ).flow
+    }
+     fun getMedia2(): Call<ApiSearchResponse> {
+        return service.getMedia2()
     }
 }

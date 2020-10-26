@@ -40,6 +40,9 @@ interface ApiService {
     @GET("Cinema")
     suspend fun getMedia(
     ): ApiSearchResponse
+    @GET("Cinema")
+    fun getMedia2(
+    ): Call<ApiSearchResponse>
 
     @GET("Cinema/id")
     fun getMedium(@Query("mediumId") id:Int):ApiMediumResponse
