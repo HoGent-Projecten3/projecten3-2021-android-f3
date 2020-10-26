@@ -50,7 +50,7 @@ class LoginActivity : AppCompatActivity() {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 val loginResponse = response.body()
                 if (loginResponse != null) {
-                    //interceptor.token= loginResponse.authToken
+
                 }
 
                 if (loginResponse?.statusCode == 200 && loginResponse.user != null) {
