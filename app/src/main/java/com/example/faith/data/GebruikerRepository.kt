@@ -1,18 +1,25 @@
 package com.example.faith.data
 
 import com.example.faith.api.ApiService
-import okhttp3.ResponseBody
+import com.example.faith.api.MyServiceInterceptor
 import retrofit2.Call
 import javax.inject.Inject
 
-class GebruikerRepository @Inject constructor( private val service: ApiService) {
+class GebruikerRepository @Inject constructor(private val service: ApiService, private val interceptor: MyServiceInterceptor
+                                              ) {
 
-    fun getGebruiker(token:String): Call<Gebruiker> {
-        return service.getGebruiker(token);
+    fun getGebruiker(): Call<Gebruiker> {
+        return service.getGebruiker();
     }
 
-    fun login(login: Login):Call<ResponseBody>{
+    fun login(login: Login): Call<LoginResponse> {
         return service.login(login);
     }
+    /*
+    fun setToken(token: String){
+        interceptor.setSessionToken(token)
+    }
+
+     */
 
 }

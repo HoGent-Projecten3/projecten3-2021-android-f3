@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment
 import com.example.faith.R.layout.fragment_cinema
 import com.example.faith.api.ApiService
 import com.example.faith.databinding.FragmentCinemaBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_cinema.*
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaType
@@ -35,7 +36,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class CinemaFragment : Fragment() {
     private var imageData: ByteArray? = null
     private val requestPermission = 100
