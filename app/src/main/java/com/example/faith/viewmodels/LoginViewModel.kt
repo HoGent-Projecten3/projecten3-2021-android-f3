@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.faith.api.ApiService
+import com.example.faith.api.MyServiceInterceptor
 import com.example.faith.data.GebruikerRepository
 import com.example.faith.data.JWTTokenStarage
 import com.example.faith.data.Login
@@ -17,7 +18,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class LoginViewModel @ViewModelInject constructor(
-    val repository: GebruikerRepository
+    val repository: GebruikerRepository, val interceptor: MyServiceInterceptor
 ) : ViewModel() {
 
     private val _loginSuccesvol = MutableLiveData<Boolean>()
@@ -37,11 +38,11 @@ class LoginViewModel @ViewModelInject constructor(
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
 
                 if (response.isSuccessful) {
-                    val token = "Bearer " + response.body()?.authToken
-                    JWTTokenStarage.JWTToken = token
+                    interceptor.setSessionToken(response.body()?.authToken)
                     _loginSuccesvol.value = true
-                    _loginSuccesvol.value = false
+
                 } else {
+                    _loginSuccesvol.value = false
                     _errorMessage.value = "Login failed"
                 }
             }

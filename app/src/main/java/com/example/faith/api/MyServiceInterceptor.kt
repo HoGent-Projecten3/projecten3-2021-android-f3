@@ -24,7 +24,8 @@ import javax.inject.Singleton
                 if (sessionToken == null) {
                     throw RuntimeException("Session token should be defined for auth apis")
                 } else {
-                    requestBuilder.addHeader("Cookie", sessionToken!!)
+                    requestBuilder.addHeader("Authorization",
+                            "Bearer $sessionToken")
                 }
             }
             return chain.proceed(requestBuilder.build())
