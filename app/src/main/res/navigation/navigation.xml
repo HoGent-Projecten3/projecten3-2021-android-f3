@@ -41,5 +41,25 @@
     <fragment
         android:id="@+id/mediumListFragment"
         android:name="com.example.faith.MediumListFragment"
-        android:label="MediumListFragment" />
+        android:label="MediumListFragment" >
+        <action
+            android:id="@+id/action_mediumListFragment_to_mediumDetailFragment"
+            app:destination="@id/mediumDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mediumDetailFragment"
+        android:name="com.example.faith.MediumDetailFragment"
+        android:label="MediumDetailFragment" >
+        <action
+            android:id="@+id/action_mediumDetailFragment_to_mediumListFragment"
+            app:destination="@id/mediumListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <argument
+            android:name="mediumId"
+            app:argType="integer"
+            ></argument>
+    </fragment>
 </navigation>
