@@ -45,8 +45,6 @@ interface ApiService {
     ): ApiSearchResponse
 
 
-
-
     data class LoginResponseModel(
         val token: String, val
         refreshToken: String

@@ -8,8 +8,8 @@ import javax.inject.Inject
 class GebruikerRepository @Inject constructor(private val service: ApiService, private val interceptor: MyServiceInterceptor
                                               ) {
 
-    fun getGebruiker(token:String): Call<Gebruiker> {
-        return service.getGebruiker(token);
+    fun getGebruiker(): Call<Gebruiker> {
+        return service.getGebruiker();
     }
 
     fun login(login: Login): Call<LoginResponse> {
