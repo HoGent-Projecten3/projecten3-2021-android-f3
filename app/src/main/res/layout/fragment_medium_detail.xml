@@ -15,6 +15,10 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            app:imageFromUrl="@{viewModel.medium.url}" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

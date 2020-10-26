@@ -7,12 +7,13 @@ import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
 
 class MediumDetailViewModel @AssistedInject constructor(
-    private val mediumRepository: MediumRepository,
+    mediumRepository: MediumRepository,
     @Assisted private val mediumId: Int
 ) :ViewModel() {
 
 
-    val medium = mediumRepository.getMedium(mediumId)
+    var medium = mediumRepository.getMedium(mediumId)
+
 
 
 

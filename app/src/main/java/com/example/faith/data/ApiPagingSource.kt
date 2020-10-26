@@ -13,12 +13,12 @@ class ApiPagingSource(private val service: ApiService
         return try {
             val response = service.getMedia()
             val photos = response.results
-
             LoadResult.Page(
                 data = photos,
                 prevKey = if (page == API_STARTING_PAGE_INDEX) null else page - 1,
                 nextKey =  page + 1
             )
+
         } catch (exception: Exception) {
             LoadResult.Error(exception)
         }

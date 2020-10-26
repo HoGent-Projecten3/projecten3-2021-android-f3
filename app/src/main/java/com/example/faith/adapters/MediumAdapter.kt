@@ -3,10 +3,13 @@ package com.example.faith.adapters
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.faith.MediumListFragmentDirections
 import com.example.faith.data.ApiPhoto
 import com.example.faith.databinding.ListItemMediumBinding
 
@@ -32,12 +35,21 @@ class MediumAdapter : PagingDataAdapter<ApiPhoto, MediumAdapter.MediumViewHolder
         init {
             binding.setClickListener {
                 binding.photo?.let { photo ->
-                   // val url = Uri.parse(photo.url)
-                    //val intent = Intent(Intent.ACTION_VIEW, url)
-                    //it.context.startActivity(intent)
+                    navigateToMedium(photo,it)
 
                 }
             }
+        }
+
+        private fun navigateToMedium(
+            photo: ApiPhoto,
+            view: View
+        ) {
+            val direction =
+                MediumListFragmentDirections.actionMediumListFragmentToMediumDetailFragment(
+                    photo.mediumId
+                )
+            view.findNavController().navigate(direction)
         }
 
 
