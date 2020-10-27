@@ -17,13 +17,14 @@
                 android:id="@+id/imageView2"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
+                android:contentDescription="@string/medium_detail_description"
                 app:imageFromUrl="@{viewModel.medium.url}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.171" />
+                app:layout_constraintVertical_bias="0.24000001" />
 
             <TextView
                 android:id="@+id/txtNaam"
@@ -34,6 +35,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView2"
+                app:layout_constraintVertical_bias="0.23000002"
                 tools:text="naam" />
 
             <TextView
@@ -45,6 +47,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtNaam"
+                app:layout_constraintVertical_bias="0.26"
                 tools:text="beschrijving" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

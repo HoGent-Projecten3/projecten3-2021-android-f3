@@ -23,4 +23,11 @@
         Bert Suffys\n
     </string>
     <string name="txf_default">Waar denk je aan?</string>
+    <string name="cinema">Cinema</string>
+    <string name="bibliotheek">Bibliotheek</string>
+    <string name="trofeekamer">trofeekamer</string>
+    <string name="receptie">receptie</string>
+    <string name="bar">bar</string>
+    <string name="penthouse">penthouse</string>
+    <string name="medium_detail_description">medium foto</string>
 </resources>
