@@ -9,13 +9,9 @@ import com.squareup.inject.assisted.AssistedInject
 class MediumDetailViewModel @AssistedInject constructor(
     mediumRepository: MediumRepository,
     @Assisted private val mediumId: Int
-) :ViewModel() {
-
+) : ViewModel() {
 
     var medium = mediumRepository.getMedium(mediumId)
-
-
-
 
     @AssistedInject.Factory
     interface AssistedFactory {

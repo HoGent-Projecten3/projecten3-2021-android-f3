@@ -21,11 +21,8 @@ class MediumDetailFragment : Fragment() {
 
     private val args: MediumDetailFragmentArgs by navArgs()
 
-
     @Inject
     lateinit var mediumDetailViewModelFactory: MediumDetailViewModel.AssistedFactory
-
-
 
     private val mediumDetailViewModel: MediumDetailViewModel by viewModels {
         provideFactory(
@@ -49,23 +46,16 @@ class MediumDetailFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
             callback = Callback { medium ->
                 medium?.let {
-
-
                 }
             }
-
-
-
-            }
+        }
 
         setHasOptionsMenu(true)
 
         return binding.root
     }
 
-
-
     fun interface Callback {
         fun add(medium: Medium?)
     }
-    }
+}

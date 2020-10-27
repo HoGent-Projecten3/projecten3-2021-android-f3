@@ -1,13 +1,12 @@
 package com.example.faith
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.navArgs
 import com.example.faith.adapters.MediumAdapter
 import com.example.faith.data.ApiSearchResponse
 import com.example.faith.data.Medium
@@ -28,7 +27,8 @@ class MediumListFragment : Fragment() {
     private val adapter = MediumAdapter()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentMediumListBinding.inflate(inflater, container, false)
@@ -39,50 +39,44 @@ class MediumListFragment : Fragment() {
         getMedia()
         setHasOptionsMenu(true)
 
-
         return binding.root
     }
 
+    fun insertNewMedia() {
+        viewModel.getMedia2().enqueue(
+            object : Callback<ApiSearchResponse?> {
+                override fun onFailure(call: Call<ApiSearchResponse?>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
 
-     fun insertNewMedia(){
-        var call: Call<ApiSearchResponse>? = viewModel.getMedia2()
-        viewModel.getMedia2().enqueue(object : Callback<ApiSearchResponse?>{
-            override fun onFailure(call: Call<ApiSearchResponse?>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
-
-            override fun onResponse(
-                call: Call<ApiSearchResponse?>,
-                response: Response<ApiSearchResponse?>
-            ) {
-                var fotoj= response.body()?.results?.first()
-                if (fotoj != null) {
-                    GlobalScope.async {
-                        viewModel.saveOne(Medium(
-                            fotoj.mediumId,
-                            fotoj.naam,
-                            fotoj.beschrijving,
-                            fotoj.url
-                        ))
+                override fun onResponse(
+                    call: Call<ApiSearchResponse?>,
+                    response: Response<ApiSearchResponse?>
+                ) {
+                    var fotoj = response.body()?.results
+                    fotoj?.forEach {
+                        GlobalScope.async {
+                            viewModel.saveOne(
+                                Medium(
+                                    it.mediumId,
+                                    it.naam,
+                                    it.beschrijving,
+                                    it.url
+                                )
+                            )
+                        }
                     }
-
                 }
             }
-
-
-        })
-
+        )
     }
 
-    private fun getMedia(){
+    private fun getMedia() {
         searchJob?.cancel()
-        searchJob = lifecycleScope.launch{
+        searchJob = lifecycleScope.launch {
             viewModel.searchPictures().collectLatest {
                 adapter.submitData(it)
             }
         }
-
     }
-
-
 }

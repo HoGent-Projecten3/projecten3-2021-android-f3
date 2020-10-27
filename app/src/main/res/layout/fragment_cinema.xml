@@ -48,9 +48,7 @@
             android:layout_height="350dp"
             android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent"
-
-
-            />
+            tools:ignore="MissingConstraints" />
 
         <ImageView
             android:id="@+id/ivImage"
@@ -60,7 +58,7 @@
             android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent"
 
-            />
+            tools:ignore="MissingConstraints" />
 
 
         <com.google.android.material.textfield.TextInputEditText

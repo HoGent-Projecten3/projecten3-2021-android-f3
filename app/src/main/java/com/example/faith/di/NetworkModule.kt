@@ -19,7 +19,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-
 @Module
 @InstallIn(ApplicationComponent::class)
 class NetworkModule() {
@@ -29,7 +28,6 @@ class NetworkModule() {
         val cacheSize = 10 * 1024 * 1024
         return Cache(application.cacheDir, cacheSize.toLong())
     }
-
 
     @Provides
     @Singleton
@@ -42,7 +40,7 @@ class NetworkModule() {
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
         val client = OkHttpClient.Builder()
             .addInterceptor(interceptor)
-           .addInterceptor(myServiceInterceptor)
+            .addInterceptor(myServiceInterceptor)
             .cache(cache).build()
         client
             .newBuilder()
@@ -53,7 +51,8 @@ class NetworkModule() {
                         .addHeader("Accept", "Application/JSON")
                     val request: Request = requestBuilder.build()
                     chain.proceed(request)
-                }).build()
+                }
+            ).build()
         return client
     }
 
@@ -79,6 +78,4 @@ class NetworkModule() {
     fun providesNetworkService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
     }
-
-
 }

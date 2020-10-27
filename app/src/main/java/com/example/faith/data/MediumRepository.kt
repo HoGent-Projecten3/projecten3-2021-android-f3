@@ -10,20 +10,20 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class MediumRepository @Inject constructor(private val mediumDao:MediumDao,private val service: ApiService) {
+class MediumRepository @Inject constructor(private val mediumDao: MediumDao, private val service: ApiService) {
 
-    fun getMedia()= mediumDao.getMedia()
-    suspend fun insertOne(medium:Medium) = mediumDao.insertOne(medium)
+    fun getMedia() = mediumDao.getMedia()
+    suspend fun insertOne(medium: Medium) = mediumDao.insertOne(medium)
 
-    fun getMedium(id:Int) = mediumDao.getMedium(id)
+    fun getMedium(id: Int) = mediumDao.getMedium(id)
     fun getSearchResultStream(): Flow<PagingData<ApiPhoto>> {
         return Pager(
-            config = PagingConfig(enablePlaceholders = false,pageSize = 25),
-            pagingSourceFactory = {ApiPagingSource(service)}
+            config = PagingConfig(enablePlaceholders = false, pageSize = 25),
+            pagingSourceFactory = { ApiPagingSource(service) }
 
         ).flow
     }
-     fun getMedia2(): Call<ApiSearchResponse> {
+    fun getMedia2(): Call<ApiSearchResponse> {
         return service.getMedia2()
     }
 }

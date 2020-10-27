@@ -13,7 +13,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class LoginViewModel @ViewModelInject constructor(
-    val repository: GebruikerRepository, val interceptor: MyServiceInterceptor
+    val repository: GebruikerRepository,
+    val interceptor: MyServiceInterceptor
 ) : ViewModel() {
 
     private val _loginSuccesvol = MutableLiveData<Boolean>()
@@ -26,27 +27,26 @@ class LoginViewModel @ViewModelInject constructor(
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
-    fun login(login: Login){
+    fun login(login: Login) {
 
-        repository.login(login).enqueue(object : Callback<LoginResponse> {
+        repository.login(login).enqueue(
+            object : Callback<LoginResponse> {
 
-            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
 
-                if (response.isSuccessful) {
-                    interceptor.setSessionToken(response.body()?.authToken)
-                    _loginSuccesvol.value = true
+                    if (response.isSuccessful) {
+                        interceptor.setSessionToken(response.body()?.authToken)
+                        _loginSuccesvol.value = true
+                    } else {
+                        _loginSuccesvol.value = false
+                        _errorMessage.value = "Login failed"
+                    }
+                }
 
-                } else {
-                    _loginSuccesvol.value = false
-                    _errorMessage.value = "Login failed"
+                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                    _errorMessage.value = "Failure: " + t.message
                 }
             }
-
-            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                _errorMessage.value = "Failure: " + t.message
-            }
-
-        })
+        )
     }
-
 }

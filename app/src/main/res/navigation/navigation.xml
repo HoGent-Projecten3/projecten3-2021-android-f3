@@ -4,18 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/hotelFragment">
 
-    <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.example.faith.LoginFragment"
-
-        android:label="Login"
-        tools:layout="@layout/fragment_login">
-        <action
-            android:id="@+id/action_loginFragment_to_hotelFragment"
-            app:destination="@id/hotelFragment" />
-    </fragment>
     <fragment
         android:id="@+id/hotelFragment"
         android:name="com.example.faith.HotelFragment"

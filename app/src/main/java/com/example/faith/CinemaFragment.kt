@@ -22,7 +22,6 @@ import com.example.faith.api.ApiService
 import com.example.faith.databinding.FragmentCinemaBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_cinema.*
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -49,7 +48,7 @@ class CinemaFragment : Fragment() {
     private var lastCode = 0
     private val requestPhotoTaken = 1
     private var photoURI: Uri = Uri.EMPTY
-    @Inject lateinit var service: ApiService;
+    @Inject lateinit var service: ApiService
     private val Fragment.packageManager get() = activity?.packageManager
     private val Fragment.contentResolver get() = activity?.contentResolver
 
@@ -74,8 +73,6 @@ class CinemaFragment : Fragment() {
             .addConverterFactory(GsonConverterFactory.create()).build()
         service = retrofit.create(ApiService::class.java)
 
-
-
         binding.btCapturePhoto.setOnClickListener {
             openCameraPicture()
         }
@@ -95,7 +92,6 @@ class CinemaFragment : Fragment() {
         return binding.root
     }
 
-
     private fun checkPermission() {
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
@@ -104,8 +100,9 @@ class CinemaFragment : Fragment() {
         ) {
             ActivityCompat.requestPermissions(
                 requireActivity(),
-                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1
-            );
+                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                1
+            )
         }
 
         if (ContextCompat.checkSelfPermission(
@@ -115,8 +112,9 @@ class CinemaFragment : Fragment() {
         ) {
             ActivityCompat.requestPermissions(
                 requireActivity(),
-                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 1
-            );
+                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                1
+            )
         }
 
         if (ContextCompat.checkSelfPermission(
@@ -128,7 +126,7 @@ class CinemaFragment : Fragment() {
                 requireActivity(),
                 arrayOf(Manifest.permission.CAMERA),
                 1
-            );
+            )
         }
     }
 
@@ -156,14 +154,11 @@ class CinemaFragment : Fragment() {
             }
             (lastCode == 2)
             createVideoFile()
-
-
         } catch (ex: IOException) {
             null
         }
         // Continue only if the File was successfully created
         photoFile?.also {
-
 
             photoURI = FileProvider.getUriForFile(
                 requireContext(),
@@ -186,12 +181,9 @@ class CinemaFragment : Fragment() {
 
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
                 startActivityForResult(takePictureIntent, requestPhotoTaken)
-
-
             }
         }
     }
-
 
     private fun openCameraVideo() {
         hidePreviews()
@@ -201,19 +193,14 @@ class CinemaFragment : Fragment() {
                 createFile()
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
 
-
-
-
                 startActivityForResult(intent, requestVideoCapture)
             }
         }
-
     }
 
     private fun hidePreviews() {
         ivImage.visibility = View.GONE
         videoView.visibility = View.GONE
-
     }
 
     private fun openGallery() {
@@ -224,7 +211,6 @@ class CinemaFragment : Fragment() {
             intent.type = "image/*"
             intent.resolveActivity(packageManager!!)?.also {
 
-
                 val photoFile: File? = try {
                     createImageFile()
                 } catch (ex: IOException) {
@@ -232,7 +218,6 @@ class CinemaFragment : Fragment() {
                 }
                 // Continue only if the File was successfully created
                 photoFile?.also {
-
 
                     startActivityForResult(intent, requestPermission)
                 }
@@ -276,8 +261,6 @@ class CinemaFragment : Fragment() {
             if (requestCode == requestImageCapture && lastCode == pictureTaken) {
                 ivImage.setImageURI(photoURI)
                 ivImage.visibility = View.VISIBLE
-
-
             } else if (requestCode == requestPermission && resultCode == AppCompatActivity.RESULT_OK) {
                 val uri = theIntent?.data
                 if (uri != null) {
@@ -285,7 +268,7 @@ class CinemaFragment : Fragment() {
                 }
                 ivImage.setImageURI(uri)
                 ivImage.visibility = View.VISIBLE
-                //todo de foto niet alleen weergeven maar ook opslaan in db
+                // todo de foto niet alleen weergeven maar ook opslaan in db
             } else if (requestCode == requestVideoCapture && lastCode == videoMade) {
 
                 var videoUri = theIntent?.data
@@ -296,14 +279,12 @@ class CinemaFragment : Fragment() {
         }
     }
 
-
     @Throws(IOException::class)
     private fun createImageData(uri: Uri) {
         val inputStream = contentResolver!!.openInputStream(uri)
         inputStream?.buffered()?.use {
 
             imageData = it.readBytes()
-
         }
     }
 
@@ -316,7 +297,6 @@ class CinemaFragment : Fragment() {
         }
 
         return timeStamp
-
     }
 
     private fun upload() {
@@ -334,36 +314,35 @@ class CinemaFragment : Fragment() {
             )
         }?.let {
             MultipartBody.Part.createFormData(
-                "imageFile", randomName(), it
+                "imageFile",
+                randomName(),
+                it
             )
         }
         var call: Call<Message>? = part?.let { service.uploadMedia("Cinema/imageFile", it) }
-        call!!.enqueue(object : Callback<Message?> {
-            override fun onFailure(call: Call<Message?>, t: Throwable) {}
-            override fun onResponse(call: Call<Message?>, response: retrofit2.Response<Message?>) {
-
+        call!!.enqueue(
+            object : Callback<Message?> {
+                override fun onFailure(call: Call<Message?>, t: Throwable) {}
+                override fun onResponse(call: Call<Message?>, response: retrofit2.Response<Message?>) {
+                }
             }
-        })
-
-
+        )
     }
 
     private fun uploadText() {
 
         println(txfBericht.text.toString())
         var call: Call<Message> = service.uploadText("Cinema/text", txfBericht.text.toString())
-        call.enqueue(object : Callback<Message?> {
-            override fun onFailure(call: Call<Message?>, t: Throwable) {
-                println(call.toString())
+        call.enqueue(
+            object : Callback<Message?> {
+                override fun onFailure(call: Call<Message?>, t: Throwable) {
+                    println(call.toString())
+                }
+
+                override fun onResponse(call: Call<Message?>, response: retrofit2.Response<Message?>) {
+                    println(call.toString())
+                }
             }
-
-            override fun onResponse(call: Call<Message?>, response: retrofit2.Response<Message?>) {
-                println(call.toString())
-            }
-        })
-
-
+        )
     }
-
-
 }

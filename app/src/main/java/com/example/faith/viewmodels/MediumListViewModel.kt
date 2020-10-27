@@ -2,9 +2,7 @@ package com.example.faith.viewmodels
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
-import androidx.paging.cachedIn
 import com.example.faith.data.ApiPhoto
 import com.example.faith.data.ApiSearchResponse
 import com.example.faith.data.Medium
@@ -12,20 +10,19 @@ import com.example.faith.data.MediumRepository
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Call
 
-class MediumListViewModel @ViewModelInject  constructor(
+class MediumListViewModel @ViewModelInject constructor(
     private val apiRepository: MediumRepository
 
 ) : ViewModel() {
-     fun searchPictures(): Flow<PagingData<ApiPhoto>> {
+    fun searchPictures(): Flow<PagingData<ApiPhoto>> {
 
         return apiRepository.getSearchResultStream()
     }
 
-     fun getMedia2() : Call<ApiSearchResponse> {
+    fun getMedia2(): Call<ApiSearchResponse> {
         return apiRepository.getMedia2()
     }
-   suspend fun saveOne(medium: Medium) {
+    suspend fun saveOne(medium: Medium) {
         apiRepository.insertOne(medium)
     }
-
 }

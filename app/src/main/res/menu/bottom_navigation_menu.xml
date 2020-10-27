@@ -1,4 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item
+        android:id="@+id/cinemaFragment"
+        android:icon="@drawable/popcorn"
+
+        android:title="@string/cinema" />
+
+    <item
+        android:id="@+id/mediumListFragment"
+        android:icon="@drawable/bookshelf"
+        android:title="@string/bibliotheek"
+        />
+    <item
+        android:id="@+id/trofeeKamerFragment"
+        android:icon="@drawable/trophy"
+
+        android:title="@string/trofeekamer" />
+    <item
+        android:id="@+id/infobalieFragment"
+        android:icon="@drawable/reception"
+
+        android:title="@string/receptie" />
+    <item
+        android:id="@+id/penthouseFragment"
+        android:icon="@drawable/roof"
+
+        android:title="@string/penthouse" />
+
 </menu>
