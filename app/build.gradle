@@ -22,6 +22,8 @@ android {
     }
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
+        freeCompilerArgs += "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
+        freeCompilerArgs += "-Xopt-in=kotlinx.coroutines.FlowPreview"
     }
 
     defaultConfig {
@@ -125,6 +127,9 @@ dependencies {
     implementation "androidx.paging:paging-runtime-ktx:3.0.0-alpha07"
 
     implementation "androidx.paging:paging-common-ktx:3.0.0-alpha07"
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9"
 
 
 }

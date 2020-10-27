@@ -13,7 +13,7 @@ import javax.inject.Singleton
 class MediumRepository @Inject constructor(private val mediumDao:MediumDao,private val service: ApiService) {
 
     fun getMedia()= mediumDao.getMedia()
-    fun insertOne(medium:Medium) = mediumDao.insertOne(medium)
+    suspend fun insertOne(medium:Medium) = mediumDao.insertOne(medium)
 
     fun getMedium(id:Int) = mediumDao.getMedium(id)
     fun getSearchResultStream(): Flow<PagingData<ApiPhoto>> {

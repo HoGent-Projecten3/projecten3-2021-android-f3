@@ -14,9 +14,8 @@ import com.example.faith.data.Medium
 import com.example.faith.databinding.FragmentMediumListBinding
 import com.example.faith.viewmodels.MediumListViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -36,8 +35,16 @@ class MediumListFragment : Fragment() {
         context ?: return binding.root
         binding.mediumList.adapter = adapter
 
+        insertNewMedia()
         getMedia()
         setHasOptionsMenu(true)
+
+
+        return binding.root
+    }
+
+
+     fun insertNewMedia(){
         var call: Call<ApiSearchResponse>? = viewModel.getMedia2()
         viewModel.getMedia2().enqueue(object : Callback<ApiSearchResponse?>{
             override fun onFailure(call: Call<ApiSearchResponse?>, t: Throwable) {
@@ -48,22 +55,24 @@ class MediumListFragment : Fragment() {
                 call: Call<ApiSearchResponse?>,
                 response: Response<ApiSearchResponse?>
             ) {
-               var fotoj= response.body()?.results?.first()
+                var fotoj= response.body()?.results?.first()
                 if (fotoj != null) {
-                    viewModel.saveOne(Medium(
-                        fotoj.mediumId,
-                        fotoj.naam,
-                        fotoj.beschrijving,
-                        fotoj.url
-                    ))
+                    GlobalScope.async {
+                        viewModel.saveOne(Medium(
+                            fotoj.mediumId,
+                            fotoj.naam,
+                            fotoj.beschrijving,
+                            fotoj.url
+                        ))
+                    }
+
                 }
             }
 
 
         })
-        return binding.root
-    }
 
+    }
 
     private fun getMedia(){
         searchJob?.cancel()

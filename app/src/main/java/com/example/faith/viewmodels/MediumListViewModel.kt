@@ -24,7 +24,7 @@ class MediumListViewModel @ViewModelInject  constructor(
      fun getMedia2() : Call<ApiSearchResponse> {
         return apiRepository.getMedia2()
     }
-    fun saveOne(medium: Medium) {
+   suspend fun saveOne(medium: Medium) {
         apiRepository.insertOne(medium)
     }
 
