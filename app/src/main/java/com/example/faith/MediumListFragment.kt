@@ -13,8 +13,11 @@ import com.example.faith.data.Medium
 import com.example.faith.databinding.FragmentMediumListBinding
 import com.example.faith.viewmodels.MediumListViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
