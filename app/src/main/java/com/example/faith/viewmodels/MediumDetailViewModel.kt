@@ -12,6 +12,13 @@ class MediumDetailViewModel @AssistedInject constructor(
 ) : ViewModel() {
 
     var medium = mediumRepository.getMedium(mediumId)
+/*
+    fun isVideo(): Boolean {
+        if(medium.value?.url?.endsWith("mp4")!!){
+            return true
+        }
+        return false
+    }*/
 
     @AssistedInject.Factory
     interface AssistedFactory {
@@ -28,5 +35,6 @@ class MediumDetailViewModel @AssistedInject constructor(
                 return assistedFactory.create(mediumId) as T
             }
         }
+
     }
 }

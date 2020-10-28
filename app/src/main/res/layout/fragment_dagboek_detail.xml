@@ -41,7 +41,7 @@
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <data>
-        <import type="com.example.faith.data.ApiPhoto"/>
+        <import type="com.example.faith.data.ApiDagboek"/>
         <variable
             name="viewModel"
             type="com.example.faith.viewmodels.DagboekDetailViewModel" />

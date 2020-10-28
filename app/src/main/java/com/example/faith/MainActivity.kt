@@ -54,7 +54,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Prints whether a mobile device or tablet is being used, using a toast.
-     */
 }
