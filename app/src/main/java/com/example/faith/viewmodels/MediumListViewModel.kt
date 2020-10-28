@@ -2,7 +2,9 @@ package com.example.faith.viewmodels
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.faith.data.ApiPhoto
 import com.example.faith.data.ApiMediumSearchResponse
 import com.example.faith.data.Medium
@@ -16,7 +18,7 @@ class MediumListViewModel @ViewModelInject constructor(
 ) : ViewModel() {
     fun searchPictures(): Flow<PagingData<ApiPhoto>> {
 
-        return apiRepository.getSearchResultStream()
+        return apiRepository.getSearchResultStream().cachedIn(viewModelScope)
     }
 
     fun getMedia2(): Call<ApiMediumSearchResponse> {

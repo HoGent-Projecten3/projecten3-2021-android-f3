@@ -42,7 +42,10 @@ interface ApiService {
     fun login(@Body login: Login): Call<LoginResponse>
 
     @GET("Cinema/Media")
-    suspend fun getMedia(): ApiMediumSearchResponse
+    suspend fun getMedia(
+        @Query("page") page:Int,
+        @Query("aantal") perPage:Int
+    ): ApiMediumSearchResponse
     @GET("Cinema/Media")
     fun getMedia2(): Call<ApiMediumSearchResponse>
     @GET("Cinema/Dagboek")
