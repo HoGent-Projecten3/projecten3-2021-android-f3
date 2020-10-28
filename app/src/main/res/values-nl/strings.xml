@@ -30,4 +30,10 @@
     <string name="bar">bar</string>
     <string name="penthouse">penthouse</string>
     <string name="medium_detail_description">medium foto</string>
+    <string name="dagboek">Dagboek</string>
+    <string name="hotel_naam">Het Hotel</string>
+    <string name="bib_naam">Bibliotheek</string>
+    <string name="dagboek_lezen">Dagboek lezen</string>
+    <string name="medium_detail_naam">Post</string>
+    <string name="login">Login</string>
 </resources>

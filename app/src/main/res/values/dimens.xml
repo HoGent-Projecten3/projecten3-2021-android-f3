@@ -10,4 +10,5 @@
     <dimen name="card_bottom_margin">26dp</dimen>
     <dimen name="plant_item_image_height">95dp</dimen>
     <dimen name="smallmargin">2dp</dimen>
+    <dimen name="spaceforviewsless">350dp</dimen>
 </resources>

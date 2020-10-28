@@ -12,7 +12,7 @@
     <string name="text_password">Wachtwoord</string>
     <string name="label_welcome">Welkom in het hotel!</string>
     <string name="app_description">Faith is de app waarmee jongeren op interactieve manier met hun gevoelens en emoties kunnen omgaan.
-                                    Door middel van de kamers van ons hotel kan men schijven, filmen en inspreken wat ze meemaken.</string>
+                                    Door middel van de kamers van ons hotel kan men een dagboek bijhouden, filmpjes maken en foto\'s maken.</string>
     <string name="app_creators">
         Door :\n
         Remi Mestdagh\n
@@ -30,7 +30,7 @@
     <string name="bar">bar</string>
     <string name="penthouse">penthouse</string>
     <string name="medium_detail_description">medium foto</string>
-    <string name="media">Media</string>
+    <string name="media" translatable="false">Media</string>
     <string name="dagboek">Dagboek</string>
     <string name="hotel_naam">Het Hotel</string>
     <string name="bib_naam">Bibliotheek</string>
