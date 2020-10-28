@@ -24,7 +24,7 @@ class MediumRepository @Inject constructor(private val mediumDao: MediumDao, pri
         ).flow
     }
     fun getMedia2(): Call<ApiMediumSearchResponse> {
-        return service.getMedia2()
+        return service.getMedia2(0,500)
     }
     fun getDagboekPosts() : Flow<PagingData<ApiDagboek>> {
         return Pager(
