@@ -34,4 +34,7 @@ class MediumRepository @Inject constructor(private val mediumDao: MediumDao, pri
         ).flow
 
     }
+    fun getDagboekPosts2(): Call<ApiDagboekSearchResponse> {
+        return service.getDagboek2()
+    }
 }
