@@ -23,8 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        >
-        
+        android:backgroundTint="@color/hotel_theme">
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -38,7 +37,8 @@
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             app:spanCount="@integer/grid_columns"
             tools:context="com.example.faith.MainActivity"
-            tools:listitem="@layout/list_item_medium"/>
+            tools:listitem="@layout/list_item_medium"
+            android:backgroundTint="@color/hotel_theme" />
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

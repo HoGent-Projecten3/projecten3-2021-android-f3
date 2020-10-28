@@ -47,14 +47,15 @@
                 android:id="@+id/naam"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_normal"
                 android:gravity="center_horizontal"
                 android:text="@{dagboek.naam}"
                 android:textAppearance="?attr/textAppearanceListItem"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:text="j00st K4as" />
+                tools:text="j00st K4as"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -23,8 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        >
-
+        android:background="@color/hotel_theme">
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -36,9 +35,9 @@
             android:paddingStart="@dimen/card_side_margin"
             android:paddingTop="@dimen/gallery_header_margin"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-            app:spanCount="@integer/grid_columns"
+            app:spanCount="1"
             tools:context="com.example.faith.MainActivity"
-            tools:listitem="@layout/list_item_dagboek"/>
+            tools:listitem="@layout/list_item_dagboek" />
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

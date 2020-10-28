@@ -36,18 +36,19 @@
         android:onClick="@{clickListener}"
         app:cardElevation="@dimen/card_elevation"
         app:cardPreventCornerOverlap="false"
-        app:shapeAppearanceOverlay="@style/Widget.MaterialComponents.CardView">
+        app:shapeAppearanceOverlay="@style/Widget.MaterialComponents.CardView"
+        android:backgroundTint="@color/hotel_theme">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/hotel_theme">
 
 
             <ImageView
                 android:id="@+id/plant_photo"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/plant_item_image_height"
-                android:layout_marginTop="36dp"
                 android:scaleType="centerCrop"
                 app:imageFromUrl="@{photo.url}"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -59,7 +60,7 @@
                 android:id="@+id/naam"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/smallmargin"
                 android:gravity="center_horizontal"
                 android:text="@{photo.naam}"
                 android:textAppearance="?attr/textAppearanceListItem"
@@ -68,7 +69,10 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/plant_photo"
 
-                tools:text="j00st K4as" />
+                tools:text="j00st K4as"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textAlignment="center" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

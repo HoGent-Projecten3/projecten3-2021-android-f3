@@ -1,11 +1,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        >
+        android:backgroundTint="@color/hotel_theme"
+        android:background="#FFFFFF">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,10 +15,38 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="false">
 
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/imageView2"
+                android:gravity="center_horizontal"
+                android:layout_margin="16dp"
+                tools:layout_editor_absoluteX="5dp">
+
+                <TextView
+                    android:id="@+id/txtNaam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.medium.naam}"
+                    tools:text="naam"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtBeschrijving"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.medium.beschrijving}"
+                    tools:text="beschrijving"
+                    android:textSize="18sp"
+                    android:textStyle="italic" />
+            </LinearLayout>
+
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="400dp"
                 android:contentDescription="@string/medium_detail_description"
                 app:imageFromUrl="@{viewModel.medium.url}"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -24,31 +54,8 @@
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.24000001" />
-
-            <TextView
-                android:id="@+id/txtNaam"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{viewModel.medium.naam}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView2"
-                app:layout_constraintVertical_bias="0.23000002"
-                tools:text="naam" />
-
-            <TextView
-                android:id="@+id/txtBeschrijving"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{viewModel.medium.beschrijving}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtNaam"
-                app:layout_constraintVertical_bias="0.26"
-                tools:text="beschrijving" />
+                app:layout_constraintVertical_bias="0.24000001"
+                android:layout_margin="12dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
