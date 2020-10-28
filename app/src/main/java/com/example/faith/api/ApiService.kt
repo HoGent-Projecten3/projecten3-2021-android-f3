@@ -1,8 +1,9 @@
 package com.example.faith.api
 
 import android.os.Message
+import com.example.faith.data.ApiDagboekSearchResponse
 import com.example.faith.data.ApiMediumResponse
-import com.example.faith.data.ApiSearchResponse
+import com.example.faith.data.ApiMediumSearchResponse
 import com.example.faith.data.Gebruiker
 import com.example.faith.data.Login
 import com.example.faith.data.LoginResponse
@@ -40,10 +41,12 @@ interface ApiService {
     @POST("Account/login")
     fun login(@Body login: Login): Call<LoginResponse>
 
-    @GET("Cinema")
-    suspend fun getMedia(): ApiSearchResponse
-    @GET("Cinema")
-    fun getMedia2(): Call<ApiSearchResponse>
+    @GET("Cinema/Media")
+    suspend fun getMedia(): ApiMediumSearchResponse
+    @GET("Cinema/Media")
+    fun getMedia2(): Call<ApiMediumSearchResponse>
+    @GET("Cinema/Dagboek")
+    fun getDagboek() : ApiDagboekSearchResponse
 
     @GET("Cinema/id")
     fun getMedium(@Query("mediumId") id: Int): ApiMediumResponse

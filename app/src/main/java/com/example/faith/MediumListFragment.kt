@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.faith.adapters.MediumAdapter
-import com.example.faith.data.ApiSearchResponse
+import com.example.faith.data.ApiMediumSearchResponse
 import com.example.faith.data.Medium
 import com.example.faith.databinding.FragmentMediumListBinding
 import com.example.faith.viewmodels.MediumListViewModel
@@ -47,16 +47,16 @@ class MediumListFragment : Fragment() {
 
     fun insertNewMedia() {
         viewModel.getMedia2().enqueue(
-            object : Callback<ApiSearchResponse?> {
-                override fun onFailure(call: Call<ApiSearchResponse?>, t: Throwable) {
+            object : Callback<ApiMediumSearchResponse?> {
+                override fun onFailure(call: Call<ApiMediumSearchResponse?>, t: Throwable) {
                     TODO("Not yet implemented")
                 }
 
                 override fun onResponse(
-                    call: Call<ApiSearchResponse?>,
-                    response: Response<ApiSearchResponse?>
+                    call: Call<ApiMediumSearchResponse?>,
+                    responseMedium: Response<ApiMediumSearchResponse?>
                 ) {
-                    var fotoj = response.body()?.results
+                    var fotoj = responseMedium.body()?.results
                     fotoj?.forEach {
                         GlobalScope.async {
                             viewModel.saveOne(

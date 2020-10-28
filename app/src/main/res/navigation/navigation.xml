@@ -35,6 +35,9 @@
         <action
             android:id="@+id/action_mediumListFragment_to_mediumDetailFragment"
             app:destination="@id/mediumDetailFragment" />
+        <action
+            android:id="@+id/action_mediumListFragment_to_dagboekListFragment2"
+            app:destination="@id/dagboekListFragment2" />
     </fragment>
     <fragment
         android:id="@+id/mediumDetailFragment"
@@ -47,6 +50,29 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <argument
+            android:name="mediumId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/dagboekListFragment2"
+        android:name="com.example.faith.DagboekListFragment"
+        android:label="dagboek_list_fragment"
+        tools:layout="@layout/fragment_dagboek_list" >
+        <action
+            android:id="@+id/action_dagboekListFragment2_to_mediumListFragment"
+            app:destination="@id/mediumListFragment" />
+        <action
+            android:id="@+id/action_dagboekListFragment2_to_dagboekDetailFragment"
+            app:destination="@id/dagboekDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/dagboekDetailFragment"
+        android:name="com.example.faith.DagboekDetailFragment"
+        android:label="DagboekDetailFragment" >
+        <action
+            android:id="@+id/action_dagboekDetailFragment_to_dagboekListFragment2"
+            app:destination="@id/dagboekListFragment2" />
         <argument
             android:name="mediumId"
             app:argType="integer" />

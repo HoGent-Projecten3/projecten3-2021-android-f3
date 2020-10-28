@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/dagboekListFragment2"
+        android:icon="@drawable/popcorn"
+        android:title="@string/media" />
+
+    <item
+        android:id="@+id/mediumListFragment"
+        android:icon="@drawable/bookshelf"
+        android:title="@string/dagboek"
+        />
+
+
+</menu>

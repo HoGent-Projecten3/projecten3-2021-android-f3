@@ -30,4 +30,6 @@
     <string name="bar">bar</string>
     <string name="penthouse">penthouse</string>
     <string name="medium_detail_description">medium foto</string>
+    <string name="media">Media</string>
+    <string name="dagboek">Dagboek</string>
 </resources>

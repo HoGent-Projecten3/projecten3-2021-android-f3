@@ -4,7 +4,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagingData
 import com.example.faith.data.ApiPhoto
-import com.example.faith.data.ApiSearchResponse
+import com.example.faith.data.ApiMediumSearchResponse
 import com.example.faith.data.Medium
 import com.example.faith.data.MediumRepository
 import kotlinx.coroutines.flow.Flow
@@ -19,7 +19,7 @@ class MediumListViewModel @ViewModelInject constructor(
         return apiRepository.getSearchResultStream()
     }
 
-    fun getMedia2(): Call<ApiSearchResponse> {
+    fun getMedia2(): Call<ApiMediumSearchResponse> {
         return apiRepository.getMedia2()
     }
     suspend fun saveOne(medium: Medium) {
