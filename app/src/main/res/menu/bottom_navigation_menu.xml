@@ -13,7 +13,7 @@
         android:title="@string/bibliotheek"
         />
     <item
-        android:id="@+id/trofeeKamerFragment"
+        android:id="@+id/dagboekListFragment2"
         android:icon="@drawable/trophy"
 
         android:title="@string/trofeekamer" />

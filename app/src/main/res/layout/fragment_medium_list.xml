@@ -40,15 +40,6 @@
             tools:context="com.example.faith.MainActivity"
             tools:listitem="@layout/list_item_medium"/>
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation_bibliotheek"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:fabAlignmentMode="center"
-            android:layout_width="match_parent"
-            app:menu="@menu/bottom_navigation_bibliotheek"
-
-            />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
