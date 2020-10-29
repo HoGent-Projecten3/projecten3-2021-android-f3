@@ -20,26 +20,21 @@ import retrofit2.http.Url
 
 interface ApiService {
 
+    @Headers("No-Authentication: true")
+    @POST("Account/login")
+    fun login(@Body login: Login): Call<LoginResponse>
+
     @Multipart
-    @POST
+    @POST("Cinema/imageFile")
     fun uploadMedia(
-        @Url url: String,
         @Part imageFile: MultipartBody.Part
     ): Call<Message>
 
-    @POST
-    fun uploadText(@Url url: String, @Body s: String): Call<Message>
-
-    @Headers("No-Authentication: true")
-    @POST
-    fun login(@Url account: String, @Body login: Login): Call<LoginResponse>
+    @POST("Cinema/text")
+    fun uploadText(@Body s: String): Call<Message>
 
     @GET("Gebruiker")
     fun getGebruiker(): Call<Gebruiker>
-
-    @Headers("Content-Type: application/json")
-    @POST("Account/login")
-    fun login(@Body login: Login): Call<LoginResponse>
 
     @GET("Cinema/Media")
     suspend fun getMedia(

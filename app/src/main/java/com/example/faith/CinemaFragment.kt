@@ -17,9 +17,12 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.example.faith.R.layout.fragment_cinema
 import com.example.faith.api.ApiService
 import com.example.faith.databinding.FragmentCinemaBinding
+import com.example.faith.viewmodels.CinemaViewModel
+import com.example.faith.viewmodels.DagboekListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_cinema.*
 import okhttp3.MediaType.Companion.toMediaType
@@ -38,6 +41,7 @@ import kotlin.jvm.Throws
 
 @AndroidEntryPoint
 class CinemaFragment : Fragment() {
+    private val viewModel: CinemaViewModel by viewModels()
     private var imageData: ByteArray? = null
     private val requestPermission = 100
     private val requestImageCapture = 1
@@ -48,7 +52,6 @@ class CinemaFragment : Fragment() {
     private var lastCode = 0
     private val requestPhotoTaken = 1
     private var photoURI: Uri = Uri.EMPTY
-    @Inject lateinit var service: ApiService
     private val Fragment.packageManager get() = activity?.packageManager
     private val Fragment.contentResolver get() = activity?.contentResolver
 
@@ -68,11 +71,6 @@ class CinemaFragment : Fragment() {
             false
         )
         checkPermission()
-
-        val retrofit = Retrofit.Builder().baseUrl("http://192.168.1.37:45455/api/")
-            .addConverterFactory(GsonConverterFactory.create()).build()
-        service = retrofit.create(ApiService::class.java)
-
         binding.btCapturePhoto.setOnClickListener {
             openCameraPicture()
         }
@@ -303,7 +301,7 @@ class CinemaFragment : Fragment() {
                 it
             )
         }
-        var call: Call<Message>? = part?.let { service.uploadMedia("Cinema/imageFile", it) }
+        var call: Call<Message>? = part?.let { viewModel.uploadMedia(it) }
         call!!.enqueue(
             object : Callback<Message?> {
                 override fun onFailure(call: Call<Message?>, t: Throwable) {}
@@ -314,9 +312,8 @@ class CinemaFragment : Fragment() {
     }
 
     private fun uploadText() {
-
         println(txfBericht.text.toString())
-        var call: Call<Message> = service.uploadText("Cinema/text", txfBericht.text.toString())
+        var call: Call<Message> = viewModel.uploadText(txfBericht.text.toString())
         call.enqueue(
             object : Callback<Message?> {
                 override fun onFailure(call: Call<Message?>, t: Throwable) {
