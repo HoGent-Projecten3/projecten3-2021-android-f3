@@ -3,6 +3,7 @@
     <string name="btnGalerij">GALLERY</string>
     <string name="btnFotoNemen">PICTURE</string>
     <string name="btnVideoMaken">RECORD</string>
+    <string name="btnVerstuur">Verstuur</string>
     <string name="viewPreviewImage">PREVIEW</string>
     <string name="upload_image">UPLOAD</string>
     <string name="upload_text">UPLOAD TEXT</string>
@@ -23,4 +24,5 @@
         Bert Suffys\n
     </string>
     <string name="txf_default">Waar denk je aan?</string>
+    <string name="txf_chat">Bericht sturen</string>
 </resources>
