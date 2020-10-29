@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "413439001946",
+    "firebase_url": "https://faith-66472.firebaseio.com",
+    "project_id": "faith-66472",
+    "storage_bucket": "faith-66472.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:413439001946:android:6427eaf75b44b1455d1f63",
+        "android_client_info": {
+          "package_name": "com.example.faith"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "413439001946-0a5kcv5hitf4p6pf6sj30319ub85b0lo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwBUZzZTcfMFQ88ruah49ddwxmWBl0Mjg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "413439001946-0a5kcv5hitf4p6pf6sj30319ub85b0lo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
