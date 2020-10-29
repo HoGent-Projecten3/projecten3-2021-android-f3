@@ -58,7 +58,8 @@ class MediumListFragment : Fragment() {
                 ) {
                     var fotoj = responseMedium.body()?.results
                     fotoj?.forEach {
-                        GlobalScope.async {
+
+
                             viewModel.saveOne(
                                 Medium(
                                     it.mediumId,
@@ -67,7 +68,7 @@ class MediumListFragment : Fragment() {
                                     it.url
                                 )
                             )
-                        }
+
                     }
                 }
             }

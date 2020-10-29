@@ -10,6 +10,7 @@ import com.example.faith.data.ApiMediumSearchResponse
 import com.example.faith.data.Medium
 import com.example.faith.data.MediumRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 import retrofit2.Call
 
 class MediumListViewModel @ViewModelInject constructor(
@@ -24,7 +25,10 @@ class MediumListViewModel @ViewModelInject constructor(
     fun getMedia2(): Call<ApiMediumSearchResponse> {
         return apiRepository.getMedia2()
     }
-    suspend fun saveOne(medium: Medium) {
-        apiRepository.insertOne(medium)
+    fun saveOne(medium: Medium) {
+        viewModelScope.launch {
+            apiRepository.insertOne(medium)
+        }
+
     }
 }
