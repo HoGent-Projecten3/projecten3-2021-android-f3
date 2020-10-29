@@ -38,7 +38,11 @@
             app:spanCount="@integer/grid_columns"
             tools:context="com.example.faith.MainActivity"
             tools:listitem="@layout/list_item_medium"
-            android:backgroundTint="@color/hotel_theme" />
+            android:backgroundTint="@color/hotel_theme"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="25dp">
+
+        </androidx.recyclerview.widget.RecyclerView>
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

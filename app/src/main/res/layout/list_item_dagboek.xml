@@ -53,7 +53,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:text="j00st K4as"
+                tools:text="een dagboek entry"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 

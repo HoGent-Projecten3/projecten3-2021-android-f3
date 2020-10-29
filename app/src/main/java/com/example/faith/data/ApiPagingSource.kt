@@ -17,7 +17,7 @@ class ApiPagingSource(
             LoadResult.Page(
                 data = photos,
                 prevKey = if (page == API_STARTING_PAGE_INDEX) null else page - 1,
-                nextKey = page + 1
+                nextKey =  if (page == response.totalPages) null else page + 1
             )
         } catch (exception: Exception) {
             LoadResult.Error(exception)

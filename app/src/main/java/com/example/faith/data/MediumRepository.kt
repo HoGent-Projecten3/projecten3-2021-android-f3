@@ -21,7 +21,7 @@ class MediumRepository @Inject constructor(private val mediumDao: MediumDao, pri
     fun getMedium(id: Int) = mediumDao.getMedium(id)
     fun getSearchResultStream(): Flow<PagingData<ApiPhoto>> {
         return Pager(
-            config = PagingConfig(enablePlaceholders = false, pageSize = 25),
+            config = PagingConfig(enablePlaceholders = false, pageSize = 10,initialLoadSize = 12,prefetchDistance = 10),
             pagingSourceFactory = { ApiPagingSource(service) }
 
         ).flow
@@ -31,7 +31,7 @@ class MediumRepository @Inject constructor(private val mediumDao: MediumDao, pri
     }
     fun getDagboekPosts() : Flow<PagingData<ApiDagboek>> {
         return Pager(
-            config = PagingConfig(enablePlaceholders = false, pageSize = 25),
+            config = PagingConfig(enablePlaceholders = false, pageSize = 10, initialLoadSize = 12,prefetchDistance = 10),
             pagingSourceFactory = { ApiDagboekPagingSource(service) }
 
         ).flow
