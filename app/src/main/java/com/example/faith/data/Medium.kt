@@ -9,10 +9,8 @@ data class Medium(
     @PrimaryKey @ColumnInfo(name = "id") val mediumId: Int,
     val naam: String,
     val beschrijving: String,
-    val url : String =""
+    val url: String = ""
 ) {
 
-    override fun toString()= naam
-
-
+    override fun toString() = naam
 }

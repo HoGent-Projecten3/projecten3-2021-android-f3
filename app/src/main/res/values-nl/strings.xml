@@ -7,10 +7,10 @@
     <string name="upload_image">UPLOAD</string>
     <string name="upload_text">UPLOAD TEKST</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="enter_email_address">Email Adres</string>
+    <string name="enter_email_address">Email</string>
     <string name="text_login">Login</string>
     <string name="text_password">Wachtwoord</string>
-    <string name="label_welcome">Welkom op het hotel !</string>
+    <string name="label_welcome">Welkom in het hotel !</string>
     <string name="app_description">Faith is de app waarmee jongeren op interactieve manier met hun gevoelens en emoties kunnen omgaan.
                                     Door middel van de kamers van ons hotel kan men schijven, filmen en inspreken wat ze meemaken.</string>
     <string name="app_creators" >
@@ -22,4 +22,18 @@
         Alexander De Baene\n
         Bert Suffys\n
     </string>
+    <string name="txf_default">Waar denk je aan?</string>
+    <string name="cinema">Cinema</string>
+    <string name="bibliotheek">Bibliotheek</string>
+    <string name="trofeekamer">trofeekamer</string>
+    <string name="receptie">receptie</string>
+    <string name="bar">bar</string>
+    <string name="penthouse">penthouse</string>
+    <string name="medium_detail_description">medium foto</string>
+    <string name="dagboek">Dagboek</string>
+    <string name="hotel_naam">Het Hotel</string>
+    <string name="bib_naam">Bibliotheek</string>
+    <string name="dagboek_lezen">Dagboek lezen</string>
+    <string name="medium_detail_naam">Post</string>
+    <string name="login">Login</string>
 </resources>

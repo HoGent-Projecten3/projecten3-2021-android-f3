@@ -15,4 +15,6 @@ interface MediumDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(media: List<Medium>)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertOne(medium: Medium)
 }

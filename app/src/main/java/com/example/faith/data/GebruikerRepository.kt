@@ -5,15 +5,17 @@ import com.example.faith.api.MyServiceInterceptor
 import retrofit2.Call
 import javax.inject.Inject
 
-class GebruikerRepository @Inject constructor(private val service: ApiService, private val interceptor: MyServiceInterceptor
-                                              ) {
+class GebruikerRepository @Inject constructor(
+    private val service: ApiService,
+    private val interceptor: MyServiceInterceptor
+) {
 
     fun getGebruiker(): Call<Gebruiker> {
-        return service.getGebruiker();
+        return service.getGebruiker()
     }
 
     fun login(login: Login): Call<LoginResponse> {
-        return service.login(login);
+        return service.login(login)
     }
     /*
     fun setToken(token: String){
@@ -21,5 +23,4 @@ class GebruikerRepository @Inject constructor(private val service: ApiService, p
     }
 
      */
-
 }

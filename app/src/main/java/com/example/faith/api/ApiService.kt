@@ -1,53 +1,68 @@
 package com.example.faith.api
 
 import android.os.Message
-import com.example.faith.data.ApiSearchResponse
+import com.example.faith.data.ApiDagboekSearchResponse
+import com.example.faith.data.ApiMediumResponse
+import com.example.faith.data.ApiMediumSearchResponse
 import com.example.faith.data.Gebruiker
 import com.example.faith.data.Login
 import com.example.faith.data.LoginResponse
 import okhttp3.MultipartBody
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import okhttp3.logging.HttpLoggingInterceptor.Level
-import retrofit2.Call;
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.*
-
+import retrofit2.Call
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.Headers
+import retrofit2.http.Multipart
+import retrofit2.http.POST
+import retrofit2.http.Part
+import retrofit2.http.Query
+import retrofit2.http.Url
 
 interface ApiService {
 
+    @Headers("No-Authentication: true")
+    @POST("Account/login")
+    fun login(@Body login: Login): Call<LoginResponse>
+
     @Multipart
-    @POST
+    @POST("Cinema/imageFile")
     fun uploadMedia(
-        @Url url: String,
         @Part imageFile: MultipartBody.Part
     ): Call<Message>
 
-    @POST
-    fun uploadText(@Url url: String, @Body s: String): Call<Message>
-
-
-    @Headers("No-Authentication: true")
-    @POST
-    fun login(@Url account: String, @Body login: Login): Call<LoginResponse>
-
+    @POST("Cinema/text")
+    fun uploadText(@Body s: String): Call<Message>
 
     @GET("Gebruiker")
     fun getGebruiker(): Call<Gebruiker>
 
-    @Headers("Content-Type: application/json")
-    @POST("Account/login")
-    fun login(@Body login: Login): Call<LoginResponse>
-
-    @GET("Cinema")
+    @GET("Cinema/Media")
     suspend fun getMedia(
-    ): ApiSearchResponse
+        @Query("page") page:Int,
+        @Query("aantal") perPage:Int
+    ): ApiMediumSearchResponse
+    @GET("Cinema/Media")
+    fun getMedia2(
+        @Query("page") page:Int,
+        @Query("aantal") perPage:Int
+    ): Call<ApiMediumSearchResponse>
+    @GET("Cinema/Dagboek")
+    suspend fun getDagboek(
+        @Query("page") page:Int,
+        @Query("aantal") perPage:Int
+    ) : ApiDagboekSearchResponse
+    @GET("Cinema/Dagboek")
+    fun getDagboek2(
+        @Query("page") page:Int,
+        @Query("aantal") perPage:Int
+    ) : Call<ApiDagboekSearchResponse>
 
+    @GET("Cinema/id")
+    fun getMedium(@Query("mediumId") id: Int): ApiMediumResponse
 
     data class LoginResponseModel(
-        val token: String, val
+        val token: String,
+        val
         refreshToken: String
     )
 }
-

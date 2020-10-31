@@ -5,55 +5,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:layout="@layout/fragment_about">
 
-    <LinearLayout
-        android:id="@+id/about_fragment"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/hotel_theme"
-        android:orientation="vertical">
+        android:fitsSystemWindows="true"
+        android:background="@color/hotel_theme">
 
-        <ImageView
-            android:id="@+id/image_logo"
-            android:layout_width="142dp"
-            android:layout_height="130dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"
-            android:src="@drawable/main_logo" />
-
-        <TextView
-            android:id="@+id/label_title"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:text="@string/app_name"
-            android:textColor="@color/cardview_light_background"
-            android:textSize="45sp" />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:gravity="center_horizontal"
-            android:text="@string/app_description"
-            android:textColor="@color/cardview_light_background"
-            android:textSize="27sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="50dp" />
+                <ImageView
+                    android:id="@+id/image_logo"
+                    android:layout_width="142dp"
+                    android:layout_height="130dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="100dp"
+                    android:src="@drawable/main_logo" />
 
-        <TextView
-            android:id="@+id/label_creators"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal"
-            android:text="@string/app_creators"
-            android:textColor="@color/cardview_light_background"
-            android:textSize="20sp" />
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/app_description"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/label_creators"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:text="@string/app_creators"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="20sp" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+            </LinearLayout>
+        </ScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

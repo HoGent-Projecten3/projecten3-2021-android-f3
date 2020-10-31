@@ -4,6 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:layout="@layout/fragment_cinema">
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        >
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,7 +25,9 @@
             android:text="@string/btnVideoMaken"
             app:layout_constraintEnd_toStartOf="@+id/btOpenGallery"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txfBericht" />
+            app:layout_constraintTop_toBottomOf="@+id/txfBericht"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btOpenGallery"
@@ -30,7 +38,9 @@
             android:text="@string/btnGalerij"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txfBericht" />
+            app:layout_constraintTop_toBottomOf="@+id/txfBericht"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btCapturePhoto"
@@ -40,38 +50,40 @@
             android:text="@string/btnFotoNemen"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btOpenGallery"
-            app:layout_constraintTop_toBottomOf="@+id/txfBericht" />
+            app:layout_constraintTop_toBottomOf="@+id/txfBericht"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <VideoView
             android:id="@+id/videoView"
             android:layout_width="wrap_content"
-            android:layout_height="350dp"
+            android:layout_height="300dp"
             android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent"
-
-
-            />
+            tools:ignore="MissingConstraints" />
 
         <ImageView
             android:id="@+id/ivImage"
             android:layout_width="wrap_content"
-            android:layout_height="350dp"
+            android:layout_height="300dp"
             android:src="#dedede"
             android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent"
 
-            />
+            tools:ignore="MissingConstraints" />
 
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txfBericht"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_marginTop="@dimen/spaceforviews"
             android:text="@string/txf_default"
-            app:layout_constraintBottom_toTopOf="@+id/btOpenGallery"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.72" />
+
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/sendButton"
@@ -83,7 +95,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toLeftOf="@id/btSendText"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btOpenGallery" />
+            app:layout_constraintTop_toBottomOf="@+id/btOpenGallery"
+            app:layout_constraintVertical_bias="0.0" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btSendText"
@@ -96,8 +109,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toRightOf="@id/sendButton"
-            app:layout_constraintTop_toBottomOf="@+id/btOpenGallery" />
+            app:layout_constraintTop_toBottomOf="@+id/btOpenGallery"
+            app:layout_constraintVertical_bias="0.0" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

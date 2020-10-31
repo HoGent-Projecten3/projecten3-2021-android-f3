@@ -4,22 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/hotelFragment">
 
-    <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.example.faith.LoginFragment"
-
-        android:label="Login"
-        tools:layout="@layout/fragment_login">
-        <action
-            android:id="@+id/action_loginFragment_to_hotelFragment"
-            app:destination="@id/hotelFragment" />
-    </fragment>
     <fragment
         android:id="@+id/hotelFragment"
         android:name="com.example.faith.HotelFragment"
-        android:label="Het Hotel"
+        android:label="@string/hotel_naam"
         tools:layout="@layout/fragment_hotel">
         <action
             android:id="@+id/action_hotelFragment_to_cinemaFragment"
@@ -31,7 +21,7 @@
     <fragment
         android:id="@+id/cinemaFragment"
         android:name="com.example.faith.CinemaFragment"
-        android:label="De Cinema"
+        android:label="@string/cinema"
         tools:layout="@layout/fragment_cinema" />
     <fragment
         android:id="@+id/aboutFragment"
@@ -41,5 +31,50 @@
     <fragment
         android:id="@+id/mediumListFragment"
         android:name="com.example.faith.MediumListFragment"
-        android:label="MediumListFragment" />
+        android:label="@string/bib_naam">
+        <action
+            android:id="@+id/action_mediumListFragment_to_mediumDetailFragment"
+            app:destination="@id/mediumDetailFragment" />
+        <action
+            android:id="@+id/action_mediumListFragment_to_dagboekListFragment2"
+            app:destination="@id/dagboekListFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/mediumDetailFragment"
+        android:name="com.example.faith.MediumDetailFragment"
+        android:label="@string/medium_detail_naam">
+        <action
+            android:id="@+id/action_mediumDetailFragment_to_mediumListFragment"
+            app:destination="@id/mediumListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <argument
+            android:name="mediumId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/dagboekListFragment2"
+        android:name="com.example.faith.DagboekListFragment"
+        android:label="@string/dagboek"
+        tools:layout="@layout/fragment_dagboek_list">
+        <action
+            android:id="@+id/action_dagboekListFragment2_to_mediumListFragment"
+            app:destination="@id/mediumListFragment" />
+        <action
+            android:id="@+id/action_dagboekListFragment2_to_dagboekDetailFragment"
+            app:destination="@id/dagboekDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/dagboekDetailFragment"
+        android:name="com.example.faith.DagboekDetailFragment"
+        android:label="@string/dagboek_lezen">
+        <action
+            android:id="@+id/action_dagboekDetailFragment_to_dagboekListFragment2"
+            app:destination="@id/dagboekListFragment2" />
+        <argument
+            android:name="mediumId"
+            app:argType="integer" />
+    </fragment>
 </navigation>
