@@ -33,12 +33,14 @@ class DagboekFragment : Fragment() {
             false
         )
 
+        binding.btSaveDagboek.setOnClickListener {
+            uploadText()
+        }
        return binding.root
     }
 
 
     private fun uploadText() {
-        println(txfBericht.text.toString())
         var call: Call<Message> = viewModel.uploadDagboekPost(textInputTitel.text.toString(),textInputDescription.text.toString())
         call.enqueue(
             object : Callback<Message?> {

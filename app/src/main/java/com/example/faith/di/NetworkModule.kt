@@ -68,7 +68,7 @@ class NetworkModule() {
     fun provideRetrofit(gson: Gson, okHttpClient: OkHttpClient?): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create(gson))
-            .baseUrl("http://192.168.1.37:45455/api/")
+            .baseUrl("https://f3backend-dev-as.azurewebsites.net/api/")
             .client(okHttpClient)
             .build()
     }
