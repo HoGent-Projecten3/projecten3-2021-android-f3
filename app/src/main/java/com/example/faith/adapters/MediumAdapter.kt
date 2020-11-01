@@ -1,16 +1,17 @@
 package com.example.faith.adapters
 
-import android.content.Intent
-import android.net.Uri
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
+import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.faith.MediumListFragmentDirections
 import com.example.faith.data.ApiPhoto
 import com.example.faith.databinding.ListItemMediumBinding
-
 /**
+ * @author Remi Mestdagh
  * adapter for recyclerview in plantlistfragment
  */
 class MediumAdapter : PagingDataAdapter<ApiPhoto, MediumAdapter.MediumViewHolder>(MediumDiffCallback()) {
@@ -25,21 +26,27 @@ class MediumAdapter : PagingDataAdapter<ApiPhoto, MediumAdapter.MediumViewHolder
         )
     }
 
-
     class MediumViewHolder(
         private val binding: ListItemMediumBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.setClickListener {
                 binding.photo?.let { photo ->
-                   // val url = Uri.parse(photo.url)
-                    //val intent = Intent(Intent.ACTION_VIEW, url)
-                    //it.context.startActivity(intent)
-
+                    navigateToMedium(photo, it)
                 }
             }
         }
 
+        private fun navigateToMedium(
+            photo: ApiPhoto,
+            view: View
+        ) {
+            val direction =
+                MediumListFragmentDirections.actionMediumListFragmentToMediumDetailFragment(
+                    photo.mediumId
+                )
+            view.findNavController().navigate(direction)
+        }
 
         fun bind(item: ApiPhoto) {
             binding.apply {
@@ -55,10 +62,8 @@ class MediumAdapter : PagingDataAdapter<ApiPhoto, MediumAdapter.MediumViewHolder
             holder.bind(medium)
         }
     }
-
-
 }
-private class MediumDiffCallback : DiffUtil.ItemCallback<ApiPhoto>(){
+private class MediumDiffCallback : DiffUtil.ItemCallback<ApiPhoto>() {
 
     override fun areItemsTheSame(oldItem: ApiPhoto, newItem: ApiPhoto): Boolean {
         return oldItem.mediumId == newItem.mediumId

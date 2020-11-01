@@ -34,13 +34,15 @@
         android:layout_marginEnd="@dimen/card_side_margin"
         android:layout_marginBottom="@dimen/card_bottom_margin"
         android:onClick="@{clickListener}"
-        app:cardElevation="@dimen/card_elevation"
+        app:cardElevation="2dp"
         app:cardPreventCornerOverlap="false"
-        app:shapeAppearanceOverlay="@style/Widget.MaterialComponents.CardView">
+        app:shapeAppearanceOverlay="@style/Widget.MaterialComponents.CardView"
+        android:backgroundTint="@color/hotel_theme">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/hotel_theme">
 
 
             <ImageView
@@ -50,6 +52,7 @@
                 android:scaleType="centerCrop"
                 app:imageFromUrl="@{photo.url}"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -57,7 +60,7 @@
                 android:id="@+id/naam"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/smallmargin"
                 android:gravity="center_horizontal"
                 android:text="@{photo.naam}"
                 android:textAppearance="?attr/textAppearanceListItem"
@@ -66,7 +69,10 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/plant_photo"
 
-                tools:text="j00st K4as" />
+                tools:text="een foto of filmpje"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textAlignment="center" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

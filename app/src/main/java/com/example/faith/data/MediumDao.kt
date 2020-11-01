@@ -5,7 +5,9 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-
+/**
+ * @author Remi Mestdagh
+ */
 @Dao
 interface MediumDao {
     @Query("SELECT * FROM media ORDER BY naam")
@@ -15,4 +17,6 @@ interface MediumDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(media: List<Medium>)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertOne(medium: Medium)
 }

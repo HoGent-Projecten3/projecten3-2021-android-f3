@@ -10,8 +10,9 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.example.faith.utilities.DATABASE_NAME
-
-
+/**
+ * @author Remi Mestdagh
+ */
 @Database(entities = [Medium::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
