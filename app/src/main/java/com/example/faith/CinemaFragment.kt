@@ -18,6 +18,7 @@ import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.faith.R.layout.fragment_cinema
 import com.example.faith.api.ApiService
 import com.example.faith.databinding.FragmentCinemaBinding
@@ -83,12 +84,11 @@ class CinemaFragment : Fragment() {
         binding.sendButton.setOnClickListener {
             upload()
         }
-        binding.btSendText.setOnClickListener() {
-            uploadText()
-        }
+
         /* return */
         return binding.root
     }
+
 
     private fun checkPermission() {
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -306,22 +306,6 @@ class CinemaFragment : Fragment() {
             object : Callback<Message?> {
                 override fun onFailure(call: Call<Message?>, t: Throwable) {}
                 override fun onResponse(call: Call<Message?>, response: retrofit2.Response<Message?>) {
-                }
-            }
-        )
-    }
-
-    private fun uploadText() {
-        println(txfBericht.text.toString())
-        var call: Call<Message> = viewModel.uploadText(txfBericht.text.toString())
-        call.enqueue(
-            object : Callback<Message?> {
-                override fun onFailure(call: Call<Message?>, t: Throwable) {
-                    println(call.toString())
-                }
-
-                override fun onResponse(call: Call<Message?>, response: retrofit2.Response<Message?>) {
-                    println(call.toString())
                 }
             }
         )

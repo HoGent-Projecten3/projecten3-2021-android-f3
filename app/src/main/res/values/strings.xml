@@ -37,4 +37,9 @@
     <string name="dagboek_lezen">Dagboek lezen</string>
     <string name="medium_detail_naam">Post</string>
     <string name="login">Login</string>
+    <string name="dagboek_nieuw">Nieuw dagboekbericht</string>
+    <string name="nav_to_dagboek">DAGBOEK</string>
+    <string name="content_description_search">zoeken</string>
+    <string name="content_description_more">meer</string>
+    <string name="search">zoek</string>
 </resources>

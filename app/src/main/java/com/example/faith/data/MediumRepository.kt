@@ -45,7 +45,7 @@ class MediumRepository @Inject constructor(private val mediumDao: MediumDao, pri
         return service.uploadMedia(imageFile)
 
     }
-    fun postText(s: String) : Call<Message> {
-        return service.uploadText(s)
+    fun postText(titel: String,beschrijving:String) : Call<Message> {
+        return service.uploadText(titel,beschrijving)
     }
 }

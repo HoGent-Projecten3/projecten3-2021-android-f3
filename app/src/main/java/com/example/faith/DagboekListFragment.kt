@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.faith.adapters.DagboekAdapter
 import com.example.faith.adapters.MediumAdapter
 import com.example.faith.data.ApiDagboekSearchResponse
@@ -45,7 +46,18 @@ class DagboekListFragment : Fragment() {
         getDagboek()
         setHasOptionsMenu(true)
 
+
+        binding.btAddDagboek.setOnClickListener {
+            navigateToDagboek()
+        }
         return binding.root
+    }
+
+
+    private fun navigateToDagboek(){
+        val direction = DagboekListFragmentDirections.actionDagboekListFragment2ToDagboekFragment()
+        val navController = findNavController()
+        navController.navigate(direction)
     }
 
     fun insertNewDagboekPosts(){

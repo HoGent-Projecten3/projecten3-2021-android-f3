@@ -31,7 +31,10 @@ interface ApiService {
     ): Call<Message>
 
     @POST("Cinema/text")
-    fun uploadText(@Body s: String): Call<Message>
+    fun uploadText(
+        @Query("titel") titel: String,
+        @Query("beschrijving") beschrijving: String
+        ): Call<Message>
 
     @GET("Gebruiker")
     fun getGebruiker(): Call<Gebruiker>
