@@ -14,7 +14,9 @@ import com.example.faith.viewmodels.DagboekDetailViewModel
 import com.example.faith.viewmodels.DagboekDetailViewModel.Companion.provideFactory
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-
+/**
+ * @author Remi Mestdagh
+ */
 @AndroidEntryPoint
 class DagboekDetailFragment : Fragment() {
 

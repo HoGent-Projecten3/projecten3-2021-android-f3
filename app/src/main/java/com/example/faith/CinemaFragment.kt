@@ -18,12 +18,9 @@ import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.example.faith.R.layout.fragment_cinema
-import com.example.faith.api.ApiService
 import com.example.faith.databinding.FragmentCinemaBinding
 import com.example.faith.viewmodels.CinemaViewModel
-import com.example.faith.viewmodels.DagboekListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_cinema.*
 import okhttp3.MediaType.Companion.toMediaType
@@ -31,15 +28,14 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Date
-import javax.inject.Inject
 import kotlin.jvm.Throws
-
+/**
+ * @author Remi Mestdagh
+ */
 @AndroidEntryPoint
 class CinemaFragment : Fragment() {
     private val viewModel: CinemaViewModel by viewModels()
@@ -88,7 +84,6 @@ class CinemaFragment : Fragment() {
         /* return */
         return binding.root
     }
-
 
     private fun checkPermission() {
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {

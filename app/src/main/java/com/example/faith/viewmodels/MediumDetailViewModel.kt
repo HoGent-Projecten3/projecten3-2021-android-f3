@@ -5,7 +5,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.faith.data.MediumRepository
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
-
+/**
+ * @author Remi Mestdagh
+ */
 class MediumDetailViewModel @AssistedInject constructor(
     mediumRepository: MediumRepository,
     @Assisted private val mediumId: Int
@@ -35,6 +37,5 @@ class MediumDetailViewModel @AssistedInject constructor(
                 return assistedFactory.create(mediumId) as T
             }
         }
-
     }
 }

@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.faith.DagboekListFragmentDirections
 import com.example.faith.data.ApiDagboek
-import com.example.faith.data.ApiPhoto
 import com.example.faith.databinding.ListItemDagboekBinding
-import com.example.faith.databinding.ListItemMediumBinding
-
-class DagboekAdapter : PagingDataAdapter<ApiDagboek,DagboekAdapter.DagboekViewHolder>(DagboekDiffCallback()){
+/**
+ * @author Remi Mestdagh
+ */
+class DagboekAdapter : PagingDataAdapter<ApiDagboek, DagboekAdapter.DagboekViewHolder>(DagboekDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DagboekAdapter.DagboekViewHolder {
         return DagboekAdapter.DagboekViewHolder(
             ListItemDagboekBinding.inflate(
@@ -26,19 +26,19 @@ class DagboekAdapter : PagingDataAdapter<ApiDagboek,DagboekAdapter.DagboekViewHo
     }
 
     class DagboekViewHolder(
-        private val binding : ListItemDagboekBinding
-    ): RecyclerView.ViewHolder(binding.root) {
+        private val binding: ListItemDagboekBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.setClickListener {
                 binding.dagboek?.let {
-                    dagboek->
-                    navigateToDagboek(dagboek,it)
+                    dagboek ->
+                    navigateToDagboek(dagboek, it)
                 }
             }
         }
 
         private fun navigateToDagboek(
-            dagboek:ApiDagboek,
+            dagboek: ApiDagboek,
             view: View
         ) {
             val direction = DagboekListFragmentDirections.actionDagboekListFragment2ToDagboekDetailFragment(
@@ -46,7 +46,7 @@ class DagboekAdapter : PagingDataAdapter<ApiDagboek,DagboekAdapter.DagboekViewHo
             )
             view.findNavController().navigate(direction)
         }
-        fun bind(item:ApiDagboek){
+        fun bind(item: ApiDagboek) {
             binding.apply {
                 dagboek = item
                 executePendingBindings()
@@ -56,12 +56,12 @@ class DagboekAdapter : PagingDataAdapter<ApiDagboek,DagboekAdapter.DagboekViewHo
 
     override fun onBindViewHolder(holder: DagboekViewHolder, position: Int) {
         val dagboek = getItem(position)
-        if(dagboek!=null){
+        if (dagboek != null) {
             holder.bind(dagboek)
         }
     }
 }
-private class DagboekDiffCallback : DiffUtil.ItemCallback<ApiDagboek>(){
+private class DagboekDiffCallback : DiffUtil.ItemCallback<ApiDagboek>() {
     override fun areItemsTheSame(oldItem: ApiDagboek, newItem: ApiDagboek): Boolean {
         return oldItem.mediumId == newItem.mediumId
     }

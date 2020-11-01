@@ -15,15 +15,15 @@ import com.example.faith.databinding.FragmentMediumListBinding
 import com.example.faith.viewmodels.MediumListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_medium_list.*
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
+/**
+ * @author Remi Mestdagh
+ */
 @AndroidEntryPoint
 class MediumListFragment : Fragment() {
 
@@ -55,12 +55,12 @@ class MediumListFragment : Fragment() {
         return binding.root
     }
 
-    private fun navigateToDagboek(){
+    private fun navigateToDagboek() {
         val direction = MediumListFragmentDirections.actionMediumListFragmentToDagboekListFragment2()
         val navController = findNavController()
         navController.navigate(direction)
     }
-    private fun navigateToCinema(){
+    private fun navigateToCinema() {
         val direction = MediumListFragmentDirections.actionMediumListFragmentToCinemaFragment()
         val navController = findNavController()
         navController.navigate(direction)
@@ -79,16 +79,14 @@ class MediumListFragment : Fragment() {
                     var fotoj = responseMedium.body()?.results
                     fotoj?.forEach {
 
-
-                            viewModel.saveOne(
-                                Medium(
-                                    it.mediumId,
-                                    it.naam,
-                                    it.beschrijving,
-                                    it.url
-                                )
+                        viewModel.saveOne(
+                            Medium(
+                                it.mediumId,
+                                it.naam,
+                                it.beschrijving,
+                                it.url
                             )
-
+                        )
                     }
                 }
             }

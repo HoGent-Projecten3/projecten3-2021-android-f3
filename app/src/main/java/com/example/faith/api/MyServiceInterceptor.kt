@@ -7,7 +7,9 @@ import okhttp3.Response
 import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton
-
+/**
+ * @author Remi Mestdagh
+ */
 @Singleton
 class MyServiceInterceptor @Inject constructor() : Interceptor {
     private var sessionToken: String? = ""
