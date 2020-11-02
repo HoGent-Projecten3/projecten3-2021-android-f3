@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_hotelFragment_to_mediumListFragment"
             app:destination="@id/mediumListFragment" />
+        <action
+            android:id="@+id/action_hotelFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
     </fragment>
     <fragment
         android:id="@+id/cinemaFragment"
@@ -95,4 +98,8 @@
             android:id="@+id/action_dagboekFragment_to_cinemaFragment"
             app:destination="@id/cinemaFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.example.faith.ChatFragment"
+        android:label="ChatFragment" />
 </navigation>

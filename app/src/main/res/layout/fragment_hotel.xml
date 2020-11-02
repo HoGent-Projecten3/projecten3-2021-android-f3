@@ -81,7 +81,6 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
 
-
             <Button
                 android:id="@+id/image_bar"
                 android:layout_width="wrap_content"
@@ -89,7 +88,7 @@
                 android:layout_marginStart="92dp"
                 android:layout_marginBottom="72dp"
                 android:text="Button"
-                android:visibility="invisible"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.215"

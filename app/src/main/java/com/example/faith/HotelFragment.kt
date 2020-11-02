@@ -73,8 +73,10 @@ class HotelFragment : Fragment() {
     private fun addRouting(kamer: View) {
         when (kamer.id) {
             // TODO
-            R.id.image_bar -> Toast.makeText(activity, "Bar", Toast.LENGTH_SHORT).show()
-            // Navigate to cinema room
+            R.id.image_bar ->
+                Navigation.findNavController(kamer)
+                    .navigate(R.id.action_hotelFragment_to_chatFragment)
+
             R.id.image_cinema ->
                 Navigation.findNavController(kamer)
                     .navigate(R.id.action_hotelFragment_to_cinemaFragment)

@@ -16,6 +16,8 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Query
+import java.util.*
+
 /**
  * @author Remi Mestdagh
  */
@@ -35,6 +37,13 @@ interface ApiService {
     fun uploadText(
         @Query("titel") titel: String,
         @Query("beschrijving") beschrijving: String
+    ): Call<Message>
+
+    @POST("Chat")
+    fun verstuurBericht(
+        @Query("verstuurder") verstuurder: Gebruiker?,
+        @Query("text") text: String?,
+        @Query("datum") datum: Date?
     ): Call<Message>
 
     @GET("Gebruiker")
