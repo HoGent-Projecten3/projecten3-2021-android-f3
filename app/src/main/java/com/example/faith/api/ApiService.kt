@@ -16,8 +16,9 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Query
-import retrofit2.http.Url
-
+/**
+ * @author Remi Mestdagh
+ */
 interface ApiService {
 
     @Headers("No-Authentication: true")
@@ -31,31 +32,34 @@ interface ApiService {
     ): Call<Message>
 
     @POST("Cinema/text")
-    fun uploadText(@Body s: String): Call<Message>
+    fun uploadText(
+        @Query("titel") titel: String,
+        @Query("beschrijving") beschrijving: String
+    ): Call<Message>
 
     @GET("Gebruiker")
     fun getGebruiker(): Call<Gebruiker>
 
     @GET("Cinema/Media")
     suspend fun getMedia(
-        @Query("page") page:Int,
-        @Query("aantal") perPage:Int
+        @Query("page") page: Int,
+        @Query("aantal") perPage: Int
     ): ApiMediumSearchResponse
     @GET("Cinema/Media")
     fun getMedia2(
-        @Query("page") page:Int,
-        @Query("aantal") perPage:Int
+        @Query("page") page: Int,
+        @Query("aantal") perPage: Int
     ): Call<ApiMediumSearchResponse>
     @GET("Cinema/Dagboek")
     suspend fun getDagboek(
-        @Query("page") page:Int,
-        @Query("aantal") perPage:Int
-    ) : ApiDagboekSearchResponse
+        @Query("page") page: Int,
+        @Query("aantal") perPage: Int
+    ): ApiDagboekSearchResponse
     @GET("Cinema/Dagboek")
     fun getDagboek2(
-        @Query("page") page:Int,
-        @Query("aantal") perPage:Int
-    ) : Call<ApiDagboekSearchResponse>
+        @Query("page") page: Int,
+        @Query("aantal") perPage: Int
+    ): Call<ApiDagboekSearchResponse>
 
     @GET("Cinema/id")
     fun getMedium(@Query("mediumId") id: Int): ApiMediumResponse

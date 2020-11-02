@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.faith.MediumListFragmentDirections
 import com.example.faith.data.ApiPhoto
 import com.example.faith.databinding.ListItemMediumBinding
-
 /**
+ * @author Remi Mestdagh
  * adapter for recyclerview in plantlistfragment
  */
 class MediumAdapter : PagingDataAdapter<ApiPhoto, MediumAdapter.MediumViewHolder>(MediumDiffCallback()) {

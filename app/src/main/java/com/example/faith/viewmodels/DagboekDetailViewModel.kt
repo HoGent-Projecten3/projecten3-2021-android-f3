@@ -5,7 +5,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.faith.data.MediumRepository
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
-
+/**
+ * @author Remi Mestdagh
+ */
 class DagboekDetailViewModel @AssistedInject constructor(
     mediumRepository: MediumRepository,
     @Assisted private val mediumId: Int

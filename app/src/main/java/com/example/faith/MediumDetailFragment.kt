@@ -15,7 +15,9 @@ import com.example.faith.viewmodels.MediumDetailViewModel
 import com.example.faith.viewmodels.MediumDetailViewModel.Companion.provideFactory
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-
+/**
+ * @author Remi Mestdagh
+ */
 @AndroidEntryPoint
 class MediumDetailFragment : Fragment() {
 

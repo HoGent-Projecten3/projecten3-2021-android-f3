@@ -1,20 +1,17 @@
 package com.example.faith
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.faith.adapters.DagboekAdapter
-import com.example.faith.adapters.MediumAdapter
 import com.example.faith.data.ApiDagboekSearchResponse
-import com.example.faith.data.ApiMediumSearchResponse
 import com.example.faith.data.Medium
 import com.example.faith.databinding.FragmentDagboekListBinding
-import com.example.faith.databinding.FragmentMediumListBinding
 import com.example.faith.viewmodels.DagboekListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.GlobalScope
@@ -25,16 +22,19 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
+/**
+ * @author Remi Mestdagh
+ */
 @AndroidEntryPoint
 class DagboekListFragment : Fragment() {
 
     private val viewModel: DagboekListViewModel by viewModels()
-    private var searchJob: Job? =null
+    private var searchJob: Job? = null
     private val adapter = DagboekAdapter()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentDagboekListBinding.inflate(inflater, container, false)
@@ -45,10 +45,19 @@ class DagboekListFragment : Fragment() {
         getDagboek()
         setHasOptionsMenu(true)
 
+        binding.btAddDagboek.setOnClickListener {
+            navigateToDagboek()
+        }
         return binding.root
     }
 
-    fun insertNewDagboekPosts(){
+    private fun navigateToDagboek() {
+        val direction = DagboekListFragmentDirections.actionDagboekListFragment2ToDagboekFragment()
+        val navController = findNavController()
+        navController.navigate(direction)
+    }
+
+    fun insertNewDagboekPosts() {
         viewModel.getDagboekPosts2().enqueue(
             object : Callback<ApiDagboekSearchResponse?> {
                 override fun onFailure(call: Call<ApiDagboekSearchResponse?>, t: Throwable) {
@@ -67,7 +76,7 @@ class DagboekListFragment : Fragment() {
                                     it.mediumId,
                                     it.naam,
                                     it.beschrijving,
-                                  ""
+                                    ""
                                 )
                             )
                         }
@@ -75,10 +84,9 @@ class DagboekListFragment : Fragment() {
                 }
             }
         )
-
     }
 
-    private fun getDagboek(){
+    private fun getDagboek() {
         searchJob?.cancel()
         searchJob = lifecycleScope.launch {
             viewModel.getDagboekPosts().collectLatest {
@@ -86,5 +94,4 @@ class DagboekListFragment : Fragment() {
             }
         }
     }
-
 }

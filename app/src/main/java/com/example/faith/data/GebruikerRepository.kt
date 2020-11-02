@@ -17,10 +17,4 @@ class GebruikerRepository @Inject constructor(
     fun login(login: Login): Call<LoginResponse> {
         return service.login(login)
     }
-    /*
-    fun setToken(token: String){
-        interceptor.setSessionToken(token)
-    }
-
-     */
 }

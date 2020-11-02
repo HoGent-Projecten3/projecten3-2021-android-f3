@@ -9,18 +9,20 @@ import com.example.faith.data.Medium
 import com.example.faith.data.MediumRepository
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Call
-
+/**
+ * @author Remi Mestdagh
+ */
 class DagboekListViewModel @ViewModelInject constructor(
     private val repository: MediumRepository
 ) : ViewModel() {
 
-    fun getDagboekPosts() : Flow<PagingData<ApiDagboek>>{
+    fun getDagboekPosts(): Flow<PagingData<ApiDagboek>> {
         return repository.getDagboekPosts()
     }
-    fun getDagboekPosts2(): Call<ApiDagboekSearchResponse>{
+    fun getDagboekPosts2(): Call<ApiDagboekSearchResponse> {
         return repository.getDagboekPosts2()
     }
-    suspend fun saveOne(medium: Medium){
+    suspend fun saveOne(medium: Medium) {
         repository.insertOne(medium)
     }
 }

@@ -10,7 +10,93 @@
         android:background="@drawable/hotel"
         android:fitsSystemWindows="true">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_anchorGravity="center"
+            android:id="@+id/constraintLayout"
+            app:layout_anchor="@+id/constraintLayout">
 
+            <Button
+                android:id="@+id/image_cinema"
+                android:layout_width="144dp"
+                android:layout_height="142dp"
+                android:layout_marginStart="258dp"
+                android:layout_marginEnd="60dp"
+                android:layout_marginBottom="200dp"
+                android:background="@android:color/transparent"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.313"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/image_bibliotheek"
+                android:layout_width="176dp"
+                android:layout_height="205dp"
+                android:layout_marginTop="20dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.021"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image_penthouse"
+                android:background="@android:color/transparent" />
+
+            <Button
+                android:id="@+id/image_trofeeKamer"
+                android:layout_width="107dp"
+                android:layout_height="117dp"
+                android:layout_marginTop="22dp"
+                android:text="Button"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.83"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image_penthouse" />
+
+
+            <Button
+                android:id="@+id/image_penthouse"
+                android:layout_width="183dp"
+                android:layout_height="126dp"
+                android:text="Button"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.833"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="56dp" />
+
+            <Button
+                android:id="@+id/image_infobalie"
+                android:layout_width="122dp"
+                android:layout_height="135dp"
+                android:layout_marginBottom="64dp"
+                android:text="Button"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.134"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+
+            <Button
+                android:id="@+id/image_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_marginStart="92dp"
+                android:layout_marginBottom="72dp"
+                android:text="Button"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.215"
+                app:layout_constraintStart_toEndOf="@+id/image_infobalie" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

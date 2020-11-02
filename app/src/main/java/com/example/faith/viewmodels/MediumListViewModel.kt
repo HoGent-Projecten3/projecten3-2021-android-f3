@@ -5,14 +5,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.faith.data.ApiPhoto
 import com.example.faith.data.ApiMediumSearchResponse
+import com.example.faith.data.ApiPhoto
 import com.example.faith.data.Medium
 import com.example.faith.data.MediumRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import retrofit2.Call
-
+/**
+ * @author Remi Mestdagh
+ */
 class MediumListViewModel @ViewModelInject constructor(
     private val apiRepository: MediumRepository
 
@@ -29,6 +31,5 @@ class MediumListViewModel @ViewModelInject constructor(
         viewModelScope.launch {
             apiRepository.insertOne(medium)
         }
-
     }
 }

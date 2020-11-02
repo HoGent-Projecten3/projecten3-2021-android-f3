@@ -19,6 +19,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
+/**
+ * @author Remi Mestdagh
+ */
 @Module
 @InstallIn(ApplicationComponent::class)
 class NetworkModule() {
@@ -68,7 +71,7 @@ class NetworkModule() {
     fun provideRetrofit(gson: Gson, okHttpClient: OkHttpClient?): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create(gson))
-            .baseUrl("https://f3backend-dev-as.azurewebsites.net//api/")
+            .baseUrl("https://f3backend-dev-as.azurewebsites.net/api/")
             .client(okHttpClient)
             .build()
     }
