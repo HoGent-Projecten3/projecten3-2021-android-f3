@@ -42,4 +42,5 @@
     <string name="content_description_search">zoeken</string>
     <string name="content_description_more">meer</string>
     <string name="search">zoek</string>
+    <string name="delete_button_text">verwijder</string>
 </resources>

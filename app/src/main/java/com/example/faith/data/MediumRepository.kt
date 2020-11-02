@@ -45,4 +45,10 @@ class MediumRepository @Inject constructor(private val mediumDao: MediumDao, pri
     fun postText(titel: String, beschrijving: String): Call<Message> {
         return service.uploadText(titel, beschrijving)
     }
+    fun removeMedium(id: Int):Call<Message>{
+        return service.removeMedium(id)
+    }
+    fun deleteMediumRoom(medium:Medium){
+        return mediumDao.deleteMedium(medium)
+    }
 }

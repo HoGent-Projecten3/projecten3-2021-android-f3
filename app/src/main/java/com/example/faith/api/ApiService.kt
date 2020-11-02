@@ -10,6 +10,7 @@ import com.example.faith.data.LoginResponse
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Multipart
@@ -63,6 +64,9 @@ interface ApiService {
 
     @GET("Cinema/id")
     fun getMedium(@Query("mediumId") id: Int): ApiMediumResponse
+
+    @DELETE("Cinema")
+    fun removeMedium(@Query("mediumId") id:Int) : Call<Message>
 
     data class LoginResponseModel(
         val token: String,
