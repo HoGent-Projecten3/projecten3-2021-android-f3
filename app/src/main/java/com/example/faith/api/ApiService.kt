@@ -1,12 +1,10 @@
 package com.example.faith.api
 
 import android.os.Message
-import com.example.faith.data.ApiSearchResponse
-import com.example.faith.data.Gebruiker
-import com.example.faith.data.Login
-import com.example.faith.data.LoginResponse
+import com.example.faith.data.*
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
+import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level
 import retrofit2.Call;
@@ -38,16 +36,19 @@ interface ApiService {
 
     @Headers("Content-Type: application/json")
     @POST("Account/login")
-    fun login(@Body login: Login): Call<LoginResponse>
+    fun login(@Body login: Login): Call<ResponseBody>
 
     @GET("Cinema")
     suspend fun getMedia(
     ): ApiSearchResponse
 
+    @GET("Client/GetDoelen")
+    fun getDoelen():Call<List<DoelDTO>>
+
 
     data class LoginResponseModel(
-        val token: String, val
-        refreshToken: String
+        val token: String
+        , val refreshToken: String
     )
 }
 

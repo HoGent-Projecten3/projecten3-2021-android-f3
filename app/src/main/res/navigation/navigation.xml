@@ -27,6 +27,9 @@
         <action
             android:id="@+id/action_hotelFragment_to_mediumListFragment"
             app:destination="@id/mediumListFragment" />
+        <action
+            android:id="@+id/action_hotelFragment_to_penthouseFragment"
+            app:destination="@id/penthouseFragment" />
     </fragment>
     <fragment
         android:id="@+id/cinemaFragment"
@@ -42,4 +45,9 @@
         android:id="@+id/mediumListFragment"
         android:name="com.example.faith.MediumListFragment"
         android:label="MediumListFragment" />
+    <fragment
+        android:id="@+id/penthouseFragment"
+        android:name="com.example.faith.PenthouseFragment"
+        android:label="fragment_penthouse"
+        tools:layout="@layout/fragment_penthouse" />
 </navigation>
