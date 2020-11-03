@@ -22,7 +22,7 @@ class ChatViewModel @ViewModelInject constructor(
         return berichtRepository.verstuurBericht(bericht)
     }
 
-    fun geefBerichten():List<Bericht>{
+    fun geefBerichten():List<Bericht>?{
         return berichtRepository.getBerichten()
     }
 }

@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class BerichtRepository @Inject constructor(private val service: ApiService) {
 
-    fun getBerichten():List<Bericht>{
+    fun getBerichten(): List<Bericht>? {
         val gebruiker1 = Gebruiker("Jef", "Seys", "jef.seys.y0431@student.hogent.be")
         val gebruiker2 = Gebruiker("Joost", "Kaas", "joost@kaas.be")
         val bericht1 = Bericht(gebruiker1, "Hallo", Date())
@@ -19,7 +19,8 @@ class BerichtRepository @Inject constructor(private val service: ApiService) {
         val bericht5 = Bericht(gebruiker1, "Nu zeker Benjamin!", Date())
         val bericht6 = Bericht(gebruiker2, "Ik vind Android zeer leuk!", Date())
         val bericht7 = Bericht(gebruiker1, "Kotlin is zo leuk!", Date())
-        return listOf(bericht1, bericht2, bericht3, bericht4, bericht5, bericht6, bericht7)
+
+        return service.getBerichten().execute().body()//listOf(bericht1, bericht2, bericht3, bericht4, bericht5, bericht6, bericht7)
     }
 
     fun verstuurBericht(bericht: Bericht): Call<Message> {

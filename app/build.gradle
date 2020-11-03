@@ -65,7 +65,7 @@ android {
 }
 
 dependencies {
-
+    implementation 'com.smartarmenia:dotnetcoresignalrclientjava:1.14'
     api 'com.google.android.material:material:1.3.0-alpha03'
     compileOnly "com.squareup.inject:assisted-inject-annotations-dagger2:0.6.0"
     kapt "com.github.bumptech.glide:compiler:4.10.0"

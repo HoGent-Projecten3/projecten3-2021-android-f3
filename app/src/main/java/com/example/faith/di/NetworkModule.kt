@@ -3,6 +3,7 @@ package com.example.faith.di
 import android.app.Application
 import com.example.faith.api.ApiService
 import com.example.faith.api.MyServiceInterceptor
+import com.example.faith.api.SignalRService
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -25,12 +26,21 @@ import javax.inject.Singleton
 @Module
 @InstallIn(ApplicationComponent::class)
 class NetworkModule() {
+
+
     @Provides
     @Singleton
     fun provideHttpCache(application: Application): Cache {
         val cacheSize = 10 * 1024 * 1024
         return Cache(application.cacheDir, cacheSize.toLong())
     }
+
+    @Provides
+    @Singleton
+    fun provideSignalRService(): SignalRService{
+        return SignalRService()
+    }
+
 
     @Provides
     @Singleton

@@ -12,17 +12,24 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.faith.adapters.BerichtAdapter
+import com.example.faith.api.SignalRService
 import com.example.faith.data.Bericht
 import com.example.faith.data.GebruikerRepository
 import com.example.faith.databinding.ChatFragmentBinding
 import com.example.faith.databinding.FragmentCinemaBinding
 import com.example.faith.viewmodels.ChatViewModel
+import com.smartarmenia.dotnetcoresignalrclientjava.HubConnection
+import com.smartarmenia.dotnetcoresignalrclientjava.HubEventListener
+import com.smartarmenia.dotnetcoresignalrclientjava.SignalRMessage
+import com.smartarmenia.dotnetcoresignalrclientjava.WebSocketHubConnection
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.chat_fragment.*
 import java.util.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class ChatFragment : Fragment() {
+class ChatFragment constructor() : Fragment() {
+    @Inject lateinit var signalRService: SignalRService
     private lateinit var adapter: BerichtAdapter
     private val viewModel: ChatViewModel by viewModels()
     private lateinit var gebruikerRepository: GebruikerRepository
@@ -43,11 +50,13 @@ class ChatFragment : Fragment() {
         gebruikerRepository = viewModel.getGebruikerRepository()
         binding.messageList.adapter = adapter
 
-        var berichten = viewModel.geefBerichten()
+        /*var berichten = viewModel.geefBerichten()
 
-        for(i in berichten){
-            adapter.addMessage(i)
-        }
+        if (berichten != null) {
+            for(i in berichten){
+                adapter.addMessage(i)
+            }
+        }*/
         binding.messageList.scrollToPosition(adapter.itemCount - 1);
         binding.btnSend.setOnClickListener {
             if (binding.txtMessage.text.isNotEmpty()) {
@@ -62,8 +71,7 @@ class ChatFragment : Fragment() {
             }
         }
 
+        signalRService?.start("joost@kaas.be", this)
         return binding.root
     }
-
-
 }

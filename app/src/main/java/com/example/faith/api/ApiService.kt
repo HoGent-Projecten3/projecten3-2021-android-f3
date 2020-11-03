@@ -1,12 +1,7 @@
 package com.example.faith.api
 
 import android.os.Message
-import com.example.faith.data.ApiDagboekSearchResponse
-import com.example.faith.data.ApiMediumResponse
-import com.example.faith.data.ApiMediumSearchResponse
-import com.example.faith.data.Gebruiker
-import com.example.faith.data.Login
-import com.example.faith.data.LoginResponse
+import com.example.faith.data.*
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -45,6 +40,9 @@ interface ApiService {
         @Query("text") text: String?,
         @Query("datum") datum: Date?
     ): Call<Message>
+
+    @GET("Chat")
+    fun getBerichten(): Call<List<Bericht>>
 
     @GET("Gebruiker")
     fun getGebruiker(): Call<Gebruiker>
