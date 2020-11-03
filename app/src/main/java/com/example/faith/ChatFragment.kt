@@ -18,10 +18,6 @@ import com.example.faith.data.GebruikerRepository
 import com.example.faith.databinding.ChatFragmentBinding
 import com.example.faith.databinding.FragmentCinemaBinding
 import com.example.faith.viewmodels.ChatViewModel
-import com.smartarmenia.dotnetcoresignalrclientjava.HubConnection
-import com.smartarmenia.dotnetcoresignalrclientjava.HubEventListener
-import com.smartarmenia.dotnetcoresignalrclientjava.SignalRMessage
-import com.smartarmenia.dotnetcoresignalrclientjava.WebSocketHubConnection
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.chat_fragment.*
 import java.util.*

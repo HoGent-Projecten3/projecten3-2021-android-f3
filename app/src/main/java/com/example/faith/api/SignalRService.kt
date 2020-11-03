@@ -1,15 +1,9 @@
 package com.example.faith.api
 
-import android.util.Log
 import com.example.faith.ChatFragment
-import com.smartarmenia.dotnetcoresignalrclientjava.HubConnection
-import com.smartarmenia.dotnetcoresignalrclientjava.HubEventListener
-import com.smartarmenia.dotnetcoresignalrclientjava.WebSocketHubConnectionP2
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import okhttp3.internal.wait
+import com.microsoft.signalr.HubConnection
+import com.microsoft.signalr.HubConnectionBuilder
+import io.reactivex.Single
 import javax.inject.Singleton
 
 @Singleton
@@ -17,8 +11,7 @@ class SignalRService {
 
     private var sessionToken: String? = ""
     private lateinit var chatFragment: ChatFragment
-
-    private lateinit var connection: HubConnection
+    private lateinit var hubConnection: HubConnection
 
     fun setSessionToken(sessionToken: String?){
         this.sessionToken = sessionToken
@@ -26,17 +19,35 @@ class SignalRService {
 
     fun start(email: String?, chatFragment: ChatFragment){
         this.chatFragment = chatFragment
-        connection = WebSocketHubConnectionP2("https://192.168.2.102:45456/connectionHub", sessionToken)
-        GlobalScope.launch {
-            connection.connect().wait()
-        }
+        hubConnection =  HubConnectionBuilder.create("http://192.168.1.37:45455/connectionHub").withAccessTokenProvider(
+            Single.defer {
+                Single.just(
+                    "Bearer $sessionToken"
+                )
+            }
+
+        ).build()
+        hubConnection.start().blockingAwait()
         init(email)
+        send("kaas")
+        hubConnection.on(
+            "OntvangBericht",
+            { message: String -> println("New Message: $message") },
+            String::class.java
+        )
     }
     fun stop(){
-        connection.disconnect()
+        hubConnection.stop()
+    }
+    fun print(){
+
     }
     fun init(email: String?){
-        connection.invoke("Join", email)
-        connection.subscribeToEvent("OntvangBericht", HubEventListener { message -> Log.i("ontvangen", message.toString()) })
+
+        hubConnection.send("Join", "jef.seys.y0431@student.hogent.be")
+
+    }
+    fun send(message: String){
+        hubConnection.send("Verstuur", "jef.seys.y0431@student.hogent.be", "kaas")
     }
 }
