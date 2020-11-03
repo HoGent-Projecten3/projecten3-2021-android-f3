@@ -44,6 +44,10 @@ class MainActivity : AppCompatActivity() {
             R.id.aboutFragment -> {
                 NavigationUI.onNavDestinationSelected(item, this.findNavController(R.id.myNavHostFragment))
             }
+            R.id.penthouseFragment -> {
+                this.findNavController(R.id.myNavHostFragment).navigate(R.id.action_hotelFragment_to_penthouseFragment)
+                return true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
