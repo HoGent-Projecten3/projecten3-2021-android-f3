@@ -2,6 +2,7 @@ package com.example.faith.di
 
 import android.content.Context
 import com.example.faith.data.AppDatabase
+import com.example.faith.data.HulpbronDao
 import com.example.faith.data.MediumDao
 import dagger.Module
 import dagger.Provides
@@ -25,5 +26,9 @@ class DatabaseModule {
     @Provides
     fun provideMediumDao(appDatabase: AppDatabase): MediumDao {
         return appDatabase.mediumDao()
+    }
+    @Provides
+    fun provideHulpbronDao(appDatabase: AppDatabase): HulpbronDao {
+        return appDatabase.hulpbronDao()
     }
 }

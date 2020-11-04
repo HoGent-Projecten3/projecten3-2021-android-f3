@@ -1,0 +1,119 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:backgroundTint="@color/hotel_theme"
+        android:background="@color/hotel_theme">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="false">
+
+            <TextView
+                android:id="@+id/txtNaam"
+                android:layout_width="333dp"
+                android:layout_height="wrap_content"
+                android:foregroundGravity="center|center_horizontal"
+                android:gravity="center|center_horizontal|center_vertical"
+                android:text="@{viewModel.hulpbron.titel}"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:maxLines="10"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.061"
+                tools:text="naam" />
+
+            <TextView
+                android:id="@+id/txtBeschrijving"
+                android:layout_width="333dp"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.hulpbron.inhoud}"
+                android:textSize="18sp"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtNaam"
+                app:layout_constraintVertical_bias="0.054"
+                tools:text="beschrijving" />
+
+            <Button
+                android:id="@+id/btnUrl"
+                android:layout_width="333dp"
+                android:layout_height="wrap_content"
+                android:text="Bezoek de website"
+                android:textSize="18sp"
+                android:textStyle="bold|italic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtBeschrijving"
+                app:layout_constraintVertical_bias="0.054"
+                tools:text="url" />
+            <Button
+                android:id="@+id/btnTelefoonnummer"
+                android:layout_width="333dp"
+                android:layout_height="wrap_content"
+                android:text= "Bel ons"
+                android:textSize="18sp"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnUrl"
+                app:layout_constraintVertical_bias="0.054"
+                />
+
+            <Button
+                android:id="@+id/btnChatUrl"
+                android:layout_width="333dp"
+                android:layout_height="wrap_content"
+                android:text="Chat"
+                android:textSize="18sp"
+                android:textStyle="bold|italic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnTelefoonnummer"
+                app:layout_constraintVertical_bias="0.054"
+                />
+            <Button
+                android:id="@+id/btnEmailadres"
+                android:layout_width="333dp"
+                android:layout_height="wrap_content"
+                android:text="Verstuur een mail"
+                android:textSize="18sp"
+                android:textStyle="bold|italic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnChatUrl"
+                app:layout_constraintVertical_bias="0.054"
+                />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <data>
+        <import type="com.example.faith.data.ApiHulpbron"/>
+        <variable
+            name="viewModel"
+            type="com.example.faith.viewmodels.HulpbronDetailViewModel" />
+        <variable
+            name="callback"
+            type="com.example.faith.HulpbronDetailFragment.Callback" />
+    </data>
+
+
+</layout>

@@ -18,6 +18,9 @@
             android:id="@+id/action_hotelFragment_to_mediumListFragment"
             app:destination="@id/mediumListFragment" />
         <action
+            android:id="@+id/action_hotelFragment_to_hulpbronListFragment"
+            app:destination="@id/hulpbronListFragment" />
+        <action
 
             android:id="@+id/action_hotelFragment_to_chatFragment"
             app:destination="@id/chatFragment" />
@@ -110,6 +113,26 @@
         android:label="De bar" />
 
         android:label="MediumListFragment" />
+    <fragment
+        android:id="@+id/hulpbronListFragment"
+        android:name="com.example.faith.HulpbronListFragment"
+        android:label="Hulpbronnen" >
+        <action
+            android:id="@+id/action_hulpbronListFragment_to_hulpbronDetailFragment"
+            app:destination="@id/hulpbronDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/hulpbronDetailFragment"
+        android:name="com.example.faith.HulpbronDetailFragment"
+        android:label="Hulpbron" >
+        <action
+            android:id="@+id/action_hulpbronDetailFragment_to_hulpbronListFragment"
+            app:destination="@id/hulpbronListFragment" />
+        <argument
+            android:name="hulpbronId"
+            app:argType="integer" />
+    </fragment>
+
     <fragment
         android:id="@+id/penthouseFragment"
         android:name="com.example.faith.PenthouseFragment"
