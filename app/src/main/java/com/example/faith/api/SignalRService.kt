@@ -30,17 +30,15 @@ class SignalRService {
             ).build()
         hubConnection.start().blockingAwait()
         init(email)
-        hubConnection.on(
-            "OntvangBericht",
-            { message: String ->
-                println("New Message: $message")
-            },
-            String::class.java
-        )
+
     }
 
     fun stop() {
         hubConnection.stop()
+    }
+
+    fun getConnection(): HubConnection {
+        return hubConnection
     }
 
     fun init(email: String?) {
@@ -48,6 +46,6 @@ class SignalRService {
     }
 
     fun send(message: String, email: String) {
-        hubConnection.send("Verstuur", email, "kaas")
+        hubConnection.send("Verstuur", email, message)
     }
 }

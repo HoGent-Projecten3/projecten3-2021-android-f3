@@ -25,6 +25,7 @@ import com.example.faith.viewmodels.ChatViewModel
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_chat.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -52,18 +53,40 @@ class ChatFragment : Fragment() {
         getBerichten2()
 
         setHasOptionsMenu(true)
+        signalRService?.start("jef.seys.y0431@student.hogent.be", this)
 
-
-        signalRService?.start("joost@kaas.be", this)
+        binding.btSendMessage.setOnClickListener {
+            verstuurBericht()
+        }
+        signalRService?.getConnection().on("OntvangBericht",
+            { message: String ->
+                addNewMessages(message)
+            },
+            String::class.java
+        )
         return binding.root
     }
+    fun initSignalR(){
+        signalRService?.start("jef.seys.y0431@student.hogent.be", this)
+        signalRService?.getConnection().on("OntvangBericht",
+            { message: String ->
+                addNewMessages(message)
+            },
+            String::class.java
+        )
+    }
     private fun verstuurBericht(){
-        //var bericht:Bericht = Bericht();
-        //messageAdapter.add(SendMessageItem())
-        signalRService.send("hey daddy", "jef.seys.y0431@student.hogent.be")
+        initSignalR()
+        signalRService.send(txfEditBericht.text.toString(), "jef.seys.y0431@student.hogent.be")
+        var bericht = ApiBericht(0,"jef.seys.y0431@student.hogent.be","jef.seys.y0431@student.hogent.be",txfEditBericht.text.toString())
+        messageAdapter.add(SendMessageItem(bericht))
+    }
+    private fun addNewMessages(message:String){
+        var bericht = ApiBericht(0,"jef.seys.y0431@student.hogent.be","jef.seys.y0431@student.hogent.be",message)
+        messageAdapter.add(ReceiveMessageItem(bericht))
     }
     private fun getBerichten2(){
-        var call = viewModel.geefBerichten2().enqueue(
+        viewModel.geefBerichten2().enqueue(
 
             object : Callback<ApiBerichtSearchResponse?> {
                 override fun onResponse(
