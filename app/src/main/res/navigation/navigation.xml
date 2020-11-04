@@ -33,6 +33,9 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
+            android:id="@+id/action_hotelFragment_to_hulpbronListFragment"
+            app:destination="@id/hulpbronListFragment" />
+        <action
 
             android:id="@+id/action_hotelFragment_to_chatFragment"
             app:destination="@id/chatFragment"
@@ -204,6 +207,26 @@
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <argument
+            android:name="hulpbronId"
+            app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/hulpbronListFragment"
+        android:name="com.example.faith.HulpbronListFragment"
+        android:label="Hulpbronnen" >
+        <action
+            android:id="@+id/action_hulpbronListFragment_to_hulpbronDetailFragment"
+            app:destination="@id/hulpbronDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/hulpbronDetailFragment"
+        android:name="com.example.faith.HulpbronDetailFragment"
+        android:label="Hulpbron" >
+        <action
+            android:id="@+id/action_hulpbronDetailFragment_to_hulpbronListFragment"
+            app:destination="@id/hulpbronListFragment" />
         <argument
             android:name="hulpbronId"
             app:argType="integer" />

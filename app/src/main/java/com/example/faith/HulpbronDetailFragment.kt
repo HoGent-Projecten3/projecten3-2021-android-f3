@@ -3,10 +3,10 @@ package com.example.faith
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -34,8 +34,8 @@ class HulpbronDetailFragment : Fragment() {
 
     private val hulpbronDetailViewModel: HulpbronDetailViewModel by viewModels {
         provideFactory(
-            hulpbronDetailViewModelFactory,
-            args.hulpbronId
+                hulpbronDetailViewModelFactory,
+                args.hulpbronId
         )
 
     }
@@ -43,15 +43,15 @@ class HulpbronDetailFragment : Fragment() {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate<FragmentHulpbronDetailBinding>(
-            inflater,
-            R.layout.fragment_hulpbron_detail,
-            container,
-            false
+                inflater,
+                R.layout.fragment_hulpbron_detail,
+                container,
+                false
         ).apply {
             viewModel = hulpbronDetailViewModel
             lifecycleOwner = viewLifecycleOwner
@@ -60,64 +60,25 @@ class HulpbronDetailFragment : Fragment() {
                 }
             }
         }
-
-        createLayout()
+        binding.btnTelefoonnummer.setOnClickListener()
+        {
+            startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + hulpbronDetailViewModel.hulpbron.value?.telefoonnummer)))
+        }
+        binding.btnUrl.setOnClickListener()
+        {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(hulpbronDetailViewModel.hulpbron.value?.url)))
+        }
+        binding.btnChatUrl.setOnClickListener()
+        {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(hulpbronDetailViewModel.hulpbron.value?.chatUrl)))
+        }
+        binding.btnEmailadres.setOnClickListener()
+        {
+            startActivity(Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"+hulpbronDetailViewModel.hulpbron.value?.emailadres)))
+        }
 
         setHasOptionsMenu(true)
         return binding.root
-    }
-
-    private fun createLayout() {
-
-        binding.linLayTelefoon.setOnClickListener()
-            {
-                startActivity(
-                    Intent(
-                        Intent.ACTION_DIAL,
-                        Uri.parse("tel:" + hulpbronDetailViewModel.hulpbron.value?.telefoonnummer)
-                    )
-                )
-            }
-
-
-
-            binding.linLayUrl.setOnClickListener()
-            {
-                startActivity(
-                    Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse(hulpbronDetailViewModel.hulpbron.value?.url)
-                    )
-                )
-            }
-
-
-
-
-            binding.linLayChatUrl.setOnClickListener()
-            {
-                startActivity(
-                    Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse(hulpbronDetailViewModel.hulpbron.value?.chatUrl)
-                    )
-                )
-            }
-
-
-
-            binding.linLayEmail.setOnClickListener()
-            {
-                startActivity(
-                    Intent(
-                        Intent.ACTION_SENDTO,
-                        Uri.parse("mailto:" + hulpbronDetailViewModel.hulpbron.value?.emailadres)
-                    )
-                )
-            }
-
-
-
     }
 
 

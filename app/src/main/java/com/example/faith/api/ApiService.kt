@@ -88,25 +88,13 @@ interface ApiService {
         @Query("aantal") perPage: Int
     ): Call<ApiDagboekSearchResponse>
 
-    @GET("Infobalie/getHulpbronnenPaging")
-    suspend fun getHulpbronnen(
-        @Query("page") page: Int,
-        @Query("aantal") perPage: Int
-    ): ApiHulpbronSearchResponse
-
-    @GET("Infobalie/getHulpbronnenPaging")
-    fun getHulpbronnen2(
-        @Query("page") page: Int,
-        @Query("aantal") perPage: Int
-    ): Call<ApiHulpbronSearchResponse>
-
     @GET("Infobalie/getHulpbronnen")
     suspend fun getHulpbronnen(
         @Query("page") page:Int,
         @Query("aantal") perPage:Int
     ) : ApiHulpbronSearchResponse
 
-    @GET("Infobalie/getHulpbronnenPaging")
+    @GET("Infobalie/getHulpbronnen")
     fun getHulpbronnen2(
         @Query("page") page:Int,
         @Query("aantal") perPage:Int
@@ -114,6 +102,7 @@ interface ApiService {
 
     @POST("Account/login")
     fun login(@Body login: Login): Call<LoginResponse>
+
 
     @GET("Client/GetDoelen")
     fun getDoelen(): Call<List<DoelDTO>>
