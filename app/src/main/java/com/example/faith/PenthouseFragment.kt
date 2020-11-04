@@ -23,61 +23,37 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class PenthouseFragment : Fragment() {
 
-    var doelen: MutableList<IDoel>
-
     private val viewModel: PenthouseViewModel by viewModels()
-
-    init {
-        var doel: IDoel = Doel("Doel 1", false,true)
-        doel.addStap(Stap("Een eerste stap", true))
-        doel.addStap(Stap("Een tweede stap",false))
-        var subDoel: Doel = Doel("Een subdoel", false,true)
-        subDoel.addStap(Stap("Eerst stap subdoel",false))
-        subDoel.addStap(Stap("Tweede stap subdoel",false))
-        var subSubDoel: Doel = Doel("Een sub-subdoel", false,true)
-        subSubDoel.addStap(Stap("Eerste sub-subdoel stap",false))
-        subSubDoel.addStap(Stap("Tweede sub-subdoel stap",false))
-        subDoel.addStap(subSubDoel)
-        doel.addStap(subDoel)
-        doel.addStap(Stap("Een laatste stap",false))
-
-        var doel2: IDoel = Doel("Doel 2", false,true)
-        doel2.addStap(Stap("Een eerste stap",false))
-        doel2.addStap(Stap("Een tweede stap",false))
-        var subDoel2: Doel = Doel("Een subdoel", false,true)
-        subDoel2.addStap(Stap("Eerst stap subdoel",false))
-        subDoel2.addStap(Stap("Tweede stap subdoel",false))
-        subDoel2.addStap(Stap("Derde stap subdoel",false))
-        doel2.addStap(subDoel2)
-        doel2.addStap(Stap("Een laatste stap",false))
-
-        doelen = mutableListOf(doel, doel2)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val binding = FragmentPenthouseBinding.inflate(inflater, container, false)
 
-        val adapter = DoelAdapter(doelen)
+        val adapter = DoelAdapter()
         binding.doelList.adapter = adapter
+
+        binding.doelList.itemAnimator = null
 
         viewModel.doelen.observe(this.viewLifecycleOwner, Observer{
             adapter.submitList(it)
         })
 
-        viewModel.getGebruikers()
+        viewModel.getDoelen()
 
         binding.mainAddButton.setOnClickListener {
             binding.mainAddConfirmButton.visibility = View.VISIBLE
             binding.mainAddEditText.visibility = View.VISIBLE
+            viewModel.setDoelen(adapter.currentList)
+            viewModel.syncDoelen()
         }
 
         binding.mainAddConfirmButton.setOnClickListener {
             val doel = Doel(binding.mainAddEditText.text.toString(), false, true)
             doel.addStap(Stap("Eerste stap",false))
-            doelen.add(doel)
+            viewModel.addDoel(doel)
             adapter.notifyDataSetChanged()
             binding.mainAddConfirmButton.visibility = View.GONE
             binding.mainAddEditText.visibility = View.GONE

@@ -102,6 +102,6 @@
     <fragment
         android:id="@+id/penthouseFragment"
         android:name="com.example.faith.PenthouseFragment"
-        android:label="fragment_penthouse"
+        android:label="Penthouse"
         tools:layout="@layout/fragment_penthouse" />
 </navigation>

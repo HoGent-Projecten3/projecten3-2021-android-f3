@@ -10,4 +10,5 @@ interface IDoel{
     fun setChecked(flag: Boolean)
     fun isCollapsed(): Boolean
     fun setCollapsed(flag: Boolean)
+    fun verwijderDoel(doel: IDoel)
 }

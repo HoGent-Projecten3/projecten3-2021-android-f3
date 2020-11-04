@@ -18,7 +18,7 @@ public class DoelDTO(
     constructor(stap: Stap): this(stap.getNaam(), stap.isChecked(), null, null)
 
     fun getDoel(): IDoel{
-        if(stappen != null) {
+        if(stappen != null && collapsed != null) {
             var doel = Doel(inhoud!!, checked!!, collapsed!!)
             for (stap: DoelDTO in stappen!!) {
                 doel.addStap( stap.getDoel())
@@ -27,5 +27,15 @@ public class DoelDTO(
         }else{
             return Stap(inhoud!!, checked!!)
         }
+    }
+
+    override fun toString(): String{
+        var print: String = "${inhoud}, ${checked}, ${collapsed};\n"
+        if(stappen != null) {
+            for (stap: DoelDTO in stappen!!) {
+                print += stap.toString()
+            }
+        }
+        return  print
     }
 }

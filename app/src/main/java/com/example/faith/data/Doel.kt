@@ -29,12 +29,11 @@ class Doel(
     }
 
     override fun isChecked(): Boolean {
-        Log.i("Doel","Checking children")
-        for (stap in stappen){
+        /*for (stap in stappen){
             if(!stap.isChecked())
                 checked = false
         }
-        checked = true
+        checked = true*/
         return checked
     }
 
@@ -48,6 +47,16 @@ class Doel(
 
     override fun setCollapsed(flag: Boolean) {
         this.collapsed = flag
+    }
+
+    override fun verwijderDoel(doel: IDoel) {
+        if(!stappen.remove(doel)) {
+            for (stap: IDoel in stappen) {
+                if(stap is Doel) {
+                    stap.verwijderDoel(doel)
+                }
+            }
+        }
     }
 
     fun getDoelenDTO(): List<DoelDTO>{
