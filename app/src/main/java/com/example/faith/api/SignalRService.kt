@@ -13,41 +13,41 @@ class SignalRService {
     private lateinit var chatFragment: ChatFragment
     private lateinit var hubConnection: HubConnection
 
-    fun setSessionToken(sessionToken: String?){
+    fun setSessionToken(sessionToken: String?) {
         this.sessionToken = sessionToken
     }
 
-    fun start(email: String?, chatFragment: ChatFragment){
+    fun start(email: String?, chatFragment: ChatFragment) {
         this.chatFragment = chatFragment
-        hubConnection =  HubConnectionBuilder.create("http://192.168.1.37:45455/connectionHub").withAccessTokenProvider(
-            Single.defer {
-                Single.just(
-                    "Bearer $sessionToken"
-                )
-            }
+        hubConnection = HubConnectionBuilder.create("http://192.168.1.37:45455/connectionHub")
+            .withAccessTokenProvider(
+                Single.defer {
+                    Single.just(
+                        "Bearer $sessionToken"
+                    )
+                }
 
-        ).build()
+            ).build()
         hubConnection.start().blockingAwait()
         init(email)
-        send("kaas")
         hubConnection.on(
             "OntvangBericht",
-            { message: String -> println("New Message: $message") },
+            { message: String ->
+                println("New Message: $message")
+            },
             String::class.java
         )
     }
-    fun stop(){
+
+    fun stop() {
         hubConnection.stop()
     }
-    fun print(){
 
+    fun init(email: String?) {
+        hubConnection.send("Join", email)
     }
-    fun init(email: String?){
 
-        hubConnection.send("Join", "jef.seys.y0431@student.hogent.be")
-
-    }
-    fun send(message: String){
-        hubConnection.send("Verstuur", "jef.seys.y0431@student.hogent.be", "kaas")
+    fun send(message: String, email: String) {
+        hubConnection.send("Verstuur", email, "kaas")
     }
 }
