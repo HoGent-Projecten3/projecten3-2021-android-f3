@@ -4,18 +4,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.content.Context
+import androidx.navigation.findNavController
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.faith.MediumListFragmentDirections
 import com.example.faith.R
-import com.example.faith.data.Bericht
-import com.example.faith.data.Gebruiker
-import com.example.faith.data.GebruikerRepository
+import com.example.faith.data.*
+import com.example.faith.databinding.ListItemMediumBinding
 import kotlinx.android.synthetic.main.ander_bericht.view.*
 import kotlinx.android.synthetic.main.eigen_bericht.view.*
 
 private const val VIEW_TYPE_MY_MESSAGE = 1
 private const val VIEW_TYPE_OTHER_MESSAGE = 2
 
-class BerichtAdapter (val context: Context?, val gebruikerRepository: GebruikerRepository): RecyclerView.Adapter<BerichtAdapter.MessageViewHolder>() {
+class BerichtAdapter (val context: Context?, val gebruikerRepository: GebruikerRepository): RecyclerView.Adapter<BerichtAdapter.MessageViewHolder>(), PagingDataAdapter<ApiBericht, BerichtAdapter.BerichtViewHolder>(MediumDiffCallback()) {
     private val messages: ArrayList<Bericht> = ArrayList()
 
     open class MessageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -80,5 +82,34 @@ class BerichtAdapter (val context: Context?, val gebruikerRepository: GebruikerR
         val message = messages.get(position)
 
         holder?.bind(message)
+    }
+    class BerichtViewHolder(
+        private val binding: ListItemMediumBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.setClickListener {
+                binding.photo?.let { photo ->
+                    navigateToMedium(photo, it)
+                }
+            }
+        }
+
+        private fun navigateToMedium(
+            photo: ApiPhoto,
+            view: View
+        ) {
+            val direction =
+                MediumListFragmentDirections.actionMediumListFragmentToMediumDetailFragment(
+                    photo.mediumId
+                )
+            view.findNavController().navigate(direction)
+        }
+
+        fun bind(item: ApiPhoto) {
+            binding.apply {
+                photo = item
+                executePendingBindings()
+            }
+        }
     }
 }

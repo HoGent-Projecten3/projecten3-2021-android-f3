@@ -1,25 +1,30 @@
 package com.example.faith
 
-import android.content.Context
-import androidx.lifecycle.ViewModelProvider
+import android.icu.text.DateFormat
+import android.icu.text.SimpleDateFormat
+import android.net.ParseException
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.faith.adapters.BerichtAdapter
 import com.example.faith.api.SignalRService
 import com.example.faith.data.Bericht
 import com.example.faith.data.GebruikerRepository
 import com.example.faith.databinding.ChatFragmentBinding
-import com.example.faith.databinding.FragmentCinemaBinding
 import com.example.faith.viewmodels.ChatViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.chat_fragment.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import org.threeten.bp.LocalDateTime;
 import java.util.*
 import javax.inject.Inject
 
@@ -29,6 +34,8 @@ class ChatFragment constructor() : Fragment() {
     private lateinit var adapter: BerichtAdapter
     private val viewModel: ChatViewModel by viewModels()
     private lateinit var gebruikerRepository: GebruikerRepository
+    private var searchJob: Job? = null
+    private var berichten: List<Bericht> = listOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,13 +53,15 @@ class ChatFragment constructor() : Fragment() {
         gebruikerRepository = viewModel.getGebruikerRepository()
         binding.messageList.adapter = adapter
 
-        /*var berichten = viewModel.geefBerichten()
+        //var datum = LocalDateTime.parse("2020-11-04T11:28:13.194849")
+
+         getBerichten()
 
         if (berichten != null) {
-            for(i in berichten){
+            for (i in berichten) {
                 adapter.addMessage(i)
             }
-        }*/
+        }
         binding.messageList.scrollToPosition(adapter.itemCount - 1);
         binding.btnSend.setOnClickListener {
             if (binding.txtMessage.text.isNotEmpty()) {
@@ -69,5 +78,31 @@ class ChatFragment constructor() : Fragment() {
 
         signalRService?.start("joost@kaas.be", this)
         return binding.root
+    }
+
+    fun getDateFromatedString(inputDate: String?): String? {
+        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS")
+        var date: Date? = null
+        try {
+            date = simpleDateFormat.parse(inputDate)
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+        if (date == null) {
+            return ""
+        }
+        val convetDateFormat = SimpleDateFormat("yyyy-MM-dd")
+        return convetDateFormat.format(date)
+    }
+
+
+
+    private fun getBerichten() {
+        searchJob?.cancel()
+        searchJob = lifecycleScope.launch {
+            viewModel.geefBerichten().collectLatest {
+                it.
+            }
+        }
     }
 }
