@@ -1,7 +1,6 @@
 package com.example.faith.data
 
 import com.google.gson.annotations.SerializedName
-import java.time.DateTimeException
 import java.util.*
 
 data class ApiHulpbron(
