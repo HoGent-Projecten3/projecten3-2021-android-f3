@@ -29,6 +29,7 @@ import kotlinx.android.synthetic.main.fragment_chat.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.threeten.bp.LocalDateTime
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -78,11 +79,11 @@ class ChatFragment : Fragment() {
     private fun verstuurBericht(){
         initSignalR()
         signalRService.send(txfEditBericht.text.toString(), "jef.seys.y0431@student.hogent.be")
-        var bericht = ApiBericht(0,"jef.seys.y0431@student.hogent.be","jef.seys.y0431@student.hogent.be",txfEditBericht.text.toString())
+        var bericht = ApiBericht(0,"jef.seys.y0431@student.hogent.be","jef.seys.y0431@student.hogent.be",txfEditBericht.text.toString(), LocalDateTime.now().toString())
         messageAdapter.add(SendMessageItem(bericht))
     }
     private fun addNewMessages(message:String){
-        var bericht = ApiBericht(0,"jef.seys.y0431@student.hogent.be","jef.seys.y0431@student.hogent.be",message)
+        var bericht = ApiBericht(0,"jef.seys.y0431@student.hogent.be","jef.seys.y0431@student.hogent.be",message, LocalDateTime.now().toString())
         messageAdapter.add(ReceiveMessageItem(bericht))
     }
     private fun getBerichten2(){
@@ -105,7 +106,7 @@ class ChatFragment : Fragment() {
                 }
 
                 override fun onFailure(call: Call<ApiBerichtSearchResponse?>, t: Throwable) {
-                    TODO("Not yet implemented")
+                    Log.e("Error", t.toString())
                 }
             }
         )

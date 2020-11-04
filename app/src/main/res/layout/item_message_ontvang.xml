@@ -10,21 +10,45 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_margin="8dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
 
         <TextView
-            android:maxWidth="250dp"
+            android:id="@+id/txtOtherUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_send_message"
+            android:text="@{message.verstuurder}"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Voorbeeld" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ander_bericht"
+            android:maxWidth="250dp"
             android:padding="16dp"
             android:text="@{message.text}"
             android:textColor="@android:color/white"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Salut les amis j'espere que vous aller bien, mois ca je cerhcuer comprendre" />
+            app:layout_constraintTop_toBottomOf="@+id/txtOtherUser"
+            tools:text="Voorbeeld" />
+
+
+        <TextView
+            android:id="@+id/txtMyMessageTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{message.datum.toString()}"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/textView3"
+            app:layout_constraintStart_toEndOf="@+id/textView3"
+            tools:text="12:32" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

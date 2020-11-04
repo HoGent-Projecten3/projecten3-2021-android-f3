@@ -15,16 +15,28 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:layout_height="wrap_content"
-            android:maxWidth="250dp"
+            android:id="@+id/textView4"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/eigen_bericht"
+            android:maxWidth="250dp"
             android:padding="16dp"
-            android:background="@drawable/bg_receive_message"
             android:text="@{message.text}"
-            tools:text="Salut les amis j'espere que vous aller bien, mois ca je cerhcuer comprendre"
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Voorbeeld" />
+
+        <TextView
+            android:id="@+id/txtMyMessageTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="12:00 PM"
+            android:text="@{message.datum.toString()}"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textView4" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
