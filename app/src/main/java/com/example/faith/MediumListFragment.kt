@@ -29,7 +29,7 @@ class MediumListFragment : Fragment() {
 
     private val viewModel: MediumListViewModel by viewModels()
     private var searchJob: Job? = null
-    private val adapter = MediumAdapter()
+    private var adapter = MediumAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,8 +51,24 @@ class MediumListFragment : Fragment() {
                 navigateToDagboek()
             }
         }
+        binding.btfilter.setOnClickListener {
+            filter(binding.txffilter.text.toString())
+        }
 
         return binding.root
+    }
+    private fun filter(naam:String){
+        adapter= MediumAdapter()
+        medium_list.adapter=adapter
+        lifecycleScope.launch{
+            viewModel.filter(naam).collectLatest {
+                adapter.submitData(it)
+            }
+        }
+
+
+
+
     }
 
     private fun navigateToDagboek() {

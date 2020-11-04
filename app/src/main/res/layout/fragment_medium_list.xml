@@ -25,6 +25,23 @@
         android:fitsSystemWindows="true"
         android:backgroundTint="@color/hotel_theme">
 
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txffilter"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:hint="filter"
+            android:layout_marginTop="100dp"
+            android:padding="10dp"
+            android:gravity="bottom"
+            android:translationZ="100dp" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btfilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+            android:text="filter" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/medium_list"
