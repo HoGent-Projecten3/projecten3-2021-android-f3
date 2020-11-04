@@ -45,6 +45,14 @@ interface ApiService {
     @GET("Client/GetDoelen")
     fun getDoelen():Call<List<DoelDTO>>
 
+    @Headers("Content-Type: application/json")
+    @POST("Client/PostDoelen")
+    fun postDoelen(@Body doelenDTO: List<DoelDTO>): Call<Boolean>
+
+    @Headers("Content-Type: application/json")
+    @POST("Client/SyncDoelen")
+    fun syncDoelen(@Body doelenDTO: List<DoelDTO>): Call<List<DoelDTO>>
+
 
     data class LoginResponseModel(
         val token: String

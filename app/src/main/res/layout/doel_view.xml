@@ -116,9 +116,19 @@
             android:id="@+id/doel_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/design_default_color_error"
             android:clickable="false"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/doel_colapse_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 stappen"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/doel_text"
+            app:layout_constraintTop_toBottomOf="@+id/doel_text" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

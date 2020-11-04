@@ -39,4 +39,8 @@ class Stap(
         throw Exception("Can't collapse a step")
     }
 
+    override fun verwijderDoel(doel: IDoel) {
+        throw Exception("Stap can't delete itself")
+    }
+
 }

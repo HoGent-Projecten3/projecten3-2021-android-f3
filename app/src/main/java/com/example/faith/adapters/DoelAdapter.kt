@@ -3,7 +3,6 @@ package com.example.faith.adapters
 
 import android.annotation.SuppressLint
 import android.graphics.Typeface
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,9 +14,10 @@ import com.example.faith.data.IDoel
 import com.example.faith.data.Stap
 import com.example.faith.databinding.DoelViewBinding
 import com.example.faith.databinding.StapViewBinding
+import com.example.faith.viewmodels.PenthouseViewModel
 
 
-class DoelAdapter(val doelList: List<IDoel>): ListAdapter<IDoel, DoelAdapter.BaseViewHolder>(DoelDiffCallback()){
+class DoelAdapter: ListAdapter<IDoel, DoelAdapter.BaseViewHolder>(DoelDiffCallback()){
 
     override fun getItemViewType(position: Int): Int {
         when(getItem(position)){
@@ -37,7 +37,7 @@ class DoelAdapter(val doelList: List<IDoel>): ListAdapter<IDoel, DoelAdapter.Bas
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item, this, doelList)
+        holder.bind(item)
     }
 
     /*
@@ -47,12 +47,16 @@ class DoelAdapter(val doelList: List<IDoel>): ListAdapter<IDoel, DoelAdapter.Bas
 
     class StapViewHolder(val binding: StapViewBinding): BaseViewHolder(binding.root){
 
-        override fun bind(item: IDoel, parentAdapter: DoelAdapter, parentList: List<IDoel>) {
+        override fun bind(item: IDoel) {
+
+            var viewModel = PenthouseViewModel.instance
+
             binding.stapText.text = item.getNaam()
             binding.stapCheckBox.isChecked = item.isChecked()
 
             binding.stapCheckBox.setOnCheckedChangeListener { buttonView, isChecked ->
                 item.setChecked(isChecked)
+                viewModel!!.syncDoelen()
             }
 
             binding.stapText.setOnLongClickListener( object: View.OnLongClickListener{
@@ -87,14 +91,11 @@ class DoelAdapter(val doelList: List<IDoel>): ListAdapter<IDoel, DoelAdapter.Bas
                 binding.stapText.visibility = View.VISIBLE
                 binding.editButton.visibility = View.VISIBLE
                 binding.deleteButton.visibility = View.VISIBLE
+                viewModel!!.syncDoelen()
             }
 
             binding.deleteButton.setOnClickListener {
-                /*val newList = parentAdapter.currentList.toMutableList()
-                newList.remove(item)
-                parentAdapter.submitList(newList)*/
-                (parentList as MutableList).remove(item)
-                parentAdapter.notifyDataSetChanged()
+                viewModel!!.verwijderDoel(item)
             }
 
         }
@@ -110,18 +111,25 @@ class DoelAdapter(val doelList: List<IDoel>): ListAdapter<IDoel, DoelAdapter.Bas
 
     class DoelViewHolder(val binding: DoelViewBinding): BaseViewHolder(binding.root){
 
-        override fun bind(item: IDoel, parentAdapter: DoelAdapter, parentList: List<IDoel>) {
+        override fun bind(item: IDoel) {
+
+            var viewModel = PenthouseViewModel.instance
+
             binding.doelText.text = item.getNaam()
-            val adapter = DoelAdapter(item.getStappen())
+            val adapter = DoelAdapter()
             adapter.submitList(item.getStappen())
             binding.doelListSec.adapter = adapter
-            binding.doelText.setTypeface(Typeface.DEFAULT_BOLD)
             binding.doelCheckbox.isChecked = item.isChecked()
 
             if(item.isCollapsed()) {
                 binding.doelListSec.visibility = View.GONE
                 binding.doelText.typeface = Typeface.DEFAULT_BOLD
-                binding.doelAddButton.visibility = View.GONE
+                binding.doelColapseText.text = "${item.getStappen().size} substappen"
+                binding.doelColapseText.visibility = View.VISIBLE
+            }else{
+                binding.doelListSec.visibility = View.VISIBLE
+                binding.doelText.typeface = Typeface.DEFAULT
+                binding.doelColapseText.visibility = View.GONE
             }
 
             binding.doelText.setOnLongClickListener( object: View.OnLongClickListener{
@@ -143,10 +151,16 @@ class DoelAdapter(val doelList: List<IDoel>): ListAdapter<IDoel, DoelAdapter.Bas
                 if(binding.doelText.typeface == Typeface.DEFAULT_BOLD){
                     binding.doelListSec.visibility = View.VISIBLE
                     binding.doelText.typeface = Typeface.DEFAULT
+                    binding.doelColapseText.visibility = View.GONE
+                    item.setCollapsed(false)
                 }else{
                     binding.doelListSec.visibility = View.GONE
                     binding.doelText.typeface = Typeface.DEFAULT_BOLD
+                    binding.doelColapseText.text = "${item.getStappen().size} substappen"
+                    binding.doelColapseText.visibility = View.VISIBLE
+                    item.setCollapsed(true)
                 }
+                viewModel!!.syncDoelen()
             }
 
             binding.doelEditButton.setOnClickListener{
@@ -166,14 +180,11 @@ class DoelAdapter(val doelList: List<IDoel>): ListAdapter<IDoel, DoelAdapter.Bas
                 binding.doelText.visibility = View.VISIBLE
                 binding.doelEditButton.visibility = View.VISIBLE
                 binding.doelDeleteButton.visibility = View.VISIBLE
+                viewModel!!.syncDoelen()
             }
 
             binding.doelDeleteButton.setOnClickListener {
-                /*val newList = parentAdapter.currentList.toMutableList()
-                newList.remove(item)
-                parentAdapter.submitList(newList)*/
-                (parentList as MutableList).remove(item)
-                parentAdapter.notifyDataSetChanged()
+                viewModel!!.verwijderDoel(item)
             }
 
             binding.doelAddButton.setOnClickListener {
@@ -186,33 +197,25 @@ class DoelAdapter(val doelList: List<IDoel>): ListAdapter<IDoel, DoelAdapter.Bas
             binding.doelAddDoelButton.setOnClickListener {
                 val naam = binding.doelAddEditText.text.toString()
                 val newDoel = Doel(naam,false,false)
-                /*item.addStap(newDoel)
-                val newList = adapter.currentList.toMutableList()
-                newList.add(newDoel)
-                adapter.submitList(newList)
-                adapter.submitList(item.getStappen())*/
+                newDoel.addStap(Stap("Een eerste substap", false))
                 item.addStap(newDoel)
                 adapter.notifyDataSetChanged()
                 binding.doelAddButton.visibility = View.VISIBLE
                 binding.doelAddEditText.visibility = View.GONE
                 binding.doelAddDoelButton.visibility = View.GONE
                 binding.doelAddStapButton.visibility = View.GONE
+                viewModel!!.syncDoelen()
             }
 
             binding.doelAddStapButton.setOnClickListener {
                 val naam = binding.doelAddEditText.text.toString()
                 val newStap = Stap(naam,false)
-                /*item.addStap(newStap)
-                val newList = adapter.currentList.toMutableList()
-                newList.add(newStap)
-                adapter.submitList(newList)
-                adapter.submitList(item.getStappen())*/
                 item.addStap(newStap)
-                adapter.notifyDataSetChanged()
                 binding.doelAddButton.visibility = View.VISIBLE
                 binding.doelAddEditText.visibility = View.GONE
                 binding.doelAddDoelButton.visibility = View.GONE
                 binding.doelAddStapButton.visibility = View.GONE
+                viewModel!!.syncDoelen()
             }
         }
 
@@ -226,12 +229,11 @@ class DoelAdapter(val doelList: List<IDoel>): ListAdapter<IDoel, DoelAdapter.Bas
     }
 
     abstract class BaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        abstract fun bind(item: IDoel, parentAdapter: DoelAdapter, parentList: List<IDoel>)
+        abstract fun bind(item: IDoel)
     }
 
     class DoelDiffCallback : DiffUtil.ItemCallback<IDoel>() {
         override fun areItemsTheSame(oldItem: IDoel, newItem: IDoel): Boolean {
-            Log.i("DoelAdapter", "itemCheck of ${oldItem.getNaam()}")
             return oldItem.isChecked() == newItem.isChecked()
         }
 
