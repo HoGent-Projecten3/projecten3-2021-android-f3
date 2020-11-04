@@ -14,6 +14,7 @@ class ApiPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ApiPhoto> {
         val page = params.key ?: API_STARTING_PAGE_INDEX
         return try {
+
             val response = service.getMedia(page, params.loadSize)
             val photos = response.results
             LoadResult.Page(

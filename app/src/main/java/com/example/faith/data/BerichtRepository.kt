@@ -7,7 +7,6 @@ import androidx.paging.PagingData
 import com.example.faith.api.ApiService
 import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
-import org.threeten.bp.LocalDateTime
 import retrofit2.Call
 import java.util.*
 import javax.inject.Inject
@@ -39,5 +38,8 @@ class BerichtRepository @Inject constructor(private val service: ApiService) {
             pagingSourceFactory = { ApiBerichtPagingSource(service) }
 
         ).flow
+    }
+     fun getBerichten2() : Call<ApiBerichtSearchResponse> {
+        return service.getBerichten2(0,100)
     }
 }

@@ -2,7 +2,7 @@ package com.example.faith.data
 
 import androidx.room.ColumnInfo
 import androidx.room.PrimaryKey
-import org.threeten.bp.LocalDateTime
+import java.time.LocalDateTime
 import java.util.*
 
 data class Bericht (

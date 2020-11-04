@@ -15,7 +15,6 @@ class ChatViewModel @ViewModelInject constructor(
     private val gebruikerRepository: GebruikerRepository,
     private val berichtRepository: BerichtRepository
 )  : ViewModel() {
-    // TODO: Implement the ViewModel
 
     fun getGebruikerRepository(): GebruikerRepository {
         return gebruikerRepository
@@ -27,5 +26,8 @@ class ChatViewModel @ViewModelInject constructor(
 
     fun geefBerichten():Flow<PagingData<ApiBericht>>{
             return berichtRepository.getBerichten().cachedIn(viewModelScope)
+    }
+     fun geefBerichten2(): Call<ApiBerichtSearchResponse>{
+        return berichtRepository.getBerichten2()
     }
 }

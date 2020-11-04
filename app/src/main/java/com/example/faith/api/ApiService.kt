@@ -3,7 +3,6 @@ package com.example.faith.api
 import android.os.Message
 import com.example.faith.data.*
 import okhttp3.MultipartBody
-import org.threeten.bp.LocalDateTime
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -12,6 +11,7 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Query
+import java.time.LocalDateTime
 
 /**
  * @author Remi Mestdagh
@@ -38,11 +38,20 @@ interface ApiService {
     fun verstuurBericht(
         @Query("verstuurder") verstuurder: Gebruiker?,
         @Query("text") text: String?,
-        @Query("datum") datum: LocalDateTime?
+        @Query("datum") datum: java.time.LocalDateTime?
     ): Call<Message>
 
     @GET("Chat/GetBerichtenMetBegeleider")
-    fun getBerichten(page: Int, loadSize: Int): ApiBerichtSearchResponse
+    suspend fun getBerichten(
+        @Query("page") page:Int,
+        @Query("aantal") perPage: Int
+    ): ApiBerichtSearchResponse
+
+    @GET("Chat/GetBerichtenMetBegeleider")
+    fun getBerichten2(
+        @Query("page") page:Int,
+        @Query("aantal") perPage: Int
+    ): Call<ApiBerichtSearchResponse>
 
     @GET("Gebruiker")
     fun getGebruiker(): Call<Gebruiker>
