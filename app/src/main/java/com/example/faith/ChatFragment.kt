@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.faith.adapters.ReceiveMessageItem
 import com.example.faith.adapters.SendMessageItem
 import com.example.faith.api.SignalRService
+import com.example.faith.data.ApiBericht
 import com.example.faith.data.ApiBerichtSearchResponse
 import com.example.faith.data.Bericht
 import com.example.faith.data.GebruikerRepository
@@ -35,8 +36,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class ChatFragment : Fragment() {
-    @Inject
-    lateinit var signalRService: SignalRService
+    @Inject lateinit var signalRService: SignalRService
     private val viewModel: ChatViewModel by viewModels()
     private var searchJob: Job? = null
     private val messageAdapter = GroupAdapter<GroupieViewHolder>()
@@ -56,6 +56,11 @@ class ChatFragment : Fragment() {
 
         signalRService?.start("joost@kaas.be", this)
         return binding.root
+    }
+    private fun verstuurBericht(){
+        //var bericht:Bericht = Bericht();
+        //messageAdapter.add(SendMessageItem())
+        signalRService.send("hey daddy", "jef.seys.y0431@student.hogent.be")
     }
     private fun getBerichten2(){
         var call = viewModel.geefBerichten2().enqueue(

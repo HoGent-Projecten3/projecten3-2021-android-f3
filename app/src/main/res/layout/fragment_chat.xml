@@ -8,24 +8,53 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/messages_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:clipToPadding="false"
-                    android:paddingEnd="@dimen/card_side_margin"
-                    android:paddingStart="@dimen/card_side_margin"
-                    android:paddingTop="@dimen/gallery_header_margin"
-                    app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-                    app:spanCount="1"
-                    tools:context="com.example.faith.MainActivity"
-                    tools:listitem="@layout/item_message_vertuur"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="25dp" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/messages_list"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:clipToPadding="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:spanCount="1"
+                tools:context="com.example.faith.MainActivity"
+                tools:listitem="@layout/item_message_vertuur"
+                app:layout_constraintBottom_toTopOf="@+id/txfEditBericht"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:itemCount="6"/>
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txfEditBericht"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:hint="Taper votre message"
+                android:padding="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btSendMessage"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/messages_list"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btSendMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="Send"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/txfEditBericht" />
 
 
-
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

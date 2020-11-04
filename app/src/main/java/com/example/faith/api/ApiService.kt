@@ -36,9 +36,9 @@ interface ApiService {
 
     @POST("Chat")
     fun verstuurBericht(
-        @Query("verstuurder") verstuurder: Gebruiker?,
+        @Query("verstuurder") verstuurder: String,
         @Query("text") text: String?,
-        @Query("datum") datum: java.time.LocalDateTime?
+        @Query("datum") datum: String?
     ): Call<Message>
 
     @GET("Chat/GetBerichtenMetBegeleider")
