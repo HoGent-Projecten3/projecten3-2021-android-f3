@@ -79,7 +79,9 @@ class HotelFragment : Fragment() {
           //Navigate to cinema room
           R.id.image_cinema -> Navigation.findNavController(kamer)
               .navigate(R.id.action_hotelFragment_to_cinemaFragment)
-          R.id.image_infobalie -> Toast.makeText(activity, "Infobalie", Toast.LENGTH_SHORT).show()
+          // TODO
+          R.id.image_infobalie -> Navigation.findNavController(kamer)
+                  .navigate(R.id.action_hotelFragment_to_hulpbronListFragment)
           // TODO
           R.id.image_trofeeKamer -> Toast.makeText(getActivity(), "Trofee", Toast.LENGTH_SHORT)
               .show()
@@ -88,7 +90,7 @@ class HotelFragment : Fragment() {
               .navigate(R.id.action_hotelFragment_to_penthouseFragment)
           // TODO
           R.id.image_bibliotheek -> Navigation.findNavController(kamer)
-              .navigate(R.id.action_hotelFragment_to_mediumListFragment)
+              .navigate(R.id.action_hotelFragment_to_hulpbronListFragment)
           else -> Toast.makeText(getActivity(), "Dit item is niet aanklikbaar.", Toast.LENGTH_SHORT).show()
         }
     }
