@@ -11,10 +11,12 @@ import javax.inject.Singleton
  * @author Remi Mestdagh
  */
 @Singleton
-class MyServiceInterceptor @Inject constructor() : Interceptor {
+class MyServiceInterceptor @Inject constructor(private val signalRService: SignalRService) : Interceptor {
     private var sessionToken: String? = ""
+
     fun setSessionToken(sessionToken: String?) {
         this.sessionToken = sessionToken
+        signalRService.setSessionToken(sessionToken)
     }
 
     @Throws(IOException::class)

@@ -13,6 +13,7 @@ import com.example.faith.databinding.ListItemDagboekBinding
 /**
  * @author Remi Mestdagh
  */
+
 class DagboekAdapter : PagingDataAdapter<ApiDagboek, DagboekAdapter.DagboekViewHolder>(DagboekDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DagboekAdapter.DagboekViewHolder {
         return DagboekAdapter.DagboekViewHolder(

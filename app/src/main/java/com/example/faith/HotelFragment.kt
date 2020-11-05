@@ -70,6 +70,7 @@ class HotelFragment : Fragment() {
     /**
      * Analyses the given room of the hotel and enables the corresponding fragment routing
      */
+
     private fun addRouting(kamer: View)
     {
       when (kamer.id)

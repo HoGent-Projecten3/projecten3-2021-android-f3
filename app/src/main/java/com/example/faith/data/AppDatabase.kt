@@ -13,10 +13,12 @@ import com.example.faith.utilities.DATABASE_NAME
 /**
  * @author Remi Mestdagh
  */
-@Database(entities = [Medium::class], version = 1, exportSchema = false)
+
+@Database(entities = arrayOf(Medium::class,Bericht::class), version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun mediumDao(): MediumDao
+    abstract fun berichtDao():BerichtDao
 
     companion object {
 

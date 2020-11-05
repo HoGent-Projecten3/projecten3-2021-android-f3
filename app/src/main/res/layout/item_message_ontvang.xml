@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="message"
+            type="com.example.faith.data.BerichtXML" />
+        <variable
+            name="date"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+
+        <TextView
+            android:id="@+id/txtOtherUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{message.verstuurderNaam}"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Voorbeeld" />
+
+        <TextView
+            android:id="@+id/txtOtherMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ander_bericht"
+            android:maxWidth="250dp"
+            android:padding="16dp"
+            android:text="@{message.text}"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtOtherUser"
+            tools:text="Voorbeeld" />
+
+
+        <TextView
+            android:id="@+id/txtOtherMessageTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{date}"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/txtOtherMessage"
+            app:layout_constraintStart_toEndOf="@+id/txtOtherMessage"
+            tools:text="12:32" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
