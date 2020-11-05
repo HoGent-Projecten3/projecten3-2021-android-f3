@@ -42,6 +42,7 @@ class NetworkModule() {
     }
 
 
+
     @Provides
     @Singleton
     fun provideOkHttpClient(
@@ -74,6 +75,7 @@ class NetworkModule() {
     fun provideGson(): Gson {
         val gsonBuilder = GsonBuilder()
         gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+        gsonBuilder.setLenient()
         return gsonBuilder.create()
     }
     @Provides
@@ -81,7 +83,8 @@ class NetworkModule() {
     fun provideRetrofit(gson: Gson, okHttpClient: OkHttpClient?): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create(gson))
-            .baseUrl("http://192.168.2.102:45455/api/")
+            //.baseUrl("https://f3backend-dev-as.azurewebsites.net/api/")
+            .baseUrl("http://192.168.0.187:45455/api/")
             .client(okHttpClient)
             .build()
     }

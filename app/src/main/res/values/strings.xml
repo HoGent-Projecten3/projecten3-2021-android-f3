@@ -45,4 +45,5 @@
     <string name="txf_chat">Bericht sturen</string>
     <string name="chat_hint">Typ uw bericht</string>
     <string name="verzend">verzend</string>
+
 </resources>

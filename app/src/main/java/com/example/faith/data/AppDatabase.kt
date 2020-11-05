@@ -13,6 +13,7 @@ import com.example.faith.utilities.DATABASE_NAME
 /**
  * @author Remi Mestdagh
  */
+
 @Database(entities = arrayOf(Medium::class,Bericht::class), version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {

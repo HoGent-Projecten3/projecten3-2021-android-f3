@@ -2,9 +2,11 @@ package com.example.faith.data
 
 import com.example.faith.api.ApiService
 import com.example.faith.api.MyServiceInterceptor
+import okhttp3.ResponseBody
 import retrofit2.Call
 import javax.inject.Inject
 import javax.inject.Singleton
+
 
 @Singleton
 class GebruikerRepository @Inject constructor(

@@ -55,7 +55,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/image_penthouse" />
 
-
             <Button
                 android:id="@+id/image_penthouse"
                 android:layout_width="183dp"
@@ -88,7 +87,9 @@
                 android:layout_marginStart="92dp"
                 android:layout_marginBottom="72dp"
                 android:text="Button"
+
                 android:visibility="visible"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.215"
