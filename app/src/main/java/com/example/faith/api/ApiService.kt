@@ -17,7 +17,6 @@ import retrofit2.Call;
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
-import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -49,9 +48,6 @@ interface ApiService {
     @GET("Gebruiker")
     fun getGebruiker(): Call<Gebruiker>
 
-    @POST("Account/login")
-    @Headers("Content-Type: application/json")
-    fun login(@Body login: Login): Call<ResponseBody>
     @GET("Cinema")
     suspend fun getMedia(
         @Query("page") page: Int,
