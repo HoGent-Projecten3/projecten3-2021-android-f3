@@ -75,12 +75,10 @@ class HotelFragment : Fragment() {
     {
       when (kamer.id)
       {
-          // TODO
-          R.id.image_bar -> Toast.makeText(activity, "Bar", Toast.LENGTH_SHORT).show()
+          R.id.image_bar -> Navigation.findNavController(kamer).navigate(R.id.action_hotelFragment_to_chatFragment)
           //Navigate to cinema room
           R.id.image_cinema -> Navigation.findNavController(kamer)
               .navigate(R.id.action_hotelFragment_to_cinemaFragment)
-          // TODO
           R.id.image_infobalie -> Toast.makeText(activity, "Infobalie", Toast.LENGTH_SHORT).show()
           // TODO
           R.id.image_trofeeKamer -> Toast.makeText(getActivity(), "Trofee", Toast.LENGTH_SHORT)
