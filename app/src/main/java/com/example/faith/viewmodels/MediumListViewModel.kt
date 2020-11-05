@@ -39,7 +39,7 @@ class MediumListViewModel @ViewModelInject constructor(
     fun filter(naam:String): Flow<PagingData<ApiPhoto>> {
         return apiRepository.getSearchResultStream().map {
             it.filter {
-                it.naam.equals(naam)
+                it.naam.startsWith(naam)
             }
         }.cachedIn(viewModelScope)
     }
