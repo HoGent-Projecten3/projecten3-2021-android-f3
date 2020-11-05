@@ -12,6 +12,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import retrofit2.Call
 
+/**
+ * @author Jef Seys
+ */
 class ChatViewModel @ViewModelInject constructor(
     private val gebruikerRepository: GebruikerRepository,
     private val berichtRepository: BerichtRepository

@@ -7,6 +7,9 @@ import androidx.room.PrimaryKey
 import java.time.LocalDateTime
 import java.util.*
 
+/**
+ * @author Jef Seys
+ */
 @Entity(tableName="berichten", indices = [Index(value = ["id"], unique = true)])
 data class Bericht (
         @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") var berichtId: Int?,

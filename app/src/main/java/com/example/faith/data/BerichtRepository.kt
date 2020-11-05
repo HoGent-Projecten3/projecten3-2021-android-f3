@@ -11,22 +11,10 @@ import retrofit2.Call
 import java.util.*
 import javax.inject.Inject
 
+/**
+ * @author Jef Seys
+ */
 class BerichtRepository @Inject constructor(private val service: ApiService) {
-/*
-    fun getBerichten(): Call<List<Bericht>>? {
-        val gebruiker1 = Gebruiker("Jef", "Seys", "jef.seys.y0431@student.hogent.be")
-        val gebruiker2 = Gebruiker("Joost", "Kaas", "joost@kaas.be")
-        val bericht1 = Bericht(1, gebruiker1, gebruiker2, "Hallo", LocalDateTime.now())
-        val bericht2 = Bericht(2, gebruiker2, gebruiker1, "Hey", LocalDateTime.now())
-        val bericht3 = Bericht(3, gebruiker1, gebruiker2, "Alles goed?", LocalDateTime.now())
-        val bericht4 = Bericht(4, gebruiker2, gebruiker1, "Ja hoor! Met jou?", LocalDateTime.now())
-        val bericht5 = Bericht(5, gebruiker1, gebruiker2, "Nu zeker Benjamin!", LocalDateTime.now())
-        val bericht6 = Bericht(6, gebruiker2, gebruiker1, "Ik vind Android zeer leuk!", LocalDateTime.now())
-        val bericht7 = Bericht(7, gebruiker1, gebruiker2, "Kotlin is zo leuk!", LocalDateTime.now())
-
-        return service.getBerichten()//listOf(bericht1, bericht2, bericht3, bericht4, bericht5, bericht6, bericht7)
-    }*/
-
     fun verstuurBericht(mijnEmail:String,andereEmail:String, mijnNaam:String, andereNaam:String,text:String): Call<Message> {
 
         return service.verstuurBericht(mijnEmail,andereEmail, mijnNaam, andereNaam,text)

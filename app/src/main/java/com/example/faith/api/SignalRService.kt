@@ -6,6 +6,9 @@ import com.microsoft.signalr.HubConnectionBuilder
 import io.reactivex.Single
 import javax.inject.Singleton
 
+/**
+ * @author Remi Mestdagh & Jef Seys
+ */
 @Singleton
 class SignalRService {
 

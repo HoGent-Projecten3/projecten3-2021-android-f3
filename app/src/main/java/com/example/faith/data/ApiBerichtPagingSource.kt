@@ -3,6 +3,9 @@ package com.example.faith.data
 import androidx.paging.PagingSource
 import com.example.faith.api.ApiService
 
+/**
+ * @author Jef Seys
+ */
 private const val API_STARTING_PAGE_INDEX = 0
 
 class ApiBerichtPagingSource(

@@ -6,6 +6,9 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
+/**
+ * @author Jef Seys
+ */
 @Dao
 interface  BerichtDao {
     @Query("SELECT * FROM berichten")

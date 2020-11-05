@@ -29,6 +29,9 @@ import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
+/**
+ * @author Jef Seys
+ */
 @AndroidEntryPoint
 class ChatFragment : Fragment() {
     @Inject lateinit var signalRService: SignalRService
@@ -36,10 +39,13 @@ class ChatFragment : Fragment() {
     private var searchJob: Job? = null
     private val messageAdapter = GroupAdapter<GroupieViewHolder>()
 
+    //Attributen voor gebruiker in chat
     private var mijnEmail = ""
     private var andereEmail = ""
     private var mijnNaam = ""
     private var andereNaam = ""
+
+    //Aantal berichten in recyclerview om naar beneden te kunnen scrollen
     private var positieScroll = 0
 
     override fun onCreateView(
@@ -50,8 +56,14 @@ class ChatFragment : Fragment() {
         context ?: return binding.root
         // binding.messagesList.adapter = adapter
         binding.messagesList.adapter = messageAdapter
+
+        //Eigen attributen initialiseren
         getMijnEmail()
+
+        //Recyclerview opvullen met berichten
         getBerichten2()
+
+        //Tijdzone instellen
         AndroidThreeTen.init(context);
 
 
@@ -70,6 +82,10 @@ class ChatFragment : Fragment() {
         binding.messagesList.scrollToPosition(positieScroll - 1);
         return binding.root
     }
+
+    /***
+     * SignalR starten en luisteren naar OntvangBericht
+     */
     fun initSignalR(){
         signalRService?.start(mijnEmail, this)
         signalRService?.getConnection().on("OntvangBericht",
@@ -79,8 +95,11 @@ class ChatFragment : Fragment() {
                 String::class.java
         )
     }
-    private fun verstuurBericht(){
 
+    /***
+     * Bericht versturen via signalR en sturen aan backend
+     */
+    private fun verstuurBericht(){
         initSignalR()
         signalRService.send(txfEditBericht.text.toString(), andereEmail)
         var bericht = BerichtXML(mijnEmail, andereEmail, mijnNaam, andereNaam, txfEditBericht.text.toString(), LocalDateTime.now())
@@ -100,12 +119,20 @@ class ChatFragment : Fragment() {
         positieScroll++
         messages_list.scrollToPosition(positieScroll - 1);
     }
+
+    /***
+     * Bericht toevoegen aan recyclerview
+     */
     private fun addNewMessages(message: String){
         var bericht = BerichtXML(andereEmail, mijnEmail, andereNaam, mijnNaam, message, LocalDateTime.now())
         messageAdapter.add(ReceiveMessageItem(bericht))
         positieScroll++
         messages_list.scrollToPosition(positieScroll - 1);
     }
+
+    /***
+     * Berichten laden in recyclerview
+     */
     private fun getBerichten2(){
         viewModel.geefBerichten2().enqueue(
 
@@ -139,6 +166,10 @@ class ChatFragment : Fragment() {
                 }
         )
     }
+
+    /***
+     * Email en naam instellen van eigen gebruiker
+     */
     private fun getMijnEmail(){
 
         viewModel.getGebruiker().enqueue(

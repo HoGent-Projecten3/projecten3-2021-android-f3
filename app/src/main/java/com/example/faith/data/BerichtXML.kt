@@ -4,6 +4,9 @@ import androidx.room.ColumnInfo
 import androidx.room.PrimaryKey
 import org.threeten.bp.LocalDateTime
 
+/**
+ * @author Jef Seys
+ */
 class BerichtXML (
         var verstuurderEmail: String,
         var ontvangerEmail: String,

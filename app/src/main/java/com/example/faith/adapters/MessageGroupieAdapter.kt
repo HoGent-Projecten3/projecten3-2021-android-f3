@@ -8,6 +8,9 @@ import com.example.faith.databinding.ItemMessageVertuurBinding
 import com.xwray.groupie.databinding.BindableItem
 import org.threeten.bp.format.DateTimeFormatter
 
+/**
+ * @author Remi Mestdagh & Jef Seys
+ */
 class SendMessageItem(private val message: BerichtXML) : BindableItem<ItemMessageVertuurBinding>() {
     override fun getLayout(): Int {
         return R.layout.item_message_vertuur

@@ -3,6 +3,9 @@ package com.example.faith.data
 import com.google.gson.annotations.SerializedName
 import org.threeten.bp.LocalDateTime
 
+/**
+ * @author Jef Seys
+ */
 data class ApiBericht(
     @field:SerializedName("berichtId") val berichtId: Int,
     @field:SerializedName("verstuurderEmail") val verstuurderEmail: String,
