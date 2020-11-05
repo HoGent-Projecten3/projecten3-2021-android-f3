@@ -5,8 +5,10 @@ import org.threeten.bp.LocalDateTime
 
 data class ApiBericht(
     @field:SerializedName("berichtId") val berichtId: Int,
-    @field:SerializedName("verstuurder") val verstuurder: String,
-    @field:SerializedName("ontvanger") val ontvanger: String,
+    @field:SerializedName("verstuurderEmail") val verstuurderEmail: String,
+    @field:SerializedName("ontvangerEmail") val ontvangerEmail: String,
+    @field:SerializedName("verstuurderNaam") val verstuurderNaam: String,
+    @field:SerializedName("ontvangerNaam") val ontvangerNaam: String,
     @field:SerializedName("text") val text: String,
     @field:SerializedName("datum") val datum: String
 )

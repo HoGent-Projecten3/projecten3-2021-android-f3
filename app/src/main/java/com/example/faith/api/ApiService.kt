@@ -34,11 +34,14 @@ interface ApiService {
         @Query("beschrijving") beschrijving: String
     ): Call<Message>
 
-    @POST("Chat")
+    @POST("Chat/PostBericht")
     fun verstuurBericht(
-        @Query("verstuurder") verstuurder: String,
-        @Query("text") text: String?,
-        @Query("datum") datum: String?
+        @Query("verstuurderEmail") verstuurderEmail: String,
+        @Query("ontvangerEmail") ontvangerEmail: String,
+        @Query("verstuurderNaam") verstuurderNaam: String,
+        @Query("ontvangerNaam") ontvangerNaam: String,
+        @Query("text") text: String
+
     ): Call<Message>
 
     @GET("Chat/GetBerichtenMetBegeleider")

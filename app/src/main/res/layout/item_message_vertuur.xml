@@ -6,7 +6,10 @@
     <data>
         <variable
             name="message"
-            type="com.example.faith.data.ApiBericht" />
+            type="com.example.faith.data.BerichtXML" />
+        <variable
+            name="date"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="12:00 PM"
-            android:text="@{message.datum.toString()}"
+            android:text="@{date}"
             android:textSize="10sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

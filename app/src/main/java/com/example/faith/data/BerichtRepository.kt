@@ -27,9 +27,9 @@ class BerichtRepository @Inject constructor(private val service: ApiService) {
         return service.getBerichten()//listOf(bericht1, bericht2, bericht3, bericht4, bericht5, bericht6, bericht7)
     }*/
 
-    fun verstuurBericht(bericht: Bericht): Call<Message> {
+    fun verstuurBericht(mijnEmail:String,andereEmail:String, mijnNaam:String, andereNaam:String,text:String): Call<Message> {
 
-        return service.verstuurBericht(bericht.verstuurder, bericht.text, bericht.datum)
+        return service.verstuurBericht(mijnEmail,andereEmail, mijnNaam, andereNaam,text)
     }
 
     fun getBerichten(): Flow<PagingData<ApiBericht>> {

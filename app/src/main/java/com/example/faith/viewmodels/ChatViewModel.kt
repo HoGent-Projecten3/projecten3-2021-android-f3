@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.faith.data.*
+import kotlinx.android.synthetic.main.fragment_chat.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -16,12 +17,12 @@ class ChatViewModel @ViewModelInject constructor(
     private val berichtRepository: BerichtRepository
 )  : ViewModel() {
 
-    fun getGebruikerRepository(): GebruikerRepository {
-        return gebruikerRepository
+    fun getGebruiker(): Call<Gebruiker> {
+        return gebruikerRepository.getGebruiker()
     }
 
-    fun verstuurBericht(bericht: Bericht): Call<Message> {
-        return berichtRepository.verstuurBericht(bericht)
+    fun verstuurBericht(mijnEmail:String,andereEmail:String, mijnNaam:String, andereNaam:String,text:String): Call<Message> {
+        return berichtRepository.verstuurBericht(mijnEmail,andereEmail, mijnNaam, andereNaam,text)
     }
 
     fun geefBerichten():Flow<PagingData<ApiBericht>>{

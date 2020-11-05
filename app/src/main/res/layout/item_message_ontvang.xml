@@ -6,7 +6,10 @@
     <data>
         <variable
             name="message"
-            type="com.example.faith.data.ApiBericht" />
+            type="com.example.faith.data.BerichtXML" />
+        <variable
+            name="date"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +21,7 @@
             android:id="@+id/txtOtherUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{message.verstuurder}"
+            android:text="@{message.verstuurderNaam}"
             android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +29,7 @@
             tools:text="Voorbeeld" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/txtOtherMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/ander_bericht"
@@ -40,14 +43,14 @@
 
 
         <TextView
-            android:id="@+id/txtMyMessageTime"
+            android:id="@+id/txtOtherMessageTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{message.datum.toString()}"
+            android:text="@{date}"
             android:textSize="10sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/textView3"
-            app:layout_constraintStart_toEndOf="@+id/textView3"
+            app:layout_constraintBottom_toBottomOf="@+id/txtOtherMessage"
+            app:layout_constraintStart_toEndOf="@+id/txtOtherMessage"
             tools:text="12:32" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
