@@ -49,9 +49,9 @@ interface ApiService {
     @GET("Gebruiker")
     fun getGebruiker(): Call<Gebruiker>
 
-    fun login(@Body login: Login): Call<ResponseBody>
     @POST("Account/login")
     @Headers("Content-Type: application/json")
+    fun login(@Body login: Login): Call<ResponseBody>
     @GET("Cinema")
     suspend fun getMedia(
         @Query("page") page: Int,
@@ -73,10 +73,8 @@ interface ApiService {
         @Query("aantal") perPage: Int
     ): Call<ApiDagboekSearchResponse>
 
-    fun getDoelen():Call<List<DoelDTO>>
     @GET("Client/GetDoelen")
-    @GET("Cinema/id")
-    fun getMedium(@Query("mediumId") id: Int): ApiMediumResponse
+    fun getDoelen():Call<List<DoelDTO>>
 
     @Headers("Content-Type: application/json")
     @POST("Client/PostDoelen")

@@ -48,6 +48,10 @@ class MainActivity : AppCompatActivity() {
                 this.findNavController(R.id.myNavHostFragment).navigate(R.id.action_hotelFragment_to_penthouseFragment)
                 return true
             }
+            R.id.penthouseFragment -> {
+                this.findNavController(R.id.myNavHostFragment).navigate(R.id.action_hotelFragment_to_penthouseFragment)
+                return true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
