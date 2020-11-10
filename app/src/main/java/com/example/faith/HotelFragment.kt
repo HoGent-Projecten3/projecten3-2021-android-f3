@@ -70,27 +70,26 @@ class HotelFragment : Fragment() {
     /**
      * Analyses the given room of the hotel and enables the corresponding fragment routing
      */
-    private fun addRouting(kamer: View) {
-        when (kamer.id) {
-            // TODO
-            R.id.image_bar -> Toast.makeText(activity, "Bar", Toast.LENGTH_SHORT).show()
-            // Navigate to cinema room
-            R.id.image_cinema ->
-                Navigation.findNavController(kamer)
-                    .navigate(R.id.action_hotelFragment_to_cinemaFragment)
-            // TODO
-            R.id.image_infobalie -> Toast.makeText(activity, "Infobalie", Toast.LENGTH_SHORT).show()
-            // TODO
-            R.id.image_trofeeKamer ->
-                Toast.makeText(getActivity(), "Trofee", Toast.LENGTH_SHORT)
-                    .show()
-            // TODO
-            R.id.image_penthouse ->
-                Toast.makeText(getActivity(), "Penthouse", Toast.LENGTH_SHORT)
-                    .show()
-            // TODO
-            R.id.image_bibliotheek -> Navigation.findNavController(kamer).navigate(R.id.action_hotelFragment_to_mediumListFragment)
-            else -> Toast.makeText(getActivity(), "Dit item is niet aanklikbaar.", Toast.LENGTH_SHORT).show()
+
+    private fun addRouting(kamer: View)
+    {
+      when (kamer.id)
+      {
+          R.id.image_bar -> Navigation.findNavController(kamer).navigate(R.id.action_hotelFragment_to_chatFragment)
+          //Navigate to cinema room
+          R.id.image_cinema -> Navigation.findNavController(kamer)
+              .navigate(R.id.action_hotelFragment_to_cinemaFragment)
+          R.id.image_infobalie -> Toast.makeText(activity, "Infobalie", Toast.LENGTH_SHORT).show()
+          // TODO
+          R.id.image_trofeeKamer -> Toast.makeText(getActivity(), "Trofee", Toast.LENGTH_SHORT)
+              .show()
+          // TODO
+          R.id.image_penthouse -> Navigation.findNavController(kamer)
+              .navigate(R.id.action_hotelFragment_to_penthouseFragment)
+          // TODO
+          R.id.image_bibliotheek -> Navigation.findNavController(kamer)
+              .navigate(R.id.action_hotelFragment_to_mediumListFragment)
+          else -> Toast.makeText(getActivity(), "Dit item is niet aanklikbaar.", Toast.LENGTH_SHORT).show()
         }
     }
 

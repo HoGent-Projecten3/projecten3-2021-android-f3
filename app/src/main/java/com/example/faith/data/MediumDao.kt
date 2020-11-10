@@ -2,6 +2,7 @@ package com.example.faith.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -19,4 +20,6 @@ interface MediumDao {
     fun insertAll(media: List<Medium>)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOne(medium: Medium)
+    @Query("DELETE FROM media WHERE id = :mediumId")
+    suspend fun deleteMedium(mediumId: Int)
 }

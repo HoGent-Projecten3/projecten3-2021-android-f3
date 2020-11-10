@@ -22,7 +22,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageView2"
                 android:gravity="center_horizontal"
                 android:layout_margin="16dp"
-                tools:layout_editor_absoluteX="5dp">
+                tools:layout_editor_absoluteX="5dp"
+                android:id="@+id/linearLayout">
 
                 <TextView
                     android:id="@+id/txtNaam"
@@ -56,6 +57,18 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.24000001"
                 android:layout_margin="12dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/btRemoveMedium"
+                android:text="@string/delete_button_text" />
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

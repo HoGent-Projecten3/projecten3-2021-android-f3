@@ -2,8 +2,12 @@ package com.example.faith
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -21,6 +25,7 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 /**
  * @author Remi Mestdagh
  */
@@ -29,8 +34,7 @@ class MediumListFragment : Fragment() {
 
     private val viewModel: MediumListViewModel by viewModels()
     private var searchJob: Job? = null
-    private val adapter = MediumAdapter()
-
+    private var adapter = MediumAdapter()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -55,16 +59,51 @@ class MediumListFragment : Fragment() {
         return binding.root
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        inflater.inflate(R.menu.bottom_app_bar, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+        var searchItem:MenuItem = menu.findItem(R.id.searchBib)
+        var searchView2 = SearchView(context)
+        searchItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW or MenuItem.SHOW_AS_ACTION_IF_ROOM)
+        searchItem.setActionView(searchView2)
+        searchView2.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                filter(query)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                filter(newText)
+                return false
+            }
+        })
+
+    }
+
+    private fun filter(text: String) {
+        adapter = MediumAdapter()
+        medium_list.adapter = adapter
+        lifecycleScope.launch {
+            viewModel.filter(text).collectLatest {
+                adapter.submitData(it)
+            }
+        }
+    }
+
     private fun navigateToDagboek() {
-        val direction = MediumListFragmentDirections.actionMediumListFragmentToDagboekListFragment2()
+        val direction =
+            MediumListFragmentDirections.actionMediumListFragmentToDagboekListFragment2()
         val navController = findNavController()
         navController.navigate(direction)
     }
+
     private fun navigateToCinema() {
         val direction = MediumListFragmentDirections.actionMediumListFragmentToCinemaFragment()
         val navController = findNavController()
         navController.navigate(direction)
     }
+
     fun insertNewMedia() {
         viewModel.getMedia2().enqueue(
             object : Callback<ApiMediumSearchResponse?> {

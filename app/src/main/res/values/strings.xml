@@ -42,4 +42,9 @@
     <string name="content_description_search">zoeken</string>
     <string name="content_description_more">meer</string>
     <string name="search">zoek</string>
+    <string name="txf_chat">Bericht sturen</string>
+    <string name="chat_hint">Typ uw bericht</string>
+    <string name="verzend">verzend</string>
+
+    <string name="delete_button_text">verwijder</string>
 </resources>
