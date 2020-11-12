@@ -5,105 +5,115 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
+        android:fitsSystemWindows="false"
         android:backgroundTint="@color/hotel_theme"
         android:background="@color/hotel_theme">
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fitsSystemWindows="false">
-
+            android:orientation="vertical">
             <TextView
-                android:id="@+id/txtNaam"
-                android:layout_width="333dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:foregroundGravity="center|center_horizontal"
                 android:gravity="center|center_horizontal|center_vertical"
                 android:text="@{viewModel.hulpbron.titel}"
                 android:textSize="24sp"
+                android:padding="20dp"
                 android:textStyle="bold"
-                android:maxLines="10"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.061"
                 tools:text="naam" />
 
             <TextView
-                android:id="@+id/txtBeschrijving"
-                android:layout_width="333dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.hulpbron.inhoud}"
                 android:textSize="18sp"
-                android:textStyle="italic"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtNaam"
-                app:layout_constraintVertical_bias="0.054"
-                tools:text="beschrijving" />
-
-            <Button
-                android:id="@+id/btnUrl"
-                android:layout_width="333dp"
-                android:layout_height="wrap_content"
-                android:text="Bezoek de website"
-                android:textSize="18sp"
-                android:textStyle="bold|italic"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtBeschrijving"
-                app:layout_constraintVertical_bias="0.054"
-                tools:text="url" />
-            <Button
-                android:id="@+id/btnTelefoonnummer"
-                android:layout_width="333dp"
-                android:layout_height="wrap_content"
-                android:text= "Bel ons"
-                android:textSize="18sp"
-                android:textStyle="italic"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnUrl"
-                app:layout_constraintVertical_bias="0.054"
-                />
-
-            <Button
-                android:id="@+id/btnChatUrl"
-                android:layout_width="333dp"
-                android:layout_height="wrap_content"
-                android:text="Chat"
-                android:textSize="18sp"
-                android:textStyle="bold|italic"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnTelefoonnummer"
-                app:layout_constraintVertical_bias="0.054"
-                />
-            <Button
-                android:id="@+id/btnEmailadres"
-                android:layout_width="333dp"
-                android:layout_height="wrap_content"
-                android:text="Verstuur een mail"
-                android:textSize="18sp"
-                android:textStyle="bold|italic"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnChatUrl"
-                app:layout_constraintVertical_bias="0.054"
-                />
+                android:padding="20dp" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="7dp"
+            android:layout_gravity="bottom"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
+
+                <LinearLayout
+                    android:id="@+id/linLayUrl"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    app:isGone="@{viewModel.hulpbron.url.empty}">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/website_icon"
+                            android:contentDescription="Website"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linLayEmail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    app:isGone="@{viewModel.hulpbron.emailadres.empty}"
+                    >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/email_icon"
+                        android:contentDescription="Mail"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linLayChatUrl"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    app:isGone="@{viewModel.hulpbron.chatUrl.empty}"
+                    >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/chat_icon"
+                        android:contentDescription="Chat"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linLayTelefoon"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    app:isGone="@{viewModel.hulpbron.telefoonnummer.empty}"
+                    >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/phone_icon"
+                        android:contentDescription="Bel"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <data>
         <import type="com.example.faith.data.ApiHulpbron"/>
