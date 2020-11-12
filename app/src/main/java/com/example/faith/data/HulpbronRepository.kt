@@ -28,7 +28,7 @@ class HulpbronRepository @Inject constructor(private val hulpbronDao: HulpbronDa
     }
 
     fun getHulpbronnen2(): Call<ApiHulpbronSearchResponse> {
-        return service.getHulpbronnen2(0,500)
+        return service.getHulpbronnen2(0,10)
     }
     fun getHulpbron(id: Int) = hulpbronDao.getOne(id)
 
