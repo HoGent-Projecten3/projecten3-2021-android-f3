@@ -1,14 +1,14 @@
 package com.example.faith.data
 
-import com.google.gson.annotations.SerializedName
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 @Entity(tableName = "hulpbronnen")
-data class Hulpbron (
+data class Hulpbron(
         @PrimaryKey @ColumnInfo(name = "id")
         val hulpbronId: Int,
         val titel: String,
@@ -17,8 +17,7 @@ data class Hulpbron (
         val telefoonnummer: String?,
         val emailadres: String?,
         val chatUrl: String?,
-        val datum: String?
-        ) {
+        val datum: Date?
+) {
         override fun toString() = titel
-
 }

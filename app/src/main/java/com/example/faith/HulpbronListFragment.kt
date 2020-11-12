@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.cachedIn
 import com.example.faith.adapters.HulpbronAdapter
 import com.example.faith.adapters.MediumAdapter
 import com.example.faith.data.*
@@ -19,11 +20,9 @@ import com.example.faith.databinding.FragmentMediumListBinding
 import com.example.faith.viewmodels.HulpbronListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_hulpbron_list.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.async
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.map
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,6 +34,7 @@ class HulpbronListFragment : Fragment() {
     private var searchJob: Job? =null
     private val adapter = HulpbronAdapter()
     lateinit var binding: FragmentHulpbronListBinding
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,22 +50,12 @@ class HulpbronListFragment : Fragment() {
         binding.svHulpbron.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
             override fun onQueryTextChange(newText: String): Boolean {
-                searchJob?.cancel()
-                searchJob = lifecycleScope.launch {
-                    viewModel.getHulpbronnen().collectLatest {
-                        adapter.filter(newText);
-                    }
-                }
+                filter(newText);
                 return false
             }
 
             override fun onQueryTextSubmit(query: String): Boolean {
-                searchJob?.cancel()
-                searchJob = lifecycleScope.launch {
-                    viewModel.getHulpbronnen().collectLatest {
-                        adapter.filter(query);
-                    }
-                }
+                filter(query);
                 return false
             }
 
@@ -75,6 +65,15 @@ class HulpbronListFragment : Fragment() {
 
 
 
+    }
+
+    fun filter(input: String)
+    {
+        lifecycleScope.launch {
+            viewModel.filter(input).collectLatest {
+                adapter.submitData(it);
+            }
+        }
     }
 
     fun insertNewHulpbronnen(){
@@ -115,6 +114,7 @@ class HulpbronListFragment : Fragment() {
         )
 
     }
+
 
     private fun getHulpbron(){
         searchJob?.cancel()
