@@ -51,6 +51,7 @@ class CinemaFragment : Fragment() {
     private var photoURI: Uri = Uri.EMPTY
     private val Fragment.packageManager get() = activity?.packageManager
     private val Fragment.contentResolver get() = activity?.contentResolver
+    private var videoURI:Uri=Uri.EMPTY
 
     /**
      * Method called upon starting view creation
@@ -60,6 +61,7 @@ class CinemaFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
         /* Enabling data binding for fragments. slightly different because no immediate acces to root Activity */
         val binding = DataBindingUtil.inflate<FragmentCinemaBinding>(
             inflater,
@@ -80,9 +82,33 @@ class CinemaFragment : Fragment() {
         binding.sendButton.setOnClickListener {
             upload()
         }
+
         return binding.root
     }
 
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        if (savedInstanceState != null) {
+            photoURI=Uri.parse(savedInstanceState.getString("photoURI"))
+            videoURI= Uri.parse(savedInstanceState.getString("videoURI"))
+        }
+        if(photoURI==Uri.EMPTY&&videoURI!=Uri.EMPTY){
+            videoView.setVideoURI(videoURI)
+            videoView.visibility=View.VISIBLE
+            videoView.start()
+        }else if(photoURI!=Uri.EMPTY)
+        {
+            ivImage.setImageURI(photoURI)
+            ivImage.visibility=View.VISIBLE
+        }
+
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString("videoURI",videoURI.toString())
+        outState.putString("photoURI",photoURI.toString())
+        super.onSaveInstanceState(outState)
+    }
 
     private fun checkPermission() {
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -246,14 +272,16 @@ class CinemaFragment : Fragment() {
                 ivImage.visibility = View.VISIBLE
                 // todo de foto niet alleen weergeven maar ook opslaan in db
             } else if (requestCode == requestVideoCapture && lastCode == videoMade) {
+                photoURI=Uri.EMPTY
 
-                var videoUri = theIntent?.data
+                videoURI = theIntent?.data!!
                 videoView.visibility = View.VISIBLE
-                videoView.setVideoURI(videoUri)
+                videoView.setVideoURI(videoURI)
                 videoView.start()
             }
         }
     }
+
 
     @Throws(IOException::class)
     private fun createImageData(uri: Uri) {
@@ -276,7 +304,10 @@ class CinemaFragment : Fragment() {
     }
 
     private fun upload() {
-        createImageData(photoURI)
+        if(photoURI!=Uri.EMPTY){
+            createImageData(photoURI)
+        }
+
         var kindOfMedia = ""
         if (lastCode == 1 || lastCode == 0) {
             kindOfMedia = "image/*"
