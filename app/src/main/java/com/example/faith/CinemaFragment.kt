@@ -280,6 +280,7 @@ class CinemaFragment : Fragment() {
         }
     }
 
+
     @Throws(IOException::class)
     private fun createImageData(uri: Uri) {
         val inputStream = contentResolver!!.openInputStream(uri)
