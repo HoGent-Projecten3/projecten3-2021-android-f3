@@ -13,7 +13,7 @@ class CinemaViewModel @ViewModelInject constructor(
     private val repository: MediumRepository
 ) : ViewModel() {
 
-    fun uploadMedia(imageFile: MultipartBody.Part): Call<Message> {
-        return repository.postMedium(imageFile)
+    fun uploadMedia(imageFile: MultipartBody.Part, beschrijving:String?): Call<Message> {
+        return repository.postMedium(imageFile,beschrijving)
     }
 }

@@ -34,7 +34,8 @@ interface ApiService {
     @Multipart
     @POST("Cinema/imageFile")
     fun uploadMedia(
-        @Part imageFile: MultipartBody.Part
+        @Part imageFile: MultipartBody.Part,
+        @Query("beschrijving")beschrijving: String?
     ): Call<Message>
 
     @POST("Cinema/text")

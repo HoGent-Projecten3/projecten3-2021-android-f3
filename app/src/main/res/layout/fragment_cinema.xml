@@ -27,7 +27,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txfBericht"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:layout_marginTop="@dimen/margin_bt_top" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btOpenGallery"
@@ -40,7 +41,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txfBericht"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:layout_marginTop="@dimen/margin_bt_top" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btCapturePhoto"
@@ -52,7 +54,8 @@
             app:layout_constraintStart_toEndOf="@+id/btOpenGallery"
             app:layout_constraintTop_toBottomOf="@+id/txfBericht"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:layout_marginTop="@dimen/margin_bt_top" />
 
         <VideoView
             android:id="@+id/videoView"
@@ -82,8 +85,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.81" />
-
+            app:layout_constraintVertical_bias="0.522"
+            app:layout_constraintHorizontal_bias="1.0" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/sendButton"
