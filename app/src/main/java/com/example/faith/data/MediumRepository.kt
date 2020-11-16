@@ -38,9 +38,9 @@ class MediumRepository @Inject constructor(private val mediumDao: MediumDao, pri
     fun getDagboekPosts2(): Call<ApiDagboekSearchResponse> {
         return service.getDagboek2(0, 500)
     }
-    fun postMedium(imageFile: MultipartBody.Part): Call<Message> {
+    fun postMedium(imageFile: MultipartBody.Part,beschrijving: String?): Call<Message> {
 
-        return service.uploadMedia(imageFile)
+        return service.uploadMedia(imageFile,beschrijving)
     }
     fun postText(titel: String, beschrijving: String): Call<Message> {
         return service.uploadText(titel, beschrijving)

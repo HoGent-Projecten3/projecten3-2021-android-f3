@@ -80,10 +80,9 @@ class CinemaFragment : Fragment() {
         binding.sendButton.setOnClickListener {
             upload()
         }
-
-        /* return */
         return binding.root
     }
+
 
     private fun checkPermission() {
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -296,7 +295,7 @@ class CinemaFragment : Fragment() {
                 it
             )
         }
-        var call: Call<Message>? = part?.let { viewModel.uploadMedia(it) }
+        var call: Call<Message>? = part?.let { viewModel.uploadMedia(it,txfBericht.text?.toString()) }
         call!!.enqueue(
             object : Callback<Message?> {
                 override fun onFailure(call: Call<Message?>, t: Throwable) {}

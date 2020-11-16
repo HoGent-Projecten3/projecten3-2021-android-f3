@@ -12,4 +12,5 @@
     <dimen name="smallmargin">2dp</dimen>
     <dimen name="spaceforviewsless">350dp</dimen>
     <dimen name="edit_dagboek_margins">15dp</dimen>
+    <dimen name="margin_bt_top">12dp</dimen>
 </resources>
