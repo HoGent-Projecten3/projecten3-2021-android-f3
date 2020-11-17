@@ -51,7 +51,7 @@ class CinemaFragment : Fragment() {
     private var photoURI: Uri = Uri.EMPTY
     private val Fragment.packageManager get() = activity?.packageManager
     private val Fragment.contentResolver get() = activity?.contentResolver
-    private var videoURI:Uri=Uri.EMPTY
+    private var videoURI: Uri = Uri.EMPTY
 
     /**
      * Method called upon starting view creation
@@ -89,24 +89,22 @@ class CinemaFragment : Fragment() {
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         if (savedInstanceState != null) {
-            photoURI=Uri.parse(savedInstanceState.getString("photoURI"))
-            videoURI= Uri.parse(savedInstanceState.getString("videoURI"))
+            photoURI = Uri.parse(savedInstanceState.getString("photoURI"))
+            videoURI = Uri.parse(savedInstanceState.getString("videoURI"))
         }
-        if(photoURI==Uri.EMPTY&&videoURI!=Uri.EMPTY){
+        if (photoURI == Uri.EMPTY && videoURI != Uri.EMPTY) {
             videoView.setVideoURI(videoURI)
-            videoView.visibility=View.VISIBLE
+            videoView.visibility = View.VISIBLE
             videoView.start()
-        }else if(photoURI!=Uri.EMPTY)
-        {
+        } else if (photoURI != Uri.EMPTY) {
             ivImage.setImageURI(photoURI)
-            ivImage.visibility=View.VISIBLE
+            ivImage.visibility = View.VISIBLE
         }
-
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putString("videoURI",videoURI.toString())
-        outState.putString("photoURI",photoURI.toString())
+        outState.putString("videoURI", videoURI.toString())
+        outState.putString("photoURI", photoURI.toString())
         super.onSaveInstanceState(outState)
     }
 
@@ -272,7 +270,7 @@ class CinemaFragment : Fragment() {
                 ivImage.visibility = View.VISIBLE
                 // todo de foto niet alleen weergeven maar ook opslaan in db
             } else if (requestCode == requestVideoCapture && lastCode == videoMade) {
-                photoURI=Uri.EMPTY
+                photoURI = Uri.EMPTY
 
                 videoURI = theIntent?.data!!
                 videoView.visibility = View.VISIBLE
@@ -281,7 +279,6 @@ class CinemaFragment : Fragment() {
             }
         }
     }
-
 
     @Throws(IOException::class)
     private fun createImageData(uri: Uri) {
@@ -304,7 +301,7 @@ class CinemaFragment : Fragment() {
     }
 
     private fun upload() {
-        if(photoURI!=Uri.EMPTY){
+        if (photoURI != Uri.EMPTY) {
             createImageData(photoURI)
         }
 
@@ -326,7 +323,7 @@ class CinemaFragment : Fragment() {
                 it
             )
         }
-        var call: Call<Message>? = part?.let { viewModel.uploadMedia(it,txfBericht.text?.toString()) }
+        var call: Call<Message>? = part?.let { viewModel.uploadMedia(it, txfBericht.text?.toString()) }
         call!!.enqueue(
             object : Callback<Message?> {
                 override fun onFailure(call: Call<Message?>, t: Throwable) {}

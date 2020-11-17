@@ -1,7 +1,6 @@
 package com.example.faith.adapters
 
 import com.example.faith.R
-import com.example.faith.data.ApiBericht
 import com.example.faith.data.BerichtXML
 import com.example.faith.databinding.ItemMessageOntvangBinding
 import com.example.faith.databinding.ItemMessageVertuurBinding

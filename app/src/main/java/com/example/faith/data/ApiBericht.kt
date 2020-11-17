@@ -1,7 +1,6 @@
 package com.example.faith.data
 
 import com.google.gson.annotations.SerializedName
-import org.threeten.bp.LocalDateTime
 
 /**
  * @author Jef Seys

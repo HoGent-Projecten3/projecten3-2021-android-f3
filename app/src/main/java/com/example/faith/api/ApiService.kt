@@ -1,17 +1,16 @@
 package com.example.faith.api
 
 import android.os.Message
-import com.example.faith.data.*
-
+import com.example.faith.data.ApiBerichtSearchResponse
 import com.example.faith.data.ApiDagboekSearchResponse
 import com.example.faith.data.ApiMediumResponse
 import com.example.faith.data.ApiMediumSearchResponse
+import com.example.faith.data.DoelDTO
 import com.example.faith.data.Gebruiker
 import com.example.faith.data.Login
 import com.example.faith.data.LoginResponse
 import okhttp3.MultipartBody
 import retrofit2.Call
-
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -20,7 +19,6 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Query
-
 
 /**
  * @author Remi Mestdagh
@@ -56,13 +54,13 @@ interface ApiService {
 
     @GET("Chat/GetBerichtenMetBegeleider")
     suspend fun getBerichten(
-        @Query("page") page:Int,
+        @Query("page") page: Int,
         @Query("aantal") perPage: Int
     ): ApiBerichtSearchResponse
 
     @GET("Chat/GetBerichtenMetBegeleider")
     fun getBerichten2(
-        @Query("page") page:Int,
+        @Query("page") page: Int,
         @Query("aantal") perPage: Int
     ): Call<ApiBerichtSearchResponse>
 
@@ -106,7 +104,7 @@ interface ApiService {
 
 
     @GET("Client/GetDoelen")
-    fun getDoelen():Call<List<DoelDTO>>
+    fun getDoelen(): Call<List<DoelDTO>>
 
     @Headers("Content-Type: application/json")
     @POST("Client/PostDoelen")
@@ -116,12 +114,11 @@ interface ApiService {
     @POST("Client/SyncDoelen")
     fun syncDoelen(@Body doelenDTO: List<DoelDTO>): Call<List<DoelDTO>>
 
-
     @GET("Cinema/id")
     fun getMedium(@Query("mediumId") id: Int): ApiMediumResponse
 
     @DELETE("Cinema")
-    fun removeMedium(@Query("mediumId") id:Int) : Call<Message>
+    fun removeMedium(@Query("mediumId") id: Int): Call<Message>
 
     data class LoginResponseModel(
         val token: String,

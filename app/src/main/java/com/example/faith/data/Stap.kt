@@ -1,11 +1,10 @@
 package com.example.faith.data
 
-
 class Stap(
     private var naam: String,
     private var checked: Boolean
 
-): IDoel{
+) : IDoel {
 
     override fun getNaam(): String {
         return naam
@@ -42,5 +41,4 @@ class Stap(
     override fun verwijderDoel(doel: IDoel) {
         throw Exception("Stap can't delete itself")
     }
-
 }

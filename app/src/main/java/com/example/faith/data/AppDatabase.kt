@@ -16,7 +16,7 @@ import com.example.faith.utilities.DATABASE_NAME
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun mediumDao(): MediumDao
-    abstract fun berichtDao():BerichtDao
+    abstract fun berichtDao(): BerichtDao
 
     abstract fun hulpbronDao(): HulpbronDao
 

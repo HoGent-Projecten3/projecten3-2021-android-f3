@@ -6,10 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.faith.data.*
-import kotlinx.android.synthetic.main.fragment_chat.*
+import com.example.faith.data.ApiBericht
+import com.example.faith.data.ApiBerichtSearchResponse
+import com.example.faith.data.BerichtRepository
+import com.example.faith.data.Gebruiker
+import com.example.faith.data.GebruikerRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
 import retrofit2.Call
 
 /**
@@ -18,20 +20,20 @@ import retrofit2.Call
 class ChatViewModel @ViewModelInject constructor(
     private val gebruikerRepository: GebruikerRepository,
     private val berichtRepository: BerichtRepository
-)  : ViewModel() {
+) : ViewModel() {
 
     fun getGebruiker(): Call<Gebruiker> {
         return gebruikerRepository.getGebruiker()
     }
 
-    fun verstuurBericht(mijnEmail:String,andereEmail:String, mijnNaam:String, andereNaam:String,text:String): Call<Message> {
-        return berichtRepository.verstuurBericht(mijnEmail,andereEmail, mijnNaam, andereNaam,text)
+    fun verstuurBericht(mijnEmail: String, andereEmail: String, mijnNaam: String, andereNaam: String, text: String): Call<Message> {
+        return berichtRepository.verstuurBericht(mijnEmail, andereEmail, mijnNaam, andereNaam, text)
     }
 
-    fun geefBerichten():Flow<PagingData<ApiBericht>>{
-            return berichtRepository.getBerichten().cachedIn(viewModelScope)
+    fun geefBerichten(): Flow<PagingData<ApiBericht>> {
+        return berichtRepository.getBerichten().cachedIn(viewModelScope)
     }
-     fun geefBerichten2(): Call<ApiBerichtSearchResponse>{
+    fun geefBerichten2(): Call<ApiBerichtSearchResponse> {
         return berichtRepository.getBerichten2()
     }
 }

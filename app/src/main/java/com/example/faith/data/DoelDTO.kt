@@ -11,31 +11,31 @@ public class DoelDTO(
     var collapsed: Boolean?,
     @SerializedName("stappen")
     var stappen: List<DoelDTO>?
-){
+) {
 
-    constructor(doel: Doel): this(doel.getNaam(), doel.isChecked(), doel.isCollapsed(), doel.getDoelenDTO())
+    constructor(doel: Doel) : this(doel.getNaam(), doel.isChecked(), doel.isCollapsed(), doel.getDoelenDTO())
 
-    constructor(stap: Stap): this(stap.getNaam(), stap.isChecked(), null, null)
+    constructor(stap: Stap) : this(stap.getNaam(), stap.isChecked(), null, null)
 
-    fun getDoel(): IDoel{
-        if(stappen != null && collapsed != null) {
+    fun getDoel(): IDoel {
+        if (stappen != null && collapsed != null) {
             var doel = Doel(inhoud!!, checked!!, collapsed!!)
             for (stap: DoelDTO in stappen!!) {
-                doel.addStap( stap.getDoel())
+                doel.addStap(stap.getDoel())
             }
             return doel
-        }else{
+        } else {
             return Stap(inhoud!!, checked!!)
         }
     }
 
-    override fun toString(): String{
-        var print: String = "${inhoud}, ${checked}, ${collapsed};\n"
-        if(stappen != null) {
+    override fun toString(): String {
+        var print: String = "$inhoud, $checked, $collapsed;\n"
+        if (stappen != null) {
             for (stap: DoelDTO in stappen!!) {
                 print += stap.toString()
             }
         }
-        return  print
+        return print
     }
 }
