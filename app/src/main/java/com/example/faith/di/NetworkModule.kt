@@ -27,7 +27,6 @@ import javax.inject.Singleton
 @InstallIn(ApplicationComponent::class)
 class NetworkModule() {
 
-
     @Provides
     @Singleton
     fun provideHttpCache(application: Application): Cache {
@@ -37,11 +36,9 @@ class NetworkModule() {
 
     @Provides
     @Singleton
-    fun provideSignalRService(): SignalRService{
+    fun provideSignalRService(): SignalRService {
         return SignalRService()
     }
-
-
 
     @Provides
     @Singleton

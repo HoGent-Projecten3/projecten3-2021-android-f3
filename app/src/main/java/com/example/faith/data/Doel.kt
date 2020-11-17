@@ -1,8 +1,5 @@
 package com.example.faith.data
 
-
-import android.util.Log
-
 class Doel(
     private var naam: String,
     private var checked: Boolean,
@@ -20,11 +17,11 @@ class Doel(
         this.naam = naam
     }
 
-    override fun addStap(stap: IDoel){
+    override fun addStap(stap: IDoel) {
         stappen.add(stap)
     }
 
-    override fun getStappen(): List<IDoel>{
+    override fun getStappen(): List<IDoel> {
         return stappen
     }
 
@@ -50,21 +47,21 @@ class Doel(
     }
 
     override fun verwijderDoel(doel: IDoel) {
-        if(!stappen.remove(doel)) {
+        if (!stappen.remove(doel)) {
             for (stap: IDoel in stappen) {
-                if(stap is Doel) {
+                if (stap is Doel) {
                     stap.verwijderDoel(doel)
                 }
             }
         }
     }
 
-    fun getDoelenDTO(): List<DoelDTO>{
+    fun getDoelenDTO(): List<DoelDTO> {
         val stappenDTO = mutableListOf<DoelDTO>()
-        for (stap: IDoel in stappen){
-            if(stap is Doel){
+        for (stap: IDoel in stappen) {
+            if (stap is Doel) {
                 stappenDTO.add(DoelDTO(stap as Doel))
-            }else if(stap is Stap){
+            } else if (stap is Stap) {
                 stappenDTO.add(DoelDTO(stap as Stap))
             }
         }

@@ -1,7 +1,6 @@
 package com.example.faith.data
 
-
-interface IDoel{
+interface IDoel {
     fun getNaam(): String
     fun setNaam(naam: String)
     fun addStap(stap: IDoel)

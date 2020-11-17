@@ -35,7 +35,7 @@ class MediumDetailFragment : Fragment() {
         )
     }
 
-    fun removeMedium(){
+    fun removeMedium() {
         val call: Call<Message> = mediumDetailViewModel.removeMedium()
         mediumDetailViewModel.deleteMediumRoom(args.mediumId)
         call.enqueue(

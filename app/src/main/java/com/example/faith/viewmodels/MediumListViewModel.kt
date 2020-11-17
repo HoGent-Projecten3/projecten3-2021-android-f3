@@ -36,7 +36,7 @@ class MediumListViewModel @ViewModelInject constructor(
             apiRepository.insertOne(medium)
         }
     }
-    fun filter(naam:String): Flow<PagingData<ApiPhoto>> {
+    fun filter(naam: String): Flow<PagingData<ApiPhoto>> {
         return apiRepository.getSearchResultStream().map {
             it.filter {
                 it.naam.startsWith(naam)

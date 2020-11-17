@@ -13,7 +13,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.faith.adapters.DagboekAdapter
-import com.example.faith.adapters.MediumAdapter
 import com.example.faith.data.ApiDagboekSearchResponse
 import com.example.faith.data.Medium
 import com.example.faith.databinding.FragmentDagboekListBinding
@@ -65,17 +64,18 @@ class DagboekListFragment : Fragment() {
         var searchView2 = SearchView(context)
         searchItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW or MenuItem.SHOW_AS_ACTION_IF_ROOM)
         searchItem.setActionView(searchView2)
-        searchView2.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                filter(query)
-                return false
-            }
+        searchView2.setOnQueryTextListener(
+            object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String): Boolean {
+                    filter(query)
+                    return false
+                }
 
-            override fun onQueryTextChange(newText: String): Boolean {
-                return false
+                override fun onQueryTextChange(newText: String): Boolean {
+                    return false
+                }
             }
-        })
-
+        )
     }
     private fun filter(text: String) {
         adapter = DagboekAdapter()

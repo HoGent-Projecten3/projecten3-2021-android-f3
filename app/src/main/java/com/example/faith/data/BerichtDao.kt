@@ -10,10 +10,10 @@ import androidx.room.Query
  * @author Jef Seys
  */
 @Dao
-interface  BerichtDao {
+interface BerichtDao {
     @Query("SELECT * FROM berichten")
     fun getBerichten(): LiveData<List<Bericht>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertOne(bericht:Bericht)
+    fun insertOne(bericht: Bericht)
 }
