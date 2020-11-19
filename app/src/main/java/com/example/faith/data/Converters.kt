@@ -13,4 +13,5 @@ class Converters {
         val type = object : TypeToken<List<Medium>>() {}.type
         return Gson().toJson(torrent, type)
     }
+
 }

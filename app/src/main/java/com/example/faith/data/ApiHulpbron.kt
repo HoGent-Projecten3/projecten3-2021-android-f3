@@ -12,5 +12,5 @@ data class ApiHulpbron(
         @field:SerializedName("telefoonnummer") val telefoonnummer:String,
         @field:SerializedName("emailadres") val emailadres:String,
         @field:SerializedName("chatUrl") val chatUrl:String,
-        @field:SerializedName("datum") val datum: Date
+        @field:SerializedName("datum") val datum: String
 )
