@@ -88,13 +88,13 @@ interface ApiService {
         @Query("aantal") perPage: Int
     ): Call<ApiDagboekSearchResponse>
 
-    @GET("Infobalie/getHulpbronnen")
+    @GET("Infobalie/getHulpbronnenPaging")
     suspend fun getHulpbronnen(
         @Query("page") page:Int,
         @Query("aantal") perPage:Int
     ) : ApiHulpbronSearchResponse
 
-    @GET("Infobalie/getHulpbronnen")
+    @GET("Infobalie/getHulpbronnenPaging")
     fun getHulpbronnen2(
         @Query("page") page:Int,
         @Query("aantal") perPage:Int
