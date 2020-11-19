@@ -120,11 +120,11 @@ class HotelFragment : Fragment() {
         */
 
         // Updating the dimensions for all rooms in DP
-        val dimensionInDp = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, newHeight.toFloat(),resources.displayMetrics).toInt() // new DP height
+        val dimensionHeightInDp = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, newHeight.toFloat(),resources.displayMetrics).toInt() // new DP height
 
         // Only update height. these are constant. Width updated automatically, as wrap_content, and adjustviewbounds keeps ratio intact.
         for (kamer in kamers) {
-            kamer.layoutParams.height = dimensionInDp
+            kamer.layoutParams.height = dimensionHeightInDp
         }
         // image_penthouse.requestLayout()
     }

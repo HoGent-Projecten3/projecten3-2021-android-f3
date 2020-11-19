@@ -7,6 +7,8 @@ import okhttp3.Response
 import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.jvm.Throws
+
 /**
  * @author Remi Mestdagh
  */
