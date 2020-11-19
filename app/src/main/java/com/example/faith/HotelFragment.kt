@@ -90,7 +90,7 @@ class HotelFragment : Fragment() {
               .navigate(R.id.action_hotelFragment_to_penthouseFragment)
           // TODO
           R.id.image_bibliotheek -> Navigation.findNavController(kamer)
-              .navigate(R.id.action_hotelFragment_to_hulpbronListFragment)
+              .navigate(R.id.action_hotelFragment_to_mediumListFragment)
           else -> Toast.makeText(getActivity(), "Dit item is niet aanklikbaar.", Toast.LENGTH_SHORT).show()
         }
     }

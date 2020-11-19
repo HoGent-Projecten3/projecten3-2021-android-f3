@@ -3,6 +3,7 @@ package com.example.faith.api
 import android.os.Message
 import com.example.faith.data.ApiBerichtSearchResponse
 import com.example.faith.data.ApiDagboekSearchResponse
+import com.example.faith.data.ApiHulpbronSearchResponse
 import com.example.faith.data.ApiMediumResponse
 import com.example.faith.data.ApiMediumSearchResponse
 import com.example.faith.data.DoelDTO
@@ -24,10 +25,6 @@ import retrofit2.http.Query
  * @author Remi Mestdagh
  */
 interface ApiService {
-
-    @Headers("No-Authentication: true")
-    @POST("Account/login")
-    fun login(@Body login: Login): Call<LoginResponse>
 
     @Multipart
     @POST("Cinema/imageFile")

@@ -1,5 +1,6 @@
 package com.example.faith.adapters
 
+
 import android.annotation.SuppressLint
 import android.graphics.Typeface
 import android.view.LayoutInflater
@@ -15,10 +16,11 @@ import com.example.faith.databinding.DoelViewBinding
 import com.example.faith.databinding.StapViewBinding
 import com.example.faith.viewmodels.PenthouseViewModel
 
-class DoelAdapter : ListAdapter<IDoel, DoelAdapter.BaseViewHolder>(DoelDiffCallback()) {
+
+class DoelAdapter: ListAdapter<IDoel, DoelAdapter.BaseViewHolder>(DoelDiffCallback()){
 
     override fun getItemViewType(position: Int): Int {
-        when (getItem(position)) {
+        when(getItem(position)){
             is Doel -> return 1
             is Stap -> return 0
             else -> throw Exception("Imposibru")
@@ -26,7 +28,7 @@ class DoelAdapter : ListAdapter<IDoel, DoelAdapter.BaseViewHolder>(DoelDiffCallb
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-        when (viewType) {
+        when(viewType){
             0 -> return StapViewHolder.from(parent)
             1 -> return DoelViewHolder.from(parent)
             else -> throw Exception("nooooo")
@@ -43,7 +45,7 @@ class DoelAdapter : ListAdapter<IDoel, DoelAdapter.BaseViewHolder>(DoelDiffCallb
         return doel.size
     }*/
 
-    class StapViewHolder(val binding: StapViewBinding) : BaseViewHolder(binding.root) {
+    class StapViewHolder(val binding: StapViewBinding): BaseViewHolder(binding.root){
 
         override fun bind(item: IDoel) {
 
@@ -57,24 +59,22 @@ class DoelAdapter : ListAdapter<IDoel, DoelAdapter.BaseViewHolder>(DoelDiffCallb
                 viewModel!!.syncDoelen()
             }
 
-            binding.stapText.setOnLongClickListener(
-                object : View.OnLongClickListener {
-                    override fun onLongClick(v: View?): Boolean {
-                        if (binding.stapText.typeface == Typeface.DEFAULT) {
-                            binding.stapText.typeface = Typeface.DEFAULT_BOLD
-                            binding.editButton.visibility = View.VISIBLE
-                            binding.deleteButton.visibility = View.VISIBLE
-                        } else {
-                            binding.stapText.typeface = Typeface.DEFAULT
-                            binding.editButton.visibility = View.GONE
-                            binding.deleteButton.visibility = View.GONE
-                        }
-                        return true
+            binding.stapText.setOnLongClickListener( object: View.OnLongClickListener{
+                override fun onLongClick(v: View?): Boolean {
+                    if(binding.stapText.typeface == Typeface.DEFAULT){
+                        binding.stapText.typeface = Typeface.DEFAULT_BOLD
+                        binding.editButton.visibility = View.VISIBLE
+                        binding.deleteButton.visibility = View.VISIBLE
+                    }else{
+                        binding.stapText.typeface = Typeface.DEFAULT
+                        binding.editButton.visibility = View.GONE
+                        binding.deleteButton.visibility = View.GONE
                     }
+                    return true
                 }
-            )
+            })
 
-            binding.editButton.setOnClickListener {
+            binding.editButton.setOnClickListener{
                 binding.stapText.visibility = View.GONE
                 binding.editButton.visibility = View.GONE
                 binding.deleteButton.visibility = View.GONE
@@ -97,10 +97,11 @@ class DoelAdapter : ListAdapter<IDoel, DoelAdapter.BaseViewHolder>(DoelDiffCallb
             binding.deleteButton.setOnClickListener {
                 viewModel!!.verwijderDoel(item)
             }
+
         }
 
-        companion object {
-            fun from(parent: ViewGroup): BaseViewHolder {
+        companion object{
+            fun from(parent: ViewGroup): BaseViewHolder{
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = StapViewBinding.inflate(layoutInflater, parent, false)
                 return StapViewHolder(binding)
@@ -108,7 +109,7 @@ class DoelAdapter : ListAdapter<IDoel, DoelAdapter.BaseViewHolder>(DoelDiffCallb
         }
     }
 
-    class DoelViewHolder(val binding: DoelViewBinding) : BaseViewHolder(binding.root) {
+    class DoelViewHolder(val binding: DoelViewBinding): BaseViewHolder(binding.root){
 
         override fun bind(item: IDoel) {
 
@@ -120,7 +121,7 @@ class DoelAdapter : ListAdapter<IDoel, DoelAdapter.BaseViewHolder>(DoelDiffCallb
             binding.doelListSec.adapter = adapter
             binding.doelCheckbox.isChecked = item.isChecked()
 
-            if (item.isCollapsed()) {
+            if(item.isCollapsed()) {
                 binding.doelListSec.visibility = View.GONE
                 binding.doelText.typeface = Typeface.DEFAULT_BOLD
                 if(binding.doelEditButton.visibility == View.VISIBLE){
@@ -149,16 +150,17 @@ class DoelAdapter : ListAdapter<IDoel, DoelAdapter.BaseViewHolder>(DoelDiffCallb
                         binding.doelAddButton.visibility = View.VISIBLE
                         binding.doelColapseText.visibility = View.GONE
                     }
+                    return true
                 }
-            )
+            })
 
             binding.doelText.setOnClickListener {
-                if (binding.doelText.typeface == Typeface.DEFAULT_BOLD) {
+                if(binding.doelText.typeface == Typeface.DEFAULT_BOLD){
                     binding.doelListSec.visibility = View.VISIBLE
                     binding.doelText.typeface = Typeface.DEFAULT
                     binding.doelColapseText.visibility = View.GONE
                     item.setCollapsed(false)
-                } else {
+                }else{
                     binding.doelListSec.visibility = View.GONE
                     binding.doelText.typeface = Typeface.DEFAULT_BOLD
                     if(binding.doelEditButton.visibility == View.VISIBLE){
@@ -172,7 +174,7 @@ class DoelAdapter : ListAdapter<IDoel, DoelAdapter.BaseViewHolder>(DoelDiffCallb
                 viewModel!!.syncDoelen()
             }
 
-            binding.doelEditButton.setOnClickListener {
+            binding.doelEditButton.setOnClickListener{
                 binding.doelText.visibility = View.GONE
                 binding.doelEditButton.visibility = View.GONE
                 binding.doelDeleteButton.visibility = View.GONE
@@ -205,7 +207,7 @@ class DoelAdapter : ListAdapter<IDoel, DoelAdapter.BaseViewHolder>(DoelDiffCallb
 
             binding.doelAddDoelButton.setOnClickListener {
                 val naam = binding.doelAddEditText.text.toString()
-                val newDoel = Doel(naam, false, false)
+                val newDoel = Doel(naam,false,false)
                 newDoel.addStap(Stap("Een eerste substap", false))
                 item.addStap(newDoel)
                 adapter.notifyDataSetChanged()
@@ -218,7 +220,7 @@ class DoelAdapter : ListAdapter<IDoel, DoelAdapter.BaseViewHolder>(DoelDiffCallb
 
             binding.doelAddStapButton.setOnClickListener {
                 val naam = binding.doelAddEditText.text.toString()
-                val newStap = Stap(naam, false)
+                val newStap = Stap(naam,false)
                 item.addStap(newStap)
                 binding.doelAddButton.visibility = View.VISIBLE
                 binding.doelAddEditText.visibility = View.GONE
@@ -228,8 +230,8 @@ class DoelAdapter : ListAdapter<IDoel, DoelAdapter.BaseViewHolder>(DoelDiffCallb
             }
         }
 
-        companion object {
-            fun from(parent: ViewGroup): BaseViewHolder {
+        companion object{
+            fun from(parent: ViewGroup): BaseViewHolder{
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = DoelViewBinding.inflate(layoutInflater, parent, false)
                 return DoelViewHolder(binding)
@@ -251,6 +253,5 @@ class DoelAdapter : ListAdapter<IDoel, DoelAdapter.BaseViewHolder>(DoelDiffCallb
             return oldItem == newItem
         }
     }
-}
 
 }
