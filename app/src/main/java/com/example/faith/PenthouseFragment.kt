@@ -20,7 +20,8 @@ class PenthouseFragment : Fragment() {
     private val viewModel: PenthouseViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
@@ -31,9 +32,12 @@ class PenthouseFragment : Fragment() {
 
         binding.doelList.itemAnimator = null
 
-        viewModel.doelen.observe(this.viewLifecycleOwner, Observer {
-            adapter.submitList(it)
-        })
+        viewModel.doelen.observe(
+            this.viewLifecycleOwner,
+            Observer {
+                adapter.submitList(it)
+            }
+        )
 
         viewModel.getDoelen()
 

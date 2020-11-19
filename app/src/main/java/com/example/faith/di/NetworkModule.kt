@@ -27,7 +27,6 @@ import javax.inject.Singleton
 @InstallIn(ApplicationComponent::class)
 class NetworkModule() {
 
-
     @Provides
     @Singleton
     fun provideHttpCache(application: Application): Cache {
@@ -37,11 +36,9 @@ class NetworkModule() {
 
     @Provides
     @Singleton
-    fun provideSignalRService(): SignalRService{
+    fun provideSignalRService(): SignalRService {
         return SignalRService()
     }
-
-
 
     @Provides
     @Singleton
@@ -82,7 +79,7 @@ class NetworkModule() {
     fun provideRetrofit(gson: Gson, okHttpClient: OkHttpClient?): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create(gson))
-            .baseUrl("https://f3backend-dev-as.azurewebsites.net//api/")
+            .baseUrl("http://192.168.1.37:45455/api/")
             .client(okHttpClient)
             .build()
     }

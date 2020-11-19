@@ -63,22 +63,23 @@ class MediumListFragment : Fragment() {
         menu.clear()
         inflater.inflate(R.menu.bottom_app_bar, menu)
         super.onCreateOptionsMenu(menu, inflater)
-        var searchItem:MenuItem = menu.findItem(R.id.searchBib)
+        var searchItem: MenuItem = menu.findItem(R.id.searchBib)
         var searchView2 = SearchView(context)
         searchItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW or MenuItem.SHOW_AS_ACTION_IF_ROOM)
         searchItem.setActionView(searchView2)
-        searchView2.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                filter(query)
-                return false
-            }
+        searchView2.setOnQueryTextListener(
+            object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String): Boolean {
+                    filter(query)
+                    return false
+                }
 
-            override fun onQueryTextChange(newText: String): Boolean {
-                filter(newText)
-                return false
+                override fun onQueryTextChange(newText: String): Boolean {
+                    filter(newText)
+                    return false
+                }
             }
-        })
-
+        )
     }
 
     private fun filter(text: String) {
