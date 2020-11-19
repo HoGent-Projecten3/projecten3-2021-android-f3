@@ -61,7 +61,7 @@
 
                 <!-- BIBLIOTHEEK -->
                 <ImageView
-                    android:id="@+id/image_bibliotheek"
+                    android:id="@+id/image_bar"
 
                     android:layout_width="wrap_content"
                     android:layout_height="190dp"
@@ -84,7 +84,7 @@
 
                 <!-- BAR -->
                 <ImageView
-                    android:id="@+id/image_bar"
+                    android:id="@+id/image_dagboek"
                     android:layout_width="wrap_content"
                     android:layout_height="190dp"
                     android:layout_weight="1"

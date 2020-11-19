@@ -60,7 +60,7 @@ class HotelFragment : Fragment() {
         val kamers: List<View> = listOf(
             image_cinema,
             image_bar,
-            image_bibliotheek,
+            image_dagboek,
             image_infobalie,
             image_penthouse,
             image_trofeeKamer
@@ -80,10 +80,8 @@ class HotelFragment : Fragment() {
         when (kamer.id) {
             R.id.image_bar -> Navigation.findNavController(kamer).navigate(R.id.action_hotelFragment_to_chatFragment)
             // Navigate to cinema room
-            R.id.image_cinema ->
-                Navigation.findNavController(kamer)
-                    .navigate(R.id.action_hotelFragment_to_cinemaFragment)
 
+            R.id.image_dagboek -> Navigation.findNavController(kamer).navigate(R.id.action_hotelFragment_to_dagboekListFragment2)
             R.id.image_trofeeKamer ->
                 Toast.makeText(getActivity(), "Trofee", Toast.LENGTH_SHORT)
                     .show()
@@ -92,11 +90,10 @@ class HotelFragment : Fragment() {
                 Navigation.findNavController(kamer)
                     .navigate(R.id.action_hotelFragment_to_penthouseFragment)
             // TODO
-            R.id.image_bibliotheek ->
+            R.id.image_cinema ->
                 Navigation.findNavController(kamer)
                     .navigate(R.id.action_hotelFragment_to_mediumListFragment)
             R.id.image_infobalie -> Navigation.findNavController(kamer).navigate(R.id.action_hotelFragment_to_hulpbronListFragment)
-            R.id.image_top->Navigation.findNavController(kamer).navigate(R.id.action_hotelFragment_to_dagboekListFragment2)
             else -> Toast.makeText(getActivity(), "Dit item is niet aanklikbaar.", Toast.LENGTH_SHORT).show()
 
         }
@@ -106,12 +103,12 @@ class HotelFragment : Fragment() {
         val kamers: List<View> = listOf(
             image_cinema,
             image_bar,
-            image_bibliotheek,
             image_infobalie,
             image_penthouse,
             image_trofeeKamer,
             image_top,
-            image_bottom
+            image_bottom,
+            image_dagboek
         )
 
         // Obtain screen width & height DP
