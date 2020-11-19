@@ -27,6 +27,9 @@
 <action
             android:id="@+id/action_hotelFragment_to_penthouseFragment"
             app:destination="@id/penthouseFragment" />
+        <action
+            android:id="@+id/action_hotelFragment_to_dagboekListFragment2"
+            app:destination="@id/dagboekListFragment2" />
 
     </fragment>
     <fragment
