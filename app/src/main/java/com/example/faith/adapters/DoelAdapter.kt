@@ -124,8 +124,12 @@ class DoelAdapter: ListAdapter<IDoel, DoelAdapter.BaseViewHolder>(DoelDiffCallba
             if(item.isCollapsed()) {
                 binding.doelListSec.visibility = View.GONE
                 binding.doelText.typeface = Typeface.DEFAULT_BOLD
-                binding.doelColapseText.text = "${item.getStappen().size} substappen"
-                binding.doelColapseText.visibility = View.VISIBLE
+                if(binding.doelEditButton.visibility == View.VISIBLE){
+                    binding.doelColapseText.visibility = View.GONE
+                }else{
+                    binding.doelColapseText.text = "${item.getStappen().size} substappen"
+                    binding.doelColapseText.visibility = View.VISIBLE
+                }
             }else{
                 binding.doelListSec.visibility = View.VISIBLE
                 binding.doelText.typeface = Typeface.DEFAULT
@@ -138,10 +142,13 @@ class DoelAdapter: ListAdapter<IDoel, DoelAdapter.BaseViewHolder>(DoelDiffCallba
                         binding.doelEditButton.visibility = View.GONE
                         binding.doelDeleteButton.visibility = View.GONE
                         binding.doelAddButton.visibility = View.GONE
+                        if(item.isCollapsed())
+                            binding.doelColapseText.visibility = View.VISIBLE
                     }else{
                         binding.doelEditButton.visibility = View.VISIBLE
                         binding.doelDeleteButton.visibility = View.VISIBLE
                         binding.doelAddButton.visibility = View.VISIBLE
+                        binding.doelColapseText.visibility = View.GONE
                     }
                     return true
                 }
@@ -156,8 +163,12 @@ class DoelAdapter: ListAdapter<IDoel, DoelAdapter.BaseViewHolder>(DoelDiffCallba
                 }else{
                     binding.doelListSec.visibility = View.GONE
                     binding.doelText.typeface = Typeface.DEFAULT_BOLD
-                    binding.doelColapseText.text = "${item.getStappen().size} substappen"
-                    binding.doelColapseText.visibility = View.VISIBLE
+                    if(binding.doelEditButton.visibility == View.VISIBLE){
+                        binding.doelColapseText.visibility = View.GONE
+                    }else{
+                        binding.doelColapseText.text = "${item.getStappen().size} substappen"
+                        binding.doelColapseText.visibility = View.VISIBLE
+                    }
                     item.setCollapsed(true)
                 }
                 viewModel!!.syncDoelen()

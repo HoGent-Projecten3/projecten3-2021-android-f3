@@ -3,71 +3,97 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <EditText
+            android:id="@+id/main_add_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Name"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/doel_list"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/main_add_confirm_button"
+            android:layout_width="54dp"
+            android:layout_height="wrap_content"
+            android:text="OK"
+            android:visibility="gone"
+            app:layout_constraintBaseline_toBaselineOf="@+id/main_add_edit_text"
+            app:layout_constraintStart_toEndOf="@+id/main_add_edit_text" />
+
+        <TextView
+            android:id="@+id/textView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/hotel_theme"
-            tools:context=".MainActivity">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:text="Wat zijn jouw doelen?"
+            android:textAlignment="center"
+            android:textSize="36sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/doel_list"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/doel_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/coordinatorLayout"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:fitsSystemWindows="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0">
+
+            <com.google.android.material.bottomappbar.BottomAppBar
+                android:id="@+id/penthouse_bottom_app_bar"
+                style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="16dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView"
-                tools:layout_editor_absoluteX="0dp" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom" />
 
-            <ImageButton
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/main_add_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="24dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@android:drawable/ic_input_add" />
+                app:layout_anchor="@id/penthouse_bottom_app_bar"
+                app:srcCompat="@drawable/ic_add_black_24dp" />
 
-            <EditText
-                android:id="@+id/main_add_edit_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginBottom="16dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-            <Button
-                android:id="@+id/main_add_confirm_button"
-                android:layout_width="54dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginBottom="16dp"
-                android:text="OK"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/main_add_edit_text" />
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintBottom_toTopOf="@+id/doel_list"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Wat zijn jouw doelen?"
-                android:textSize="30sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

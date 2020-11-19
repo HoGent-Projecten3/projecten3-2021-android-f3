@@ -40,19 +40,23 @@
             app:layout_constraintBaseline_toBaselineOf="@+id/stap_checkBox"
             app:layout_constraintStart_toEndOf="@+id/stap_checkBox" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/edit_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:visibility="gone"
             app:layout_constraintStart_toEndOf="@+id/stap_text"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/ic_menu_edit" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/delete_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:visibility="gone"
             app:layout_constraintStart_toEndOf="@+id/edit_button"
             app:layout_constraintTop_toTopOf="parent"
