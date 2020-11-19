@@ -102,7 +102,9 @@ class HotelFragment : Fragment() {
             image_bibliotheek,
             image_infobalie,
             image_penthouse,
-            image_trofeeKamer
+            image_trofeeKamer,
+            image_top,
+            image_bottom
         )
 
         // Obtain screen width & height DP
@@ -110,7 +112,7 @@ class HotelFragment : Fragment() {
         val screenHeightDp = resources.configuration.screenHeightDp
 
         // Define new size based on the screen DP. Height can be half the screen width, width has to then keep its ratio.
-        val newHeight = (screenWidthDp * 0.5).toInt() // height half the screen width
+        val newHeight = (screenWidthDp * 0.35).toInt() // height half the screen width
         val newWidth = (screenWidthDp * 0.5).toInt()
 
         // Updating the dimensions for all rooms in pixel (Deprecated)
@@ -126,6 +128,11 @@ class HotelFragment : Fragment() {
         for (kamer in kamers) {
             kamer.layoutParams.height = dimensionHeightInDp
         }
+        //updating the top and bottom part individually
+        //val top = image_top
+        //val bottom = image_bottom
+        //top.layoutParams.width = image_penthouse.layoutParams.width
+        //bottom.layoutParams.width = image_penthouse.layoutParams.width
         // image_penthouse.requestLayout()
     }
 }

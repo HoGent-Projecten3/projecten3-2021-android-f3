@@ -22,7 +22,7 @@
             android:id="@+id/container_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/hotel_theme">
+            android:background="@color/hotel_lucht_blauw">
 
             <GridLayout
                 android:id="@+id/hotel_grid"
@@ -31,8 +31,21 @@
                 android:layout_gravity="center_horizontal"
 
                 android:columnCount="2"
-                android:rowCount="4">
+                android:rowCount="6">
 
+
+
+                <!-- TOP -->
+                <ImageView
+                    android:id="@+id/image_top"
+                    android:layout_width="wrap_content"
+                    android:layout_height="190dp"
+                    android:layout_columnSpan="2"
+                    android:layout_gravity="center_horizontal"
+
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/final_top" />
 
                 <!-- PENTHOUSE -->
                 <ImageView
@@ -44,7 +57,9 @@
 
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/img_penthouse" />
+                    android:src="@drawable/final_penthouse" />
+
+
                 <!--
                 app:layout_constraintHeight_percent="0.25"
                 app:layout_constraintWidth_percent="0.25"
@@ -59,7 +74,7 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/img_bibliotheek" />
+                    android:src="@drawable/final_bar" />
 
 
                 <!-- TROFEE KAMER -->
@@ -70,7 +85,7 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/img_trofeekamer" />
+                    android:src="@drawable/final_trofee" />
 
 
                 <!-- BAR -->
@@ -81,7 +96,7 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/img_bar" />
+                    android:src="@drawable/final_bibliotheek" />
 
 
                 <!-- CINEMA -->
@@ -92,10 +107,136 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/img_cinema" />
+                    android:src="@drawable/final_cinema" />
 
 
                 <!-- INFOBALI -->
+                <ImageView
+                    android:id="@+id/image_infobalie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="190dp"
+                    android:layout_columnSpan="2"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/final_infobali" />
+
+                <!-- BOTTOM-->
+                <ImageView
+                    android:id="@+id/image_bottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="190dp"
+                    android:layout_columnSpan="2"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/final_bottom" />
+
+
+            </GridLayout>
+
+        </ScrollView>
+    </LinearLayout>
+</layout>
+
+
+    <!--  OLD
+    <?xml version="1.0" encoding="utf-8"?>
+    <layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/hotel_theme"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/label_hotel"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:text="Het Hotel"
+            android:textAlignment="center"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="30sp" />
+
+        <ScrollView
+            android:id="@+id/container_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/hotel_lucht_blauw">
+
+            <GridLayout
+                android:id="@+id/hotel_grid"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+
+                android:columnCount="2"
+                android:rowCount="4">
+
+
+                <ImageView
+                    android:id="@+id/image_penthouse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="190dp"
+                    android:layout_columnSpan="2"
+                    android:layout_gravity="center_horizontal"
+
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/img_penthouse" />
+
+
+
+                <ImageView
+                    android:id="@+id/image_bibliotheek"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="190dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/img_bibliotheek" />
+
+
+
+                <ImageView
+                    android:id="@+id/image_trofeeKamer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="190dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/img_trofeekamer" />
+
+
+
+                <ImageView
+                    android:id="@+id/image_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="190dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/img_bar" />
+
+
+
+                <ImageView
+                    android:id="@+id/image_cinema"
+                    android:layout_width="wrap_content"
+                    android:layout_height="190dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/img_cinema" />
+
+
+
                 <ImageView
                     android:id="@+id/image_infobalie"
                     android:layout_width="wrap_content"
@@ -113,6 +254,8 @@
         </ScrollView>
     </LinearLayout>
 </layout>
+
+-->
 
     <!--  OLD
 
