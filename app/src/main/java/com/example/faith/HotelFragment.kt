@@ -5,7 +5,10 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.GridLayout
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
@@ -72,14 +75,15 @@ class HotelFragment : Fragment() {
      */
 
     private fun addRouting(kamer: View) {
+
+
         when (kamer.id) {
             R.id.image_bar -> Navigation.findNavController(kamer).navigate(R.id.action_hotelFragment_to_chatFragment)
             // Navigate to cinema room
             R.id.image_cinema ->
                 Navigation.findNavController(kamer)
                     .navigate(R.id.action_hotelFragment_to_cinemaFragment)
-            R.id.image_infobalie -> Toast.makeText(activity, "Infobalie", Toast.LENGTH_SHORT).show()
-            // TODO
+
             R.id.image_trofeeKamer ->
                 Toast.makeText(getActivity(), "Trofee", Toast.LENGTH_SHORT)
                     .show()
@@ -91,7 +95,10 @@ class HotelFragment : Fragment() {
             R.id.image_bibliotheek ->
                 Navigation.findNavController(kamer)
                     .navigate(R.id.action_hotelFragment_to_mediumListFragment)
+            R.id.image_infobalie -> Navigation.findNavController(kamer).navigate(R.id.action_hotelFragment_to_hulpbronListFragment)
+            R.id.image_top->Navigation.findNavController(kamer).navigate(R.id.action_hotelFragment_to_dagboekListFragment2)
             else -> Toast.makeText(getActivity(), "Dit item is niet aanklikbaar.", Toast.LENGTH_SHORT).show()
+
         }
     }
 
