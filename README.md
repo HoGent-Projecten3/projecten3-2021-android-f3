@@ -1,6 +1,6 @@
 # FAITH Android Application
 
-App voor jongeren
+App for youths. Part of FAITH project.
 
 ## Status
 ![Android Pull Request & Master CI](https://github.com/HoGent-Projecten3/projecten3-2021-android-f3/workflows/Android%20Pull%20Request%20&%20Master%20CI/badge.svg)
@@ -10,12 +10,13 @@ Clone this repository and import into **Android Studio**
 ```bash
 git clone
 ```
+Change ip in networkmodule to connect to backend
+Change ip in signalrservice to connect to chat websocket
 
-## Configuration
-### Keystores:
-under construction
 ## Build variants
-under construction
+```bash
+gradlew assembleDebug
+```
 
 ## Generating signed APK
 under construction, use:
