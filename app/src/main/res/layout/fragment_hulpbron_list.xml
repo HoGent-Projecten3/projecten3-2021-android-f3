@@ -1,0 +1,41 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:backgroundTint="@color/hotel_theme"
+        android:background="@color/hotel_theme">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <SearchView
+                android:id="@+id/svHulpbron"
+                android:layout_width="match_parent"
+                android:layout_height="37dp"
+                android:background="@color/colorPrimary"
+                android:queryHint="Zoek naar hulpbronnen..." />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/hulpbron_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="25dp"
+                android:clipToPadding="false"
+                android:paddingStart="@dimen/card_side_margin"
+                android:paddingTop="@dimen/gallery_header_margin"
+                android:paddingEnd="@dimen/card_side_margin"
+                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                app:spanCount="1"
+                tools:listitem="@layout/list_item_hulpbron" />
+
+
+        </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

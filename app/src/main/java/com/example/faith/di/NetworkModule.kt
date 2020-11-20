@@ -27,7 +27,6 @@ import javax.inject.Singleton
 @InstallIn(ApplicationComponent::class)
 class NetworkModule() {
 
-
     @Provides
     @Singleton
     fun provideHttpCache(application: Application): Cache {
@@ -37,11 +36,9 @@ class NetworkModule() {
 
     @Provides
     @Singleton
-    fun provideSignalRService(): SignalRService{
+    fun provideSignalRService(): SignalRService {
         return SignalRService()
     }
-
-
 
     @Provides
     @Singleton
@@ -75,7 +72,6 @@ class NetworkModule() {
     fun provideGson(): Gson {
         val gsonBuilder = GsonBuilder()
         gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-        gsonBuilder.setLenient()
         return gsonBuilder.create()
     }
     @Provides
@@ -83,7 +79,7 @@ class NetworkModule() {
     fun provideRetrofit(gson: Gson, okHttpClient: OkHttpClient?): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create(gson))
-            .baseUrl("https://f3backend-dev-as.azurewebsites.net//api/")
+            .baseUrl("https://f3backend-dev-as.azurewebsites.net/api/")
             .client(okHttpClient)
             .build()
     }

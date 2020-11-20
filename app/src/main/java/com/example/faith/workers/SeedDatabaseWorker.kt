@@ -19,6 +19,7 @@ import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.example.faith.data.AppDatabase
+import com.example.faith.data.Hulpbron
 import com.example.faith.data.Medium
 import com.example.faith.utilities.MEDIA_DATA_FILENAME
 import com.google.gson.Gson
@@ -34,11 +35,21 @@ class SeedDatabaseWorker(
         try {
             applicationContext.assets.open(MEDIA_DATA_FILENAME).use { inputStream ->
                 JsonReader(inputStream.reader()).use { jsonReader ->
+
+
+
+
+
                     val mediumType = object : TypeToken<List<Medium>>() {}.type
                     val mediumList: List<Medium> = Gson().fromJson(jsonReader, mediumType)
 
+                    val hulpbronType = object : TypeToken<List<Hulpbron>>() {}.type
+                    val hulpbronList: List<Hulpbron> = Gson().fromJson(jsonReader, hulpbronType)
+
                     val database = AppDatabase.getInstance(applicationContext)
+
                     database.mediumDao().insertAll(mediumList)
+                    database.hulpbronDao().insertAll(hulpbronList)
 
                     Result.success()
                 }

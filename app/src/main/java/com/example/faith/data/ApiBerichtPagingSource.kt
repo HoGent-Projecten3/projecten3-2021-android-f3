@@ -15,7 +15,7 @@ class ApiBerichtPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ApiBericht> {
         val page = params.key ?: API_STARTING_PAGE_INDEX
         return try {
-            val response = service.getBerichten(page,params.loadSize)
+            val response = service.getBerichten(page, params.loadSize)
             val berichten = response.results
             LoadResult.Page(
                 data = berichten,

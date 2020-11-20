@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name" translatable="false">Hotel</string>
-    <string name="btnGalerij">GALLERIJ</string>
+    <string name="btnGalerij">GALERIJ</string>
     <string name="btnFotoNemen">FOTO</string>
     <string name="btnVideoMaken">VIDEO</string>
     <string name="viewPreviewImage">BEKIJK</string>
@@ -22,7 +22,7 @@
         Alexander De Baene\n
         Bert Suffys\n
     </string>
-    <string name="txf_default">Waar denk je aan?</string>
+    <string name="txf_default">Beschrijving</string>
     <string name="cinema">Cinema</string>
     <string name="bibliotheek">Bibliotheek</string>
     <string name="trofeekamer">trofeekamer</string>
@@ -38,6 +38,7 @@
     <string name="medium_detail_naam">Post</string>
     <string name="login">Login</string>
     <string name="dagboek_nieuw">Nieuw dagboekbericht</string>
+    <string name="media_nieuw">Nieuw</string>
     <string name="nav_to_dagboek">DAGBOEK</string>
     <string name="content_description_search">zoeken</string>
     <string name="content_description_more">meer</string>

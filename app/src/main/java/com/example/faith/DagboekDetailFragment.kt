@@ -60,7 +60,7 @@ class DagboekDetailFragment : Fragment() {
         }
         return binding.root
     }
-    fun removeMedium(){
+    fun removeMedium() {
         val call: Call<Message> = dagboekDetailViewModel.removeMediumApi()
         dagboekDetailViewModel.deleteMediumRoom(args.mediumId)
         call.enqueue(

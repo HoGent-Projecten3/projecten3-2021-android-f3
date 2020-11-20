@@ -33,7 +33,6 @@ class SignalRService {
             ).build()
         hubConnection.start().blockingAwait()
         init(email)
-
     }
 
     fun stop() {
