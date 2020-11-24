@@ -1,6 +1,7 @@
 package com.example.faith
 
 import android.content.Intent
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
 
+    private lateinit var compassIdleAnimation: AnimationDrawable
     private val viewModel: LoginViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -28,6 +30,8 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
 
         val binding: FragmentLoginBinding =
             DataBindingUtil.inflate(
@@ -48,6 +52,12 @@ class LoginFragment : Fragment() {
             )
             viewModel.login(login)
         }
+
+        //Activeer de logo animatie
+        val jens = binding.imageView.apply { setBackgroundResource(R.drawable.compass_idle)
+            compassIdleAnimation = background as AnimationDrawable }
+        compassIdleAnimation.start()
+
 
 
 
