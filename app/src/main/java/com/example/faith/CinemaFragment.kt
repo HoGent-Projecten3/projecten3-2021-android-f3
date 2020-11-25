@@ -192,6 +192,7 @@ class CinemaFragment : Fragment() {
             intent.resolveActivity(packageManager!!)?.also {
                 createFile()
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 10);
 
                 startActivityForResult(intent, requestVideoCapture)
             }
