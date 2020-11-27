@@ -30,7 +30,7 @@ interface ApiService {
     @POST("Cinema/imageFile")
     fun uploadMedia(
         @Part imageFile: MultipartBody.Part,
-        @Query("beschrijving")beschrijving: String?
+        @Query("beschrijving") beschrijving: String?
     ): Call<Message>
 
     @POST("Cinema/text")
@@ -63,21 +63,25 @@ interface ApiService {
 
     @GET("Gebruiker")
     fun getGebruiker(): Call<Gebruiker>
+
     @GET("Cinema/Media")
     suspend fun getMedia(
         @Query("page") page: Int,
         @Query("aantal") perPage: Int
     ): ApiMediumSearchResponse
+
     @GET("Cinema/Media")
     fun getMedia2(
         @Query("page") page: Int,
         @Query("aantal") perPage: Int
     ): Call<ApiMediumSearchResponse>
+
     @GET("Cinema/Dagboek")
     suspend fun getDagboek(
         @Query("page") page: Int,
         @Query("aantal") perPage: Int
     ): ApiDagboekSearchResponse
+
     @GET("Cinema/Dagboek")
     fun getDagboek2(
         @Query("page") page: Int,
@@ -86,19 +90,18 @@ interface ApiService {
 
     @GET("Infobalie/getHulpbronnenPaging")
     suspend fun getHulpbronnen(
-        @Query("page") page:Int,
-        @Query("aantal") perPage:Int
-    ) : ApiHulpbronSearchResponse
+        @Query("page") page: Int,
+        @Query("aantal") perPage: Int
+    ): ApiHulpbronSearchResponse
 
     @GET("Infobalie/getHulpbronnenPaging")
     fun getHulpbronnen2(
-        @Query("page") page:Int,
-        @Query("aantal") perPage:Int
-    ) : Call<ApiHulpbronSearchResponse>
+        @Query("page") page: Int,
+        @Query("aantal") perPage: Int
+    ): Call<ApiHulpbronSearchResponse>
 
     @POST("Account/login")
     fun login(@Body login: Login): Call<LoginResponse>
-
 
     @GET("Client/GetDoelen")
     fun getDoelen(): Call<List<DoelDTO>>
@@ -110,9 +113,6 @@ interface ApiService {
     @Headers("Content-Type: application/json")
     @POST("Client/SyncDoelen")
     fun syncDoelen(@Body doelenDTO: List<DoelDTO>): Call<List<DoelDTO>>
-
-    @GET("Cinema/id")
-    fun getMedium(@Query("mediumId") id: Int): ApiMediumResponse
 
     @DELETE("Cinema")
     fun removeMedium(@Query("mediumId") id: Int): Call<Message>

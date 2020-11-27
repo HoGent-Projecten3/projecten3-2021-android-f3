@@ -30,7 +30,10 @@ class MediumDetailViewModel @AssistedInject constructor(
 
     fun deleteMediumRoom(mediumId: Int) {
         viewModelScope.launch {
-            mediumRepository.deleteMediumRoom(mediumId)
+            if(medium!=null){
+                medium.value?.let { mediumRepository.deleteMediumRoom(it) }
+            }
+
         }
     }
 

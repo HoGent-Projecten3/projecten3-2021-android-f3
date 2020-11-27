@@ -48,5 +48,5 @@ class MediumRepository @Inject constructor(private val mediumDao: MediumDao, pri
     fun removeMedium(id: Int): Call<Message> {
         return service.removeMedium(id)
     }
-    suspend fun deleteMediumRoom(mediumId: Int) = mediumDao.deleteMedium(mediumId)
+    suspend fun deleteMediumRoom(medium: Medium) = mediumDao.deleteMedium(medium)
 }
