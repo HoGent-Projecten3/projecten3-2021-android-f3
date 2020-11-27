@@ -20,15 +20,8 @@ class MediumDetailViewModel @AssistedInject constructor(
 ) : ViewModel() {
 
     var medium = mediumRepository.getMedium(mediumId)
-/*
-    fun isVideo(): Boolean {
-        if(medium.value?.url?.endsWith("mp4")!!){
-            return true
-        }
-        return false
-    }*/
 
-    fun deleteMediumRoom(mediumId: Int) {
+    fun deleteMediumRoom() {
         viewModelScope.launch {
             if(medium!=null){
                 medium.value?.let { mediumRepository.deleteMediumRoom(it) }

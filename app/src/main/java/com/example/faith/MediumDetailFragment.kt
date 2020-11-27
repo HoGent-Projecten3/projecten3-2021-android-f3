@@ -37,7 +37,7 @@ class MediumDetailFragment : Fragment() {
 
     fun removeMedium() {
         val call: Call<Message> = mediumDetailViewModel.removeMedium()
-        mediumDetailViewModel.deleteMediumRoom(args.mediumId)
+        mediumDetailViewModel.deleteMediumRoom()
         call.enqueue(
             object : retrofit2.Callback<Message?> {
                 override fun onFailure(call: Call<Message?>, t: Throwable) {

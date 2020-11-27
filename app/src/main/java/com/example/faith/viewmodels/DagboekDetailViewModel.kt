@@ -20,7 +20,7 @@ class DagboekDetailViewModel @AssistedInject constructor(
 
     var dagboek = mediumRepository.getMedium(mediumId)
 
-    fun deleteMediumRoom(mediumId: Int) {
+    fun deleteMediumRoom() {
         viewModelScope.launch {
             if(dagboek!=null){
                 mediumRepository.deleteMediumRoom(dagboek.value!!)
