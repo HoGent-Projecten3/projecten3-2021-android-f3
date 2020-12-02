@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName
  * @author Remi Mestdagh
  */
 data class ApiMediumResponse(
-    @field:SerializedName("results") val results: ApiPhoto,
-    @field:SerializedName("total_pages") val totalPages: Int
+    @field:SerializedName("naam") val Naam: String ,
+    @field:SerializedName("beschrijving") val Beschrijving: String,
+    @field:SerializedName("mediumId") val MediumId: Int,
+    @field:SerializedName("url") val Url:String
 )

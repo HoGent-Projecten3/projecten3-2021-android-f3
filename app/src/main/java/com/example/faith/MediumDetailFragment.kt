@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.example.faith.data.ApiMediumResponse
 import com.example.faith.data.Medium
 import com.example.faith.databinding.FragmentMediumDetailBinding
 import com.example.faith.viewmodels.MediumDetailViewModel
@@ -36,19 +37,21 @@ class MediumDetailFragment : Fragment() {
     }
 
     fun removeMedium() {
-        val call: Call<Message> = mediumDetailViewModel.removeMedium()
+        val call: Call<ApiMediumResponse>? = mediumDetailViewModel.removeMedium()
         mediumDetailViewModel.deleteMediumRoom()
-        call.enqueue(
-            object : retrofit2.Callback<Message?> {
-                override fun onFailure(call: Call<Message?>, t: Throwable) {
-                    println(call.toString())
-                }
+        if (call != null) {
+            call.enqueue(
+                object : retrofit2.Callback<ApiMediumResponse?> {
+                    override fun onFailure(call: Call<ApiMediumResponse?>, t: Throwable) {
+                        println(call.toString())
+                    }
 
-                override fun onResponse(call: Call<Message?>, response: retrofit2.Response<Message?>) {
-                    println(call.toString())
+                    override fun onResponse(call: Call<ApiMediumResponse?>, response: retrofit2.Response<ApiMediumResponse?>) {
+                        println(call.toString())
+                    }
                 }
-            }
-        )
+            )
+        }
     }
     override fun onCreateView(
         inflater: LayoutInflater,

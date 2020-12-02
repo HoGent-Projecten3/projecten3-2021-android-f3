@@ -115,7 +115,7 @@ interface ApiService {
     fun syncDoelen(@Body doelenDTO: List<DoelDTO>): Call<List<DoelDTO>>
 
     @DELETE("Cinema")
-    fun removeMedium(@Query("mediumId") id: Int): Call<Message>
+    fun removeMedium(@Query("mediumId") id: Int): Call<ApiMediumResponse>
 
     data class LoginResponseModel(
         val token: String,
