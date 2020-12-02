@@ -18,9 +18,11 @@ import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.faith.R.layout.fragment_cinema
 import com.example.faith.databinding.FragmentCinemaBinding
 import com.example.faith.viewmodels.CinemaViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_cinema.*
 import okhttp3.MediaType.Companion.toMediaType
@@ -174,13 +176,15 @@ class CinemaFragment : Fragment() {
 
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
             // Ensure that there's a camera activity to handle the intent
-            takePictureIntent.resolveActivity(packageManager!!)?.also {
-                // Create the File where the photo should go
+            packageManager?.let {
+                takePictureIntent.resolveActivity(it)?.also {
+                    // Create the File where the photo should go
 
-                createFile()
+                    createFile()
 
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                startActivityForResult(takePictureIntent, requestPhotoTaken)
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                    startActivityForResult(takePictureIntent, requestPhotoTaken)
+                }
             }
         }
     }
@@ -272,7 +276,9 @@ class CinemaFragment : Fragment() {
             } else if (requestCode == requestVideoCapture && lastCode == videoMade) {
                 photoURI = Uri.EMPTY
 
-                videoURI = theIntent?.data!!
+                if (theIntent != null && theIntent.data != null) {
+                    videoURI = theIntent.data!!
+                }
                 videoView.visibility = View.VISIBLE
                 videoView.setVideoURI(videoURI)
                 videoView.start()
@@ -326,10 +332,23 @@ class CinemaFragment : Fragment() {
         var call: Call<Message>? = part?.let { viewModel.uploadMedia(it, txfBericht.text?.toString()) }
         call!!.enqueue(
             object : Callback<Message?> {
-                override fun onFailure(call: Call<Message?>, t: Throwable) {}
+                override fun onFailure(call: Call<Message?>, t: Throwable) {
+                    activity?.let { Snackbar.make(it.findViewById(R.id.main_activity_coordinator),"Opslaan mislukt",
+                        Snackbar.LENGTH_LONG).show() }
+                    navigateBack()
+                }
                 override fun onResponse(call: Call<Message?>, response: retrofit2.Response<Message?>) {
+                    activity?.let { Snackbar.make(it.findViewById(R.id.main_activity_coordinator),"Opgeslagen",
+                        Snackbar.LENGTH_LONG).show() }
+                    navigateBack()
                 }
             }
         )
+    }
+    private fun navigateBack() {
+        val direction = CinemaFragmentDirections.actionCinemaFragmentToMediumListFragment()
+        val navController = findNavController()
+        navController.navigate(direction)
+
     }
 }

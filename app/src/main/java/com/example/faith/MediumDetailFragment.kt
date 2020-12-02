@@ -14,6 +14,7 @@ import com.example.faith.data.Medium
 import com.example.faith.databinding.FragmentMediumDetailBinding
 import com.example.faith.viewmodels.MediumDetailViewModel
 import com.example.faith.viewmodels.MediumDetailViewModel.Companion.provideFactory
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import retrofit2.Callback
@@ -43,11 +44,13 @@ class MediumDetailFragment : Fragment() {
             call.enqueue(
                 object : retrofit2.Callback<ApiMediumResponse?> {
                     override fun onFailure(call: Call<ApiMediumResponse?>, t: Throwable) {
-                        println(call.toString())
+                        activity?.let { Snackbar.make(it.findViewById(R.id.main_activity_coordinator),"Verwijderen mislukt",
+                            Snackbar.LENGTH_LONG).show() }
                     }
 
                     override fun onResponse(call: Call<ApiMediumResponse?>, response: retrofit2.Response<ApiMediumResponse?>) {
-                        println(call.toString())
+                        activity?.let { Snackbar.make(it.findViewById(R.id.main_activity_coordinator),"Verwijderd",
+                            Snackbar.LENGTH_LONG).show() }
                     }
                 }
             )

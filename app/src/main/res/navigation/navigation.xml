@@ -38,8 +38,8 @@
         android:label="@string/cinema"
         tools:layout="@layout/fragment_cinema" >
         <action
-            android:id="@+id/action_cinemaFragment_to_dagboekFragment"
-            app:destination="@id/dagboekFragment" />
+            android:id="@+id/action_cinemaFragment_to_mediumListFragment"
+            app:destination="@id/mediumListFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
@@ -108,6 +108,9 @@
         <action
             android:id="@+id/action_dagboekFragment_to_cinemaFragment"
             app:destination="@id/cinemaFragment" />
+        <action
+            android:id="@+id/action_dagboekFragment_to_dagboekListFragment2"
+            app:destination="@id/dagboekListFragment2" />
     </fragment>
 
     <fragment
