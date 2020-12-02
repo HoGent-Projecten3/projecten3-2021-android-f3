@@ -30,6 +30,7 @@ import retrofit2.Callback
 import retrofit2.Response
 /**
  * @author Remi Mestdagh
+ * fragment om een overzicht dagboekposts weer te geven
  */
 @AndroidEntryPoint
 class DagboekListFragment : Fragment() {
@@ -97,7 +98,7 @@ class DagboekListFragment : Fragment() {
         viewModel.getDagboekPosts2().enqueue(
             object : Callback<ApiDagboekSearchResponse?> {
                 override fun onFailure(call: Call<ApiDagboekSearchResponse?>, t: Throwable) {
-                    TODO("Not yet implemented")
+
                 }
 
                 override fun onResponse(
@@ -112,7 +113,7 @@ class DagboekListFragment : Fragment() {
                                     it.mediumId,
                                     it.naam,
                                     it.beschrijving,
-                                    ""
+                                    "",4
                                 )
                             )
                         }

@@ -28,6 +28,7 @@ import retrofit2.Response
 
 /**
  * @author Remi Mestdagh
+ * fragment om een lijst van films/foto's weer te geven
  */
 @AndroidEntryPoint
 class MediumListFragment : Fragment() {
@@ -49,11 +50,6 @@ class MediumListFragment : Fragment() {
         setHasOptionsMenu(true)
         binding.btGoToCinema.setOnClickListener {
             navigateToCinema()
-        }
-        binding.bottomAppBarBib.setNavigationOnClickListener {
-            it.setOnClickListener {
-                navigateToDagboek()
-            }
         }
 
         return binding.root
@@ -82,6 +78,9 @@ class MediumListFragment : Fragment() {
         )
     }
 
+    /**
+     * de lijst filteren op naam
+     */
     private fun filter(text: String) {
         adapter = MediumAdapter()
         medium_list.adapter = adapter
@@ -92,13 +91,9 @@ class MediumListFragment : Fragment() {
         }
     }
 
-    private fun navigateToDagboek() {
-        val direction =
-            MediumListFragmentDirections.actionMediumListFragmentToDagboekListFragment2()
-        val navController = findNavController()
-        navController.navigate(direction)
-    }
-
+    /**
+     * zorgt dat je naar het cinemafragment kan gaan om een foto of video te maken
+     */
     private fun navigateToCinema() {
         val direction = MediumListFragmentDirections.actionMediumListFragmentToCinemaFragment()
         val navController = findNavController()
@@ -124,7 +119,8 @@ class MediumListFragment : Fragment() {
                                 it.mediumId,
                                 it.naam,
                                 it.beschrijving,
-                                it.url
+                                it.url,
+                                it.mediumType
                             )
                         )
                     }

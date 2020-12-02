@@ -6,13 +6,11 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.filter
-import androidx.paging.map
+import com.example.faith.data.ApiMediumResponse
 import com.example.faith.data.ApiMediumSearchResponse
-import com.example.faith.data.ApiPhoto
 import com.example.faith.data.Medium
 import com.example.faith.data.MediumRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -23,7 +21,7 @@ class MediumListViewModel @ViewModelInject constructor(
     private val apiRepository: MediumRepository
 
 ) : ViewModel() {
-    fun searchPictures(): Flow<PagingData<ApiPhoto>> {
+    fun searchPictures(): Flow<PagingData<ApiMediumResponse>> {
 
         return apiRepository.getSearchResultStream().cachedIn(viewModelScope)
     }
@@ -36,7 +34,7 @@ class MediumListViewModel @ViewModelInject constructor(
             apiRepository.insertOne(medium)
         }
     }
-    fun filter(naam: String): Flow<PagingData<ApiPhoto>> {
+    fun filter(naam: String): Flow<PagingData<ApiMediumResponse>> {
         return apiRepository.getSearchResultStream().map {
             it.filter {
                 it.naam.startsWith(naam)

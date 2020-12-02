@@ -18,9 +18,9 @@ class MediumRepository @Inject constructor(private val mediumDao: MediumDao, pri
     suspend fun insertOne(medium: Medium) = mediumDao.insertOne(medium)
 
     fun getMedium(id: Int) = mediumDao.getMedium(id)
-    fun getSearchResultStream(): Flow<PagingData<ApiPhoto>> {
+    fun getSearchResultStream(): Flow<PagingData<ApiMediumResponse>> {
         return Pager(
-            config = PagingConfig(enablePlaceholders = false, pageSize = 10, initialLoadSize = 10, prefetchDistance = 10),
+            config = PagingConfig(enablePlaceholders = false, pageSize = 20, initialLoadSize = 20, prefetchDistance = 5),
             pagingSourceFactory = { ApiPagingSource(service) }
 
         ).flow
@@ -30,7 +30,7 @@ class MediumRepository @Inject constructor(private val mediumDao: MediumDao, pri
     }
     fun getDagboekPosts(): Flow<PagingData<ApiDagboek>> {
         return Pager(
-            config = PagingConfig(enablePlaceholders = false, pageSize = 10, initialLoadSize = 10, prefetchDistance = 10),
+            config = PagingConfig(enablePlaceholders = false, pageSize = 50, initialLoadSize = 30, prefetchDistance = 20),
             pagingSourceFactory = { ApiDagboekPagingSource(service) }
 
         ).flow
@@ -45,8 +45,8 @@ class MediumRepository @Inject constructor(private val mediumDao: MediumDao, pri
     fun postText(titel: String, beschrijving: String): Call<Message> {
         return service.uploadText(titel, beschrijving)
     }
-    fun removeMedium(id: Int): Call<Message> {
+    fun removeMedium(id: Int): Call<ApiMediumResponse> {
         return service.removeMedium(id)
     }
-    suspend fun deleteMediumRoom(mediumId: Int) = mediumDao.deleteMedium(mediumId)
+    suspend fun deleteMediumRoom(medium: Medium) = mediumDao.deleteMedium(medium)
 }
