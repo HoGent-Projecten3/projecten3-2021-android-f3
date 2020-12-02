@@ -5,6 +5,6 @@ import com.google.gson.annotations.SerializedName
  * @author Remi Mestdagh
  */
 data class ApiMediumSearchResponse(
-    @field:SerializedName("results") val results: List<ApiPhoto>,
+    @field:SerializedName("results") val results: List<ApiMediumResponse>,
     @field:SerializedName("total_pages") val totalPages: Int
 )

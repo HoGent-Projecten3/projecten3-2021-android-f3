@@ -18,9 +18,9 @@ class MediumRepository @Inject constructor(private val mediumDao: MediumDao, pri
     suspend fun insertOne(medium: Medium) = mediumDao.insertOne(medium)
 
     fun getMedium(id: Int) = mediumDao.getMedium(id)
-    fun getSearchResultStream(): Flow<PagingData<ApiPhoto>> {
+    fun getSearchResultStream(): Flow<PagingData<ApiMediumResponse>> {
         return Pager(
-            config = PagingConfig(enablePlaceholders = false, pageSize = 10, initialLoadSize = 10, prefetchDistance = 10),
+            config = PagingConfig(enablePlaceholders = false, pageSize = 20, initialLoadSize = 20, prefetchDistance = 5),
             pagingSourceFactory = { ApiPagingSource(service) }
 
         ).flow

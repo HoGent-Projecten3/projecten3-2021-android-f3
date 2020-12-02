@@ -119,7 +119,8 @@ class MediumListFragment : Fragment() {
                                 it.mediumId,
                                 it.naam,
                                 it.beschrijving,
-                                it.url
+                                it.url,
+                                it.mediumType
                             )
                         )
                     }

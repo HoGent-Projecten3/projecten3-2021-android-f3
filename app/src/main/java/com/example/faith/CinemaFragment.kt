@@ -310,6 +310,9 @@ class CinemaFragment : Fragment() {
         if (photoURI != Uri.EMPTY) {
             createImageData(photoURI)
         }
+        if(videoURI != Uri.EMPTY) {
+            createImageData(videoURI)
+        }
 
         var kindOfMedia = ""
         if (lastCode == 1 || lastCode == 0) {

@@ -10,8 +10,8 @@ private const val API_STARTING_PAGE_INDEX = 0
 class ApiPagingSource(
     private val service: ApiService
 
-) : PagingSource<Int, ApiPhoto>() {
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ApiPhoto> {
+) : PagingSource<Int, ApiMediumResponse>() {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ApiMediumResponse> {
         val page = params.key ?: API_STARTING_PAGE_INDEX
         return try {
             val response = service.getMedia(page, params.loadSize)

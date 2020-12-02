@@ -113,7 +113,7 @@ class DagboekListFragment : Fragment() {
                                     it.mediumId,
                                     it.naam,
                                     it.beschrijving,
-                                    ""
+                                    "",4
                                 )
                             )
                         }

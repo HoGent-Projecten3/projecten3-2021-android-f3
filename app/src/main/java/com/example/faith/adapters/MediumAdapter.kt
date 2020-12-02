@@ -8,13 +8,13 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.faith.MediumListFragmentDirections
-import com.example.faith.data.ApiPhoto
+import com.example.faith.data.ApiMediumResponse
 import com.example.faith.databinding.ListItemMediumBinding
 /**
  * @author Remi Mestdagh
  * adapter for recyclerview in plantlistfragment
  */
-class MediumAdapter : PagingDataAdapter<ApiPhoto, MediumAdapter.MediumViewHolder>(MediumDiffCallback()) {
+class MediumAdapter : PagingDataAdapter<ApiMediumResponse, MediumAdapter.MediumViewHolder>(MediumDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MediumViewHolder {
         return MediumViewHolder(
             ListItemMediumBinding.inflate(
@@ -38,7 +38,7 @@ class MediumAdapter : PagingDataAdapter<ApiPhoto, MediumAdapter.MediumViewHolder
         }
 
         private fun navigateToMedium(
-            photo: ApiPhoto,
+            photo: ApiMediumResponse,
             view: View
         ) {
             val direction =
@@ -48,7 +48,7 @@ class MediumAdapter : PagingDataAdapter<ApiPhoto, MediumAdapter.MediumViewHolder
             view.findNavController().navigate(direction)
         }
 
-        fun bind(item: ApiPhoto) {
+        fun bind(item: ApiMediumResponse) {
             binding.apply {
                 photo = item
                 executePendingBindings()
@@ -63,13 +63,13 @@ class MediumAdapter : PagingDataAdapter<ApiPhoto, MediumAdapter.MediumViewHolder
         }
     }
 }
-private class MediumDiffCallback : DiffUtil.ItemCallback<ApiPhoto>() {
+private class MediumDiffCallback : DiffUtil.ItemCallback<ApiMediumResponse>() {
 
-    override fun areItemsTheSame(oldItem: ApiPhoto, newItem: ApiPhoto): Boolean {
+    override fun areItemsTheSame(oldItem: ApiMediumResponse, newItem: ApiMediumResponse): Boolean {
         return oldItem.mediumId == newItem.mediumId
     }
 
-    override fun areContentsTheSame(oldItem: ApiPhoto, newItem: ApiPhoto): Boolean {
+    override fun areContentsTheSame(oldItem: ApiMediumResponse, newItem: ApiMediumResponse): Boolean {
         return oldItem == newItem
     }
 }
