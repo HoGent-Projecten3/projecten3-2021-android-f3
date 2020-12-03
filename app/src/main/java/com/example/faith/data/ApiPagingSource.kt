@@ -23,7 +23,7 @@ class ApiPagingSource(
                         it.mediumId,
                         it.naam,
                         it.beschrijving,
-                        "",4
+                        it.url,it.mediumType
                     )
                 )
             }
