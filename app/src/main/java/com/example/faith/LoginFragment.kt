@@ -45,7 +45,7 @@ class LoginFragment : Fragment() {
         }
 
         //Activeer de logo animatie
-        val jens = binding.imageView.apply { setBackgroundResource(R.drawable.compass_idle)
+        binding.imageView.apply { setBackgroundResource(R.drawable.compass_idle)
         compassIdleAnimation = background as AnimationDrawable }
         compassIdleAnimation.start()
 
@@ -84,4 +84,14 @@ class LoginFragment : Fragment() {
             }
         )
     }
+
 }
+
+/*
+private fun activateAnimations(binding : Any)
+{
+
+}
+*/
+
+

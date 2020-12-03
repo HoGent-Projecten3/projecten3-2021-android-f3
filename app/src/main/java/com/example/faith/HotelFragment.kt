@@ -1,5 +1,6 @@
 package com.example.faith
 
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -26,6 +27,14 @@ class HotelFragment : Fragment() {
     private val viewModel: LoginViewModel by activityViewModels()
     private lateinit var bottomNavigationView: BottomNavigationView
     //Animatorproperties
+    private lateinit var penthouseIdleAnimation: AnimationDrawable
+    private lateinit var barIdleAnimation: AnimationDrawable
+    private lateinit var trofeeIdleAnimation: AnimationDrawable
+    private lateinit var bibIdleAnimation: AnimationDrawable
+    private lateinit var cinemaIdleAnimation: AnimationDrawable
+    private lateinit var baliIdleAnimation: AnimationDrawable
+    private lateinit var entranceIdleAnimation: AnimationDrawable
+
 
     /**
      * Method called upon starting view creation
@@ -37,12 +46,10 @@ class HotelFragment : Fragment() {
     ): View? {
 
         /* Enabling data binding for fragments. slightly different because no immediate acces to root Activity */
-        val binding = DataBindingUtil.inflate<FragmentHotelBinding>(
-            inflater,
-            R.layout.fragment_hotel,
-            container,
-            false
-        )
+        val binding = DataBindingUtil.inflate<FragmentHotelBinding>(  inflater,  R.layout.fragment_hotel, container,false )
+
+        /* activeerAnimaties */
+         activateAnimations(binding)
 
         /* return */
         return binding.root
@@ -169,4 +176,39 @@ class HotelFragment : Fragment() {
     }
 
 
+
+
+    private fun activateAnimations(binding : FragmentHotelBinding)
+    {
+        binding.imageBali.apply { setBackgroundResource(R.drawable.final_bali_idle)
+        baliIdleAnimation = background as AnimationDrawable }
+        baliIdleAnimation.start()
+
+        binding.imageBar.apply { setBackgroundResource(R.drawable.final_bar_idle)
+        barIdleAnimation = background as AnimationDrawable }
+        barIdleAnimation.start()
+
+        binding.imageTrofee.apply { setBackgroundResource(R.drawable.final_bali_idle)
+            trofeeIdleAnimation = background as AnimationDrawable }
+        trofeeIdleAnimation.start()
+
+        binding.imageBali.apply { setBackgroundResource(R.drawable.final_bali_idle)
+            baliIdleAnimation = background as AnimationDrawable }
+        baliIdleAnimation.start()
+
+        binding.imageBali.apply { setBackgroundResource(R.drawable.final_bali_idle)
+            baliIdleAnimation = background as AnimationDrawable }
+        baliIdleAnimation.start()
+
+        binding.imageBali.apply { setBackgroundResource(R.drawable.final_bali_idle)
+            baliIdleAnimation = background as AnimationDrawable }
+        baliIdleAnimation.start()
+
+        binding.imageBali.apply { setBackgroundResource(R.drawable.final_bali_idle)
+            baliIdleAnimation = background as AnimationDrawable }
+        baliIdleAnimation.start()
+    }
+
 }
+
+

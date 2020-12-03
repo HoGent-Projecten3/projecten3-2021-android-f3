@@ -10,5 +10,5 @@
     <item android:drawable="@drawable/final_trofee_5" android:duration="200" />
     <item android:drawable="@drawable/final_trofee_4" android:duration="200" />
     <item android:drawable="@drawable/final_trofee_3" android:duration="200" />
-    <item android:drawable="@drawable/final_trofee_1" android:duration="200" />
+    <item android:drawable="@drawable/final_trofee_2" android:duration="200" />
 </animation-list>
