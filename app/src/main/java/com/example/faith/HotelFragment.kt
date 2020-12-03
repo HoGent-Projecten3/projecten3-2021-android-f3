@@ -158,16 +158,18 @@ class HotelFragment : Fragment() {
         */
 
         // Updating the dimensions for all rooms in DP
-        val dimensionHeightInDp = TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP,
-            newHeight.toFloat(),
-            resources.displayMetrics
-        ).toInt() // new DP height
+        val dimensionHeightInDp = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, newHeight.toFloat(),resources.displayMetrics).toInt() // new DP height
+        val dimensionWidthInDp = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, newWidth.toFloat(),resources.displayMetrics).toInt() // new DP height
 
         // Only update height. these are constant. Width updated automatically, as wrap_content, and adjustviewbounds keeps ratio intact.
         for (kamer in kamers) {
             kamer.layoutParams.height = dimensionHeightInDp
+            kamer.layoutParams.width = dimensionWidthInDp
         }
+        image_bali.layoutParams.width = dimensionWidthInDp*2
+        image_penthouse.layoutParams.width = dimensionWidthInDp*2
+        image_entrance.layoutParams.width = dimensionWidthInDp*2
+        image_roof.layoutParams.width = dimensionWidthInDp*2
         //updating the top and bottom part individually
         //val top = image_top
         //val bottom = image_bottom
