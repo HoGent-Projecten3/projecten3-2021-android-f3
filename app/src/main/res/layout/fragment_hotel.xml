@@ -28,16 +28,8 @@
                 android:rowCount="6">
 
 
-<!--
-                android:id="@+id/imageView"
-                android:layout_width="300dp"
-                android:layout_height="300dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="20dp"
-                android:gravity="center"
-                 -->
 
-                <!-- TOP -->
+                <!-- ROOF -->
                 <ImageView
                     android:id="@+id/image_roof"
                     android:layout_width="wrap_content"
@@ -67,16 +59,16 @@
                 app:layout_constraintWidth_percent="0.25"
                 -->
 
-                <!-- BIBLIOTHEEK -->
+                <!-- BAR -->
                 <ImageView
-                    android:id="@+id/image_bib"
+                    android:id="@+id/image_bar"
 
                     android:layout_width="wrap_content"
                     android:layout_height="190dp"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/final_bib_1" />
+                    android:src="@drawable/final_bar_1" />
 
 
                 <!-- TROFEE KAMER -->
@@ -90,15 +82,15 @@
                     android:src="@drawable/final_trofee_1" />
 
 
-                <!-- BAR -->
+                <!-- BIB -->
                 <ImageView
-                    android:id="@+id/image_bar"
+                    android:id="@+id/image_bib"
                     android:layout_width="wrap_content"
                     android:layout_height="190dp"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/final_bar_1" />
+                   android:src="@drawable/final_bib_1" />
 
 
                 <!-- CINEMA -->

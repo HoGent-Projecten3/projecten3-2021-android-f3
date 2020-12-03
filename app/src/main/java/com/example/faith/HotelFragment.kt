@@ -49,7 +49,7 @@ class HotelFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentHotelBinding>(  inflater,  R.layout.fragment_hotel, container,false )
 
         /* activeerAnimaties */
-         activateAnimations(binding)
+        activateAnimations(binding)
 
         /* return */
         return binding.root
@@ -76,6 +76,7 @@ class HotelFragment : Fragment() {
 
         /* Rescale hotel images to the according screen size */
         scaleImages()
+
     }
 
     /**
@@ -147,7 +148,7 @@ class HotelFragment : Fragment() {
         val screenHeightDp = resources.configuration.screenHeightDp
 
         // Define new size based on the screen DP. Height can be half the screen width, width has to then keep its ratio.
-        val newHeight = (screenWidthDp * 0.35).toInt() // height half the screen width
+        val newHeight = (screenWidthDp * 0.37).toInt() // height half the screen width
         val newWidth = (screenWidthDp * 0.5).toInt()
 
         // Updating the dimensions for all rooms in pixel (Deprecated)
@@ -176,37 +177,39 @@ class HotelFragment : Fragment() {
     }
 
 
-
-
+    /**
+     * Activeert voor alle imageviews in de layout hun corresponderende animatie files
+     */
     private fun activateAnimations(binding : FragmentHotelBinding)
     {
+        //bali
         binding.imageBali.apply { setBackgroundResource(R.drawable.final_bali_idle)
         baliIdleAnimation = background as AnimationDrawable }
         baliIdleAnimation.start()
-
+        //bar
         binding.imageBar.apply { setBackgroundResource(R.drawable.final_bar_idle)
         barIdleAnimation = background as AnimationDrawable }
         barIdleAnimation.start()
-
-        binding.imageTrofee.apply { setBackgroundResource(R.drawable.final_bali_idle)
-            trofeeIdleAnimation = background as AnimationDrawable }
+        //trofee
+        binding.imageTrofee.apply { setBackgroundResource(R.drawable.final_trofee_idle)
+        trofeeIdleAnimation = background as AnimationDrawable }
         trofeeIdleAnimation.start()
-
-        binding.imageBali.apply { setBackgroundResource(R.drawable.final_bali_idle)
-            baliIdleAnimation = background as AnimationDrawable }
-        baliIdleAnimation.start()
-
-        binding.imageBali.apply { setBackgroundResource(R.drawable.final_bali_idle)
-            baliIdleAnimation = background as AnimationDrawable }
-        baliIdleAnimation.start()
-
-        binding.imageBali.apply { setBackgroundResource(R.drawable.final_bali_idle)
-            baliIdleAnimation = background as AnimationDrawable }
-        baliIdleAnimation.start()
-
-        binding.imageBali.apply { setBackgroundResource(R.drawable.final_bali_idle)
-            baliIdleAnimation = background as AnimationDrawable }
-        baliIdleAnimation.start()
+        //bib
+        binding.imageBib.apply { setBackgroundResource(R.drawable.final_bib_idle)
+        bibIdleAnimation = background as AnimationDrawable }
+        bibIdleAnimation.start()
+        //cinema
+        binding.imageCinema.apply { setBackgroundResource(R.drawable.final_cinema_idle)
+        cinemaIdleAnimation = background as AnimationDrawable }
+        cinemaIdleAnimation.start()
+        //penthouse
+        binding.imagePenthouse.apply { setBackgroundResource(R.drawable.final_penthouse_idle)
+        penthouseIdleAnimation = background as AnimationDrawable }
+        penthouseIdleAnimation.start()
+        //entrance
+        binding.imageEntrance.apply { setBackgroundResource(R.drawable.final_entrance_idle)
+        entranceIdleAnimation = background as AnimationDrawable }
+        entranceIdleAnimation.start()
     }
 
 }
