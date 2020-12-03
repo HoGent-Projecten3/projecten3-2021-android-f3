@@ -28,10 +28,18 @@
                 android:rowCount="6">
 
 
+<!--
+                android:id="@+id/imageView"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                 -->
 
                 <!-- TOP -->
                 <ImageView
-                    android:id="@+id/image_top"
+                    android:id="@+id/image_roof"
                     android:layout_width="wrap_content"
                     android:layout_height="190dp"
                     android:layout_columnSpan="2"
@@ -39,7 +47,7 @@
 
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/final_top" />
+                    android:src="@drawable/final_roof_1" />
 
                 <!-- PENTHOUSE -->
                 <ImageView
@@ -51,7 +59,7 @@
 
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/final_penthouse" />
+                    android:src="@drawable/final_penthouse_1" />
 
 
                 <!--
@@ -61,36 +69,36 @@
 
                 <!-- BIBLIOTHEEK -->
                 <ImageView
-                    android:id="@+id/image_bar"
+                    android:id="@+id/image_bib"
 
                     android:layout_width="wrap_content"
                     android:layout_height="190dp"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/final_bar" />
+                    android:src="@drawable/final_bib_1" />
 
 
                 <!-- TROFEE KAMER -->
                 <ImageView
-                    android:id="@+id/image_trofeeKamer"
+                    android:id="@+id/image_trofee"
                     android:layout_width="wrap_content"
                     android:layout_height="190dp"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/final_trofee" />
+                    android:src="@drawable/final_trofee_1" />
 
 
                 <!-- BAR -->
                 <ImageView
-                    android:id="@+id/image_dagboek"
+                    android:id="@+id/image_bar"
                     android:layout_width="wrap_content"
                     android:layout_height="190dp"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/final_bibliotheek" />
+                    android:src="@drawable/final_bar_1" />
 
 
                 <!-- CINEMA -->
@@ -101,12 +109,12 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/final_cinema" />
+                    android:src="@drawable/final_cinema_1" />
 
 
                 <!-- INFOBALI -->
                 <ImageView
-                    android:id="@+id/image_infobalie"
+                    android:id="@+id/image_bali"
                     android:layout_width="wrap_content"
                     android:layout_height="190dp"
                     android:layout_columnSpan="2"
@@ -114,13 +122,13 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/final_infobali" />
+                    android:src="@drawable/final_bali_1" />
 
 
 
                 <!-- BOTTOM-->
                 <ImageView
-                    android:id="@+id/image_bottom"
+                    android:id="@+id/image_entrance"
                     android:layout_width="wrap_content"
                     android:layout_height="190dp"
                     android:layout_columnSpan="2"
@@ -128,7 +136,7 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/final_bottom" />
+                    android:src="@drawable/final_entrance_1" />
 
 
             </GridLayout>

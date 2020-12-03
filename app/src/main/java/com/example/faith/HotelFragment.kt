@@ -24,6 +24,8 @@ import kotlinx.android.synthetic.main.fragment_hotel.*
 class HotelFragment : Fragment() {
 
     private val viewModel: LoginViewModel by activityViewModels()
+    private lateinit var bottomNavigationView: BottomNavigationView
+    //Animatorproperties
 
     /**
      * Method called upon starting view creation
@@ -76,10 +78,10 @@ class HotelFragment : Fragment() {
         val kamers: List<View> = listOf(
             image_cinema,
             image_bar,
-            image_dagboek,
-            image_infobalie,
+            image_bib,
+            image_bali,
             image_penthouse,
-            image_trofeeKamer
+            image_trofee
         )
         for (kamer in kamers) {
             kamer.setOnClickListener { addRouting(kamer) }
@@ -125,12 +127,12 @@ class HotelFragment : Fragment() {
         val kamers: List<View> = listOf(
             image_cinema,
             image_bar,
-            image_infobalie,
+            image_bali,
             image_penthouse,
-            image_trofeeKamer,
-            image_top,
-            image_bottom,
-            image_dagboek
+            image_trofee,
+            image_roof,
+            image_entrance,
+            image_bib
         )
 
         // Obtain screen width & height DP
