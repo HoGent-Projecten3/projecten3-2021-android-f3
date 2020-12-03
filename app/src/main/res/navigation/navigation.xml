@@ -13,52 +13,92 @@
         tools:layout="@layout/fragment_hotel">
         <action
             android:id="@+id/action_hotelFragment_to_cinemaFragment"
-            app:destination="@id/cinemaFragment" />
+            app:destination="@id/cinemaFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_hotelFragment_to_mediumListFragment"
-            app:destination="@id/mediumListFragment" />
+            app:destination="@id/mediumListFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left" />
         <action
             android:id="@+id/action_hotelFragment_to_hulpbronListFragment"
-            app:destination="@id/hulpbronListFragment" />
+            app:destination="@id/hulpbronListFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
 
             android:id="@+id/action_hotelFragment_to_chatFragment"
-            app:destination="@id/chatFragment" />
-<action
+            app:destination="@id/chatFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
             android:id="@+id/action_hotelFragment_to_penthouseFragment"
-            app:destination="@id/penthouseFragment" />
+            app:destination="@id/penthouseFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_hotelFragment_to_dagboekListFragment2"
-            app:destination="@id/dagboekListFragment2" />
+            app:destination="@id/dagboekListFragment2"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
 
     </fragment>
     <fragment
         android:id="@+id/cinemaFragment"
         android:name="com.example.faith.CinemaFragment"
         android:label="@string/cinema"
-        tools:layout="@layout/fragment_cinema" >
+        tools:layout="@layout/fragment_cinema">
         <action
             android:id="@+id/action_cinemaFragment_to_mediumListFragment"
-            app:destination="@id/mediumListFragment" />
+            app:destination="@id/mediumListFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.example.faith.AboutFragment"
         android:label="About"
-        tools:layout="@layout/fragment_about"/>
+        tools:layout="@layout/fragment_about" />
     <fragment
         android:id="@+id/mediumListFragment"
         android:name="com.example.faith.MediumListFragment"
         android:label="@string/bib_naam">
         <action
             android:id="@+id/action_mediumListFragment_to_mediumDetailFragment"
-            app:destination="@id/mediumDetailFragment" />
+            app:destination="@id/mediumDetailFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_mediumListFragment_to_dagboekListFragment2"
-            app:destination="@id/dagboekListFragment2" />
+            app:destination="@id/dagboekListFragment2"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_mediumListFragment_to_cinemaFragment"
-            app:destination="@id/cinemaFragment" />
+            app:destination="@id/cinemaFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/mediumDetailFragment"
@@ -82,13 +122,25 @@
         tools:layout="@layout/fragment_dagboek_list">
         <action
             android:id="@+id/action_dagboekListFragment2_to_mediumListFragment"
-            app:destination="@id/mediumListFragment" />
+            app:destination="@id/mediumListFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_dagboekListFragment2_to_dagboekDetailFragment"
-            app:destination="@id/dagboekDetailFragment" />
+            app:destination="@id/dagboekDetailFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_dagboekListFragment2_to_dagboekFragment"
-            app:destination="@id/dagboekFragment" />
+            app:destination="@id/dagboekFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/dagboekDetailFragment"
@@ -96,7 +148,11 @@
         android:label="@string/dagboek_lezen">
         <action
             android:id="@+id/action_dagboekDetailFragment_to_dagboekListFragment2"
-            app:destination="@id/dagboekListFragment2" />
+            app:destination="@id/dagboekListFragment2"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <argument
             android:name="mediumId"
             app:argType="integer" />
@@ -104,36 +160,50 @@
     <fragment
         android:id="@+id/dagboekFragment"
         android:name="com.example.faith.DagboekFragment"
-        android:label="DagboekFragment" >
+        android:label="DagboekFragment">
         <action
             android:id="@+id/action_dagboekFragment_to_cinemaFragment"
-            app:destination="@id/cinemaFragment" />
+            app:destination="@id/cinemaFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_dagboekFragment_to_dagboekListFragment2"
-            app:destination="@id/dagboekListFragment2" />
+            app:destination="@id/dagboekListFragment2"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
         android:id="@+id/chatFragment"
         android:name="com.example.faith.ChatFragment"
         android:label="De bar" />
-
-        android:label="MediumListFragment" />
     <fragment
         android:id="@+id/hulpbronListFragment"
         android:name="com.example.faith.HulpbronListFragment"
-        android:label="Hulpbronnen" >
+        android:label="Hulpbronnen">
         <action
             android:id="@+id/action_hulpbronListFragment_to_hulpbronDetailFragment"
-            app:destination="@id/hulpbronDetailFragment" />
+            app:destination="@id/hulpbronDetailFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/hulpbronDetailFragment"
         android:name="com.example.faith.HulpbronDetailFragment"
-        android:label="Hulpbron" >
+        android:label="Hulpbron">
         <action
             android:id="@+id/action_hulpbronDetailFragment_to_hulpbronListFragment"
-            app:destination="@id/hulpbronListFragment" />
+            app:destination="@id/hulpbronListFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <argument
             android:name="hulpbronId"
             app:argType="integer" />
@@ -144,4 +214,25 @@
         android:name="com.example.faith.PenthouseFragment"
         android:label="Het penthouse"
         tools:layout="@layout/fragment_penthouse" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.faith.LoginFragment"
+        android:label="LoginFragment" />
+    <action
+        android:id="@+id/action_global_loginFragment"
+        app:destination="@id/loginFragment"
+        app:launchSingleTop="false"
+        app:popUpTo="@id/navigation"
+        app:popUpToInclusive="true"
+        app:enterAnim="@anim/slide_in_left"
+        app:exitAnim="@anim/slide_out_right"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
+    <action
+        android:id="@+id/action_global_hotelFragment"
+        app:destination="@id/hotelFragment"
+        app:enterAnim="@anim/slide_in_left"
+        app:exitAnim="@anim/slide_out_right"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
 </navigation>

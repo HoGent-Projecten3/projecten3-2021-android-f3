@@ -17,7 +17,7 @@ class LoginViewModel @ViewModelInject constructor(
     val interceptor: MyServiceInterceptor
 ) : ViewModel() {
 
-    private val _loginSuccesvol = MutableLiveData<Boolean>()
+    private val _loginSuccesvol = MutableLiveData<Boolean>(false)
 
     val loginSuccesvol: LiveData<Boolean>
         get() = _loginSuccesvol
@@ -48,5 +48,8 @@ class LoginViewModel @ViewModelInject constructor(
                 }
             }
         )
+    }
+    fun logout() {
+        _loginSuccesvol.value = false
     }
 }

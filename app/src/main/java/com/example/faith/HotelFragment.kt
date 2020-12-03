@@ -5,22 +5,25 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.GridLayout
-import android.widget.ImageView
 import android.widget.Toast
-import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.example.faith.databinding.FragmentHotelBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.faith.viewmodels.DagboekListViewModel
+import com.example.faith.viewmodels.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_hotel.*
 
 @AndroidEntryPoint
 class HotelFragment : Fragment() {
 
-    private lateinit var bottomNavigationView: BottomNavigationView
+    private val viewModel: LoginViewModel by activityViewModels()
 
     /**
      * Method called upon starting view creation
@@ -30,6 +33,7 @@ class HotelFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         /* Enabling data binding for fragments. slightly different because no immediate acces to root Activity */
         val binding = DataBindingUtil.inflate<FragmentHotelBinding>(
             inflater,
@@ -41,11 +45,23 @@ class HotelFragment : Fragment() {
         /* return */
         return binding.root
     }
+
     /**
      * Method called upon finishing view creation
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val navController = findNavController()
+
+
+        viewModel.loginSuccesvol.observe(viewLifecycleOwner, Observer { loginSuccesvol ->
+            if (loginSuccesvol) {
+            } else {
+
+                navController.navigate(R.id.action_global_loginFragment)
+            }
+        })
+
         /* Enable correct routing for each hotel room */
         setRoomClickListeners()
 
@@ -76,12 +92,13 @@ class HotelFragment : Fragment() {
 
     private fun addRouting(kamer: View) {
 
-
         when (kamer.id) {
-            R.id.image_bar -> Navigation.findNavController(kamer).navigate(R.id.action_hotelFragment_to_chatFragment)
+            R.id.image_bar -> Navigation.findNavController(kamer)
+                .navigate(R.id.action_hotelFragment_to_chatFragment)
             // Navigate to cinema room
 
-            R.id.image_dagboek -> Navigation.findNavController(kamer).navigate(R.id.action_hotelFragment_to_dagboekListFragment2)
+            R.id.image_dagboek -> Navigation.findNavController(kamer)
+                .navigate(R.id.action_hotelFragment_to_dagboekListFragment2)
             R.id.image_trofeeKamer ->
                 Toast.makeText(getActivity(), "Trofee", Toast.LENGTH_SHORT)
                     .show()
@@ -93,8 +110,13 @@ class HotelFragment : Fragment() {
             R.id.image_cinema ->
                 Navigation.findNavController(kamer)
                     .navigate(R.id.action_hotelFragment_to_mediumListFragment)
-            R.id.image_infobalie -> Navigation.findNavController(kamer).navigate(R.id.action_hotelFragment_to_hulpbronListFragment)
-            else -> Toast.makeText(getActivity(), "Dit item is niet aanklikbaar.", Toast.LENGTH_SHORT).show()
+            R.id.image_infobalie -> Navigation.findNavController(kamer)
+                .navigate(R.id.action_hotelFragment_to_hulpbronListFragment)
+            else -> Toast.makeText(
+                getActivity(),
+                "Dit item is niet aanklikbaar.",
+                Toast.LENGTH_SHORT
+            ).show()
 
         }
     }
@@ -126,7 +148,11 @@ class HotelFragment : Fragment() {
         */
 
         // Updating the dimensions for all rooms in DP
-        val dimensionHeightInDp = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, newHeight.toFloat(),resources.displayMetrics).toInt() // new DP height
+        val dimensionHeightInDp = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            newHeight.toFloat(),
+            resources.displayMetrics
+        ).toInt() // new DP height
 
         // Only update height. these are constant. Width updated automatically, as wrap_content, and adjustviewbounds keeps ratio intact.
         for (kamer in kamers) {
@@ -139,4 +165,6 @@ class HotelFragment : Fragment() {
         //bottom.layoutParams.width = image_penthouse.layoutParams.width
         // image_penthouse.requestLayout()
     }
+
+
 }
