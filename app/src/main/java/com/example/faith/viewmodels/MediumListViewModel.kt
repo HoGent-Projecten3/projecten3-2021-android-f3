@@ -26,14 +26,6 @@ class MediumListViewModel @ViewModelInject constructor(
         return apiRepository.getSearchResultStream().cachedIn(viewModelScope)
     }
 
-    fun getMedia2(): Call<ApiMediumSearchResponse> {
-        return apiRepository.getMedia2()
-    }
-    fun saveOne(medium: Medium) {
-        viewModelScope.launch {
-            apiRepository.insertOne(medium)
-        }
-    }
     fun filter(naam: String): Flow<PagingData<ApiMediumResponse>> {
         return apiRepository.getSearchResultStream().map {
             it.filter {

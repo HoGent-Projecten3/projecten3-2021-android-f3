@@ -44,8 +44,6 @@ class MediumListFragment : Fragment() {
         val binding = FragmentMediumListBinding.inflate(inflater, container, false)
         context ?: return binding.root
         binding.mediumList.adapter = adapter
-
-        insertNewMedia()
         getMedia()
         setHasOptionsMenu(true)
         binding.btGoToCinema.setOnClickListener {
@@ -98,35 +96,6 @@ class MediumListFragment : Fragment() {
         val direction = MediumListFragmentDirections.actionMediumListFragmentToCinemaFragment()
         val navController = findNavController()
         navController.navigate(direction)
-    }
-
-    fun insertNewMedia() {
-        viewModel.getMedia2().enqueue(
-            object : Callback<ApiMediumSearchResponse?> {
-                override fun onFailure(call: Call<ApiMediumSearchResponse?>, t: Throwable) {
-                    TODO("Not yet implemented")
-                }
-
-                override fun onResponse(
-                    call: Call<ApiMediumSearchResponse?>,
-                    responseMedium: Response<ApiMediumSearchResponse?>
-                ) {
-                    var fotoj = responseMedium.body()?.results
-                    fotoj?.forEach {
-
-                        viewModel.saveOne(
-                            Medium(
-                                it.mediumId,
-                                it.naam,
-                                it.beschrijving,
-                                it.url,
-                                it.mediumType
-                            )
-                        )
-                    }
-                }
-            }
-        )
     }
 
     private fun getMedia() {

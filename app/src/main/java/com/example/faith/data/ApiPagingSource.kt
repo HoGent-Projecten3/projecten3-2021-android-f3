@@ -8,7 +8,8 @@ private const val API_STARTING_PAGE_INDEX = 0
  * @author Remi Mestdagh
  */
 class ApiPagingSource(
-    private val service: ApiService
+    private val service: ApiService,
+    private val mediumRepository: MediumRepository
 
 ) : PagingSource<Int, ApiMediumResponse>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ApiMediumResponse> {
@@ -16,6 +17,16 @@ class ApiPagingSource(
         return try {
             val response = service.getMedia(page, params.loadSize)
             val photos = response.results
+            photos.forEach {
+                mediumRepository.insertOne(
+                    Medium(
+                        it.mediumId,
+                        it.naam,
+                        it.beschrijving,
+                        "",4
+                    )
+                )
+            }
             LoadResult.Page(
                 data = photos,
                 prevKey = if (page == API_STARTING_PAGE_INDEX) null else page - 1,
