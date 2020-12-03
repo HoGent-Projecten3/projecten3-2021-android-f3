@@ -23,12 +23,6 @@ class DagboekListViewModel @ViewModelInject constructor(
     fun getDagboekPosts(): Flow<PagingData<ApiDagboek>> {
         return repository.getDagboekPosts()
     }
-    fun getDagboekPosts2(): Call<ApiDagboekSearchResponse> {
-        return repository.getDagboekPosts2()
-    }
-    suspend fun saveOne(medium: Medium) {
-        repository.insertOne(medium)
-    }
     fun filter(naam: String): Flow<PagingData<ApiDagboek>> {
         return repository.getDagboekPosts().map {
             it.filter {

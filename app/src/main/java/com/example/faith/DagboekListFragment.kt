@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.map
 import com.example.faith.adapters.DagboekAdapter
 import com.example.faith.data.ApiDagboekSearchResponse
 import com.example.faith.data.Medium
@@ -48,7 +49,7 @@ class DagboekListFragment : Fragment() {
         context ?: return binding.root
         binding.dagboekList.adapter = adapter
 
-        insertNewDagboekPosts()
+        //insertNewDagboekPosts()
         getDagboek()
         setHasOptionsMenu(true)
 
@@ -94,34 +95,6 @@ class DagboekListFragment : Fragment() {
         navController.navigate(direction)
     }
 
-    fun insertNewDagboekPosts() {
-        viewModel.getDagboekPosts2().enqueue(
-            object : Callback<ApiDagboekSearchResponse?> {
-                override fun onFailure(call: Call<ApiDagboekSearchResponse?>, t: Throwable) {
-
-                }
-
-                override fun onResponse(
-                    call: Call<ApiDagboekSearchResponse?>,
-                    responseMedium: Response<ApiDagboekSearchResponse?>
-                ) {
-                    var fotoj = responseMedium.body()?.results
-                    fotoj?.forEach {
-                        GlobalScope.async {
-                            viewModel.saveOne(
-                                Medium(
-                                    it.mediumId,
-                                    it.naam,
-                                    it.beschrijving,
-                                    "",4
-                                )
-                            )
-                        }
-                    }
-                }
-            }
-        )
-    }
 
     private fun getDagboek() {
         searchJob?.cancel()

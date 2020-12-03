@@ -13,30 +13,23 @@ import javax.inject.Inject
  * @author Remi Mestdagh
  */
 class MediumRepository @Inject constructor(private val mediumDao: MediumDao, private val service: ApiService) {
-
-    fun getMedia() = mediumDao.getMedia()
     suspend fun insertOne(medium: Medium) = mediumDao.insertOne(medium)
 
     fun getMedium(id: Int) = mediumDao.getMedium(id)
     fun getSearchResultStream(): Flow<PagingData<ApiMediumResponse>> {
         return Pager(
             config = PagingConfig(enablePlaceholders = false, pageSize = 20, initialLoadSize = 20, prefetchDistance = 5),
-            pagingSourceFactory = { ApiPagingSource(service) }
+            pagingSourceFactory = { ApiPagingSource(service, this) }
 
         ).flow
     }
-    fun getMedia2(): Call<ApiMediumSearchResponse> {
-        return service.getMedia2(0, 500)
-    }
+
     fun getDagboekPosts(): Flow<PagingData<ApiDagboek>> {
         return Pager(
             config = PagingConfig(enablePlaceholders = false, pageSize = 50, initialLoadSize = 30, prefetchDistance = 20),
-            pagingSourceFactory = { ApiDagboekPagingSource(service) }
+            pagingSourceFactory = { ApiDagboekPagingSource(service,this) }
 
         ).flow
-    }
-    fun getDagboekPosts2(): Call<ApiDagboekSearchResponse> {
-        return service.getDagboek2(0, 500)
     }
     fun postMedium(imageFile: MultipartBody.Part, beschrijving: String?): Call<Message> {
 
