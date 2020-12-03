@@ -50,10 +50,10 @@ interface ApiService {
     ): Call<Message>
 
     @GET("Chat/GetBerichtenMetBegeleider")
-    suspend fun getBerichten(
-        @Query("page") page: Int,
-        @Query("aantal") perPage: Int
-    ): ApiBerichtSearchResponse
+    fun getBerichten(
+        @Query("totDatum") totDatum: String,
+        @Query("aantal") aantal: Int
+    ): Call<ApiBerichtSearchResponse>
 
     @GET("Chat/GetBerichtenMetBegeleider")
     fun getBerichten2(

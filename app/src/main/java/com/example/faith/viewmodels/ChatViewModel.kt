@@ -30,10 +30,7 @@ class ChatViewModel @ViewModelInject constructor(
         return berichtRepository.verstuurBericht(mijnEmail, andereEmail, mijnNaam, andereNaam, text)
     }
 
-    fun geefBerichten(): Flow<PagingData<ApiBericht>> {
-        return berichtRepository.getBerichten().cachedIn(viewModelScope)
-    }
-    fun geefBerichten2(): Call<ApiBerichtSearchResponse> {
-        return berichtRepository.getBerichten2()
+    fun geefBerichten2(totDatum: String, aantal: Int): Call<ApiBerichtSearchResponse> {
+        return berichtRepository.getBerichten2(totDatum, aantal)
     }
 }
