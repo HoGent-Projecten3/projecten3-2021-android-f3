@@ -1,5 +1,6 @@
 package com.example.faith
 
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -24,6 +25,16 @@ import kotlinx.android.synthetic.main.fragment_hotel.*
 class HotelFragment : Fragment() {
 
     private val viewModel: LoginViewModel by activityViewModels()
+    private lateinit var bottomNavigationView: BottomNavigationView
+    //Animatorproperties
+    private lateinit var penthouseIdleAnimation: AnimationDrawable
+    private lateinit var barIdleAnimation: AnimationDrawable
+    private lateinit var trofeeIdleAnimation: AnimationDrawable
+    private lateinit var bibIdleAnimation: AnimationDrawable
+    private lateinit var cinemaIdleAnimation: AnimationDrawable
+    private lateinit var baliIdleAnimation: AnimationDrawable
+    private lateinit var entranceIdleAnimation: AnimationDrawable
+
 
     /**
      * Method called upon starting view creation
@@ -35,12 +46,10 @@ class HotelFragment : Fragment() {
     ): View? {
 
         /* Enabling data binding for fragments. slightly different because no immediate acces to root Activity */
-        val binding = DataBindingUtil.inflate<FragmentHotelBinding>(
-            inflater,
-            R.layout.fragment_hotel,
-            container,
-            false
-        )
+        val binding = DataBindingUtil.inflate<FragmentHotelBinding>(  inflater,  R.layout.fragment_hotel, container,false )
+
+        /* activeerAnimaties */
+        activateAnimations(binding)
 
         /* return */
         return binding.root
@@ -67,6 +76,7 @@ class HotelFragment : Fragment() {
 
         /* Rescale hotel images to the according screen size */
         scaleImages()
+
     }
 
     /**
@@ -76,10 +86,10 @@ class HotelFragment : Fragment() {
         val kamers: List<View> = listOf(
             image_cinema,
             image_bar,
-            image_dagboek,
-            image_infobalie,
+            image_bib,
+            image_bali,
             image_penthouse,
-            image_trofeeKamer
+            image_trofee
         )
         for (kamer in kamers) {
             kamer.setOnClickListener { addRouting(kamer) }
@@ -125,12 +135,12 @@ class HotelFragment : Fragment() {
         val kamers: List<View> = listOf(
             image_cinema,
             image_bar,
-            image_infobalie,
+            image_bali,
             image_penthouse,
-            image_trofeeKamer,
-            image_top,
-            image_bottom,
-            image_dagboek
+            image_trofee,
+            image_roof,
+            image_entrance,
+            image_bib
         )
 
         // Obtain screen width & height DP
@@ -138,7 +148,7 @@ class HotelFragment : Fragment() {
         val screenHeightDp = resources.configuration.screenHeightDp
 
         // Define new size based on the screen DP. Height can be half the screen width, width has to then keep its ratio.
-        val newHeight = (screenWidthDp * 0.35).toInt() // height half the screen width
+        val newHeight = (screenWidthDp * 0.37).toInt() // height half the screen width
         val newWidth = (screenWidthDp * 0.5).toInt()
 
         // Updating the dimensions for all rooms in pixel (Deprecated)
@@ -148,16 +158,18 @@ class HotelFragment : Fragment() {
         */
 
         // Updating the dimensions for all rooms in DP
-        val dimensionHeightInDp = TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP,
-            newHeight.toFloat(),
-            resources.displayMetrics
-        ).toInt() // new DP height
+        val dimensionHeightInDp = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, newHeight.toFloat(),resources.displayMetrics).toInt() // new DP height
+        val dimensionWidthInDp = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, newWidth.toFloat(),resources.displayMetrics).toInt() // new DP height
 
         // Only update height. these are constant. Width updated automatically, as wrap_content, and adjustviewbounds keeps ratio intact.
         for (kamer in kamers) {
             kamer.layoutParams.height = dimensionHeightInDp
+            kamer.layoutParams.width = dimensionWidthInDp
         }
+        image_bali.layoutParams.width = dimensionWidthInDp*2
+        image_penthouse.layoutParams.width = dimensionWidthInDp*2
+        image_entrance.layoutParams.width = dimensionWidthInDp*2
+        image_roof.layoutParams.width = dimensionWidthInDp*2
         //updating the top and bottom part individually
         //val top = image_top
         //val bottom = image_bottom
@@ -167,4 +179,41 @@ class HotelFragment : Fragment() {
     }
 
 
+    /**
+     * Activeert voor alle imageviews in de layout hun corresponderende animatie files
+     */
+    private fun activateAnimations(binding : FragmentHotelBinding)
+    {
+        //bali
+        binding.imageBali.apply { setBackgroundResource(R.drawable.final_bali_idle)
+        baliIdleAnimation = background as AnimationDrawable }
+        baliIdleAnimation.start()
+        //bar
+        binding.imageBar.apply { setBackgroundResource(R.drawable.final_bar_idle)
+        barIdleAnimation = background as AnimationDrawable }
+        barIdleAnimation.start()
+        //trofee
+        binding.imageTrofee.apply { setBackgroundResource(R.drawable.final_trofee_idle)
+        trofeeIdleAnimation = background as AnimationDrawable }
+        trofeeIdleAnimation.start()
+        //bib
+        binding.imageBib.apply { setBackgroundResource(R.drawable.final_bib_idle)
+        bibIdleAnimation = background as AnimationDrawable }
+        bibIdleAnimation.start()
+        //cinema
+        binding.imageCinema.apply { setBackgroundResource(R.drawable.final_cinema_idle)
+        cinemaIdleAnimation = background as AnimationDrawable }
+        cinemaIdleAnimation.start()
+        //penthouse
+        binding.imagePenthouse.apply { setBackgroundResource(R.drawable.final_penthouse_idle)
+        penthouseIdleAnimation = background as AnimationDrawable }
+        penthouseIdleAnimation.start()
+        //entrance
+        binding.imageEntrance.apply { setBackgroundResource(R.drawable.final_entrance_idle)
+        entranceIdleAnimation = background as AnimationDrawable }
+        entranceIdleAnimation.start()
+    }
+
 }
+
+

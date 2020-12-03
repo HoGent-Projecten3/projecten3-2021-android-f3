@@ -1,6 +1,7 @@
 package com.example.faith
 
 import android.content.Intent
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,23 +22,17 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
 
+    private lateinit var compassIdleAnimation: AnimationDrawable
     private val viewModel: LoginViewModel by activityViewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?, savedInstanceState: Bundle? ): View? {
 
-        val binding: FragmentLoginBinding =
-            DataBindingUtil.inflate(
-                inflater,
-                R.layout.fragment_login,
-                container,
-                false
-            )
+        //Modelbinding
+        val binding: FragmentLoginBinding =   DataBindingUtil.inflate(  inflater, R.layout.fragment_login, container, false )
+
         // val viewModel: LoginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         binding.viewModel = viewModel
+
         // binding.lifecycleOwner = this
         binding.setLifecycleOwner(this)
 
@@ -48,6 +43,12 @@ class LoginFragment : Fragment() {
             )
             viewModel.login(login)
         }
+
+        //Activeer de logo animatie
+        binding.imageView.apply { setBackgroundResource(R.drawable.compass_idle)
+        compassIdleAnimation = background as AnimationDrawable }
+        compassIdleAnimation.start()
+
 
 
 
@@ -83,4 +84,14 @@ class LoginFragment : Fragment() {
             }
         )
     }
+
 }
+
+/*
+private fun activateAnimations(binding : Any)
+{
+
+}
+*/
+
+
