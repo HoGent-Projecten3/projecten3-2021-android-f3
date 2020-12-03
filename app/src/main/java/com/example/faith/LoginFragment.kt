@@ -25,23 +25,14 @@ class LoginFragment : Fragment() {
     private lateinit var compassIdleAnimation: AnimationDrawable
     private val viewModel: LoginViewModel by activityViewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?, savedInstanceState: Bundle? ): View? {
 
+        //Modelbinding
+        val binding: FragmentLoginBinding =   DataBindingUtil.inflate(  inflater, R.layout.fragment_login, container, false )
 
-
-        val binding: FragmentLoginBinding =
-            DataBindingUtil.inflate(
-                inflater,
-                R.layout.fragment_login,
-                container,
-                false
-            )
         // val viewModel: LoginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         binding.viewModel = viewModel
+
         // binding.lifecycleOwner = this
         binding.setLifecycleOwner(this)
 
@@ -55,7 +46,7 @@ class LoginFragment : Fragment() {
 
         //Activeer de logo animatie
         val jens = binding.imageView.apply { setBackgroundResource(R.drawable.compass_idle)
-            compassIdleAnimation = background as AnimationDrawable }
+        compassIdleAnimation = background as AnimationDrawable }
         compassIdleAnimation.start()
 
 
