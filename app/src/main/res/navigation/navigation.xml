@@ -217,7 +217,7 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.faith.LoginFragment"
-        android:label="LoginFragment" />
+        android:label="@string/login_fragment_name" />
     <action
         android:id="@+id/action_global_loginFragment"
         app:destination="@id/loginFragment"

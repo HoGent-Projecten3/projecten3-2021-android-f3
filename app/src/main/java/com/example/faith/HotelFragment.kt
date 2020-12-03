@@ -25,8 +25,6 @@ import kotlinx.android.synthetic.main.fragment_hotel.*
 class HotelFragment : Fragment() {
 
     private val viewModel: LoginViewModel by activityViewModels()
-    private lateinit var bottomNavigationView: BottomNavigationView
-    //Animatorproperties
     private lateinit var penthouseIdleAnimation: AnimationDrawable
     private lateinit var barIdleAnimation: AnimationDrawable
     private lateinit var trofeeIdleAnimation: AnimationDrawable
@@ -107,9 +105,9 @@ class HotelFragment : Fragment() {
                 .navigate(R.id.action_hotelFragment_to_chatFragment)
             // Navigate to cinema room
 
-            R.id.image_dagboek -> Navigation.findNavController(kamer)
+            R.id.image_bib -> Navigation.findNavController(kamer)
                 .navigate(R.id.action_hotelFragment_to_dagboekListFragment2)
-            R.id.image_trofeeKamer ->
+            R.id.image_trofee ->
                 Toast.makeText(getActivity(), "Trofee", Toast.LENGTH_SHORT)
                     .show()
             // TODO
@@ -120,7 +118,7 @@ class HotelFragment : Fragment() {
             R.id.image_cinema ->
                 Navigation.findNavController(kamer)
                     .navigate(R.id.action_hotelFragment_to_mediumListFragment)
-            R.id.image_infobalie -> Navigation.findNavController(kamer)
+            R.id.image_bali -> Navigation.findNavController(kamer)
                 .navigate(R.id.action_hotelFragment_to_hulpbronListFragment)
             else -> Toast.makeText(
                 getActivity(),

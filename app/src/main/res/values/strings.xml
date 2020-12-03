@@ -8,7 +8,7 @@
     <string name="upload_text">OPSLAAN</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="enter_email_address">Email</string>
-    <string name="text_login">Aanmelden</string>
+    <string name="text_login">Login</string>
     <string name="text_password">Wachtwoord</string>
     <string name="label_welcome">Welkom bij hotel kompas!</string>
     <string name="app_description">Faith is de app waarmee jongeren op interactieve manier met hun gevoelens en emoties kunnen omgaan.
@@ -48,4 +48,5 @@
     <string name="verzend">verzend</string>
 
     <string name="delete_button_text">verwijder</string>
+    <string name="login_fragment_name">Login</string>
 </resources>
