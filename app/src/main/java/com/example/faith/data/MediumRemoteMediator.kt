@@ -36,7 +36,7 @@ class MediumRemoteMediator(private val db: AppDatabase, private val service: Api
                     // We must explicitly check if the page key is null when appending, since the
                     // Reddit API informs the end of the list by returning null for page key, but
                     // passing a null key to Reddit API will fetch the initial page.
-                    if (remoteKey.nextPageKey == null) {
+                    if (remoteKey.nextPageKey == (-1).toString()) {
                         return MediatorResult.Success(endOfPaginationReached = true)
                     }
 
@@ -47,7 +47,7 @@ class MediumRemoteMediator(private val db: AppDatabase, private val service: Api
             val data = service.getMedia(
                 page = when (loadType) {
                     LoadType.REFRESH -> 0
-                    else -> state.config.pageSize
+                    else -> loadKey!!.toInt()
                 }, perPage = 20
             )
 
@@ -62,6 +62,7 @@ class MediumRemoteMediator(private val db: AppDatabase, private val service: Api
                 }
 
             }
+
 
             return MediatorResult.Success(endOfPaginationReached = items.isEmpty())
         } catch (e: IOException) {
