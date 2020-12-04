@@ -20,7 +20,7 @@ class DoelDTO(
     var stappen: List<DoelDTO>?
 ) {
 
-    constructor(doel: Doel) : this(doel.getNaam(), doel.isChecked(), doel.isCollapsed(), doel.getDoelenDTO())
+    /*constructor(doel: Doel) : this(doel.getNaam(), doel.isChecked(), doel.isCollapsed(), doel.getDoelenDTO())
 
     constructor(stap: Stap) : this(stap.getNaam(), stap.isChecked(), null, null)
 
@@ -44,5 +44,5 @@ class DoelDTO(
             }
         }
         return print
-    }
+    }*/
 }

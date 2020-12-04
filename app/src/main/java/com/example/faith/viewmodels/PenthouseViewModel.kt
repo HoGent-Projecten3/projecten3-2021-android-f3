@@ -19,11 +19,15 @@ public class PenthouseViewModel @ViewModelInject constructor(val repository: Doe
         instance = this
     }
 
-    private val _doelen = MutableLiveData<List<IDoel>>()
-    val doelen: LiveData<List<IDoel>>
+    private val _doelen = MutableLiveData<List<Doel>>()
+    val doelen: LiveData<List<Doel>>
         get() = _doelen
 
-    fun getDoelen() {
+    fun getDoelen(){
+        _doelen.value = mutableListOf( Doel("test", false, false, mutableListOf()))
+    }
+
+    /*fun getDoelen() {
         repository.getDoelen().enqueue(
             object : Callback<List<DoelDTO>> {
                 override fun onResponse(call: Call<List<DoelDTO>>, response: Response<List<DoelDTO>>) {
@@ -123,7 +127,7 @@ public class PenthouseViewModel @ViewModelInject constructor(val repository: Doe
         val doelen = _doelen.value?.toMutableList()
         doelen?.add(doel)
         _doelen.value = doelen!!
-    }
+    }*/
 
     companion object {
         var instance: PenthouseViewModel? = null

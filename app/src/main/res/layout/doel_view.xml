@@ -63,7 +63,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:visibility="gone"
-            app:layout_constraintStart_toEndOf="@+id/doel_edit_button"
+            app:layout_constraintStart_toEndOf="@+id/doel_add_button"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/ic_delete" />
 
@@ -80,9 +80,10 @@
             android:id="@+id/doel_add_button"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginStart="8dp"
             android:visibility="gone"
-            app:layout_constraintStart_toStartOf="@+id/doel_list_sec"
-            app:layout_constraintTop_toBottomOf="@+id/doel_list_sec"
+            app:layout_constraintStart_toEndOf="@+id/doel_edit_button"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/ic_input_add" />
 
         <EditText
@@ -96,24 +97,14 @@
             app:layout_constraintTop_toBottomOf="@+id/doel_list_sec" />
 
         <Button
-            android:id="@+id/doel_add_doel_button"
+            android:id="@+id/doel_Add_Confirm_Button"
             android:layout_width="72dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="Doel"
+            android:text="OK"
             android:visibility="gone"
             app:layout_constraintBaseline_toBaselineOf="@+id/doel_add_edit_text"
             app:layout_constraintStart_toEndOf="@+id/doel_add_edit_text" />
-
-        <Button
-            android:id="@+id/doel_add_stap_button"
-            android:layout_width="72dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="Stap"
-            android:visibility="gone"
-            app:layout_constraintBaseline_toBaselineOf="@+id/doel_add_edit_text"
-            app:layout_constraintStart_toEndOf="@+id/doel_add_doel_button" />
 
         <CheckBox
             android:id="@+id/doel_checkbox"

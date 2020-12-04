@@ -47,13 +47,13 @@ class PenthouseFragment : Fragment() {
         }
 
         binding.mainAddConfirmButton.setOnClickListener {
-            val doel = Doel(binding.mainAddEditText.text.toString(), false, true)
+            /*val doel = Doel(binding.mainAddEditText.text.toString(), false, true)
             doel.addStap(Stap("Eerste stap", false))
             viewModel.addDoel(doel)
             //adapter.notifyDataSetChanged()
             viewModel.syncDoelen()
             binding.mainAddConfirmButton.visibility = View.GONE
-            binding.mainAddEditText.visibility = View.GONE
+            binding.mainAddEditText.visibility = View.GONE*/
         }
 
         return binding.root
