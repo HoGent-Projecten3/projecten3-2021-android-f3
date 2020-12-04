@@ -11,26 +11,18 @@ class ApiPagingSource(
     private val service: ApiService,
     private val mediumRepository: MediumRepository
 
-) : PagingSource<Int, ApiMediumResponse>() {
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ApiMediumResponse> {
+) : PagingSource<Int, Medium>() {
+    override val keyReuseSupported: Boolean
+        get() = true
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Medium> {
         val page = params.key ?: API_STARTING_PAGE_INDEX
         return try {
             val response = service.getMedia(page, params.loadSize)
-            val photos = response.results
-            photos.forEach {
-                mediumRepository.insertOne(
-                    Medium(
-                        it.mediumId,
-                        it.naam,
-                        it.beschrijving,
-                        it.url,it.mediumType
-                    )
-                )
-            }
+
             LoadResult.Page(
-                data = photos,
-                prevKey = if (page == API_STARTING_PAGE_INDEX) null else page - 1,
-                nextKey = if (page == response.totalPages) null else page + 1
+                data = response.results,
+                prevKey = response.last?.toInt(),
+                nextKey = response.next?.toInt()
             )
         } catch (exception: Exception) {
             LoadResult.Error(exception)

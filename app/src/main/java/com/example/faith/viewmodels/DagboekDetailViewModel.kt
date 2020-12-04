@@ -1,10 +1,9 @@
 package com.example.faith.viewmodels
 
-import android.os.Message
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.faith.data.ApiMediumResponse
+import com.example.faith.data.Medium
 import com.example.faith.data.MediumRepository
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
@@ -29,7 +28,7 @@ class DagboekDetailViewModel @AssistedInject constructor(
 
         }
     }
-    fun removeMediumApi(): Call<ApiMediumResponse> {
+    fun removeMediumApi(): Call<Medium> {
         return mediumRepository.removeMedium(dagboek.value!!.mediumId)
     }
 

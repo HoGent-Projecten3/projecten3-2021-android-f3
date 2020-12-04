@@ -1,10 +1,12 @@
 package com.example.faith.data
 
 import android.os.Message
+import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.faith.api.ApiService
+import com.example.faith.util.performGetOperation
 import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -12,16 +14,22 @@ import javax.inject.Inject
 /**
  * @author Remi Mestdagh
  */
-class MediumRepository @Inject constructor(private val mediumDao: MediumDao, private val service: ApiService) {
+class MediumRepository @Inject constructor(private val mediumDao: MediumDao, private val service: ApiService, private val db: AppDatabase) {
+
+    fun getMedia() = mediumDao.getMedia()
+
     suspend fun insertOne(medium: Medium) = mediumDao.insertOne(medium)
 
     fun getMedium(id: Int) = mediumDao.getMedium(id)
-    fun getSearchResultStream(): Flow<PagingData<ApiMediumResponse>> {
+    @ExperimentalPagingApi
+    fun getSearchResultStream(mediumNaam:String): Flow<PagingData<Medium>> {
         return Pager(
             config = PagingConfig(enablePlaceholders = false, pageSize = 20, initialLoadSize = 20, prefetchDistance = 5),
-            pagingSourceFactory = { ApiPagingSource(service, this) }
+            remoteMediator = MediumRemoteMediator(db,service,mediumNaam),
 
-        ).flow
+        ) {
+            mediumDao.getMedia()
+        }.flow
     }
 
     fun getDagboekPosts(): Flow<PagingData<ApiDagboek>> {
@@ -38,7 +46,7 @@ class MediumRepository @Inject constructor(private val mediumDao: MediumDao, pri
     fun postText(titel: String, beschrijving: String): Call<Message> {
         return service.uploadText(titel, beschrijving)
     }
-    fun removeMedium(id: Int): Call<ApiMediumResponse> {
+    fun removeMedium(id: Int): Call<Medium> {
         return service.removeMedium(id)
     }
     suspend fun deleteMediumRoom(medium: Medium) = mediumDao.deleteMedium(medium)

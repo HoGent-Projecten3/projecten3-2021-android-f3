@@ -4,13 +4,13 @@ import android.os.Message
 import com.example.faith.data.ApiBerichtSearchResponse
 import com.example.faith.data.ApiDagboekSearchResponse
 import com.example.faith.data.ApiHulpbronSearchResponse
-import com.example.faith.data.ApiMediumResponse
 import com.example.faith.data.ApiMediumSearchResponse
 import com.example.faith.data.DoelDTO
 import com.example.faith.data.Gebruiker
 import com.example.faith.data.HulpbronDTO
 import com.example.faith.data.Login
 import com.example.faith.data.LoginResponse
+import com.example.faith.data.Medium
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.Body

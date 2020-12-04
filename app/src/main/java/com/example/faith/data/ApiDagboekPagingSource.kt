@@ -21,9 +21,8 @@ class ApiDagboekPagingSource(
                 mediumRepository.insertOne(
                     Medium(
                         it.mediumId,
-                        it.naam,
-                        it.beschrijving,
-                        "",4
+                        it.naam,"",
+                        it.beschrijving,4
                     )
                 )
             }

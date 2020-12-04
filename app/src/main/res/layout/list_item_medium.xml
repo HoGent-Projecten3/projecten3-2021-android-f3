@@ -27,7 +27,7 @@
             type="android.view.View.OnLongClickListener"/>
         <variable
             name="photo"
-            type="com.example.faith.data.ApiMediumResponse"/>
+            type="com.example.faith.data.Medium"/>
     </data>
 
     <com.google.android.material.card.MaterialCardView
