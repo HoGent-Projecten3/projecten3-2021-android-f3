@@ -80,10 +80,10 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
 
+            android:layout_gravity="center"
             android:layout_margin="20dp"
-            android:text="@string/text_login"
-            android:textAlignment="center"
-            android:layout_gravity="center" />
+            android:text="@string/login"
+            android:textAlignment="center" />
 
 
     </LinearLayout>

@@ -29,6 +29,7 @@ public class PenthouseViewModel @ViewModelInject constructor(val repository: Doe
                 override fun onResponse(call: Call<List<DoelDTO>>, response: Response<List<DoelDTO>>) {
                     if (response.isSuccessful) {
                         val doelenDTO = response.body()
+                        //suspend { repository.insertDoelen(doelenDTO!!) }
                         val doelen = mutableListOf<IDoel>()
                         for (doel: DoelDTO in doelenDTO!!) {
                             doelen.add(doel.getDoel())

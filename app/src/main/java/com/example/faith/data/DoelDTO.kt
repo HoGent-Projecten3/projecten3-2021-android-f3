@@ -1,15 +1,22 @@
 package com.example.faith.data
 
+import androidx.annotation.NonNull
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-public class DoelDTO(
+@Entity(tableName = "doelen")
+class DoelDTO(
     @SerializedName("inhoud")
-    var inhoud: String?,
+    @PrimaryKey @NonNull
+    var inhoud: String,
     @SerializedName("checked")
     var checked: Boolean?,
     @SerializedName("collapsed")
     var collapsed: Boolean?,
     @SerializedName("stappen")
+    @Embedded
     var stappen: List<DoelDTO>?
 ) {
 
