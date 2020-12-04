@@ -6,9 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.faith.data.Doel
-import com.example.faith.data.DoelDTO
 import com.example.faith.data.DoelRepository
-import com.example.faith.data.IDoel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,28 +21,22 @@ public class PenthouseViewModel @ViewModelInject constructor(val repository: Doe
     val doelen: LiveData<List<Doel>>
         get() = _doelen
 
-    fun getDoelen(){
+    /*fun getDoelen(){
         _doelen.value = mutableListOf( Doel("test", false, false, mutableListOf()))
-    }
+    }*/
 
-    /*fun getDoelen() {
+    fun getDoelen() {
         repository.getDoelen().enqueue(
-            object : Callback<List<DoelDTO>> {
-                override fun onResponse(call: Call<List<DoelDTO>>, response: Response<List<DoelDTO>>) {
+            object : Callback<List<Doel>> {
+                override fun onResponse(call: Call<List<Doel>>, response: Response<List<Doel>>) {
                     if (response.isSuccessful) {
-                        val doelenDTO = response.body()
-                        //suspend { repository.insertDoelen(doelenDTO!!) }
-                        val doelen = mutableListOf<IDoel>()
-                        for (doel: DoelDTO in doelenDTO!!) {
-                            doelen.add(doel.getDoel())
-                        }
-                        _doelen.value = doelen
+                        _doelen.value = response.body()
                     } else {
                         Log.i("PenthouseViewModel", "Failed to SYNC doelen: ${response.code()}, ${response.message()}")
                     }
                 }
 
-                override fun onFailure(call: Call<List<DoelDTO>>, t: Throwable) {
+                override fun onFailure(call: Call<List<Doel>>, t: Throwable) {
                     Log.i("PenthouseViewModel", "Failed to GET doelen: $t")
                 }
             }
@@ -52,14 +44,7 @@ public class PenthouseViewModel @ViewModelInject constructor(val repository: Doe
     }
 
     fun postDoelen() {
-        val doelenDTO = mutableListOf<DoelDTO>()
-        for (doel: IDoel in _doelen.value!!.toList()) {
-            doelenDTO.add(DoelDTO(doel as Doel))
-        }
-        for (doel: DoelDTO in doelenDTO) {
-            System.out.println(doel.toString())
-        }
-        repository.postDoelen(doelenDTO).enqueue(
+        repository.postDoelen(_doelen.value!!).enqueue(
             object : Callback<Boolean> {
                 override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
                     if (response.body()!!) {
@@ -75,59 +60,46 @@ public class PenthouseViewModel @ViewModelInject constructor(val repository: Doe
     }
 
     fun syncDoelen() {
-        val doelenDTO = mutableListOf<DoelDTO>()
-        for (doel: IDoel in _doelen.value!!.toList()) {
-            doelenDTO.add(DoelDTO(doel as Doel))
-        }
-        doSyncDoelen(doelenDTO)
+        doSyncDoelen(_doelen.value!!)
     }
 
-    private fun doSyncDoelen(doelenDTO: List<DoelDTO>) {
-        repository.syncDoelen(doelenDTO).enqueue(
-            object : Callback<List<DoelDTO>> {
-                override fun onResponse(call: Call<List<DoelDTO>>, response: Response<List<DoelDTO>>) {
+    private fun doSyncDoelen(doelen: List<Doel>) {
+        repository.syncDoelen(doelen).enqueue(
+            object : Callback<List<Doel>> {
+                override fun onResponse(call: Call<List<Doel>>, response: Response<List<Doel>>) {
                     if (response.isSuccessful) {
-                        val doelenDTO = response.body()
-                        val doelen = mutableListOf<IDoel>()
-                        for (doel: DoelDTO in doelenDTO!!) {
-                            doelen.add(doel.getDoel())
-                        }
-                        _doelen.value = doelen
+                        _doelen.value = response.body()
                     } else {
                         Log.i("PenthouseViewModel", "Failed to SYNC doelen: ${response.code()}, ${response.message()}")
                     }
                 }
 
-                override fun onFailure(call: Call<List<DoelDTO>>, t: Throwable) {
+                override fun onFailure(call: Call<List<Doel>>, t: Throwable) {
                     Log.i("PenthouseViewModel", "Failed to SYNC doelen: $t")
                 }
             }
         )
     }
 
-    public fun verwijderDoel(teVerwijderenDoel: IDoel) {
+    public fun verwijderDoel(teVerwijderenDoel: Doel) {
         val doelen = _doelen.value!!.toMutableList()
         if (!doelen.remove(teVerwijderenDoel)) {
-            for (doel: IDoel in doelen) {
+            for (doel: Doel in doelen) {
                 doel.verwijderDoel(teVerwijderenDoel)
             }
         }
-        val doelenDTO = mutableListOf<DoelDTO>()
-        for (doel: IDoel in doelen) {
-            doelenDTO.add(DoelDTO(doel as Doel))
-        }
-        doSyncDoelen(doelenDTO)
+        doSyncDoelen(doelen)
     }
 
-    public fun setDoelen(doelen: List<IDoel>) {
+    public fun setDoelen(doelen: List<Doel>) {
         _doelen.value = doelen
     }
 
-    public fun addDoel(doel: IDoel) {
+    public fun addDoel(doel: Doel) {
         val doelen = _doelen.value?.toMutableList()
         doelen?.add(doel)
         _doelen.value = doelen!!
-    }*/
+    }
 
     companion object {
         var instance: PenthouseViewModel? = null

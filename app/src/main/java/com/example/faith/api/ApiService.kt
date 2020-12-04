@@ -1,15 +1,7 @@
 package com.example.faith.api
 
 import android.os.Message
-import com.example.faith.data.ApiBerichtSearchResponse
-import com.example.faith.data.ApiDagboekSearchResponse
-import com.example.faith.data.ApiHulpbronSearchResponse
-import com.example.faith.data.ApiMediumResponse
-import com.example.faith.data.ApiMediumSearchResponse
-import com.example.faith.data.DoelDTO
-import com.example.faith.data.Gebruiker
-import com.example.faith.data.Login
-import com.example.faith.data.LoginResponse
+import com.example.faith.data.*
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -101,15 +93,15 @@ interface ApiService {
 
 
     @GET("Client/GetDoelen")
-    fun getDoelen(): Call<List<DoelDTO>>
+    fun getDoelen(): Call<List<Doel>>
 
     @Headers("Content-Type: application/json")
     @POST("Client/PostDoelen")
-    fun postDoelen(@Body doelenDTO: List<DoelDTO>): Call<Boolean>
+    fun postDoelen(@Body doelen: List<Doel>): Call<Boolean>
 
     @Headers("Content-Type: application/json")
     @POST("Client/SyncDoelen")
-    fun syncDoelen(@Body doelenDTO: List<DoelDTO>): Call<List<DoelDTO>>
+    fun syncDoelen(@Body doelen: List<Doel>): Call<List<Doel>>
 
     @GET("Cinema/id")
     fun getMedium(@Query("mediumId") id: Int): ApiMediumResponse

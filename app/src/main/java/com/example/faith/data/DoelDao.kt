@@ -15,7 +15,7 @@ interface DoelDTODao {
     fun getOne(doelNaam: String): LiveData<Doel>*/
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(doelenDTO: List<DoelDTO>)
+    suspend fun insertAll(doelen: List<Doel>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOne(doel: Doel)

@@ -9,7 +9,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.faith.adapters.DoelAdapter
 import com.example.faith.data.Doel
-import com.example.faith.data.Stap
 import com.example.faith.databinding.FragmentPenthouseBinding
 import com.example.faith.viewmodels.PenthouseViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,13 +46,12 @@ class PenthouseFragment : Fragment() {
         }
 
         binding.mainAddConfirmButton.setOnClickListener {
-            /*val doel = Doel(binding.mainAddEditText.text.toString(), false, true)
-            doel.addStap(Stap("Eerste stap", false))
+            val doel = Doel(binding.mainAddEditText.text.toString(), false, false, mutableListOf())
             viewModel.addDoel(doel)
             //adapter.notifyDataSetChanged()
             viewModel.syncDoelen()
             binding.mainAddConfirmButton.visibility = View.GONE
-            binding.mainAddEditText.visibility = View.GONE*/
+            binding.mainAddEditText.visibility = View.GONE
         }
 
         return binding.root

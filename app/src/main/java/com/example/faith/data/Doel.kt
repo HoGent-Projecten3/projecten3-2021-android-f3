@@ -11,9 +11,9 @@ data class Doel(
     @SerializedName("inhoud")
     @PrimaryKey @NonNull
     var inhoud: String,
-    @SerializedName("checked")
+    @SerializedName("checked") @NonNull
     var checked: Boolean,
-    @SerializedName("collapsed")
+    @SerializedName("collapsed") @NonNull
     var collapsed: Boolean,
     @SerializedName("stappen")
     @Embedded
@@ -21,10 +21,19 @@ data class Doel(
 ){
 
     fun verwijderDoel(doel: Doel) {
-        if (!stappen.remove(doel)) {
-            for (stap: Doel in stappen) {
-                stap.verwijderDoel(doel)
+        if(!stappen.isNullOrEmpty()) {
+            if (!stappen.remove(doel)) {
+                for (stap: Doel in stappen) {
+                    stap.verwijderDoel(doel)
+                }
             }
         }
+    }
+
+    fun addStap(stap: Doel){
+        if(stappen.isNullOrEmpty()){
+            stappen = mutableListOf()
+        }
+        stappen.add(stap)
     }
 }
