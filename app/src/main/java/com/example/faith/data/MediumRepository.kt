@@ -47,8 +47,8 @@ class MediumRepository @Inject constructor(
         return Pager(
             config = PagingConfig(
                 enablePlaceholders = false,
-                pageSize = 50,
-                initialLoadSize = 30,
+                pageSize = 20,
+                initialLoadSize = 20,
                 prefetchDistance = 20
             ),
             remoteMediator = DagboekRemoteMediator(db, service, dagboekNaam)

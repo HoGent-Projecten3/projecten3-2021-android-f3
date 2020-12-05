@@ -349,9 +349,8 @@ class CinemaFragment : Fragment() {
         )
     }
     private fun navigateBack() {
-        val direction = CinemaFragmentDirections.actionCinemaFragmentToMediumListFragment()
         val navController = findNavController()
-        navController.navigate(direction)
+        navController.popBackStack()
 
     }
 }

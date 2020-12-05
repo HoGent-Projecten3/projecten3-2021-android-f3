@@ -36,6 +36,7 @@ class MediumListFragment : Fragment() {
     private var searchJob: Job? = null
 
     private var adapter = MediumAdapter()
+
     @ExperimentalPagingApi
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,16 +65,11 @@ class MediumListFragment : Fragment() {
         var searchView2 = SearchView(context)
         searchItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW or MenuItem.SHOW_AS_ACTION_IF_ROOM)
         searchItem.setActionView(searchView2)
-
-
-
     }
 
     /**
      * de lijst filteren op naam
      */
-
-
 
     /**
      * zorgt dat je naar het cinemafragment kan gaan om een foto of video te maken
@@ -85,9 +81,13 @@ class MediumListFragment : Fragment() {
     }
 
     @ExperimentalPagingApi
+    override fun onResume() {
+        super.onResume()
+        adapter.refresh()
+    }
+
+    @ExperimentalPagingApi
     private fun initAdapter() {
-
-
 
         lifecycleScope.launchWhenCreated {
             @OptIn(ExperimentalCoroutinesApi::class)
@@ -95,9 +95,5 @@ class MediumListFragment : Fragment() {
                 adapter.submitData(it)
             }
         }
-
     }
-
-
-
 }

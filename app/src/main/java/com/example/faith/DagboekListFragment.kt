@@ -54,7 +54,6 @@ class DagboekListFragment : Fragment() {
         context ?: return binding.root
         binding.dagboekList.adapter = adapter
 
-        //insertNewDagboekPosts()
         setHasOptionsMenu(true)
 
         binding.btAddDagboek.setOnClickListener {
@@ -78,6 +77,12 @@ class DagboekListFragment : Fragment() {
         val direction = DagboekListFragmentDirections.actionDagboekListFragment2ToDagboekFragment()
         val navController = findNavController()
         navController.navigate(direction)
+    }
+
+    @ExperimentalPagingApi
+    override fun onResume() {
+        super.onResume()
+        adapter.refresh()
     }
 
     @ExperimentalPagingApi
