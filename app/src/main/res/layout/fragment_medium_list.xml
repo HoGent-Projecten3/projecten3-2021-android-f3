@@ -38,6 +38,7 @@
             android:paddingTop="@dimen/gallery_header_margin"
 
             android:layout_marginTop="?actionBarSize"
+            android:layout_marginBottom="?actionBarSize"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             app:spanCount="@integer/grid_columns"
             tools:context="com.example.faith.MainActivity"

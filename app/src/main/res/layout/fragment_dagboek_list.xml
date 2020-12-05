@@ -29,7 +29,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/dagboek_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="491dp"
             android:clipToPadding="true"
             android:paddingEnd="@dimen/card_side_margin"
             android:paddingStart="@dimen/card_side_margin"
@@ -39,7 +39,7 @@
             tools:context="com.example.faith.MainActivity"
             tools:listitem="@layout/list_item_dagboek"
             android:layout_marginTop="?actionBarSize"
-            />
+            android:layout_marginBottom="?actionBarSize"/>
 
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottomAppBar"
