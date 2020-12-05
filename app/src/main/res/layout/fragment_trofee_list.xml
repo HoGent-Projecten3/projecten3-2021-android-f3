@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:background="@color/hotel_theme">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/trofee_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingEnd="@dimen/card_side_margin"
+            android:paddingStart="@dimen/card_side_margin"
+            android:paddingTop="@dimen/gallery_header_margin"
+            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+            app:spanCount="1"
+            tools:context="com.example.faith.MainActivity"
+            tools:listitem="@layout/list_item_trofee"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="25dp" />
+
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottomAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
+            app:navigationIcon="@drawable/ic_menu_black_24dp"
+            />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btAddTalent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_add_black_24dp"
+            app:layout_anchor="@id/bottomAppBar"
+            />
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

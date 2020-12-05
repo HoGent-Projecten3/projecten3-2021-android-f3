@@ -6,6 +6,7 @@ import com.example.faith.data.BerichtDao
 import com.example.faith.data.HulpbronDao
 import com.example.faith.data.MediumDao
 import com.example.faith.data.MediumRemoteKeyDao
+import com.example.faith.data.TalentDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -45,5 +46,10 @@ class DatabaseModule {
     @Provides
     fun provideBerichtDao(appDatabase: AppDatabase): BerichtDao {
         return appDatabase.berichtDao()
+    }
+
+    @Provides
+    fun provideTalentDao(appDatabase: AppDatabase): TalentDao {
+        return appDatabase.talentDao()
     }
 }

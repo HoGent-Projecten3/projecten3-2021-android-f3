@@ -113,4 +113,24 @@ interface ApiService {
         val
         refreshToken: String
     )
+
+    @GET("Client/GetTalenten")
+    fun getTalenten(
+        @Query("page") page:Int,
+        @Query("aantal") perPage: Int
+    ): ApiTalentSearchResponse
+
+    @GET("Client/GetTalenten")
+    fun getTalenten2(
+        @Query("page") page:Int,
+        @Query("aantal") perPage: Int
+    ): Call<ApiTalentSearchResponse>
+
+    @POST("Client/PostTalent")
+    fun postTalent(
+        @Query("inhoud") inhoud: String): Call<Message>
+
+    @DELETE("Client/RemoveTalent")
+    fun removeTalent(@Query("talentId") id:Int) : Call<Message>
+
 }
