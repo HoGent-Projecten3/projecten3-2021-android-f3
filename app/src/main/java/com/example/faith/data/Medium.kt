@@ -3,6 +3,7 @@ package com.example.faith.data
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.Date
 
@@ -24,9 +25,12 @@ data class Medium(
     @field:SerializedName("mediumType")
     val mediumType: Int,
     @field:SerializedName("datum")
-    val datum: String
+    val datum: Date
 
 ) {
 
     override fun toString() = naam
+    fun toSimpleString(): String  {
+       return SimpleDateFormat("dd/MM/yyy").format(datum)
+    }
 }

@@ -27,22 +27,37 @@
             type="com.example.faith.data.Medium"/>
     </data>
 
-    <com.google.android.material.card.MaterialCardView
+    <com.example.faith.views.MaskedCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/card_side_margin"
         android:layout_marginEnd="@dimen/card_side_margin"
         android:layout_marginBottom="@dimen/card_bottom_margin"
         android:onClick="@{clickListener}"
-        app:cardElevation="@dimen/card_elevation"
+        app:cardElevation="2dp"
         app:cardPreventCornerOverlap="false"
-        app:shapeAppearanceOverlay="@style/Widget.MaterialComponents.CardView">
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Sunflower.Card"
+        android:backgroundTint="@color/hotel_theme"
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
+<TextView
+    android:id="@+id/dagboek_dag"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:gravity="left"
+    android:text="@{dagboek.toSimpleString()}"
+    android:textAppearance="?attr/textAppearanceListItem"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toTopOf="@+id/naam"
+    tools:text="titel"
+    android:textSize="18sp"
+    android:textStyle="bold"/>
             <TextView
                 android:id="@+id/naam"
                 android:layout_width="0dp"
@@ -50,6 +65,7 @@
                 android:gravity="center_horizontal"
                 android:text="@{dagboek.naam}"
                 android:textAppearance="?attr/textAppearanceListItem"
+                app:layout_constraintTop_toBottomOf="@id/dagboek_dag"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -59,6 +75,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.google.android.material.card.MaterialCardView>
+    </com.example.faith.views.MaskedCardView>
 
 </layout>

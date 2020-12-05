@@ -22,8 +22,7 @@
         android:id="@+id/dagboek_coordinator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        android:background="@color/hotel_theme">
+        android:fitsSystemWindows="true">
 
 
         <androidx.recyclerview.widget.RecyclerView
