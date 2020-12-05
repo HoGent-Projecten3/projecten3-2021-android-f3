@@ -3,6 +3,7 @@ package com.example.faith
 import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,8 @@ import com.example.faith.data.Login
 import com.example.faith.databinding.FragmentLoginBinding
 import com.example.faith.viewmodels.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_hotel.*
+import kotlinx.android.synthetic.main.fragment_login.*
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
@@ -45,11 +48,10 @@ class LoginFragment : Fragment() {
         }
 
         //Activeer de logo animatie
-        binding.imageView.apply { setBackgroundResource(R.drawable.compass_idle)
+        binding.imageLogo.apply { setBackgroundResource(R.drawable.compass_idle)
+
         compassIdleAnimation = background as AnimationDrawable }
         compassIdleAnimation.start()
-
-
 
 
         return binding.root
@@ -62,6 +64,9 @@ class LoginFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             navController.popBackStack(R.id.hotelFragment, false)
         }
+
+        /* Rescale hotel images to the according screen size */
+        scaleLogo()
 
         viewModel.loginSuccesvol.observe(
             this.viewLifecycleOwner,
@@ -85,13 +90,40 @@ class LoginFragment : Fragment() {
         )
     }
 
+
+    private fun scaleLogo() {
+
+
+        // Obtain screen width & height DP
+        val screenWidthDp = resources.configuration.screenWidthDp
+        val screenHeightDp = resources.configuration.screenHeightDp
+
+        // Define new size based on the screen DP. Height can be half the screen width, width has to then keep its ratio.
+        //val newHeight = (screenWidthDp * 0.60).toInt() // height half the screen width
+        val newWidth = (screenWidthDp * 0.75).toInt()
+
+        val newHeight = (screenHeightDp * 0.40).toInt() // height half the screen width
+
+        // Updating the dimensions for all rooms in pixel (Deprecated)
+        /*
+        image_penthouse.layoutParams.height = newWidth
+        image_penthouse.layoutParams.width = newWidth
+        */
+
+        // Updating the dimensions for all rooms in DP
+        val dimensionHeightInDp = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, newHeight.toFloat(),resources.displayMetrics).toInt() // new DP height
+        val dimensionWidthInDp = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, newWidth.toFloat(),resources.displayMetrics).toInt() // new DP height
+
+
+        // Only update height. these are constant. Width updated automatically, as wrap_content, and adjustviewbounds keeps ratio intact.
+        image_logo.layoutParams.width= dimensionHeightInDp
+        image_logo.layoutParams.height= dimensionHeightInDp
+
+
+
+    }
+
 }
 
-/*
-private fun activateAnimations(binding : Any)
-{
-
-}
-*/
 
 
