@@ -7,9 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.Toast
+import android.widget.Toast.makeText
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.cachedIn
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.example.faith.adapters.HulpbronAdapter
 import com.example.faith.adapters.MediumAdapter
 import com.example.faith.data.*
@@ -18,6 +23,7 @@ import com.example.faith.databinding.FragmentHulpbronDetailBinding
 import com.example.faith.databinding.FragmentHulpbronListBinding
 import com.example.faith.databinding.FragmentMediumListBinding
 import com.example.faith.viewmodels.HulpbronListViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_hulpbron_list.*
 import kotlinx.coroutines.*
@@ -44,22 +50,32 @@ class HulpbronListFragment : Fragment() {
         context ?: return binding.root
         binding.hulpbronList.adapter = adapter
 
+
         insertNewHulpbronnen()
-        getHulpbron()
+        getHulpbronnen()
 
         binding.svHulpbron.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
             override fun onQueryTextChange(newText: String): Boolean {
-                filter(newText);
+                viewModel.textFilter.value = newText;
+                getHulpbronnen()
                 return false
             }
 
             override fun onQueryTextSubmit(query: String): Boolean {
-                filter(query);
                 return false
             }
 
         })
+        binding.btnAddHulpbron.setOnClickListener {
+            navigateToHulpbron()
+        }
+        binding.bottomAppBar.setNavigationOnClickListener {
+            viewModel.cycleFilter();
+            getHulpbronnen()
+        }
+
+
         setHasOptionsMenu(true)
         return binding.root
 
@@ -67,13 +83,10 @@ class HulpbronListFragment : Fragment() {
 
     }
 
-    fun filter(input: String)
-    {
-        lifecycleScope.launch {
-            viewModel.filter(input).collectLatest {
-                adapter.submitData(it);
-            }
-        }
+    private fun navigateToHulpbron() {
+        val direction = HulpbronListFragmentDirections.actionHulpbronListFragmentToHulpbronFragment()
+        val navController = findNavController()
+        navController.navigate(direction)
     }
 
     fun insertNewHulpbronnen(){
@@ -96,6 +109,7 @@ class HulpbronListFragment : Fragment() {
                             viewModel.saveOne(
                                 Hulpbron(
                                     it.hulpbronId,
+                                    it.auteurType,
                                     it.titel,
                                     it.inhoud,
                                     it.url,
@@ -116,7 +130,7 @@ class HulpbronListFragment : Fragment() {
     }
 
 
-    private fun getHulpbron(){
+    private fun getHulpbronnen(){
         searchJob?.cancel()
         searchJob = lifecycleScope.launch {
             viewModel.getHulpbronnen().collectLatest {

@@ -219,6 +219,9 @@
         <action
             android:id="@+id/action_hulpbronListFragment_to_hulpbronDetailFragment"
             app:destination="@id/hulpbronDetailFragment" />
+        <action
+            android:id="@+id/action_hulpbronListFragment_to_hulpbronFragment"
+            app:destination="@id/hulpbronFragment" />
     </fragment>
     <fragment
         android:id="@+id/hulpbronDetailFragment"
@@ -230,6 +233,14 @@
         <argument
             android:name="hulpbronId"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/hulpbronFragment"
+        android:name="com.example.faith.HulpbronFragment"
+        android:label="Hulpbron aanmaken" >
+        <action
+            android:id="@+id/action_hulpbronFragment_to_hulpbronListFragment"
+            app:destination="@id/hulpbronListFragment" />
     </fragment>
 
     <fragment

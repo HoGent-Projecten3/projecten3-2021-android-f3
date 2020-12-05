@@ -28,6 +28,7 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/hulpbron_CardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
@@ -35,17 +36,18 @@
         android:layout_marginBottom="10dp"
         android:onClick="@{clickListener}"
         app:cardElevation="10dp"
+        app:cardBackgroundColor="@{hulpbron.auteurType.equals(`Client`) ? @color/hotel_lucht_blauw : @color/white}"
         app:cardPreventCornerOverlap="false"
-        app:shapeAppearanceOverlay="@style/Widget.MaterialComponents.CardView">
-
-
-
-
+        app:shapeAppearanceOverlay="@style/Widget.MaterialComponents.CardView"
+        android:clickable="true"
+        android:focusable="true"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -106,14 +108,27 @@
                     app:isGone="@{hulpbron.emailadres.empty}"/>
 
 
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btVerwijder"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Verwijder"
+                    app:icon="@drawable/ic_delete"
+                    app:iconSize="24dp"
+                    style="?attr/borderlessButtonStyle"
+                    />
             </LinearLayout>
         </LinearLayout>
-
-
-
-
-
-
 
     </com.google.android.material.card.MaterialCardView>
 

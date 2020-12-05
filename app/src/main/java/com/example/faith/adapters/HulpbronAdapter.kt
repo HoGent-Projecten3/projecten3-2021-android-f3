@@ -1,5 +1,6 @@
 package com.example.faith.adapters
 
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import com.example.faith.data.Hulpbron
 import com.example.faith.data.HulpbronRepository
 import com.example.faith.databinding.ListItemHulpbronBinding
 import com.example.faith.viewmodels.HulpbronDetailViewModel
+import com.example.faith.viewmodels.HulpbronListViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filter
@@ -35,22 +37,37 @@ class HulpbronAdapter : PagingDataAdapter<ApiHulpbron, HulpbronAdapter.HulpbronV
                         parent,
                         false
                 )
-
-
         )
     }
+
+
 
     class HulpbronViewHolder(
             private val binding: ListItemHulpbronBinding
     ): RecyclerView.ViewHolder(binding.root) {
         init {
+            binding.hulpbronCardView.setOnLongClickListener {
+                if(binding.btVerwijder.visibility ==View.GONE)
+                    binding.btVerwijder.visibility = View.VISIBLE;
+                else if(binding.btVerwijder.visibility ==View.VISIBLE)
+                    binding.btVerwijder.visibility = View.GONE;
+                true
+            }
+
             binding.setClickListener {
                 binding.hulpbron?.let { hulpbron ->
                     navigateToHulpbron(hulpbron, it)
                 }
+
             }
         }
-        
+
+
+
+
+
+
+
         private fun navigateToHulpbron(
                 hulpbron: ApiHulpbron,
                 view: View
@@ -63,10 +80,18 @@ class HulpbronAdapter : PagingDataAdapter<ApiHulpbron, HulpbronAdapter.HulpbronV
         fun bind(item: ApiHulpbron){
             binding.apply {
                 hulpbron = item
+                var viewModel = HulpbronListViewModel.instance
+                binding.btVerwijder.setOnClickListener {
+                    viewModel?.deleteHulpbron(binding.hulpbron!!.hulpbronId)
+                    binding.hulpbronCardView.visibility = View.GONE
+                }
                 executePendingBindings()
             }
         }
     }
+
+
+
 
     override fun onBindViewHolder(holder: HulpbronViewHolder, position: Int) {
         val hulpbron = getItem(position)
@@ -75,7 +100,7 @@ class HulpbronAdapter : PagingDataAdapter<ApiHulpbron, HulpbronAdapter.HulpbronV
             }
         }
     }
-private class HulpbronDiffCallback : DiffUtil.ItemCallback<ApiHulpbron>(){
+    private class HulpbronDiffCallback : DiffUtil.ItemCallback<ApiHulpbron>(){
     override fun areItemsTheSame(oldItem: ApiHulpbron, newItem: ApiHulpbron): Boolean {
         return oldItem.hulpbronId == newItem.hulpbronId
     }

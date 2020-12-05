@@ -1,10 +1,8 @@
 package com.example.faith.viewmodels
 
+import android.os.Message
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.switchMap
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.filter
@@ -18,25 +16,54 @@ class HulpbronListViewModel @ViewModelInject constructor(
     private val repository: HulpbronRepository
 ) : ViewModel() {
 
+    private var _textFilter = MutableLiveData<String>()
+    private var _includePublic = MutableLiveData<Boolean>()
+    private var _includePrivate = MutableLiveData<Boolean>()
 
+    init {
+        textFilter.value = ""
+        _includePublic.value = true
+        _includePrivate.value = true
+        instance = this;
+    }
+
+    var textFilter: MutableLiveData<String>
+        get() = _textFilter
+        set(value) {
+            _textFilter = value;
+        }
+
+    var includePublic: MutableLiveData<Boolean>
+        get() = _includePublic
+        set(value) {
+            _includePublic = value;
+        }
+
+    var includePrivate: MutableLiveData<Boolean>
+        get() = _includePrivate
+        set(value) {
+            _includePrivate = value;
+        }
+    fun cycleFilter()
+    {
+        includePublic.value = includePublic.value == false
+    }
     fun getHulpbronnen() : Flow<PagingData<ApiHulpbron>>{
-        return repository.getHulpbronnen()
+        return repository.getHulpbronnen(textFilter.value.toString(), includePublic.value == true, includePrivate.value == true)
     }
     fun getHulpbronnen2(): Call<ApiHulpbronSearchResponse>{
-        return repository.getHulpbronnen2()
+        return repository.getHulpbronnen2(textFilter.value.toString(), includePublic.value == true, includePrivate.value == true)
     }
+
+    fun deleteHulpbron(id:Int): Call<Message> {
+        return repository.deleteHulpbron(id)
+    }
+
     suspend fun saveOne(hulpbron: Hulpbron){
         repository.insertOne(hulpbron)
     }
 
-
-    fun filter(input: String): Flow<PagingData<ApiHulpbron>>
-    {
-        val inputLC = input.toLowerCase()
-        return repository.getHulpbronnen().map {
-            it.filter {
-            it.titel.toLowerCase().contains(inputLC)
-        }
-        }.cachedIn(viewModelScope)
+    companion object{
+        var instance: HulpbronListViewModel? = null
     }
 }

@@ -1,5 +1,6 @@
 package com.example.faith.data
 
+import android.os.Message
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations.map
 import androidx.paging.Pager
@@ -19,19 +20,31 @@ import retrofit2.Call
 @Singleton
 class HulpbronRepository @Inject constructor(private val hulpbronDao: HulpbronDao, private val service: ApiService, private val database : AppDatabase) {
 
-    fun getHulpbronnen() : Flow<PagingData<ApiHulpbron>> {
+
+
+    fun getHulpbronnen2(textFilter: String,includePublic : Boolean, includePrivate: Boolean): Call<ApiHulpbronSearchResponse> {
+        return service.getHulpbronnen2(textFilter, includePublic, includePrivate, 0,10)
+    }
+
+    fun getHulpbronnen(textFilter: String,includePublic : Boolean, includePrivate: Boolean) : Flow<PagingData<ApiHulpbron>> {
         return Pager(
-            config = PagingConfig(enablePlaceholders = false, pageSize = 10, initialLoadSize = 10,prefetchDistance = 10),
-            pagingSourceFactory = { ApiHulpbronPagingSource(service) }
+                config = PagingConfig(enablePlaceholders = false, pageSize = 10, initialLoadSize = 10,prefetchDistance = 10),
+                pagingSourceFactory = { ApiHulpbronPagingSource(service, textFilter,includePublic, includePrivate) }
 
         ).flow
     }
 
-    fun getHulpbronnen2(): Call<ApiHulpbronSearchResponse> {
-        return service.getHulpbronnen2(0,10)
-    }
+
     fun getHulpbron(id: Int) = hulpbronDao.getOne(id)
 
+    fun postHulpbron(titel: String, beschrijving: String, url: String, telefoonnummer: String, emailadres: String, chatUrl: String): Call<Message> {
+        val temp = HulpbronDTO(titel, beschrijving, url,telefoonnummer,emailadres,chatUrl)
+        return service.postHulpbron(temp)
+    }
+
+    fun deleteHulpbron(hulpbronId : Int) : Call<Message> {
+        return service.deleteHulpbron(hulpbronId);
+    }
 
 
     suspend fun insertOne(hulpbron: Hulpbron) = hulpbronDao.insertOne(hulpbron)

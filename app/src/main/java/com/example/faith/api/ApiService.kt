@@ -88,17 +88,29 @@ interface ApiService {
         @Query("aantal") perPage: Int
     ): Call<ApiDagboekSearchResponse>
 
-    @GET("Infobalie/getHulpbronnenPaging")
+    @GET("Infobalie/getHulpbronnen")
     suspend fun getHulpbronnen(
-        @Query("page") page:Int,
-        @Query("aantal") perPage:Int
+            @Query("textFilter") textFilter:String,
+            @Query("includePublic") includePublic:Boolean,
+            @Query("includePrivate") includePrivate:Boolean,
+            @Query("page") page:Int,
+            @Query("aantal") perPage:Int
     ) : ApiHulpbronSearchResponse
 
-    @GET("Infobalie/getHulpbronnenPaging")
+    @GET("Infobalie/getHulpbronnen")
     fun getHulpbronnen2(
-        @Query("page") page:Int,
-        @Query("aantal") perPage:Int
+            @Query("textFilter") textFilter:String,
+            @Query("includePublic") includePublic:Boolean,
+            @Query("includePrivate") includePrivate:Boolean,
+            @Query("page") page:Int,
+            @Query("aantal") perPage:Int
     ) : Call<ApiHulpbronSearchResponse>
+
+    @DELETE("Infobalie")
+    fun deleteHulpbron(@Query("id") id: Int): Call<Message>
+
+    @POST("Infobalie")
+    fun postHulpbron(@Body hulpbron: HulpbronDTO): Call<Message>
 
     @POST("Account/login")
     fun login(@Body login: Login): Call<LoginResponse>

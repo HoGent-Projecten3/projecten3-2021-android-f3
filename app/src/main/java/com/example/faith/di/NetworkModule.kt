@@ -79,7 +79,7 @@ class NetworkModule() {
     fun provideRetrofit(gson: Gson, okHttpClient: OkHttpClient?): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create(gson))
-            .baseUrl("http://10.0.0.11:45455/api/")
+            .baseUrl("http://10.0.0.9:45455/api/")
             .client(okHttpClient)
             .build()
     }
