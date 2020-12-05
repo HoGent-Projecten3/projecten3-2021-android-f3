@@ -7,6 +7,9 @@ import com.example.faith.data.Medium
 import com.example.faith.data.MediumDao
 import com.example.faith.data.MediumRepository
 import retrofit2.Call
+import java.time.LocalDate
+import java.util.Date
+
 /**
  * @author Remi Mestdagh
  */
@@ -16,7 +19,7 @@ class DagboekViewModel @ViewModelInject constructor(
     fun uploadDagboekPost(titel: String, beschrijving: String): Call<Message> {
         return repository.postText(titel, beschrijving)
     }
-    suspend fun insertOne(mediumId:Int, titel: String,beschrijving: String,url: String, mediumType: Int){
-        return repository.insertOne(Medium(mediumId,titel,"",beschrijving,4))
+    suspend fun insertOne(mediumId:Int, titel: String,beschrijving: String,url: String, mediumType: Int,datum:String){
+        return repository.insertOne(Medium(mediumId,titel,"",beschrijving,4, datum))
     }
 }

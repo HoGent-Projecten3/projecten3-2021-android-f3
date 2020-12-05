@@ -3,6 +3,8 @@ package com.example.faith.data
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import java.time.LocalDate
+import java.util.Date
 
 /**
  * @author Remi Mestdagh
@@ -15,17 +17,14 @@ data class Medium(
     @field:SerializedName("naam")
     val naam: String,
 
-
     @field:SerializedName("url")
-    val url:String,
+    val url: String,
     @field:SerializedName("beschrijving")
     val beschrijving: String,
     @field:SerializedName("mediumType")
-    val mediumType: Int
-
-
-
-
+    val mediumType: Int,
+    @field:SerializedName("datum")
+    val datum: String
 
 ) {
 

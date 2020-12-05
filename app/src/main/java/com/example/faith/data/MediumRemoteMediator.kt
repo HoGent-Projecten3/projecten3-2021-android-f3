@@ -57,7 +57,7 @@ class MediumRemoteMediator(private val db: AppDatabase, private val service: Api
                 remoteKeyDao.insert(MediumRemoteKey(mediumName, data.next))
                 items.forEach {
                     mediumDao.insertOne(
-                        Medium(it.mediumId,it.naam,it.url,it.beschrijving,it.mediumType)
+                        Medium(it.mediumId,it.naam,it.url,it.beschrijving,it.mediumType,it.datum)
                     )
                 }
 

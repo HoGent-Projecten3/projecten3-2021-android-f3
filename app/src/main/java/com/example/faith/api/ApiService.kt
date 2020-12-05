@@ -2,7 +2,6 @@ package com.example.faith.api
 
 import android.os.Message
 import com.example.faith.data.ApiBerichtSearchResponse
-import com.example.faith.data.ApiDagboekSearchResponse
 import com.example.faith.data.ApiHulpbronSearchResponse
 import com.example.faith.data.ApiMediumSearchResponse
 import com.example.faith.data.DoelDTO

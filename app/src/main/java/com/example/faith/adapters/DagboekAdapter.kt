@@ -10,6 +10,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.faith.data.Medium
+import com.example.faith.databinding.ListItemDagboekBinding
 import com.example.faith.databinding.ListItemMediumBinding
 /**
  * @author Remi Mestdagh
@@ -18,7 +19,7 @@ import com.example.faith.databinding.ListItemMediumBinding
 class DagboekAdapter : PagingDataAdapter<Medium, DagboekAdapter.DagboekViewHolder>(DagboekDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DagboekViewHolder {
         return DagboekViewHolder(
-            ListItemMediumBinding.inflate(
+            ListItemDagboekBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -28,11 +29,11 @@ class DagboekAdapter : PagingDataAdapter<Medium, DagboekAdapter.DagboekViewHolde
     }
 
     class DagboekViewHolder(
-        private val binding: ListItemMediumBinding
+        private val binding: ListItemDagboekBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.setClickListener {
-                binding.photo?.let { photo ->
+                binding.dagboek?.let { photo ->
                     navigateToMedium(photo, it)
                 }
             }
@@ -51,7 +52,7 @@ class DagboekAdapter : PagingDataAdapter<Medium, DagboekAdapter.DagboekViewHolde
 
         fun bind(item: Medium) {
             binding.apply {
-                photo = item
+                dagboek = item
                 executePendingBindings()
             }
         }

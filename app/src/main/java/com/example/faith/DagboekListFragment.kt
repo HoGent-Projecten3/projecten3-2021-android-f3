@@ -13,25 +13,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
-import androidx.paging.map
 import com.example.faith.adapters.DagboekAdapter
-import com.example.faith.adapters.MediumAdapter
-import com.example.faith.data.ApiDagboekSearchResponse
-import com.example.faith.data.Medium
 import com.example.faith.databinding.FragmentDagboekListBinding
 import com.example.faith.viewmodels.DagboekListViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_dagboek_list.*
-import kotlinx.android.synthetic.main.fragment_medium_list.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 /**
  * @author Remi Mestdagh

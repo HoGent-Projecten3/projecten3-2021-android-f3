@@ -9,8 +9,6 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import androidx.paging.filter
-import com.example.faith.data.Dagboek
 import com.example.faith.data.Medium
 import com.example.faith.data.MediumRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
