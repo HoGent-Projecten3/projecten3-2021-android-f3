@@ -112,9 +112,6 @@ interface ApiService {
     @POST("Infobalie")
     fun postHulpbron(@Body hulpbron: HulpbronDTO): Call<Message>
 
-    @POST("Account/login")
-    fun login(@Body login: Login): Call<LoginResponse>
-
 
     @GET("Client/GetDoelen")
     fun getDoelen(): Call<List<DoelDTO>>
