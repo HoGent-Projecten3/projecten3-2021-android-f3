@@ -39,8 +39,10 @@ class LoginFragment : Fragment() {
         binding.setLifecycleOwner(this)
 
         binding.buttonLogin.setOnClickListener() {
-            val login = Login(binding.editTextTextEmailAddress.text.toString(), binding.editTextNumberPassword.text.toString())
-            viewModel.login(login)
+            /*val login = Login(binding.editTextTextEmailAddress.text.toString(), binding.editTextNumberPassword.text.toString())
+            viewModel.login(login)*/
+            val intent = Intent(context, MainActivity::class.java)
+            startActivity(intent)
         }
 
         viewModel.loginSuccesvol.observe(

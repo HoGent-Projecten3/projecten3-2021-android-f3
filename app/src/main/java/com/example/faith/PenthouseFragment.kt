@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.faith.adapters.DoelAdapter
 import com.example.faith.data.Doel
-import com.example.faith.databinding.FragmentPenthouseBinding
+//import com.example.faith.databinding.FragmentPenthouseBinding
 import com.example.faith.viewmodels.PenthouseViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,13 +23,13 @@ class PenthouseFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        /*
         val binding = FragmentPenthouseBinding.inflate(inflater, container, false)
 
         val adapter = DoelAdapter()
-        binding.doelList.adapter = adapter
+        //binding.doelList.adapter = adapter
 
-        binding.doelList.itemAnimator = null
+        //binding.doelList.itemAnimator = null
 
         viewModel.doelen.observe(this.viewLifecycleOwner, Observer {
             adapter.submitList(it)
@@ -54,6 +54,7 @@ class PenthouseFragment : Fragment() {
             binding.mainAddEditText.visibility = View.GONE
         }
 
-        return binding.root
+        return binding.root*/
+        return inflater.inflate(R.layout.fragment_penthouse, container, false)
     }
 }
