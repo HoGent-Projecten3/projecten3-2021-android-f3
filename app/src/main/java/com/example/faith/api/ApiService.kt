@@ -71,23 +71,13 @@ interface ApiService {
         @Query("aantal") perPage: Int
     ): ApiMediumSearchResponse
 
-    @GET("Cinema/Media")
-    fun getMedia2(
-        @Query("page") page: Int,
-        @Query("aantal") perPage: Int
-    ): Call<ApiMediumSearchResponse>
 
     @GET("Cinema/Dagboek")
     suspend fun getDagboek(
         @Query("page") page: Int,
         @Query("aantal") perPage: Int
-    ): ApiDagboekSearchResponse
+    ): ApiMediumSearchResponse
 
-    @GET("Cinema/Dagboek")
-    fun getDagboek2(
-        @Query("page") page: Int,
-        @Query("aantal") perPage: Int
-    ): Call<ApiDagboekSearchResponse>
 
     @GET("Infobalie/getHulpbronnen")
     suspend fun getHulpbronnen(

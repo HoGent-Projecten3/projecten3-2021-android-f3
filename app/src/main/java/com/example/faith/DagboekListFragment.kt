@@ -12,8 +12,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.ExperimentalPagingApi
 import androidx.paging.map
 import com.example.faith.adapters.DagboekAdapter
+import com.example.faith.adapters.MediumAdapter
 import com.example.faith.data.ApiDagboekSearchResponse
 import com.example.faith.data.Medium
 import com.example.faith.databinding.FragmentDagboekListBinding
@@ -21,6 +23,7 @@ import com.example.faith.viewmodels.DagboekListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_dagboek_list.*
 import kotlinx.android.synthetic.main.fragment_medium_list.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
@@ -29,6 +32,7 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 /**
  * @author Remi Mestdagh
  * fragment om een overzicht dagboekposts weer te geven
@@ -40,6 +44,7 @@ class DagboekListFragment : Fragment() {
     private var searchJob: Job? = null
     private var adapter = DagboekAdapter()
 
+    @ExperimentalPagingApi
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,14 +55,15 @@ class DagboekListFragment : Fragment() {
         binding.dagboekList.adapter = adapter
 
         //insertNewDagboekPosts()
-        getDagboek()
         setHasOptionsMenu(true)
 
         binding.btAddDagboek.setOnClickListener {
             navigateToDagboek()
         }
+        initAdapter()
         return binding.root
     }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
         inflater.inflate(R.menu.bottom_app_bar, menu)
@@ -66,27 +72,6 @@ class DagboekListFragment : Fragment() {
         var searchView2 = SearchView(context)
         searchItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW or MenuItem.SHOW_AS_ACTION_IF_ROOM)
         searchItem.setActionView(searchView2)
-        searchView2.setOnQueryTextListener(
-            object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String): Boolean {
-                    filter(query)
-                    return false
-                }
-
-                override fun onQueryTextChange(newText: String): Boolean {
-                    return false
-                }
-            }
-        )
-    }
-    private fun filter(text: String) {
-        adapter = DagboekAdapter()
-        dagboek_list.adapter = adapter
-        lifecycleScope.launch {
-            viewModel.filter(text).collectLatest {
-                adapter.submitData(it)
-            }
-        }
     }
 
     private fun navigateToDagboek() {
@@ -95,11 +80,12 @@ class DagboekListFragment : Fragment() {
         navController.navigate(direction)
     }
 
+    @ExperimentalPagingApi
+    private fun initAdapter() {
 
-    private fun getDagboek() {
-        searchJob?.cancel()
-        searchJob = lifecycleScope.launch {
-            viewModel.getDagboekPosts().collectLatest {
+        lifecycleScope.launchWhenCreated {
+            @OptIn(ExperimentalCoroutinesApi::class)
+            viewModel.posts.collectLatest {
                 adapter.submitData(it)
             }
         }

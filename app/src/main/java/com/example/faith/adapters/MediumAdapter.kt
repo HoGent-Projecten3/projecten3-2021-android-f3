@@ -12,7 +12,7 @@ import com.example.faith.data.Medium
 import com.example.faith.databinding.ListItemMediumBinding
 /**
  * @author Remi Mestdagh
- * adapter for recyclerview in plantlistfragment
+ * adapter for recyclerview in mediumlistfrag
  */
 class MediumAdapter : PagingDataAdapter<Medium, MediumAdapter.MediumViewHolder>(MediumDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MediumViewHolder {

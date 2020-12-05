@@ -1,5 +1,7 @@
 package com.example.faith.adapters
 
+import com.example.faith.DagboekListFragmentDirections
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,17 +9,16 @@ import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.faith.DagboekListFragmentDirections
-import com.example.faith.data.ApiDagboek
-import com.example.faith.databinding.ListItemDagboekBinding
+import com.example.faith.data.Medium
+import com.example.faith.databinding.ListItemMediumBinding
 /**
  * @author Remi Mestdagh
+ * adapter for recyclerview in dagboeklistfrag
  */
-
-class DagboekAdapter : PagingDataAdapter<ApiDagboek, DagboekAdapter.DagboekViewHolder>(DagboekDiffCallback()) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DagboekAdapter.DagboekViewHolder {
-        return DagboekAdapter.DagboekViewHolder(
-            ListItemDagboekBinding.inflate(
+class DagboekAdapter : PagingDataAdapter<Medium, DagboekAdapter.DagboekViewHolder>(DagboekDiffCallback()) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DagboekViewHolder {
+        return DagboekViewHolder(
+            ListItemMediumBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -27,47 +28,50 @@ class DagboekAdapter : PagingDataAdapter<ApiDagboek, DagboekAdapter.DagboekViewH
     }
 
     class DagboekViewHolder(
-        private val binding: ListItemDagboekBinding
+        private val binding: ListItemMediumBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.setClickListener {
-                binding.dagboek?.let {
-                    dagboek ->
-                    navigateToDagboek(dagboek, it)
+                binding.photo?.let { photo ->
+                    navigateToMedium(photo, it)
                 }
             }
         }
 
-        private fun navigateToDagboek(
-            dagboek: ApiDagboek,
+        private fun navigateToMedium(
+            photo: Medium,
             view: View
         ) {
-            val direction = DagboekListFragmentDirections.actionDagboekListFragment2ToDagboekDetailFragment(
-                dagboek.mediumId
-            )
+            val direction =
+                DagboekListFragmentDirections.actionDagboekListFragment2ToDagboekDetailFragment(
+                    photo.mediumId
+                )
             view.findNavController().navigate(direction)
         }
-        fun bind(item: ApiDagboek) {
+
+        fun bind(item: Medium) {
             binding.apply {
-                dagboek = item
+                photo = item
                 executePendingBindings()
             }
         }
     }
 
     override fun onBindViewHolder(holder: DagboekViewHolder, position: Int) {
-        val dagboek = getItem(position)
-        if (dagboek != null) {
-            holder.bind(dagboek)
+        val medium = getItem(position)
+        if (medium != null) {
+            holder.bind(medium)
         }
     }
+
 }
-private class DagboekDiffCallback : DiffUtil.ItemCallback<ApiDagboek>() {
-    override fun areItemsTheSame(oldItem: ApiDagboek, newItem: ApiDagboek): Boolean {
+private class DagboekDiffCallback : DiffUtil.ItemCallback<Medium>() {
+
+    override fun areItemsTheSame(oldItem: Medium, newItem: Medium): Boolean {
         return oldItem.mediumId == newItem.mediumId
     }
 
-    override fun areContentsTheSame(oldItem: ApiDagboek, newItem: ApiDagboek): Boolean {
+    override fun areContentsTheSame(oldItem: Medium, newItem: Medium): Boolean {
         return oldItem == newItem
     }
 }

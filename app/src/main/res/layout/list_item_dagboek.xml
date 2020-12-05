@@ -24,7 +24,7 @@
             type="android.view.View.OnClickListener"/>
         <variable
             name="dagboek"
-            type="com.example.faith.data.ApiDagboek"/>
+            type="com.example.faith.data.Medium"/>
     </data>
 
     <com.google.android.material.card.MaterialCardView
