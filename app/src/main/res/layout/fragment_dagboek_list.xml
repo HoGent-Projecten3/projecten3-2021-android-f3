@@ -29,8 +29,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/dagboek_list"
             android:layout_width="match_parent"
-            android:layout_height="670dp"
-            android:clipToPadding="false"
+            android:layout_height="match_parent"
+            android:clipToPadding="true"
             android:paddingEnd="@dimen/card_side_margin"
             android:paddingStart="@dimen/card_side_margin"
             android:paddingTop="@dimen/gallery_header_margin"
@@ -38,8 +38,8 @@
             app:spanCount="2"
             tools:context="com.example.faith.MainActivity"
             tools:listitem="@layout/list_item_dagboek"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="25dp" />
+            android:layout_marginTop="?actionBarSize"
+            />
 
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottomAppBar"
