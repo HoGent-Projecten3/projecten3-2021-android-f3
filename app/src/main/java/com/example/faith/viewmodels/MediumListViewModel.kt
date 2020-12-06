@@ -10,11 +10,13 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import androidx.paging.filter
 import com.example.faith.data.Medium
 import com.example.faith.data.MediumRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flattenMerge
 import kotlinx.coroutines.flow.flowOf
@@ -29,13 +31,13 @@ class MediumListViewModel @ViewModelInject constructor(
 
 ) : ViewModel() {
     companion object {
-        const val KEY_SUBREDDIT = "subreddit"
-        const val DEFAULT_SUBREDDIT = "0"
+        const val KEY_START_PAGE = "startkey"
+        const val DEFAULT_PAGE = "0"
     }
 
     init {
-        if (!savedStateHandle.contains(KEY_SUBREDDIT)) {
-            savedStateHandle.set(KEY_SUBREDDIT, DEFAULT_SUBREDDIT)
+        if (!savedStateHandle.contains(KEY_START_PAGE)) {
+            savedStateHandle.set(KEY_START_PAGE, DEFAULT_PAGE)
         }
     }
 
@@ -47,13 +49,24 @@ class MediumListViewModel @ViewModelInject constructor(
     @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
     val posts = flowOf(
         clearListCh.receiveAsFlow().map { PagingData.empty<Medium>() },
-        savedStateHandle.getLiveData<String>(KEY_SUBREDDIT)
+        savedStateHandle.getLiveData<String>(KEY_START_PAGE)
             .asFlow()
             .flatMapLatest { apiRepository.getSearchResultStream(it) }
-            // cachedIn() shares the paging state across multiple consumers of posts,
-            // e.g. different generations of UI across rotation config change
             .cachedIn(viewModelScope)
     ).flattenMerge(2)
+
+
+    @ExperimentalPagingApi
+    fun filter(query:String): Flow<PagingData<Medium>> {
+        if(query.isNullOrEmpty()){
+            return posts
+        }
+        return posts.map { pagingData ->
+            pagingData.filter {
+                it.naam.startsWith(query,true)
+            }
+        }.cachedIn(viewModelScope)
+    }
 
 
 

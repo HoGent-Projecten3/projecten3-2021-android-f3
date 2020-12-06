@@ -30,13 +30,13 @@ class DagboekListViewModel @ViewModelInject constructor(
 ) : ViewModel() {
 
     companion object {
-        const val KEY_SUBREDDIT = "subreddit"
-        const val DEFAULT_SUBREDDIT = "0"
+        const val KEY_START_PAGE = "startkey"
+        const val DEFAULT_PAGE = "0"
     }
 
     init {
-        if (!savedStateHandle.contains(KEY_SUBREDDIT)) {
-            savedStateHandle.set(KEY_SUBREDDIT, DEFAULT_SUBREDDIT)
+        if (!savedStateHandle.contains(KEY_START_PAGE)) {
+            savedStateHandle.set(KEY_START_PAGE, DEFAULT_PAGE)
         }
     }
 
@@ -48,16 +48,17 @@ class DagboekListViewModel @ViewModelInject constructor(
     @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
     val posts = flowOf(
         clearListCh.receiveAsFlow().map { PagingData.empty<Medium>() },
-        savedStateHandle.getLiveData<String>(KEY_SUBREDDIT)
+        savedStateHandle.getLiveData<String>(KEY_START_PAGE)
             .asFlow()
             .flatMapLatest { repository.getDagboekPosts(it) }
-            // cachedIn() shares the paging state across multiple consumers of posts,
-            // e.g. different generations of UI across rotation config change
             .cachedIn(viewModelScope)
     ).flattenMerge(2)
 
     @ExperimentalPagingApi
     fun filter(query:String): Flow<PagingData<Medium>> {
+        if(query.isNullOrEmpty()){
+            return posts
+        }
        return posts.map { pagingData ->
             pagingData.filter {
                 it.naam.startsWith(query,true)

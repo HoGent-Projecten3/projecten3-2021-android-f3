@@ -11,8 +11,8 @@ import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.Date
+import java.util.Locale
 
-@RequiresApi(O)
 class DateSerializer : JsonDeserializer<Date?> {
     override fun deserialize(
         json: JsonElement,
@@ -23,9 +23,16 @@ class DateSerializer : JsonDeserializer<Date?> {
             var dateStr = json.asString
             var dateStr2 = dateStr.split(".")
             dateStr = dateStr2[0]
-            var sdf = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
-            var joost = LocalDate.parse(dateStr, sdf)
-            Date.from(joost.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant())
+
+
+            val locale = Locale("nl","NL")
+            var inputPattern = "yyyy-MM-dd'T'HH:mm:ss"
+            val inputDateFormat = SimpleDateFormat(inputPattern,locale)
+            val inputDate = inputDateFormat.parse(dateStr)
+            return inputDate
+
+           
+
         } catch (ex: Exception) {
             ex.printStackTrace()
             null

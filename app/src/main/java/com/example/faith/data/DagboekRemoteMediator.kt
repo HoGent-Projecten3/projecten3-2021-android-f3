@@ -9,6 +9,10 @@ import com.example.faith.api.ApiService
 import retrofit2.HttpException
 import java.io.IOException
 
+/**
+ * @author Remi Mestdagh
+ * klasse die bepaalt wanneer nieuwe api requests gestuurd moeten worden om de lijst van dagboekposts op te halen, hier worden ze ook in Room gestoken
+ */
 @ExperimentalPagingApi
 class DagboekRemoteMediator(private val db: AppDatabase, private val service: ApiService, private val mediumName: String) : RemoteMediator<Int, Medium>() {
 

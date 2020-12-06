@@ -16,6 +16,13 @@ androidExtensions {
     experimental = true
 }
 android {
+    dexOptions {
+        incremental true
+        javaMaxHeapSize "4g"
+        preDexLibraries true
+        dexInProcess = true
+    }
+
     lintOptions {
         abortOnError false
     }
@@ -35,7 +42,7 @@ android {
     defaultConfig {
         vectorDrawables.useSupportLibrary true
         applicationId "com.example.faith"
-        minSdkVersion 26
+        minSdkVersion 25
         targetSdkVersion 30
         versionCode 1
         versionName "1.3"

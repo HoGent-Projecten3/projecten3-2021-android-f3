@@ -29,9 +29,7 @@ import kotlinx.coroutines.launch
  */
 @AndroidEntryPoint
 class DagboekListFragment : Fragment() {
-
     private val viewModel: DagboekListViewModel by viewModels()
-    private var searchJob: Job? = null
     private var adapter = DagboekAdapter()
 
     @ExperimentalPagingApi
@@ -53,6 +51,9 @@ class DagboekListFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * zoekbalk instellen
+     */
     @ExperimentalPagingApi
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
@@ -70,11 +71,15 @@ class DagboekListFragment : Fragment() {
                 }
 
                 override fun onQueryTextChange(newText: String): Boolean {
+                    filter(newText)
                     return false
                 }
             })
     }
 
+    /**
+     * lijst filteren op naam
+     */
     @ExperimentalPagingApi
     private fun filter(text: String) {
         adapter = DagboekAdapter()
@@ -86,18 +91,27 @@ class DagboekListFragment : Fragment() {
         }
     }
 
+    /**
+     * navigeren naar nieuw dagboekfragment
+     */
     private fun navigateToDagboek() {
         val direction = DagboekListFragmentDirections.actionDagboekListFragment2ToDagboekFragment()
         val navController = findNavController()
         navController.navigate(direction)
     }
 
+    /**
+     * er is een refresh van de adapter nodig als je terugkomt van een ander scherm
+     */
     @ExperimentalPagingApi
     override fun onResume() {
         super.onResume()
         adapter.refresh()
     }
 
+    /**
+     * adapter voor de eerste keer instellen
+     */
     @ExperimentalPagingApi
     private fun initAdapter() {
 
