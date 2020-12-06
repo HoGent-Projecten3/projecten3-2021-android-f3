@@ -27,6 +27,7 @@ import kotlinx.android.synthetic.main.fragment_dagboek.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filter
+import okhttp3.internal.notify
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.await
@@ -48,19 +49,18 @@ class HulpbronAdapter : PagingDataAdapter<ApiHulpbron, HulpbronAdapter.HulpbronV
         )
     }
 
-
-
     class HulpbronViewHolder(
             private val binding: ListItemHulpbronBinding
     ): RecyclerView.ViewHolder(binding.root) {
         init {
-            binding.hulpbronCardView.setOnLongClickListener {
-                if(binding.btVerwijder.visibility ==View.GONE)
-                    binding.btVerwijder.visibility = View.VISIBLE
-                else if(binding.btVerwijder.visibility ==View.VISIBLE)
-                    binding.btVerwijder.visibility = View.GONE
-                true
-            }
+                binding.hulpbronCardView.setOnLongClickListener {
+                    if(binding.btVerwijder.visibility ==View.GONE)
+                        binding.btVerwijder.visibility = View.VISIBLE
+                    else if(binding.btVerwijder.visibility ==View.VISIBLE)
+                        binding.btVerwijder.visibility = View.GONE
+                    true
+                }
+
 
             binding.setClickListener {
                 binding.hulpbron?.let { hulpbron ->
@@ -78,6 +78,7 @@ class HulpbronAdapter : PagingDataAdapter<ApiHulpbron, HulpbronAdapter.HulpbronV
             )
             view.findNavController().navigate(direction)
         }
+
         fun bind(item: ApiHulpbron){
             binding.apply {
                 hulpbron = item
@@ -92,10 +93,10 @@ class HulpbronAdapter : PagingDataAdapter<ApiHulpbron, HulpbronAdapter.HulpbronV
 
                             override fun onResponse(call: Call<Message?>, response: retrofit2.Response<Message?>) {
                                 Log.d("Succes",call.toString())
+                                //bindingAdapter?.notifyItemRemoved(binding.hulpbron!!.hulpbronId)
                             }
                         }
                     )
-                    Log.d("State",binding.hulpbron!!.hulpbronId.toString())
                 }
                 executePendingBindings()
             }

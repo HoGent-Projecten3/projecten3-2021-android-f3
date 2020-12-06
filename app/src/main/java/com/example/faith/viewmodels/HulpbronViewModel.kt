@@ -13,6 +13,5 @@ class HulpbronViewModel @ViewModelInject constructor(
 
     fun maakHulpbron(titel: String, beschrijving: String, url: String, telefoonnummer: String, emailadres: String, chatUrl: String): Call<Message> {
         return repository.postHulpbron(titel, beschrijving, url,telefoonnummer,emailadres,chatUrl)
-
     }
 }

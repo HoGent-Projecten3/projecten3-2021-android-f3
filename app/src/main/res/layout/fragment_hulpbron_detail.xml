@@ -14,24 +14,49 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginTop="?actionBarSize">
-            <TextView
+            android:layout_marginTop="75dp"
+            android:layout_marginBottom="?actionBarSize">
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@{viewModel.hulpbron.titel}"
-                android:textSize="@dimen/titleTextSize"
-                android:padding="10dp"
-                android:textStyle="bold"
-                tools:text="Titel" />
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/margin_normal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{viewModel.hulpbron.inhoud}"
-                android:textSize="@dimen/regularTextSize"
-                android:layout_margin="20dp"
-                tools:text="beschrijving" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimaryDark"
+                        android:gravity="center"
+                        android:padding="@dimen/margin_normal">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.hulpbron.titel}"
+                            android:textSize="@dimen/regularTextSize"
+                            android:textStyle="bold"
+                            tools:text="Titel"/>
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.hulpbron.inhoud}"
+                        android:textSize="@dimen/regularTextSize"
+                        android:padding="12dp"
+                        tools:text="inhoud"/>
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

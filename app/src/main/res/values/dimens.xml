@@ -2,8 +2,8 @@
 <resources>
     <dimen name="marginBetweenButtons">10dp</dimen>
     <dimen name="txtTitleSize">40dp</dimen>
-    <dimen name="titleTextSize">40sp</dimen>
-    <dimen name="regularTextSize">24sp</dimen>
+    <dimen name="titleTextSize">32sp</dimen>
+    <dimen name="regularTextSize">20sp</dimen>
     <dimen name="spaceforviews">450dp</dimen>
     <dimen name="gallery_header_margin">72dp</dimen>
     <dimen name="card_side_margin">12dp</dimen>

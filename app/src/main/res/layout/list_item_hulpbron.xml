@@ -36,7 +36,7 @@
         android:layout_marginTop="10dp"
         android:onClick="@{clickListener}"
         app:cardElevation="10dp"
-        app:cardBackgroundColor="@{hulpbron.auteurType.equals(`Client`) ? @color/hotel_lucht_blauw : @color/white}"
+        app:hulpbronItemColor="@{hulpbron.auteurType}"
         app:cardPreventCornerOverlap="false"
         app:shapeAppearanceOverlay="@style/Widget.MaterialComponents.CardView"
         android:clickable="true"
@@ -106,10 +106,6 @@
                     android:layout_height="18dp"
                     android:src="@drawable/email_icon"
                     app:isGone="@{hulpbron.emailadres.empty}"/>
-
-
-
-
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"

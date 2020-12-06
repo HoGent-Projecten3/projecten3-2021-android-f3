@@ -6,7 +6,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="false"
+        android:fitsSystemWindows="true"
         android:background="@color/hotel_theme">
 
 
@@ -37,23 +37,23 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="497dp"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="@dimen/margin_normal"
+                        android:background="@color/colorPrimaryDark"
                         android:gravity="center_horizontal"
-                        android:background="@color/colorPrimaryDark">
+                        android:orientation="vertical"
+                        android:padding="@dimen/margin_normal">
 
 
                         <TextView
-                            android:text="@string/jouw_hulpbron"
+                            android:id="@+id/textView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/textView"
+                            android:text="@string/jouw_hulpbron"
                             android:textSize="@dimen/regularTextSize"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -61,37 +61,36 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/titelHint"
                         android:layout_margin="10dp"
+                        android:hint="@string/titelHint"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView"
                         app:layout_constraintVertical_bias="0.120000005"
                         tools:layout_editor_absoluteX="15dp">
+
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/textInputTitel"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:backgroundTint="@color/white"
-                            android:id="@+id/textInputTitel"
-                            />
+                            android:backgroundTint="@color/white" />
                     </com.google.android.material.textfield.TextInputLayout>
 
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
-                        android:hint="@string/beschrijvingHint"
                         android:layout_margin="10dp"
-                        app:layout_constraintTop_toBottomOf="@+id/textInputTitel"
+                        android:hint="@string/beschrijvingHint"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        tools:layout_editor_absoluteX="15dp"
+                        app:layout_constraintTop_toBottomOf="@+id/textInputTitel"
                         app:layout_constraintVertical_bias="0.0"
-                        >
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/white"
-                        android:id="@+id/textInputBeschrijving"
-                        />
+                        tools:layout_editor_absoluteX="15dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/textInputBeschrijving"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/white" />
                     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -99,14 +98,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/emailadresHint"
-                        app:startIconDrawable="@drawable/email_icon"
-                        app:startIconContentDescription="email_icon">
+                        app:startIconContentDescription="email_icon"
+                        app:startIconDrawable="@drawable/email_icon">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/textInputEmailadres"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:backgroundTint="@color/white"
+                            android:inputType="textEmailAddress"
                             />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -115,36 +115,39 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/telefoonnummerHint"
-                        app:startIconDrawable="@drawable/phone_icon"
-                        app:startIconContentDescription="telefoon_icon">
+                        app:startIconContentDescription="telefoon_icon"
+                        app:startIconDrawable="@drawable/phone_icon">
+
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/textInputTelefoonnummer"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:backgroundTint="@color/white"
-                            />
+                            android:inputType="number"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/websiteHint"
-                        app:startIconDrawable="@drawable/website_icon"
-                        app:startIconContentDescription="website_icon">
+                        app:startIconContentDescription="website_icon"
+                        app:startIconDrawable="@drawable/website_icon">
+
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/textInputUrl"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:backgroundTint="@color/white"
-
                             />
                     </com.google.android.material.textfield.TextInputLayout>
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/chatHint"
-                        app:startIconDrawable="@drawable/chat_icon"
-                        app:startIconContentDescription="chat_icon">
+                        app:startIconContentDescription="chat_icon"
+                        app:startIconDrawable="@drawable/chat_icon">
+
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/textInputChatUrl"
                             android:layout_width="match_parent"
