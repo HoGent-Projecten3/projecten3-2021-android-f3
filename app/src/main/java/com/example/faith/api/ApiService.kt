@@ -114,23 +114,23 @@ interface ApiService {
         refreshToken: String
     )
 
-    @GET("Client/GetTalenten")
+    @GET("Client/GetTrofeesPaging")
     fun getTalenten(
         @Query("page") page:Int,
         @Query("aantal") perPage: Int
     ): ApiTalentSearchResponse
 
-    @GET("Client/GetTalenten")
+    @GET("Client/GetTrofeesPaging")
     fun getTalenten2(
         @Query("page") page:Int,
         @Query("aantal") perPage: Int
     ): Call<ApiTalentSearchResponse>
 
-    @POST("Client/PostTalent")
+    @POST("Client/Talent")
     fun postTalent(
         @Query("inhoud") inhoud: String): Call<Message>
 
-    @DELETE("Client/RemoveTalent")
+    @DELETE("Client/id")
     fun removeTalent(@Query("talentId") id:Int) : Call<Message>
 
 }

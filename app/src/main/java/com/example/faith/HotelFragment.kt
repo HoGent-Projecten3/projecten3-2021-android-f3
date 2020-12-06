@@ -106,8 +106,8 @@ class HotelFragment : Fragment() {
             R.id.image_bib -> Navigation.findNavController(kamer)
                 .navigate(R.id.action_hotelFragment_to_dagboekListFragment2)
             R.id.image_trofee ->
-                Toast.makeText(getActivity(), "Trofee", Toast.LENGTH_SHORT)
-                    .show()
+                Navigation.findNavController(kamer)
+                    .navigate(R.id.action_hotelFragment_to_trofeekamerListFragment)
             R.id.image_penthouse ->
                 Navigation.findNavController(kamer)
                     .navigate(R.id.action_hotelFragment_to_penthouseFragment)
