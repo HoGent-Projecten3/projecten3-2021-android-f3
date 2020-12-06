@@ -30,7 +30,7 @@ class HulpbronFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = DataBindingUtil.inflate<FragmentHulpbronBinding>(
             inflater,
             R.layout.fragment_hulpbron,
@@ -39,13 +39,20 @@ class HulpbronFragment : Fragment() {
         )
 
         binding.btnSaveHulpbron.setOnClickListener {
-            uploadText()
+            uploadHulpbron()
+            navigateToHulpbronList()
         }
         return binding.root
     }
 
-    private fun uploadText() {
-        var call: Call<Message> = viewModel.maakHulpbron(textInputTitel.text.toString(), textInputBeschrijving.text.toString(),textInputUrl.text.toString(),textInputTelefoonnummer.text.toString(),textInputEmailadres.text.toString(),textInputChatUrl.text.toString())
+    private fun navigateToHulpbronList() {
+        val direction = HulpbronFragmentDirections.actionHulpbronFragmentToHulpbronListFragment()
+        val navController = findNavController()
+        navController.navigate(direction)
+    }
+
+    private fun uploadHulpbron() {
+        val call: Call<Message> = viewModel.maakHulpbron(textInputTitel.text.toString(), textInputBeschrijving.text.toString(),textInputUrl.text.toString(),textInputTelefoonnummer.text.toString(),textInputEmailadres.text.toString(),textInputChatUrl.text.toString())
         call.enqueue(
             object : Callback<Message?> {
                 override fun onFailure(call: Call<Message?>, t: Throwable) {

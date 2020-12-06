@@ -16,10 +16,6 @@ tools:layout="@layout/fragment_infobalie">
         android:fitsSystemWindows="true"
         android:theme="@style/Widget.MaterialComponents.AppBarLayout.Primary">
 
-        <SearchView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -27,13 +23,13 @@ tools:layout="@layout/fragment_infobalie">
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:paddingEnd="@dimen/card_side_margin"
         android:paddingStart="@dimen/card_side_margin"
         android:paddingTop="@dimen/gallery_header_margin"
+        android:paddingEnd="@dimen/card_side_margin"
         app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-        app:spanCount="@integer/grid_columns"
+        app:spanCount="1"
         tools:context="com.example.faith.MainActivity"
-        tools:listitem="@layout/list_item_hulpbron"/>
+        tools:listitem="@layout/list_item_hulpbron" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

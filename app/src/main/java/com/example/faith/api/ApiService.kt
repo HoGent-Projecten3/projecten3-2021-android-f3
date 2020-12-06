@@ -107,11 +107,10 @@ interface ApiService {
     ) : Call<ApiHulpbronSearchResponse>
 
     @DELETE("Infobalie")
-    fun deleteHulpbron(@Query("id") id: Int): Call<Message>
+    fun deleteHulpbron(@Query("hulpbronId") id: Int): Call<Message>
 
     @POST("Infobalie")
     fun postHulpbron(@Body hulpbron: HulpbronDTO): Call<Message>
-
 
     @GET("Client/GetDoelen")
     fun getDoelen(): Call<List<DoelDTO>>

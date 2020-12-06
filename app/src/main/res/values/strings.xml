@@ -49,4 +49,18 @@
 
     <string name="delete_button_text">verwijder</string>
     <string name="login_fragment_name">Login</string>
+    <string name="btVerwijderHulpbron">Verwijder hulpbron</string>
+    <string name="websiteImage">Website</string>
+    <string name="mailImage">Mail</string>
+    <string name="chatImage">Chat</string>
+    <string name="telefoonImage">Bel</string>
+    <string name="upload_hulpbron">Upload hulpbron</string>
+    <string name="jouw_hulpbron">Jouw hulpbron</string>
+    <string name="titelHint">Titel</string>
+    <string name="beschrijvingHint">Beschrijving</string>
+    <string name="emailadresHint">Emailadres</string>
+    <string name="telefoonnummerHint">Telefoonnummer</string>
+    <string name="websiteHint">Website</string>
+    <string name="chatHint">Chat</string>
+    <string name="hulpbron_toevoegen">Hulpbron toevoegen</string>
 </resources>

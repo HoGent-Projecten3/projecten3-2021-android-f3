@@ -1,6 +1,7 @@
 package com.example.faith.data
 
 import android.os.Message
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations.map
 import androidx.paging.Pager
@@ -43,7 +44,8 @@ class HulpbronRepository @Inject constructor(private val hulpbronDao: HulpbronDa
     }
 
     fun deleteHulpbron(hulpbronId : Int) : Call<Message> {
-        return service.deleteHulpbron(hulpbronId);
+        return service.deleteHulpbron(hulpbronId)
+
     }
 
 

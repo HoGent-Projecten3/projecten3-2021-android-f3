@@ -15,7 +15,7 @@
             android:layout_height="match_parent">
 
             <com.google.android.material.button.MaterialButton
-                android:text="Upload hulpbron"
+                android:text="@string/upload_hulpbron"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/btnSaveHulpbron"
@@ -29,7 +29,7 @@
                 android:id="@+id/card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_margin="@dimen/margin_normal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -44,24 +44,24 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="16dp"
+                        android:padding="@dimen/margin_normal"
                         android:gravity="center_horizontal"
                         android:background="@color/colorPrimaryDark">
 
 
                         <TextView
-                            android:text="Jouw hulpbron"
+                            android:text="@string/jouw_hulpbron"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/textView"
-                            android:textSize="24sp"
+                            android:textSize="@dimen/regularTextSize"
                             android:textStyle="bold" />
                     </LinearLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Titel"
+                        android:hint="@string/titelHint"
                         android:layout_margin="10dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView"
@@ -79,7 +79,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
-                        android:hint="Beschrijving"
+                        android:hint="@string/beschrijvingHint"
                         android:layout_margin="10dp"
                         app:layout_constraintTop_toBottomOf="@+id/textInputTitel"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -98,7 +98,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Emailadres"
+                        android:hint="@string/emailadresHint"
                         app:startIconDrawable="@drawable/email_icon"
                         app:startIconContentDescription="email_icon">
 
@@ -114,7 +114,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Telefoonnummer"
+                        android:hint="@string/telefoonnummerHint"
                         app:startIconDrawable="@drawable/phone_icon"
                         app:startIconContentDescription="telefoon_icon">
                         <com.google.android.material.textfield.TextInputEditText
@@ -128,7 +128,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Website"
+                        android:hint="@string/websiteHint"
                         app:startIconDrawable="@drawable/website_icon"
                         app:startIconContentDescription="website_icon">
                         <com.google.android.material.textfield.TextInputEditText
@@ -142,7 +142,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Chat"
+                        android:hint="@string/chatHint"
                         app:startIconDrawable="@drawable/chat_icon"
                         app:startIconContentDescription="chat_icon">
                         <com.google.android.material.textfield.TextInputEditText

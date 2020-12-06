@@ -6,33 +6,23 @@
         android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="false"
+        android:fitsSystemWindows="true"
         android:backgroundTint="@color/hotel_theme"
-        android:background="@color/hotel_theme">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <SearchView
-            android:id="@+id/svHulpbron"
-            android:layout_width="match_parent"
-            android:layout_height="37dp"
-            android:background="@color/colorPrimary"
-            android:queryHint="Zoek naar hulpbronnen..."            />
+        android:background="@color/hotel_theme"
+        >
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/hulpbron_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="25dp"
-            android:clipToPadding="false"
-            android:paddingStart="@dimen/card_side_margin"
-            android:paddingTop="@dimen/card_side_margin"
-            android:paddingEnd="@dimen/card_side_margin"
-            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-            app:spanCount="1"
-            tools:listitem="@layout/list_item_hulpbron" />
-    </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/hulpbron_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingStart="@dimen/card_side_margin"
+                android:paddingEnd="@dimen/card_side_margin"
+                android:layout_marginTop="?actionBarSize"
+                android:layout_marginBottom="?actionBarSize"
+                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                app:spanCount="1"
+                tools:listitem="@layout/list_item_hulpbron" />
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottomAppBar"
             android:layout_width="match_parent"
@@ -45,11 +35,10 @@
             android:id="@+id/btnAddHulpbron"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/hulpbron_toevoegen"
             app:srcCompat="@drawable/ic_add"
             app:layout_anchor="@id/bottomAppBar"
-            android:contentDescription="TODO" />
-
-
+            />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     </layout>
