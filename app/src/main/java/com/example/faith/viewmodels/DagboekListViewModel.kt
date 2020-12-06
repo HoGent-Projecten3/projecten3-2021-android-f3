@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import androidx.paging.filter
 import com.example.faith.data.Medium
 import com.example.faith.data.MediumRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -55,5 +56,13 @@ class DagboekListViewModel @ViewModelInject constructor(
             .cachedIn(viewModelScope)
     ).flattenMerge(2)
 
+    @ExperimentalPagingApi
+    fun filter(query:String): Flow<PagingData<Medium>> {
+       return posts.map { pagingData ->
+            pagingData.filter {
+                it.naam.startsWith(query,true)
+            }
+        }.cachedIn(viewModelScope)
+    }
 
 }

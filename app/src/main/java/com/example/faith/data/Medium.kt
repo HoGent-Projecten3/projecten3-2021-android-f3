@@ -21,7 +21,7 @@ data class Medium(
     @field:SerializedName("url")
     val url: String,
     @field:SerializedName("beschrijving")
-    val beschrijving: String,
+    val beschrijving: String?,
     @field:SerializedName("mediumType")
     val mediumType: Int,
     @field:SerializedName("datum")

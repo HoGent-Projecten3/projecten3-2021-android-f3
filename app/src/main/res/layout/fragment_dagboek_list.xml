@@ -28,7 +28,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/dagboek_list"
             android:layout_width="match_parent"
-            android:layout_height="491dp"
+            android:layout_height="match_parent"
             android:clipToPadding="true"
             android:paddingEnd="@dimen/card_side_margin"
             android:paddingStart="@dimen/card_side_margin"
@@ -53,7 +53,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/ic_add_black_24dp"
-            app:layout_anchor="@id/bottomAppBar" />
+            app:layout_anchor="@id/bottomAppBar"
+            android:contentDescription="@string/floatingbutton" />
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

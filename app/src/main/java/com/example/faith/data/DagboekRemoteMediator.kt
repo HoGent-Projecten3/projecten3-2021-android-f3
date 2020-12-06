@@ -57,7 +57,7 @@ class DagboekRemoteMediator(private val db: AppDatabase, private val service: Ap
                 remoteKeyDao.insert(MediumRemoteKey(mediumName, data.next))
                 items.forEach {
                     mediumDao.insertOne(
-                        Medium(it.mediumId,it.naam,"",it.beschrijving,4,it.datum)
+                        Medium(it.mediumId,it.naam,"",it?.beschrijving,4,it.datum)
                     )
                 }
 

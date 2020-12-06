@@ -17,9 +17,11 @@ import com.example.faith.adapters.DagboekAdapter
 import com.example.faith.databinding.FragmentDagboekListBinding
 import com.example.faith.viewmodels.DagboekListViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_dagboek_list.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 /**
  * @author Remi Mestdagh
@@ -51,6 +53,7 @@ class DagboekListFragment : Fragment() {
         return binding.root
     }
 
+    @ExperimentalPagingApi
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
         inflater.inflate(R.menu.bottom_app_bar, menu)
@@ -59,6 +62,28 @@ class DagboekListFragment : Fragment() {
         var searchView2 = SearchView(context)
         searchItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW or MenuItem.SHOW_AS_ACTION_IF_ROOM)
         searchItem.setActionView(searchView2)
+        searchView2.setOnQueryTextListener(
+            object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String): Boolean {
+                    filter(query)
+                    return false
+                }
+
+                override fun onQueryTextChange(newText: String): Boolean {
+                    return false
+                }
+            })
+    }
+
+    @ExperimentalPagingApi
+    private fun filter(text: String) {
+        adapter = DagboekAdapter()
+        dagboek_list.adapter = adapter
+        lifecycleScope.launch {
+            viewModel.filter(text).collectLatest {
+                adapter.submitData(it)
+            }
+        }
     }
 
     private fun navigateToDagboek() {

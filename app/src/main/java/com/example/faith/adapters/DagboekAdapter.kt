@@ -1,7 +1,5 @@
 package com.example.faith.adapters
 
-import com.example.faith.DagboekListFragmentDirections
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,14 +7,17 @@ import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.faith.DagboekListFragmentDirections
 import com.example.faith.data.Medium
 import com.example.faith.databinding.ListItemDagboekBinding
-import com.example.faith.databinding.ListItemMediumBinding
+
 /**
  * @author Remi Mestdagh
  * adapter for recyclerview in dagboeklistfrag
  */
-class DagboekAdapter : PagingDataAdapter<Medium, DagboekAdapter.DagboekViewHolder>(DagboekDiffCallback()) {
+class DagboekAdapter : PagingDataAdapter<Medium, DagboekAdapter.DagboekViewHolder>(
+    DagboekDiffCallback()
+) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DagboekViewHolder {
         return DagboekViewHolder(
             ListItemDagboekBinding.inflate(

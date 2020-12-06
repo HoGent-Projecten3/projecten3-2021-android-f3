@@ -35,7 +35,7 @@ android {
     defaultConfig {
         vectorDrawables.useSupportLibrary true
         applicationId "com.example.faith"
-        minSdkVersion 21
+        minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
         versionName "1.3"

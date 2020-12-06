@@ -12,11 +12,11 @@ import androidx.room.Query
  */
 @Dao
 interface MediumDao {
-    @Query("SELECT * FROM media WHERE mediumType != 4 ORDER BY naam")
+    @Query("SELECT * FROM media WHERE mediumType != 4 ORDER BY datum DESC")
     fun getMedia(): PagingSource<Int, Medium>
 
 
-    @Query("SELECT * FROM media WHERE mediumType = 4 ORDER BY naam")
+    @Query("SELECT * FROM media WHERE mediumType = 4 ORDER BY datum DESC")
     fun getDagboek(): PagingSource<Int, Medium>
 
     @Query("SELECT * FROM media WHERE mediumId = :mediumId")

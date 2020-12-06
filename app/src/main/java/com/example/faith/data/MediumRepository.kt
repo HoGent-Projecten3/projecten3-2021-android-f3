@@ -20,7 +20,6 @@ class MediumRepository @Inject constructor(
     private val db: AppDatabase
 ) {
 
-    fun getMedia() = mediumDao.getMedia()
 
     suspend fun insertOne(medium: Medium) = mediumDao.insertOne(medium)
 
