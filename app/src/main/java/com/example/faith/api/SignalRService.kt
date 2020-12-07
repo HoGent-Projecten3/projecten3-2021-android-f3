@@ -22,7 +22,7 @@ class SignalRService {
 
     fun start(email: String?, chatFragment: ChatFragment) {
         this.chatFragment = chatFragment
-        hubConnection = HubConnectionBuilder.create("http://10.0.0.9:45455/api/")
+        hubConnection = HubConnectionBuilder.create("https://f3backend-dev-as.azurewebsites.net/api/")
             .withAccessTokenProvider(
                 Single.defer {
                     Single.just(
