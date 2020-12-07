@@ -141,7 +141,7 @@
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <data>
-        <import type="com.example.faith.data.ApiHulpbron"/>
+        <import type="com.example.faith.data.Hulpbron"/>
         <variable
             name="viewModel"
             type="com.example.faith.viewmodels.HulpbronDetailViewModel" />

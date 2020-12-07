@@ -24,7 +24,7 @@
             type="android.view.View.OnClickListener"/>
         <variable
             name="hulpbron"
-            type="com.example.faith.data.ApiHulpbron"/>
+            type="com.example.faith.data.Hulpbron"/>
     </data>
 
     <com.google.android.material.card.MaterialCardView
