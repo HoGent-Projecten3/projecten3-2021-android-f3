@@ -2,14 +2,14 @@ package com.example.faith.api
 
 import android.os.Message
 import com.example.faith.data.ApiBerichtSearchResponse
-import com.example.faith.data.ApiDagboekSearchResponse
 import com.example.faith.data.ApiHulpbronSearchResponse
-import com.example.faith.data.ApiMediumResponse
 import com.example.faith.data.ApiMediumSearchResponse
 import com.example.faith.data.DoelDTO
 import com.example.faith.data.Gebruiker
+import com.example.faith.data.HulpbronDTO
 import com.example.faith.data.Login
 import com.example.faith.data.LoginResponse
+import com.example.faith.data.Medium
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -30,7 +30,7 @@ interface ApiService {
     @POST("Cinema/imageFile")
     fun uploadMedia(
         @Part imageFile: MultipartBody.Part,
-        @Query("beschrijving")beschrijving: String?
+        @Query("beschrijving") beschrijving: String?
     ): Call<Message>
 
     @POST("Cinema/text")
@@ -50,10 +50,10 @@ interface ApiService {
     ): Call<Message>
 
     @GET("Chat/GetBerichtenMetBegeleider")
-    suspend fun getBerichten(
-        @Query("page") page: Int,
-        @Query("aantal") perPage: Int
-    ): ApiBerichtSearchResponse
+    fun getBerichten(
+        @Query("totDatum") totDatum: String,
+        @Query("aantal") aantal: Int
+    ): Call<ApiBerichtSearchResponse>
 
     @GET("Chat/GetBerichtenMetBegeleider")
     fun getBerichten2(
@@ -63,42 +63,35 @@ interface ApiService {
 
     @GET("Gebruiker")
     fun getGebruiker(): Call<Gebruiker>
+
     @GET("Cinema/Media")
     suspend fun getMedia(
         @Query("page") page: Int,
         @Query("aantal") perPage: Int
     ): ApiMediumSearchResponse
-    @GET("Cinema/Media")
-    fun getMedia2(
-        @Query("page") page: Int,
-        @Query("aantal") perPage: Int
-    ): Call<ApiMediumSearchResponse>
+
+
     @GET("Cinema/Dagboek")
     suspend fun getDagboek(
         @Query("page") page: Int,
         @Query("aantal") perPage: Int
-    ): ApiDagboekSearchResponse
-    @GET("Cinema/Dagboek")
-    fun getDagboek2(
-        @Query("page") page: Int,
-        @Query("aantal") perPage: Int
-    ): Call<ApiDagboekSearchResponse>
+    ): ApiMediumSearchResponse
 
-    @GET("Infobalie/getHulpbronnenPaging")
+
+    @GET("Infobalie/getHulpbronnen")
     suspend fun getHulpbronnen(
-        @Query("page") page:Int,
-        @Query("aantal") perPage:Int
+            @Query("textFilter") textFilter:String,
+            @Query("includePublic") includePublic:Boolean,
+            @Query("includePrivate") includePrivate:Boolean,
+            @Query("page") page:Int,
+            @Query("aantal") perPage:Int
     ) : ApiHulpbronSearchResponse
 
-    @GET("Infobalie/getHulpbronnenPaging")
-    fun getHulpbronnen2(
-        @Query("page") page:Int,
-        @Query("aantal") perPage:Int
-    ) : Call<ApiHulpbronSearchResponse>
+    @DELETE("Infobalie")
+    fun deleteHulpbron(@Query("hulpbronId") id: Int): Call<Message>
 
-    @POST("Account/login")
-    fun login(@Body login: Login): Call<LoginResponse>
-
+    @POST("Infobalie")
+    fun postHulpbron(@Body hulpbron: HulpbronDTO): Call<Message>
 
     @GET("Client/GetDoelen")
     fun getDoelen(): Call<List<DoelDTO>>
@@ -111,11 +104,10 @@ interface ApiService {
     @POST("Client/SyncDoelen")
     fun syncDoelen(@Body doelenDTO: List<DoelDTO>): Call<List<DoelDTO>>
 
-    @GET("Cinema/id")
-    fun getMedium(@Query("mediumId") id: Int): ApiMediumResponse
-
     @DELETE("Cinema")
-    fun removeMedium(@Query("mediumId") id: Int): Call<Message>
+    fun removeMedium(@Query("mediumId") id: Int): Call<Medium>
+    @POST("Account/login")
+    fun login(@Body login: Login): Call<LoginResponse>
 
     data class LoginResponseModel(
         val token: String,

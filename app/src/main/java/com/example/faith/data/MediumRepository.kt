@@ -1,6 +1,7 @@
 package com.example.faith.data
 
 import android.os.Message
+import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -9,44 +10,65 @@ import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
 import retrofit2.Call
 import javax.inject.Inject
+
 /**
  * @author Remi Mestdagh
  */
-class MediumRepository @Inject constructor(private val mediumDao: MediumDao, private val service: ApiService) {
+class MediumRepository @Inject constructor(
+    private val mediumDao: MediumDao,
+    private val service: ApiService,
+    private val db: AppDatabase
+) {
 
-    fun getMedia() = mediumDao.getMedia()
+
     suspend fun insertOne(medium: Medium) = mediumDao.insertOne(medium)
 
     fun getMedium(id: Int) = mediumDao.getMedium(id)
-    fun getSearchResultStream(): Flow<PagingData<ApiPhoto>> {
-        return Pager(
-            config = PagingConfig(enablePlaceholders = false, pageSize = 10, initialLoadSize = 10, prefetchDistance = 10),
-            pagingSourceFactory = { ApiPagingSource(service) }
 
-        ).flow
-    }
-    fun getMedia2(): Call<ApiMediumSearchResponse> {
-        return service.getMedia2(0, 500)
-    }
-    fun getDagboekPosts(): Flow<PagingData<ApiDagboek>> {
+    @ExperimentalPagingApi
+    fun getSearchResultStream(mediumNaam: String): Flow<PagingData<Medium>> {
         return Pager(
-            config = PagingConfig(enablePlaceholders = false, pageSize = 10, initialLoadSize = 10, prefetchDistance = 10),
-            pagingSourceFactory = { ApiDagboekPagingSource(service) }
+            config = PagingConfig(
+                enablePlaceholders = false,
+                pageSize = 20,
+                initialLoadSize = 20,
+                prefetchDistance = 5
+            ),
+            remoteMediator = MediumRemoteMediator(db, service, mediumNaam),
 
-        ).flow
+            ) {
+            mediumDao.getMedia()
+        }.flow
     }
-    fun getDagboekPosts2(): Call<ApiDagboekSearchResponse> {
-        return service.getDagboek2(0, 500)
+
+    @ExperimentalPagingApi
+    fun getDagboekPosts(dagboekNaam: String): Flow<PagingData<Medium>> {
+        return Pager(
+            config = PagingConfig(
+                enablePlaceholders = false,
+                pageSize = 20,
+                initialLoadSize = 20,
+                prefetchDistance = 20
+            ),
+            remoteMediator = DagboekRemoteMediator(db, service, dagboekNaam)
+
+        ) {
+            mediumDao.getDagboek()
+        }.flow
     }
+
     fun postMedium(imageFile: MultipartBody.Part, beschrijving: String?): Call<Message> {
 
         return service.uploadMedia(imageFile, beschrijving)
     }
+
     fun postText(titel: String, beschrijving: String): Call<Message> {
         return service.uploadText(titel, beschrijving)
     }
-    fun removeMedium(id: Int): Call<Message> {
+
+    fun removeMedium(id: Int): Call<Medium> {
         return service.removeMedium(id)
     }
-    suspend fun deleteMediumRoom(mediumId: Int) = mediumDao.deleteMedium(mediumId)
+
+    suspend fun deleteMediumRoom(medium: Medium) = mediumDao.deleteMedium(medium)
 }

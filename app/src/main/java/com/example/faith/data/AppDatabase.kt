@@ -11,13 +11,13 @@ import com.example.faith.utilities.DATABASE_NAME
  * @author Remi Mestdagh
  */
 
-@Database(entities = arrayOf(Medium::class,Bericht::class,Hulpbron::class), version = 3, exportSchema = false)
+@Database(entities = arrayOf(Medium::class,Bericht::class,Hulpbron::class, MediumRemoteKey::class), version = 10, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun mediumDao(): MediumDao
     abstract fun berichtDao(): BerichtDao
-
+    abstract fun remoteKeys(): MediumRemoteKeyDao
     abstract fun hulpbronDao(): HulpbronDao
 
 

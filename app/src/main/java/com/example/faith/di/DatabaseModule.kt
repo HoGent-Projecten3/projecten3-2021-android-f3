@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.faith.data.AppDatabase
 import com.example.faith.data.HulpbronDao
 import com.example.faith.data.MediumDao
+import com.example.faith.data.MediumRemoteKeyDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,5 +31,10 @@ class DatabaseModule {
     @Provides
     fun provideHulpbronDao(appDatabase: AppDatabase): HulpbronDao {
         return appDatabase.hulpbronDao()
+    }
+
+    @Provides
+    fun provideMediumRemoteKeysDao(appDatabase: AppDatabase) : MediumRemoteKeyDao {
+        return appDatabase.remoteKeys()
     }
 }

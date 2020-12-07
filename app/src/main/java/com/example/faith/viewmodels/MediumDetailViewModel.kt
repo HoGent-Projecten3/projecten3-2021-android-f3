@@ -1,9 +1,9 @@
 package com.example.faith.viewmodels
 
-import android.os.Message
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.faith.data.Medium
 import com.example.faith.data.MediumRepository
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
@@ -20,23 +20,19 @@ class MediumDetailViewModel @AssistedInject constructor(
 ) : ViewModel() {
 
     var medium = mediumRepository.getMedium(mediumId)
-/*
-    fun isVideo(): Boolean {
-        if(medium.value?.url?.endsWith("mp4")!!){
-            return true
-        }
-        return false
-    }*/
 
-    fun deleteMediumRoom(mediumId: Int) {
+    fun deleteMediumRoom() {
         viewModelScope.launch {
-            mediumRepository.deleteMediumRoom(mediumId)
+            if(medium!=null){
+                medium.value?.let { mediumRepository.deleteMediumRoom(it) }
+            }
+
         }
     }
 
-    fun removeMedium(): Call<Message> {
+    fun removeMedium(): Call<Medium>? {
 
-        return mediumRepository.removeMedium(medium.value!!.mediumId)
+        return medium.value?.let { mediumRepository.removeMedium(it.mediumId) }
     }
 
     @AssistedInject.Factory

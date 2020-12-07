@@ -29,29 +29,29 @@
 
 
 
-                <!-- TOP -->
+                <!-- ROOF -->
                 <ImageView
-                    android:id="@+id/image_top"
-                    android:layout_width="wrap_content"
-                    android:layout_height="190dp"
+                    android:id="@+id/image_roof"
+                    android:layout_width="1000px"
+                    android:layout_height="370px"
                     android:layout_columnSpan="2"
                     android:layout_gravity="center_horizontal"
 
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/final_top" />
+                    android:src="@drawable/final_roof_1" />
 
                 <!-- PENTHOUSE -->
                 <ImageView
                     android:id="@+id/image_penthouse"
-                    android:layout_width="wrap_content"
-                    android:layout_height="190dp"
+                    android:layout_width="1000px"
+                    android:layout_height="370px"
                     android:layout_columnSpan="2"
                     android:layout_gravity="center_horizontal"
 
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/final_penthouse" />
+                     />
 
 
                 <!--
@@ -59,76 +59,76 @@
                 app:layout_constraintWidth_percent="0.25"
                 -->
 
-                <!-- BIBLIOTHEEK -->
+                <!-- BAR -->
                 <ImageView
                     android:id="@+id/image_bar"
 
-                    android:layout_width="wrap_content"
-                    android:layout_height="190dp"
+                    android:layout_width="500px"
+                    android:layout_height="370px"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/final_bar" />
+   />
 
 
                 <!-- TROFEE KAMER -->
                 <ImageView
-                    android:id="@+id/image_trofeeKamer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="190dp"
+                    android:id="@+id/image_trofee"
+                    android:layout_width="500px"
+                    android:layout_height="370px"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/final_trofee" />
+                   />
 
 
-                <!-- BAR -->
+                <!-- BIB -->
                 <ImageView
-                    android:id="@+id/image_dagboek"
-                    android:layout_width="wrap_content"
-                    android:layout_height="190dp"
+                    android:id="@+id/image_bib"
+                    android:layout_width="500px"
+                    android:layout_height="370px"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/final_bibliotheek" />
+                  />
 
 
                 <!-- CINEMA -->
                 <ImageView
                     android:id="@+id/image_cinema"
-                    android:layout_width="wrap_content"
-                    android:layout_height="190dp"
+                    android:layout_width="500px"
+                    android:layout_height="370px"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/final_cinema" />
+                  />
 
 
                 <!-- INFOBALI -->
                 <ImageView
-                    android:id="@+id/image_infobalie"
-                    android:layout_width="wrap_content"
-                    android:layout_height="190dp"
+                    android:id="@+id/image_bali"
+                    android:layout_width="1000px"
+                    android:layout_height="370px"
                     android:layout_columnSpan="2"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/final_infobali" />
+                     />
 
 
 
                 <!-- BOTTOM-->
                 <ImageView
-                    android:id="@+id/image_bottom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="190dp"
+                    android:id="@+id/image_entrance"
+                    android:layout_width="1000px"
+                    android:layout_height="370px"
                     android:layout_columnSpan="2"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/final_bottom" />
+ />
 
 
             </GridLayout>

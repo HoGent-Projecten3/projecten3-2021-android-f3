@@ -1,42 +1,95 @@
 package com.example.faith.viewmodels
 
+import android.os.Message
+import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.switchMap
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.filter
 import com.example.faith.data.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flattenMerge
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.switchMap
 import retrofit2.Call
 
 class HulpbronListViewModel @ViewModelInject constructor(
-    private val repository: HulpbronRepository
+    private val repository: HulpbronRepository,
+    @Assisted private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
+    private val clearListCh = Channel<Unit>(Channel.CONFLATED)
 
-    fun getHulpbronnen() : Flow<PagingData<ApiHulpbron>>{
-        return repository.getHulpbronnen()
+    private var _textFilter = MutableLiveData<String>()
+    private var _includePublic = MutableLiveData<Boolean>()
+    private var _includePrivate = MutableLiveData<Boolean>()
+
+    init {
+        if (!savedStateHandle.contains(KEY_START_PAGE)) {
+            savedStateHandle.set(KEY_START_PAGE, DEFAULT_PAGE)
+        }
+        textFilter.value = ""
+        _includePublic.value = true
+        _includePrivate.value = true
+        instance = this;
     }
-    fun getHulpbronnen2(): Call<ApiHulpbronSearchResponse>{
-        return repository.getHulpbronnen2()
+
+    var textFilter: MutableLiveData<String>
+        get() = _textFilter
+        set(value) {
+            _textFilter = value;
+        }
+
+    var includePublic: MutableLiveData<Boolean>
+        get() = _includePublic
+        set(value) {
+            _includePublic = value;
+        }
+
+    var includePrivate: MutableLiveData<Boolean>
+        get() = _includePrivate
+        set(value) {
+            _includePrivate = value;
+        }
+
+    fun cycleFilter() {
+        includePublic.value = includePublic.value == false
     }
-    suspend fun saveOne(hulpbron: Hulpbron){
+
+    @ExperimentalPagingApi
+    @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
+    val posts = flowOf(
+        clearListCh.receiveAsFlow().map { PagingData.empty<Hulpbron>() },
+        savedStateHandle.getLiveData<String>(MediumListViewModel.KEY_START_PAGE)
+            .asFlow()
+            .flatMapLatest {
+                repository.getHulpbronnen(
+                    textFilter.value!!, includePublic.value!!,
+                    includePrivate.value!!, it
+                )
+            }
+            .cachedIn(viewModelScope)
+    ).flattenMerge(2)
+
+    fun deleteHulpbron(id: Int): Call<Message> {
+        return repository.deleteHulpbron(id)
+    }
+
+    suspend fun saveOne(hulpbron: Hulpbron) {
         repository.insertOne(hulpbron)
     }
 
-
-    fun filter(input: String): Flow<PagingData<ApiHulpbron>>
-    {
-        val inputLC = input.toLowerCase()
-        return repository.getHulpbronnen().map {
-            it.filter {
-            it.titel.toLowerCase().contains(inputLC)
-        }
-        }.cachedIn(viewModelScope)
+    companion object {
+        var instance: HulpbronListViewModel? = null
+        const val KEY_START_PAGE = "startkey"
+        const val DEFAULT_PAGE = "0"
     }
 }

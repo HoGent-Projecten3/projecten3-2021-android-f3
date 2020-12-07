@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName
  * @author Jef Seys
  */
 data class ApiBerichtSearchResponse(
-    @field:SerializedName("results") val results: List<ApiBericht>,
-    @field:SerializedName("total_pages") val totalPages: Int
+    @field:SerializedName("berichten") val berichten: List<ApiBericht>,
+    @field:SerializedName("totDatum") val totDatum: String,
+    @field:SerializedName("aantalPaginas") val aantal: Int
 )

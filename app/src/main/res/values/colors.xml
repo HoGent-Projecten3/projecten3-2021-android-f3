@@ -9,4 +9,5 @@
     <color name="hotel_theme_complementair">#C6ECB8</color>
     <color name="button_color">#03DAC6</color>
     <color name="colorButtonNormal">@color/button_color</color>
+    <color name="white">#deffffff</color>
 </resources>
