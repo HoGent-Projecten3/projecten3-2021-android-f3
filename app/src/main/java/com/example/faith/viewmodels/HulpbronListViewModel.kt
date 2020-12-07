@@ -68,7 +68,7 @@ class HulpbronListViewModel @ViewModelInject constructor(
     @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
     val posts = flowOf(
         clearListCh.receiveAsFlow().map { PagingData.empty<Hulpbron>() },
-        savedStateHandle.getLiveData<String>(MediumListViewModel.KEY_START_PAGE)
+        savedStateHandle.getLiveData<String>(KEY_START_PAGE)
             .asFlow()
             .flatMapLatest {
                 repository.getHulpbronnen(
@@ -90,6 +90,6 @@ class HulpbronListViewModel @ViewModelInject constructor(
     companion object {
         var instance: HulpbronListViewModel? = null
         const val KEY_START_PAGE = "startkey"
-        const val DEFAULT_PAGE = "0"
+        const val DEFAULT_PAGE = "hulpbron"
     }
 }

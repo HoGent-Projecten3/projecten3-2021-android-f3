@@ -1,14 +1,10 @@
 package com.example.faith
 
-import android.content.Context
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.Message
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -16,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import com.example.faith.adapters.ReceiveMessageItem
 import com.example.faith.adapters.SendMessageItem
 import com.example.faith.api.SignalRService
-import com.example.faith.data.ApiBerichtSearchResponse
 import com.example.faith.data.Bericht
 import com.example.faith.databinding.FragmentChatBinding
 import com.example.faith.viewmodels.ChatViewModel
@@ -30,8 +25,7 @@ import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDateTime
 import retrofit2.Call
 import retrofit2.Callback
-import retrofit2.Response
-import java.util.*
+import java.util.Date
 import javax.inject.Inject
 
 /**
@@ -52,7 +46,7 @@ class ChatFragment : Fragment() {
     private var andereNaam = ""
 
     // Attributen voor getBerichten
-    private var aantal = 20;
+    private var aantal = 20
     private lateinit var totDatum: LocalDateTime
 
     override fun onCreateView(
@@ -91,7 +85,7 @@ class ChatFragment : Fragment() {
         try {
             initSignalR()
         } catch (e: Exception) {
-            kotlin.io.println("niet slaan")
+            println("niet slaan")
         }
 
         return binding.root
@@ -100,9 +94,9 @@ class ChatFragment : Fragment() {
     /***
      * SignalR starten en luisteren naar OntvangBericht
      */
-    fun initSignalR() {
-        signalRService?.start(mijnEmail, this)
-        signalRService?.getConnection().on(
+    private fun initSignalR() {
+        signalRService.start(mijnEmail, this)
+        signalRService.getConnection().on(
             "OntvangBericht",
             { text: String, verstuurderEmail: String, chatId: String ->
                 addNewMessages(text)

@@ -32,7 +32,7 @@ class MediumListViewModel @ViewModelInject constructor(
 ) : ViewModel() {
     companion object {
         const val KEY_START_PAGE = "startkey"
-        const val DEFAULT_PAGE = "0"
+        const val DEFAULT_PAGE = "medium"
     }
 
     init {

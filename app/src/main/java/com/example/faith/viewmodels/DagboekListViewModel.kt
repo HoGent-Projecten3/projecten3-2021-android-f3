@@ -31,7 +31,7 @@ class DagboekListViewModel @ViewModelInject constructor(
 
     companion object {
         const val KEY_START_PAGE = "startkey"
-        const val DEFAULT_PAGE = "0"
+        const val DEFAULT_PAGE = "dagboek"
     }
 
     init {
