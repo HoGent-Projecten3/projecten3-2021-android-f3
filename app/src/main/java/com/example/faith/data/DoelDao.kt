@@ -7,16 +7,10 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
 @Dao
-interface DoelDTODao {
-    /*@Query("SELECT * FROM doelen")
-    fun getAll(): LiveData<List<Doel>>*/
-
-    /*@Query("SELECT * FROM doelen WHERE naam = :doelNaam")
-    fun getOne(doelNaam: String): LiveData<Doel>*/
+interface DoelDao {
+    @Query("SELECT * FROM doelen ORDER BY inhoud")
+    fun getAll(): LiveData<List<Doel>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(doelen: List<Doel>)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertOne(doel: Doel)
 }

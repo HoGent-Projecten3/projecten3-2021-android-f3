@@ -1,12 +1,13 @@
 package com.example.faith.data
 
+import androidx.lifecycle.LiveData
 import com.example.faith.api.ApiService
 import retrofit2.Call
 import javax.inject.Inject
 import javax.inject.Singleton
 
 //@Singleton
-class DoelRepository @Inject constructor(/*private val doelDao: DoelDao, */private val service: ApiService) {
+class DoelRepository @Inject constructor(/*private val doelDao: DoelDao,*/private val service: ApiService) {
 
     fun getDoelen(): Call<List<Doel>> {
         return service.getDoelen()
@@ -20,7 +21,11 @@ class DoelRepository @Inject constructor(/*private val doelDao: DoelDao, */priva
         return service.syncDoelen(doelen)
     }
 
-    /*suspend fun insertDoelen(doelenDTO: List<DoelDTO>){
-        doelDao.insertAll(doelenDTO)
+    /*suspend fun insertDoelen(doelen: List<Doel>){
+        doelDao.insertAll(doelen)
+    }
+
+    fun getDoelenFromRoom(): LiveData<List<Doel>> {
+        return doelDao.getAll()
     }*/
 }

@@ -11,7 +11,7 @@ import com.example.faith.utilities.DATABASE_NAME
  * @author Remi Mestdagh
  */
 
-@Database(entities = arrayOf(Medium::class,Bericht::class,Hulpbron::class/*,DoelDTO::class*/), version = 3, exportSchema = false)
+@Database(entities = arrayOf(Medium::class,Bericht::class,Hulpbron::class/*,Doel::class*/), version = 7, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
@@ -19,7 +19,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun berichtDao(): BerichtDao
 
     abstract fun hulpbronDao(): HulpbronDao
-    //abstract fun DoelDTODao(): DoelDTODao
+    //abstract fun DoelDao(): DoelDao
 
 
     companion object {

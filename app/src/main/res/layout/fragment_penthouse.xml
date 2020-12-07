@@ -3,32 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!--<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
 
-        <TextView
-            android:id="@+id/textView"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Wat zijn jouw doelen?"
-            android:textAlignment="center"
-            android:textSize="36sp"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/doel_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>-->
-
-        <!--<LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/textView"
@@ -36,41 +18,37 @@
                 android:layout_height="wrap_content"
                 android:text="Wat zijn jouw doelen?"
                 android:textAlignment="center"
-                android:textSize="36sp" />
+                android:textSize="36sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:clipToPadding="true"
 
+                android:paddingTop="?actionBarSize"/>
+            <!--android:layout_marginTop="?actionBarSize"-->
             <View
                 android:id="@+id/divider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="?android:attr/listDivider" />
+                android:background="?android:attr/listDivider"
+                app:layout_constraintBottom_toTopOf="@+id/doel_list"
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                tools:layout_editor_absoluteX="16dp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/doel_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-
-        </LinearLayout>-->
-
-        <!--<androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true">
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/doel_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginTop="16dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.3"/>
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
@@ -110,18 +88,52 @@
             android:layout_gravity="bottom|end"
             app:srcCompat="@drawable/ic_add_black_24dp" />
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
 
-        <TextView
-            android:id="@+id/textView"
+    <!--<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Wat zijn jouw doelen?"
+                    android:textAlignment="center"
+                    android:textSize="36sp" />
+
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/doel_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+            </LinearLayout>-->
+
+    <!--<androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/doel_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Wat zijn jouw doelen?"
-            android:textAlignment="center"
-            android:textSize="36sp"
-            app:layout_constraintTop_toTopOf="parent"/>
-    </LinearLayout>
-</layout>
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.3"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>-->
