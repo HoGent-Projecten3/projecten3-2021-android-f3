@@ -10,7 +10,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.faith.adapters.ReceiveMessageItem
 import com.example.faith.adapters.SendMessageItem
 import com.example.faith.api.SignalRService
@@ -26,6 +28,7 @@ import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_chat.*
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.format.DateTimeFormatter.ISO_INSTANT
 import retrofit2.Call
@@ -40,7 +43,8 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class ChatFragment : Fragment() {
-    @Inject lateinit var signalRService: SignalRService
+    @Inject
+    lateinit var signalRService: SignalRService
     private val viewModel: ChatViewModel by viewModels()
     private val loginViewModel: LoginViewModel by activityViewModels()
     private val messageAdapter = GroupAdapter<GroupieViewHolder>()
@@ -50,9 +54,6 @@ class ChatFragment : Fragment() {
     private var andereEmail = ""
     private var mijnNaam = ""
     private var andereNaam = ""
-
-    // Aantal berichten in recyclerview om naar beneden te kunnen scrollen
-    private var positieScroll = 0
 
     // Attributen voor getBerichten
     private var aantal = 20;
@@ -70,10 +71,10 @@ class ChatFragment : Fragment() {
 
         // Email ingelogde gebruiker instellen
         loginViewModel.gebruikerEmail.observe(
-                this.viewLifecycleOwner,
-                {
-                    mijnEmail = it
-                }
+            this.viewLifecycleOwner,
+            {
+                mijnEmail = it
+            }
         )
 
         // Tijdzone instellen
@@ -81,7 +82,6 @@ class ChatFragment : Fragment() {
         totDatum = LocalDateTime.now()
 
         // Recyclerview opvullen met berichten
-        getBerichten2()
 
         setHasOptionsMenu(true)
 
@@ -89,8 +89,9 @@ class ChatFragment : Fragment() {
             verstuurBericht()
         }
 
-        binding.messagesList.scrollToPosition(positieScroll - 1)
         mijnEmail = loginViewModel.gebruikerEmail.value.toString()
+
+        getBerichten2()
         initSignalR()
         return binding.root
     }
@@ -106,8 +107,8 @@ class ChatFragment : Fragment() {
                 addNewMessages(text)
             },
             String::class.java,
-                String::class.java,
-                String::class.java
+            String::class.java,
+            String::class.java
         )
     }
 
@@ -116,21 +117,37 @@ class ChatFragment : Fragment() {
      */
     private fun verstuurBericht() {
         initSignalR()
-        var bericht = BerichtXML(mijnEmail, andereEmail, mijnNaam, andereNaam, txfEditBericht.text.toString(), LocalDateTime.now())
+        var bericht = BerichtXML(
+            mijnEmail,
+            andereEmail,
+            mijnNaam,
+            andereNaam,
+            txfEditBericht.text.toString(),
+            LocalDateTime.now()
+        )
         messageAdapter.add(SendMessageItem(bericht))
 
-        var call: Call<Message>? = viewModel.verstuurBericht(mijnEmail, andereEmail, mijnNaam, andereNaam, txfEditBericht.text.toString())
+        var call: Call<Message>? = viewModel.verstuurBericht(
+            mijnEmail,
+            andereEmail,
+            mijnNaam,
+            andereNaam,
+            txfEditBericht.text.toString()
+        )
         call!!.enqueue(
             object : Callback<Message?> {
                 override fun onFailure(call: Call<Message?>, t: Throwable) {}
-                override fun onResponse(call: Call<Message?>, response: retrofit2.Response<Message?>) {
+                override fun onResponse(
+                    call: Call<Message?>,
+                    response: retrofit2.Response<Message?>
+                ) {
                 }
             }
         )
 
         txfEditBericht.setText("")
-        positieScroll++
-        messages_list.scrollToPosition(positieScroll-1)
+        messageAdapter.notifyDataSetChanged()
+        messages_list.smoothScrollToPosition(messageAdapter.itemCount - 1);
     }
 
     /***
@@ -138,10 +155,16 @@ class ChatFragment : Fragment() {
      */
     private fun addNewMessages(message: String) {
         initSignalR()
-        var bericht = BerichtXML(andereEmail, mijnEmail, andereNaam, mijnNaam, message, LocalDateTime.now())
-        messageAdapter.add(ReceiveMessageItem(bericht))
-        positieScroll++
-        messages_list.scrollToPosition(positieScroll-1)
+        var bericht =
+            BerichtXML(andereEmail, mijnEmail, andereNaam, mijnNaam, message, LocalDateTime.now())
+
+        lifecycleScope.launch {
+            messageAdapter.add(ReceiveMessageItem(bericht))
+            messageAdapter.notifyDataSetChanged()
+
+            println(messageAdapter.itemCount)
+            messages_list.smoothScrollToPosition(messageAdapter.itemCount - 1);
+        }
     }
 
     /***
@@ -157,6 +180,7 @@ class ChatFragment : Fragment() {
                 ) {
                     var berichtLijst = response.body()?.berichten
                     berichtLijst?.forEach {
+
                         if (it.verstuurderEmail.equals(mijnEmail)) {
                             andereEmail = it.ontvangerEmail
                             andereNaam = it.ontvangerNaam
@@ -165,20 +189,49 @@ class ChatFragment : Fragment() {
                             andereNaam = it.verstuurderNaam
                         }
                         if (it.verstuurderEmail.equals(mijnEmail)) {
-                            messageAdapter.add(SendMessageItem(BerichtXML(it.verstuurderEmail, it.ontvangerEmail, it.verstuurderNaam, it.ontvangerNaam, it.text, LocalDateTime.parse(it.datum))))
+
+                            messageAdapter.add(
+                                SendMessageItem(
+                                    BerichtXML(
+                                        it.verstuurderEmail,
+                                        it.ontvangerEmail,
+                                        it.verstuurderNaam,
+                                        it.ontvangerNaam,
+                                        it.text,
+                                        LocalDateTime.parse(it.datum)
+                                    )
+                                )
+                            )
                         } else {
-                            messageAdapter.add(ReceiveMessageItem(BerichtXML(it.verstuurderEmail, it.ontvangerEmail, it.verstuurderNaam, it.ontvangerNaam, it.text, LocalDateTime.parse(it.datum))))
+                            messageAdapter.add(
+                                ReceiveMessageItem(
+                                    BerichtXML(
+                                        it.verstuurderEmail,
+                                        it.ontvangerEmail,
+                                        it.verstuurderNaam,
+                                        it.ontvangerNaam,
+                                        it.text,
+                                        LocalDateTime.parse(it.datum)
+                                    )
+                                )
+                            )
                         }
-                        positieScroll++
+
                     }
                     totDatum = LocalDateTime.parse(response.body()?.totDatum);
                     aantal = response.body()?.aantal!!;
+                    messageAdapter.notifyDataSetChanged()
+                    println(messageAdapter.itemCount)
+                    messages_list.scrollToPosition(messageAdapter.itemCount - 1);
                 }
 
                 override fun onFailure(call: Call<ApiBerichtSearchResponse?>, t: Throwable) {
                     Log.e("Error", t.toString())
+                    messageAdapter.notifyDataSetChanged()
+                    messages_list.smoothScrollToPosition(messageAdapter.itemCount - 1);
                 }
             }
+
         )
     }
 }
