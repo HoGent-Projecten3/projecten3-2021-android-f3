@@ -63,4 +63,5 @@
     <string name="websiteHint">Website</string>
     <string name="chatHint">Chat</string>
     <string name="hulpbron_toevoegen">Hulpbron toevoegen</string>
+    <string name="floatingbutton">add_dagboek</string>
 </resources>

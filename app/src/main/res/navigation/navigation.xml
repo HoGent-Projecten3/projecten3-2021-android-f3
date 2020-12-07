@@ -160,7 +160,7 @@
     <fragment
         android:id="@+id/dagboekFragment"
         android:name="com.example.faith.DagboekFragment"
-        android:label="DagboekFragment">
+        android:label="Dagboek">
         <action
             android:id="@+id/action_dagboekFragment_to_cinemaFragment"
             app:destination="@id/cinemaFragment"
@@ -184,7 +184,7 @@
     <fragment
         android:id="@+id/hulpbronListFragment"
         android:name="com.example.faith.HulpbronListFragment"
-        android:label="Hulpbronnen">
+        android:label="Infobalie">
         <action
             android:id="@+id/action_hulpbronListFragment_to_hulpbronDetailFragment"
             app:destination="@id/hulpbronDetailFragment"

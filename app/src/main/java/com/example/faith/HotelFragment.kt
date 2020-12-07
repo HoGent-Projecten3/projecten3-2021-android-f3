@@ -212,6 +212,8 @@ class HotelFragment : Fragment() {
         entranceIdleAnimation.start()
     }
 
+
+
 }
 
 

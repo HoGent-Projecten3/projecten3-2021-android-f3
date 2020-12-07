@@ -12,19 +12,21 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.LoadState
+import com.example.faith.adapters.DagboekAdapter
 import com.example.faith.adapters.MediumAdapter
-import com.example.faith.data.ApiMediumSearchResponse
-import com.example.faith.data.Medium
 import com.example.faith.databinding.FragmentMediumListBinding
 import com.example.faith.viewmodels.MediumListViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_dagboek_list.*
 import kotlinx.android.synthetic.main.fragment_medium_list.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 /**
  * @author Remi Mestdagh
@@ -32,10 +34,10 @@ import retrofit2.Response
  */
 @AndroidEntryPoint
 class MediumListFragment : Fragment() {
-
     private val viewModel: MediumListViewModel by viewModels()
-    private var searchJob: Job? = null
     private var adapter = MediumAdapter()
+
+    @ExperimentalPagingApi
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,15 +46,21 @@ class MediumListFragment : Fragment() {
         val binding = FragmentMediumListBinding.inflate(inflater, container, false)
         context ?: return binding.root
         binding.mediumList.adapter = adapter
-        getMedia()
+
         setHasOptionsMenu(true)
         binding.btGoToCinema.setOnClickListener {
             navigateToCinema()
         }
+        initAdapter()
+
 
         return binding.root
     }
 
+    /**
+     * zoekbalk inflaten en listener instellen
+     */
+    @ExperimentalPagingApi
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
         inflater.inflate(R.menu.bottom_app_bar, menu)
@@ -72,13 +80,13 @@ class MediumListFragment : Fragment() {
                     filter(newText)
                     return false
                 }
-            }
-        )
+            })
     }
 
     /**
      * de lijst filteren op naam
      */
+    @ExperimentalPagingApi
     private fun filter(text: String) {
         adapter = MediumAdapter()
         medium_list.adapter = adapter
@@ -98,10 +106,24 @@ class MediumListFragment : Fragment() {
         navController.navigate(direction)
     }
 
-    private fun getMedia() {
-        searchJob?.cancel()
-        searchJob = lifecycleScope.launch {
-            viewModel.searchPictures().collectLatest {
+    /**
+     * wanneer je terugkomt van een ander fragment moet de adapter upgedatet worden
+     */
+    @ExperimentalPagingApi
+    override fun onResume() {
+        super.onResume()
+        adapter.refresh()
+    }
+
+    /**
+     * adapter instellen
+     */
+    @ExperimentalPagingApi
+    private fun initAdapter() {
+
+        lifecycleScope.launchWhenCreated {
+            @OptIn(ExperimentalCoroutinesApi::class)
+            viewModel.posts.collectLatest {
                 adapter.submitData(it)
             }
         }

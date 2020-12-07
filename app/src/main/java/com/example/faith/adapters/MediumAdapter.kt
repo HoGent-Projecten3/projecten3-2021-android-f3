@@ -8,13 +8,13 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.faith.MediumListFragmentDirections
-import com.example.faith.data.ApiMediumResponse
+import com.example.faith.data.Medium
 import com.example.faith.databinding.ListItemMediumBinding
 /**
  * @author Remi Mestdagh
- * adapter for recyclerview in plantlistfragment
+ * adapter for recyclerview in mediumlistfrag
  */
-class MediumAdapter : PagingDataAdapter<ApiMediumResponse, MediumAdapter.MediumViewHolder>(MediumDiffCallback()) {
+class MediumAdapter : PagingDataAdapter<Medium, MediumAdapter.MediumViewHolder>(MediumDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MediumViewHolder {
         return MediumViewHolder(
             ListItemMediumBinding.inflate(
@@ -38,7 +38,7 @@ class MediumAdapter : PagingDataAdapter<ApiMediumResponse, MediumAdapter.MediumV
         }
 
         private fun navigateToMedium(
-            photo: ApiMediumResponse,
+            photo: Medium,
             view: View
         ) {
             val direction =
@@ -48,7 +48,7 @@ class MediumAdapter : PagingDataAdapter<ApiMediumResponse, MediumAdapter.MediumV
             view.findNavController().navigate(direction)
         }
 
-        fun bind(item: ApiMediumResponse) {
+        fun bind(item: Medium) {
             binding.apply {
                 photo = item
                 executePendingBindings()
@@ -63,13 +63,13 @@ class MediumAdapter : PagingDataAdapter<ApiMediumResponse, MediumAdapter.MediumV
         }
     }
 }
-private class MediumDiffCallback : DiffUtil.ItemCallback<ApiMediumResponse>() {
+private class MediumDiffCallback : DiffUtil.ItemCallback<Medium>() {
 
-    override fun areItemsTheSame(oldItem: ApiMediumResponse, newItem: ApiMediumResponse): Boolean {
+    override fun areItemsTheSame(oldItem: Medium, newItem: Medium): Boolean {
         return oldItem.mediumId == newItem.mediumId
     }
 
-    override fun areContentsTheSame(oldItem: ApiMediumResponse, newItem: ApiMediumResponse): Boolean {
+    override fun areContentsTheSame(oldItem: Medium, newItem: Medium): Boolean {
         return oldItem == newItem
     }
 }

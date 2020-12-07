@@ -96,7 +96,7 @@
 
     <data>
         <import type="android.view.View" />
-        <import type="com.example.faith.data.ApiMediumResponse"/>
+        <import type="com.example.faith.data.Medium"/>
         <variable
             name="viewModel"
             type="com.example.faith.viewmodels.MediumDetailViewModel" />

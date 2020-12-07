@@ -2,7 +2,6 @@ package com.example.faith
 
 import android.os.Bundle
 
-import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.faith.data.ApiMediumResponse
 import com.example.faith.data.Medium
 import com.example.faith.databinding.FragmentMediumDetailBinding
 import com.example.faith.viewmodels.MediumDetailViewModel
@@ -20,7 +18,6 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_medium_detail.*
 import retrofit2.Call
-import retrofit2.Callback
 import javax.inject.Inject
 /**
  * @author Remi Mestdagh
@@ -46,18 +43,18 @@ class MediumDetailFragment : Fragment() {
     }
 
     fun removeMedium() {
-        val call: Call<ApiMediumResponse>? = mediumDetailViewModel.removeMedium()
+        val call: Call<Medium>? = mediumDetailViewModel.removeMedium()
         mediumDetailViewModel.deleteMediumRoom()
         if (call != null) {
             call.enqueue(
-                object : retrofit2.Callback<ApiMediumResponse?> {
-                    override fun onFailure(call: Call<ApiMediumResponse?>, t: Throwable) {
+                object : retrofit2.Callback<Medium?> {
+                    override fun onFailure(call: Call<Medium?>, t: Throwable) {
                         activity?.let { Snackbar.make(it.findViewById(R.id.main_activity_coordinator),"Verwijderen mislukt",
                             Snackbar.LENGTH_LONG).show() }
                         navigateBack()
                     }
 
-                    override fun onResponse(call: Call<ApiMediumResponse?>, response: retrofit2.Response<ApiMediumResponse?>) {
+                    override fun onResponse(call: Call<Medium?>, response: retrofit2.Response<Medium?>) {
                         activity?.let { Snackbar.make(it.findViewById(R.id.main_activity_coordinator),"Verwijderd",
                             Snackbar.LENGTH_LONG).show() }
                         navigateBack()

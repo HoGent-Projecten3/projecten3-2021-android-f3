@@ -2,15 +2,14 @@ package com.example.faith.api
 
 import android.os.Message
 import com.example.faith.data.ApiBerichtSearchResponse
-import com.example.faith.data.ApiDagboekSearchResponse
 import com.example.faith.data.ApiHulpbronSearchResponse
-import com.example.faith.data.ApiMediumResponse
 import com.example.faith.data.ApiMediumSearchResponse
 import com.example.faith.data.DoelDTO
 import com.example.faith.data.Gebruiker
 import com.example.faith.data.HulpbronDTO
 import com.example.faith.data.Login
 import com.example.faith.data.LoginResponse
+import com.example.faith.data.Medium
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -71,23 +70,13 @@ interface ApiService {
         @Query("aantal") perPage: Int
     ): ApiMediumSearchResponse
 
-    @GET("Cinema/Media")
-    fun getMedia2(
-        @Query("page") page: Int,
-        @Query("aantal") perPage: Int
-    ): Call<ApiMediumSearchResponse>
 
     @GET("Cinema/Dagboek")
     suspend fun getDagboek(
         @Query("page") page: Int,
         @Query("aantal") perPage: Int
-    ): ApiDagboekSearchResponse
+    ): ApiMediumSearchResponse
 
-    @GET("Cinema/Dagboek")
-    fun getDagboek2(
-        @Query("page") page: Int,
-        @Query("aantal") perPage: Int
-    ): Call<ApiDagboekSearchResponse>
 
     @GET("Infobalie/getHulpbronnen")
     suspend fun getHulpbronnen(
@@ -125,7 +114,7 @@ interface ApiService {
     fun syncDoelen(@Body doelenDTO: List<DoelDTO>): Call<List<DoelDTO>>
 
     @DELETE("Cinema")
-    fun removeMedium(@Query("mediumId") id: Int): Call<ApiMediumResponse>
+    fun removeMedium(@Query("mediumId") id: Int): Call<Medium>
     @POST("Account/login")
     fun login(@Body login: Login): Call<LoginResponse>
 
