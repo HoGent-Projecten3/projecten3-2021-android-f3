@@ -103,18 +103,14 @@ class HotelFragment : Fragment() {
         when (kamer.id) {
             R.id.image_bar -> Navigation.findNavController(kamer)
                 .navigate(R.id.action_hotelFragment_to_chatFragment)
-            // Navigate to cinema room
-
             R.id.image_bib -> Navigation.findNavController(kamer)
                 .navigate(R.id.action_hotelFragment_to_dagboekListFragment2)
             R.id.image_trofee ->
                 Toast.makeText(getActivity(), "Trofee", Toast.LENGTH_SHORT)
                     .show()
-            // TODO
             R.id.image_penthouse ->
                 Navigation.findNavController(kamer)
                     .navigate(R.id.action_hotelFragment_to_penthouseFragment)
-            // TODO
             R.id.image_cinema ->
                 Navigation.findNavController(kamer)
                     .navigate(R.id.action_hotelFragment_to_mediumListFragment)

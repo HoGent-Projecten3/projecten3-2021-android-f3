@@ -87,15 +87,6 @@ interface ApiService {
             @Query("aantal") perPage:Int
     ) : ApiHulpbronSearchResponse
 
-    @GET("Infobalie/getHulpbronnen")
-    fun getHulpbronnen2(
-            @Query("textFilter") textFilter:String,
-            @Query("includePublic") includePublic:Boolean,
-            @Query("includePrivate") includePrivate:Boolean,
-            @Query("page") page:Int,
-            @Query("aantal") perPage:Int
-    ) : Call<ApiHulpbronSearchResponse>
-
     @DELETE("Infobalie")
     fun deleteHulpbron(@Query("hulpbronId") id: Int): Call<Message>
 

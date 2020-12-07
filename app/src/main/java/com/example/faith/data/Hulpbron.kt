@@ -3,24 +3,31 @@ package com.example.faith.data
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
 import com.google.gson.annotations.SerializedName
-import java.text.DateFormat
-import java.text.SimpleDateFormat
+import java.time.DateTimeException
 import java.util.*
-
 @Entity(tableName = "hulpbronnen")
 data class Hulpbron(
-        @PrimaryKey @ColumnInfo(name = "id")
-        val hulpbronId: Int,
-        val auteurType:String,
-        val titel: String,
-        val inhoud: String?,
-        val url: String?,
-        val telefoonnummer: String?,
-        val emailadres: String?,
-        val chatUrl: String?,
-        val datum: String
-) {
-        override fun toString() = titel
+    @PrimaryKey @ColumnInfo(name = "id")
+    @field:SerializedName("hulpbronId")
+    val hulpbronId: Int,
+    @field:SerializedName("titel")
+    val titel: String,
+    @field:SerializedName("inhoud")
+    val inhoud: String,
+    @field:SerializedName("url")
+    val url: String?,
+    @field:SerializedName("telefoonnummer")
+    val telefoonnummer: String?,
+    @field:SerializedName("emailadres")
+    val emailadres: String?,
+    @field:SerializedName("chatUrl")
+    val chatUrl: String?,
+    @field:SerializedName("datum")
+    val datum: String?,
+    @field:SerializedName("auteurType")
+    val auteurType:String,
+)
+{
+    override fun toString() = titel
 }

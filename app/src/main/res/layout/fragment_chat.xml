@@ -14,12 +14,12 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
+                android:padding="@dimen/margin_normal"
+                android:layout_marginTop="?actionBarSize"
                 android:id="@+id/messages_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:clipToPadding="false"
-                android:paddingTop="72dp"
-                android:paddingBottom="50dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toTopOf="@+id/layout_messageArea"
                 app:layout_constraintEnd_toEndOf="parent"

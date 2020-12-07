@@ -12,8 +12,8 @@ class ApiHulpbronPagingSource(
         private val includePrivate: Boolean
 
 
-) : PagingSource<Int, ApiHulpbron>() {
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ApiHulpbron> {
+) : PagingSource<Int, Hulpbron>() {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Hulpbron> {
         val page = params.key ?: API_STARTING_PAGE_INDEX
         return try {
             val response = service.getHulpbronnen(textFilter, includePublic, includePrivate, page = page, perPage = params.loadSize)
