@@ -25,46 +25,36 @@
 
         <variable
             name="longClickListener"
-            type="android.view.View.OnLongClickListener"/>
+            type="android.view.View.OnLongClickListener" />
+
         <variable
             name="photo"
             type="com.example.faith.data.Medium" />
     </data>
 
     <com.example.faith.views.MaskedCardView
+        android:id="@+id/photo_card"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/card_side_margin"
         android:layout_marginEnd="@dimen/card_side_margin"
         android:layout_marginBottom="@dimen/card_bottom_margin"
         android:onClick="@{clickListener}"
-        android:onLongClickListener="@{longClickListener}"
         app:cardElevation="@dimen/card_elevation"
         app:cardPreventCornerOverlap="false"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Sunflower.Card"
-        android:backgroundTint="@color/hotel_theme"
-       >
+        android:backgroundTint="@color/hotel_theme">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/hotel_theme">
-
-
-            <ImageView
-                android:id="@+id/plant_photo"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/plant_item_image_height"
-                android:scaleType="centerCrop"
-                app:imageFromUrl="@{photo.url}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            android:backgroundTint="@color/hotel_theme"
+            android:orientation="vertical">
 
             <TextView
+                android:layout_width="match_parent"
                 android:id="@+id/naam"
-                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/smallmargin"
                 android:gravity="center_horizontal"
@@ -80,8 +70,38 @@
                 android:textStyle="bold"
                 android:textAlignment="center" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:id="@+id/plant_photo"
+                android:layout_height="@dimen/plant_item_image_height"
+                android:scaleType="centerCrop"
+                app:imageFromUrl="@{photo.url}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:orientation="vertical">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btVerwijderMedium"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/delete_button_text"
+                    app:icon="@drawable/ic_delete"
+                    app:iconSize="24dp"
+                    style="?attr/borderlessButtonStyle" />
+            </LinearLayout>
+
+
+        </LinearLayout>
     </com.example.faith.views.MaskedCardView>
+
 
 </layout>

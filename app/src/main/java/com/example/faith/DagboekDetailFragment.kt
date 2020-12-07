@@ -60,44 +60,10 @@ class DagboekDetailFragment : Fragment() {
 
         setHasOptionsMenu(true)
 
-        binding.btRemoveDagboek.setOnClickListener {
-            removeMedium()
-        }
+
         return binding.root
     }
 
-    /**
-     * verwijdert het medium
-     */
-    fun removeMedium() {
-        val call: Call<Medium> = dagboekDetailViewModel.removeMediumApi()
-        dagboekDetailViewModel.deleteMediumRoom()
-        call.enqueue(
-            object : retrofit2.Callback<Medium?> {
-                override fun onResponse(call: Call<Medium?>, response: retrofit2.Response<Medium?>) {
-                    activity?.let { Snackbar.make(it.findViewById(R.id.main_activity_coordinator),"Verwijderd",Snackbar.LENGTH_LONG).show() }
-                    navigateToDagboek()
-
-                }
-                override fun onFailure(call: Call<Medium?>, t: Throwable) {
-                    activity?.let { Snackbar.make(it.findViewById(R.id.main_activity_coordinator),"Verwijderen mislukt",Snackbar.LENGTH_LONG).show() }
-
-                }
-
-
-            }
-        )
-    }
-
-    /**
-     * navigeert terug naar het algemeen overzicht van dagboekposts
-     */
-    private fun navigateToDagboek() {
-        val direction = DagboekDetailFragmentDirections.actionDagboekDetailFragmentToDagboekListFragment2()
-        val navController = findNavController()
-        navController.navigate(direction)
-
-    }
 
     fun interface Callback {
         fun add(medium: Medium?)

@@ -21,19 +21,6 @@ class MediumDetailViewModel @AssistedInject constructor(
 
     var medium = mediumRepository.getMedium(mediumId)
 
-    fun deleteMediumRoom() {
-        viewModelScope.launch {
-            if(medium!=null){
-                medium.value?.let { mediumRepository.deleteMediumRoom(it) }
-            }
-
-        }
-    }
-
-    fun removeMedium(): Call<Medium>? {
-
-        return medium.value?.let { mediumRepository.removeMedium(it.mediumId) }
-    }
 
     @AssistedInject.Factory
     interface AssistedFactory {

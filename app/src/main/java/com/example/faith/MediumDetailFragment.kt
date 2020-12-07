@@ -19,6 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_medium_detail.*
 import retrofit2.Call
 import javax.inject.Inject
+
 /**
  * @author Remi Mestdagh
  */
@@ -36,33 +37,7 @@ class MediumDetailFragment : Fragment() {
             args.mediumId
         )
     }
-    fun navigateBack(){
-        val direction = MediumDetailFragmentDirections.actionMediumDetailFragmentToMediumListFragment()
-        val navController = findNavController()
-        navController.navigate(direction)
-    }
 
-    fun removeMedium() {
-        val call: Call<Medium>? = mediumDetailViewModel.removeMedium()
-        mediumDetailViewModel.deleteMediumRoom()
-        if (call != null) {
-            call.enqueue(
-                object : retrofit2.Callback<Medium?> {
-                    override fun onFailure(call: Call<Medium?>, t: Throwable) {
-                        activity?.let { Snackbar.make(it.findViewById(R.id.main_activity_coordinator),"Verwijderen mislukt",
-                            Snackbar.LENGTH_LONG).show() }
-                        navigateBack()
-                    }
-
-                    override fun onResponse(call: Call<Medium?>, response: retrofit2.Response<Medium?>) {
-                        activity?.let { Snackbar.make(it.findViewById(R.id.main_activity_coordinator),"Verwijderd",
-                            Snackbar.LENGTH_LONG).show() }
-                        navigateBack()
-                    }
-                }
-            )
-        }
-    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -83,9 +58,7 @@ class MediumDetailFragment : Fragment() {
         }
 
         setHasOptionsMenu(true)
-        binding.btRemoveMedium.setOnClickListener {
-            removeMedium()
-        }
+
         binding.mediumVideo.start()
 
         return binding.root

@@ -20,24 +20,13 @@ class DagboekDetailViewModel @AssistedInject constructor(
 
     var dagboek = mediumRepository.getMedium(mediumId)
 
-    fun deleteMediumRoom() {
-        viewModelScope.launch {
-            if(dagboek!=null){
-                mediumRepository.deleteMediumRoom(dagboek.value!!)
-            }
-
-        }
-    }
-    fun removeMediumApi(): Call<Medium> {
-        return mediumRepository.removeMedium(dagboek.value!!.mediumId)
-    }
-
     @AssistedInject.Factory
     interface AssistedFactory {
         fun create(mediumId: Int): DagboekDetailViewModel
     }
 
     companion object {
+        var instance: DagboekDetailViewModel? = null
         fun provideFactory(
             assistedFactory: AssistedFactory,
             mediumId: Int

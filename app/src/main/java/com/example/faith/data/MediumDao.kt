@@ -26,6 +26,6 @@ interface MediumDao {
     fun insertAll(media: List<Medium>)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOne(medium: Medium)
-    @Delete
-    suspend fun deleteMedium(medium: Medium)
+    @Query("DELETE FROM media WHERE mediumId = :id")
+    suspend fun deleteMedium(id: Int)
 }

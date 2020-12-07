@@ -70,5 +70,5 @@ class MediumRepository @Inject constructor(
         return service.removeMedium(id)
     }
 
-    suspend fun deleteMediumRoom(medium: Medium) = mediumDao.deleteMedium(medium)
+    suspend fun deleteMediumRoom(id: Int) = mediumDao.deleteMedium(id)
 }

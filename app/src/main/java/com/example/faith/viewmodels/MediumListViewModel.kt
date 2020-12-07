@@ -22,6 +22,8 @@ import kotlinx.coroutines.flow.flattenMerge
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
+import retrofit2.Call
 
 /**
  * @author Remi Mestdagh
@@ -31,6 +33,7 @@ class MediumListViewModel @ViewModelInject constructor(
 
 ) : ViewModel() {
     companion object {
+        var instance: MediumListViewModel? = null
         const val KEY_START_PAGE = "startkey"
         const val DEFAULT_PAGE = "medium"
     }
@@ -39,6 +42,8 @@ class MediumListViewModel @ViewModelInject constructor(
         if (!savedStateHandle.contains(KEY_START_PAGE)) {
             savedStateHandle.set(KEY_START_PAGE, DEFAULT_PAGE)
         }
+        instance=this;
+
     }
 
     private val clearListCh = Channel<Unit>(Channel.CONFLATED)
@@ -67,6 +72,18 @@ class MediumListViewModel @ViewModelInject constructor(
             }
         }.cachedIn(viewModelScope)
     }
+    fun deleteMediumRoom(id:Int) {
+        viewModelScope.launch {
+
+            apiRepository.deleteMediumRoom(id)
+
+
+        }
+    }
+    fun removeMediumApi(id: Int): Call<Medium> {
+        return apiRepository.removeMedium(id)
+    }
+
 
 
 

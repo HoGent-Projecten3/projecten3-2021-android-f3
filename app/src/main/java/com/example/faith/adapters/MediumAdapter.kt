@@ -10,6 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.faith.MediumListFragmentDirections
 import com.example.faith.data.Medium
 import com.example.faith.databinding.ListItemMediumBinding
+import com.example.faith.viewmodels.DagboekListViewModel
+import com.example.faith.viewmodels.MediumListViewModel
+import retrofit2.Call
+
 /**
  * @author Remi Mestdagh
  * adapter for recyclerview in mediumlistfrag
@@ -30,6 +34,17 @@ class MediumAdapter : PagingDataAdapter<Medium, MediumAdapter.MediumViewHolder>(
         private val binding: ListItemMediumBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         init {
+
+            binding.photoCard.setOnLongClickListener {
+                if (binding.btVerwijderMedium.visibility == View.GONE)
+                    binding.btVerwijderMedium.visibility = View.VISIBLE
+                else if (binding.btVerwijderMedium.visibility == View.VISIBLE)
+                    binding.btVerwijderMedium.visibility = View.GONE
+                true
+            }
+
+
+
             binding.setClickListener {
                 binding.photo?.let { photo ->
                     navigateToMedium(photo, it)
@@ -51,6 +66,37 @@ class MediumAdapter : PagingDataAdapter<Medium, MediumAdapter.MediumViewHolder>(
         fun bind(item: Medium) {
             binding.apply {
                 photo = item
+
+
+
+                val viewModel = MediumListViewModel.instance
+                binding.btVerwijderMedium.setOnClickListener {
+                    val call: Call<Medium> =
+                        viewModel!!.removeMediumApi(binding.photo!!.mediumId)
+                    call.enqueue(
+                        object : retrofit2.Callback<Medium?> {
+                            override fun onResponse(call: Call<Medium?>, response: retrofit2.Response<Medium?>) {
+                                viewModel!!.deleteMediumRoom(binding.photo!!.mediumId)
+
+                            }
+                            override fun onFailure(call: Call<Medium?>, t: Throwable) {
+
+
+                            }
+
+
+                        }
+                    )
+
+                    this@MediumViewHolder.bindingAdapter
+                    bindingAdapter?.notifyItemRemoved(this@MediumViewHolder.absoluteAdapterPosition) // Item wordt verwijderd maar aangezien er niet echt meteen iets weg is add hij het laatste item nog is?
+                }
+
+
+
+
+
+
                 executePendingBindings()
             }
         }
