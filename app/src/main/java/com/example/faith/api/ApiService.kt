@@ -8,6 +8,7 @@ import com.example.faith.data.ApiMediumResponse
 import com.example.faith.data.ApiMediumSearchResponse
 import com.example.faith.data.DoelDTO
 import com.example.faith.data.Gebruiker
+import com.example.faith.data.HulpbronDTO
 import com.example.faith.data.Login
 import com.example.faith.data.LoginResponse
 import okhttp3.MultipartBody
@@ -125,6 +126,8 @@ interface ApiService {
 
     @DELETE("Cinema")
     fun removeMedium(@Query("mediumId") id: Int): Call<ApiMediumResponse>
+    @POST("Account/login")
+    fun login(@Body login: Login): Call<LoginResponse>
 
     data class LoginResponseModel(
         val token: String,

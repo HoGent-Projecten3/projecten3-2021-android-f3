@@ -33,9 +33,6 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/action_hotelFragment_to_hulpbronListFragment"
-            app:destination="@id/hulpbronListFragment" />
-        <action
 
             android:id="@+id/action_hotelFragment_to_chatFragment"
             app:destination="@id/chatFragment"
