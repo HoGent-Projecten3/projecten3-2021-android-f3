@@ -1,24 +1,23 @@
 package com.example.faith
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.Message
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.faith.adapters.ReceiveMessageItem
 import com.example.faith.adapters.SendMessageItem
 import com.example.faith.api.SignalRService
 import com.example.faith.data.ApiBerichtSearchResponse
 import com.example.faith.data.Bericht
-import com.example.faith.data.Gebruiker
 import com.example.faith.databinding.FragmentChatBinding
 import com.example.faith.viewmodels.ChatViewModel
 import com.example.faith.viewmodels.LoginViewModel
@@ -27,14 +26,11 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_chat.*
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDateTime
-import org.threeten.bp.format.DateTimeFormatter.ISO_INSTANT
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.time.LocalDate
 import java.util.*
 import javax.inject.Inject
 
@@ -82,7 +78,7 @@ class ChatFragment : Fragment() {
         totDatum = LocalDateTime.now()
 
         // Recyclerview opvullen met berichten
-
+        getBerichten()
         setHasOptionsMenu(true)
 
         binding.btSendMessage.setOnClickListener {
@@ -91,8 +87,13 @@ class ChatFragment : Fragment() {
 
         mijnEmail = loginViewModel.gebruikerEmail.value.toString()
 
-        getBerichten2()
-        initSignalR()
+
+        try {
+            initSignalR()
+        } catch (e: Exception) {
+            kotlin.io.println("niet slaan")
+        }
+
         return binding.root
     }
 
@@ -117,13 +118,14 @@ class ChatFragment : Fragment() {
      */
     private fun verstuurBericht() {
         initSignalR()
-        var bericht = Bericht(0,
+        var bericht = Bericht(
+            0,
             mijnEmail,
             andereEmail,
             mijnNaam,
             andereNaam,
             txfEditBericht.text.toString(),
-         Date()
+            Date()
         )
         messageAdapter.add(SendMessageItem(bericht))
 
@@ -156,7 +158,7 @@ class ChatFragment : Fragment() {
     private fun addNewMessages(message: String) {
         initSignalR()
         var bericht =
-            Bericht(0,andereEmail, mijnEmail, andereNaam, mijnNaam, message, Date())
+            Bericht(0, andereEmail, mijnEmail, andereNaam, mijnNaam, message, Date())
 
         lifecycleScope.launch {
             messageAdapter.add(ReceiveMessageItem(bericht))
@@ -167,71 +169,53 @@ class ChatFragment : Fragment() {
         }
     }
 
-    /***
-     * Berichten laden in recyclerview
-     */
-    private fun getBerichten2() {
-        viewModel.geefBerichten2(totDatum.toString(), aantal).enqueue(
+    private fun getBerichten() {
+        lifecycleScope.launch {
+            viewModel.geefBerichten(totDatum.toString(), aantal).observe(viewLifecycleOwner,
+                {
+                    it?.let {
+                        it.forEach {
+                            if (it.verstuurderEmail.equals(mijnEmail)) {
+                                andereEmail = it.ontvangerEmail
+                                andereNaam = it.ontvangerNaam
+                            } else {
+                                andereEmail = it.verstuurderEmail
+                                andereNaam = it.verstuurderNaam
+                            }
+                            if (it.verstuurderEmail.equals(mijnEmail)) {
 
-            object : Callback<ApiBerichtSearchResponse?> {
-                override fun onResponse(
-                    call: Call<ApiBerichtSearchResponse?>,
-                    response: Response<ApiBerichtSearchResponse?>
-                ) {
-                    var berichtLijst = response.body()?.berichten
-                    berichtLijst?.forEach {
-
-                        if (it.verstuurderEmail.equals(mijnEmail)) {
-                            andereEmail = it.ontvangerEmail
-                            andereNaam = it.ontvangerNaam
-                        } else {
-                            andereEmail = it.verstuurderEmail
-                            andereNaam = it.verstuurderNaam
-                        }
-                        if (it.verstuurderEmail.equals(mijnEmail)) {
-
-                            messageAdapter.add(
-                                SendMessageItem(
-                                    Bericht(0,
-                                        it.verstuurderEmail,
-                                        it.ontvangerEmail,
-                                        it.verstuurderNaam,
-                                        it.ontvangerNaam,
-                                        it.text,
-                                        it.datum
+                                messageAdapter.add(
+                                    SendMessageItem(
+                                        Bericht(
+                                            0,
+                                            it.verstuurderEmail,
+                                            it.ontvangerEmail,
+                                            it.verstuurderNaam,
+                                            it.ontvangerNaam,
+                                            it.text,
+                                            it.datum
+                                        )
                                     )
                                 )
-                            )
-                        } else {
-                            messageAdapter.add(
-                                ReceiveMessageItem(
-                                    Bericht(0,
-                                        it.verstuurderEmail,
-                                        it.ontvangerEmail,
-                                        it.verstuurderNaam,
-                                        it.ontvangerNaam,
-                                        it.text,
-                                        it.datum
+                            } else {
+                                messageAdapter.add(
+                                    ReceiveMessageItem(
+                                        Bericht(
+                                            0,
+                                            it.verstuurderEmail,
+                                            it.ontvangerEmail,
+                                            it.verstuurderNaam,
+                                            it.ontvangerNaam,
+                                            it.text,
+                                            it.datum
+                                        )
                                     )
                                 )
-                            )
+                            }
                         }
-
                     }
-                    totDatum = LocalDateTime.parse(response.body()?.totDatum);
-                    aantal = response.body()?.aantal!!;
-                    messageAdapter.notifyDataSetChanged()
-                    println(messageAdapter.itemCount)
-                    messages_list.scrollToPosition(messageAdapter.itemCount - 1);
-                }
+                })
 
-                override fun onFailure(call: Call<ApiBerichtSearchResponse?>, t: Throwable) {
-                    Log.e("Error", t.toString())
-                    messageAdapter.notifyDataSetChanged()
-                    messages_list.smoothScrollToPosition(messageAdapter.itemCount - 1);
-                }
-            }
-
-        )
+        }
     }
 }

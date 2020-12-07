@@ -21,7 +21,7 @@ class DagboekViewModel @ViewModelInject constructor(
     fun uploadDagboekPost(titel: String, beschrijving: String): Call<Message> {
         return repository.postText(titel, beschrijving)
     }
-    @RequiresApi(Build.VERSION_CODES.O)
+
     suspend fun insertOne(mediumId:Int, titel: String,beschrijving: String,url: String, mediumType: Int,datum:Date){
         return repository.insertOne(Medium(mediumId,titel,"",beschrijving,4, datum))
     }

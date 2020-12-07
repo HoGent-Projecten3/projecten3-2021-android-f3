@@ -35,6 +35,8 @@ class SignalRService {
         init(email)
     }
 
+
+
     fun stop() {
         hubConnection.stop()
     }
