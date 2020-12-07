@@ -24,6 +24,7 @@ import com.example.faith.viewmodels.HulpbronDetailViewModel
 import com.example.faith.viewmodels.HulpbronListViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_dagboek.*
+import kotlinx.android.synthetic.main.fragment_infobalie.view.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filter
@@ -93,10 +94,12 @@ class HulpbronAdapter : PagingDataAdapter<ApiHulpbron, HulpbronAdapter.HulpbronV
 
                             override fun onResponse(call: Call<Message?>, response: retrofit2.Response<Message?>) {
                                 Log.d("Succes",call.toString())
-                                //bindingAdapter?.notifyItemRemoved(binding.hulpbron!!.hulpbronId)
                             }
                         }
                     )
+                    Log.d("ADAPTERPOSITION", this@HulpbronViewHolder.absoluteAdapterPosition.toString())
+                    this@HulpbronViewHolder.bindingAdapter
+                    bindingAdapter?.notifyItemRemoved(this@HulpbronViewHolder.absoluteAdapterPosition) // Item wordt verwijderd maar aangezien er niet echt meteen iets weg is add hij het laatste item nog is?
                 }
                 executePendingBindings()
             }
@@ -111,6 +114,7 @@ class HulpbronAdapter : PagingDataAdapter<ApiHulpbron, HulpbronAdapter.HulpbronV
         if(hulpbron!=null){
             holder.bind(hulpbron)
             }
+
         }
     }
     private class HulpbronDiffCallback : DiffUtil.ItemCallback<ApiHulpbron>(){
