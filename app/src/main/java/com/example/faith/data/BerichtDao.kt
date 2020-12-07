@@ -1,6 +1,7 @@
 package com.example.faith.data
 
 import androidx.lifecycle.LiveData
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -16,4 +17,7 @@ interface BerichtDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertOne(bericht: Bericht)
+
+    @Query("SELECT * FROM berichten ORDER BY datum")
+    fun getAll(): PagingSource<Int, Bericht>
 }

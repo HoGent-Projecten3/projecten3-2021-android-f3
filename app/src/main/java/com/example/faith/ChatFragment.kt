@@ -17,7 +17,7 @@ import com.example.faith.adapters.ReceiveMessageItem
 import com.example.faith.adapters.SendMessageItem
 import com.example.faith.api.SignalRService
 import com.example.faith.data.ApiBerichtSearchResponse
-import com.example.faith.data.BerichtXML
+import com.example.faith.data.Bericht
 import com.example.faith.data.Gebruiker
 import com.example.faith.databinding.FragmentChatBinding
 import com.example.faith.viewmodels.ChatViewModel
@@ -117,13 +117,13 @@ class ChatFragment : Fragment() {
      */
     private fun verstuurBericht() {
         initSignalR()
-        var bericht = BerichtXML(
+        var bericht = Bericht(0,
             mijnEmail,
             andereEmail,
             mijnNaam,
             andereNaam,
             txfEditBericht.text.toString(),
-            LocalDateTime.now()
+         Date()
         )
         messageAdapter.add(SendMessageItem(bericht))
 
@@ -156,7 +156,7 @@ class ChatFragment : Fragment() {
     private fun addNewMessages(message: String) {
         initSignalR()
         var bericht =
-            BerichtXML(andereEmail, mijnEmail, andereNaam, mijnNaam, message, LocalDateTime.now())
+            Bericht(0,andereEmail, mijnEmail, andereNaam, mijnNaam, message, Date())
 
         lifecycleScope.launch {
             messageAdapter.add(ReceiveMessageItem(bericht))
@@ -192,26 +192,26 @@ class ChatFragment : Fragment() {
 
                             messageAdapter.add(
                                 SendMessageItem(
-                                    BerichtXML(
+                                    Bericht(0,
                                         it.verstuurderEmail,
                                         it.ontvangerEmail,
                                         it.verstuurderNaam,
                                         it.ontvangerNaam,
                                         it.text,
-                                        LocalDateTime.parse(it.datum)
+                                        it.datum
                                     )
                                 )
                             )
                         } else {
                             messageAdapter.add(
                                 ReceiveMessageItem(
-                                    BerichtXML(
+                                    Bericht(0,
                                         it.verstuurderEmail,
                                         it.ontvangerEmail,
                                         it.verstuurderNaam,
                                         it.ontvangerNaam,
                                         it.text,
-                                        LocalDateTime.parse(it.datum)
+                                        it.datum
                                     )
                                 )
                             )
