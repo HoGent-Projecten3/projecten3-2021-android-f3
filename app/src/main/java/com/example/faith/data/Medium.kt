@@ -25,7 +25,7 @@ data class Medium(
     @field:SerializedName("mediumType")
     val mediumType: Int,
     @field:SerializedName("datum")
-    val datum: Date
+    val datum: Date?
 
 ) {
 

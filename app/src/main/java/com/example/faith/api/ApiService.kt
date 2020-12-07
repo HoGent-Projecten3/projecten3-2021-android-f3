@@ -114,7 +114,7 @@ interface ApiService {
     fun syncDoelen(@Body doelenDTO: List<DoelDTO>): Call<List<DoelDTO>>
 
     @DELETE("Cinema")
-    fun removeMedium(@Query("mediumId") id: Int): Call<ApiMediumResponse>
+    fun removeMedium(@Query("mediumId") id: Int): Call<Medium>
     @POST("Account/login")
     fun login(@Body login: Login): Call<LoginResponse>
 
