@@ -6,16 +6,20 @@ import com.example.faith.api.ApiService
 private const val API_STARTING_PAGE_INDEX = 0
 
 class ApiHulpbronPagingSource(
-        private val service: ApiService
+        private val service: ApiService,
+        private val textFilter: String,
+        private val includePublic: Boolean,
+        private val includePrivate: Boolean
+
 
 ) : PagingSource<Int, ApiHulpbron>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ApiHulpbron> {
         val page = params.key ?: API_STARTING_PAGE_INDEX
         return try {
-            val response = service.getHulpbronnen(page,params.loadSize)
-            val photos = response.results
+            val response = service.getHulpbronnen(textFilter, includePublic, includePrivate, page = page, perPage = params.loadSize)
+            val hulpbronnen = response.results
             LoadResult.Page(
-                    data = photos,
+                    data = hulpbronnen,
                     prevKey = if (page == API_STARTING_PAGE_INDEX) null else page - 1,
                     nextKey =  if (page == response.totalPages) null else page + 1
             )

@@ -210,6 +210,37 @@
     </fragment>
 
     <fragment
+        android:id="@+id/hulpbronListFragment"
+        android:name="com.example.faith.HulpbronListFragment"
+        android:label="Hulpbronnen" >
+        <action
+            android:id="@+id/action_hulpbronListFragment_to_hulpbronDetailFragment"
+            app:destination="@id/hulpbronDetailFragment" />
+        <action
+            android:id="@+id/action_hulpbronListFragment_to_hulpbronFragment"
+            app:destination="@id/hulpbronFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/hulpbronDetailFragment"
+        android:name="com.example.faith.HulpbronDetailFragment"
+        android:label="Hulpbron" >
+        <action
+            android:id="@+id/action_hulpbronDetailFragment_to_hulpbronListFragment"
+            app:destination="@id/hulpbronListFragment" />
+        <argument
+            android:name="hulpbronId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/hulpbronFragment"
+        android:name="com.example.faith.HulpbronFragment"
+        android:label="Hulpbron aanmaken" >
+        <action
+            android:id="@+id/action_hulpbronFragment_to_hulpbronListFragment"
+            app:destination="@id/hulpbronListFragment" />
+    </fragment>
+
+    <fragment
         android:id="@+id/penthouseFragment"
         android:name="com.example.faith.PenthouseFragment"
         android:label="Het penthouse"

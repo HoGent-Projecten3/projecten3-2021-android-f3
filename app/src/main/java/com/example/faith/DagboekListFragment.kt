@@ -62,7 +62,7 @@ class DagboekListFragment : Fragment() {
         menu.clear()
         inflater.inflate(R.menu.bottom_app_bar, menu)
         super.onCreateOptionsMenu(menu, inflater)
-        var searchItem: MenuItem = menu.findItem(R.id.searchBib)
+        var searchItem: MenuItem = menu.findItem(R.id.search)
         var searchView2 = SearchView(context)
         searchItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW or MenuItem.SHOW_AS_ACTION_IF_ROOM)
         searchItem.setActionView(searchView2)

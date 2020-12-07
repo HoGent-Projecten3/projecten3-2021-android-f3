@@ -8,6 +8,7 @@ import com.example.faith.data.ApiMediumResponse
 import com.example.faith.data.ApiMediumSearchResponse
 import com.example.faith.data.DoelDTO
 import com.example.faith.data.Gebruiker
+import com.example.faith.data.HulpbronDTO
 import com.example.faith.data.Login
 import com.example.faith.data.LoginResponse
 import okhttp3.MultipartBody
@@ -88,20 +89,29 @@ interface ApiService {
         @Query("aantal") perPage: Int
     ): Call<ApiDagboekSearchResponse>
 
-    @GET("Infobalie/getHulpbronnenPaging")
+    @GET("Infobalie/getHulpbronnen")
     suspend fun getHulpbronnen(
-        @Query("page") page: Int,
-        @Query("aantal") perPage: Int
-    ): ApiHulpbronSearchResponse
+            @Query("textFilter") textFilter:String,
+            @Query("includePublic") includePublic:Boolean,
+            @Query("includePrivate") includePrivate:Boolean,
+            @Query("page") page:Int,
+            @Query("aantal") perPage:Int
+    ) : ApiHulpbronSearchResponse
 
-    @GET("Infobalie/getHulpbronnenPaging")
+    @GET("Infobalie/getHulpbronnen")
     fun getHulpbronnen2(
-        @Query("page") page: Int,
-        @Query("aantal") perPage: Int
-    ): Call<ApiHulpbronSearchResponse>
+            @Query("textFilter") textFilter:String,
+            @Query("includePublic") includePublic:Boolean,
+            @Query("includePrivate") includePrivate:Boolean,
+            @Query("page") page:Int,
+            @Query("aantal") perPage:Int
+    ) : Call<ApiHulpbronSearchResponse>
 
-    @POST("Account/login")
-    fun login(@Body login: Login): Call<LoginResponse>
+    @DELETE("Infobalie")
+    fun deleteHulpbron(@Query("hulpbronId") id: Int): Call<Message>
+
+    @POST("Infobalie")
+    fun postHulpbron(@Body hulpbron: HulpbronDTO): Call<Message>
 
     @GET("Client/GetDoelen")
     fun getDoelen(): Call<List<DoelDTO>>
@@ -116,6 +126,8 @@ interface ApiService {
 
     @DELETE("Cinema")
     fun removeMedium(@Query("mediumId") id: Int): Call<ApiMediumResponse>
+    @POST("Account/login")
+    fun login(@Body login: Login): Call<LoginResponse>
 
     data class LoginResponseModel(
         val token: String,
