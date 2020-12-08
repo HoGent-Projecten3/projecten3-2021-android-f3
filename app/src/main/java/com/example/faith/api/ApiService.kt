@@ -70,25 +70,23 @@ interface ApiService {
         @Query("aantal") perPage: Int
     ): ApiMediumSearchResponse
 
-
     @GET("Cinema/Dagboek")
     suspend fun getDagboek(
         @Query("page") page: Int,
         @Query("aantal") perPage: Int
     ): ApiMediumSearchResponse
 
-
     @GET("Infobalie/getHulpbronnen")
     suspend fun getHulpbronnen(
-            @Query("textFilter") textFilter:String,
-            @Query("includePublic") includePublic:Boolean,
-            @Query("includePrivate") includePrivate:Boolean,
-            @Query("page") page:Int,
-            @Query("aantal") perPage:Int
-    ) : ApiHulpbronSearchResponse
+        @Query("textFilter") textFilter: String,
+        @Query("includePublic") includePublic: Boolean,
+        @Query("includePrivate") includePrivate: Boolean,
+        @Query("page") page: Int,
+        @Query("aantal") perPage: Int
+    ): ApiHulpbronSearchResponse
 
     @DELETE("Infobalie")
-    fun deleteHulpbron(@Query("hulpbronId") id: Int): Call<Message>
+    fun deleteHulpbron(@Query("hulpbronId") id: Int): Call<Boolean>
 
     @POST("Infobalie")
     fun postHulpbron(@Body hulpbron: HulpbronDTO): Call<Message>
@@ -106,6 +104,7 @@ interface ApiService {
 
     @DELETE("Cinema")
     fun removeMedium(@Query("mediumId") id: Int): Call<Medium>
+
     @POST("Account/login")
     fun login(@Body login: Login): Call<LoginResponse>
 

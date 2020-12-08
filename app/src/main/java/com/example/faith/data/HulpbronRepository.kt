@@ -62,9 +62,12 @@ class HulpbronRepository @Inject constructor(
         return service.postHulpbron(temp)
     }
 
-    fun deleteHulpbron(hulpbronId: Int): Call<Message> {
+    fun deleteHulpbron(hulpbronId: Int): Call<Boolean> {
         return service.deleteHulpbron(hulpbronId)
     }
 
     suspend fun insertOne(hulpbron: Hulpbron) = hulpbronDao.insertOne(hulpbron)
+    suspend fun deleteHulpbronRoom(hulpbronId: Int) {
+        hulpbronDao.removeHulpbron(hulpbronId)
+    }
 }

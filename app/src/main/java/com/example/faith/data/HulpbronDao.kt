@@ -22,4 +22,6 @@ interface HulpbronDao {
     suspend fun insertAll(hulpbronnen: List<Hulpbron>)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOne(hulpbron: Hulpbron)
+    @Query("DELETE FROM hulpbronnen WHERE id=:hulpbronId")
+    suspend fun removeHulpbron(hulpbronId: Int)
 }

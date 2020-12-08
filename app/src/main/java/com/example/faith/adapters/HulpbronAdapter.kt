@@ -79,18 +79,19 @@ class HulpbronAdapter : PagingDataAdapter<Hulpbron, HulpbronAdapter.HulpbronView
                 hulpbron = item
                 val viewModel = HulpbronListViewModel.instance
                 binding.btVerwijder.setOnClickListener {
-                    val call: Call<Message> =
+                    val call: Call<Boolean> =
                         viewModel!!.deleteHulpbron(binding.hulpbron!!.hulpbronId)
                     call.enqueue(
-                        object : Callback<Message?> {
-                            override fun onFailure(call: Call<Message?>, t: Throwable) {
+                        object : Callback<Boolean?> {
+                            override fun onFailure(call: Call<Boolean?>, t: Throwable) {
                                 Log.d("Failure", call.toString())
                             }
 
                             override fun onResponse(
-                                call: Call<Message?>,
-                                response: retrofit2.Response<Message?>
+                                call: Call<Boolean?>,
+                                response: retrofit2.Response<Boolean?>
                             ) {
+                                viewModel.deleteHulpbronRoom(binding.hulpbron!!.hulpbronId)
                                 Log.d("Succes", call.toString())
                             }
                         }

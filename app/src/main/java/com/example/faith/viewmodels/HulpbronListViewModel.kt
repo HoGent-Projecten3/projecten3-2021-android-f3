@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.switchMap
+import kotlinx.coroutines.launch
 import retrofit2.Call
 
 class HulpbronListViewModel @ViewModelInject constructor(
@@ -79,12 +80,14 @@ class HulpbronListViewModel @ViewModelInject constructor(
             .cachedIn(viewModelScope)
     ).flattenMerge(2)
 
-    fun deleteHulpbron(id: Int): Call<Message> {
+    fun deleteHulpbron(id: Int): Call<Boolean> {
         return repository.deleteHulpbron(id)
     }
 
-    suspend fun saveOne(hulpbron: Hulpbron) {
-        repository.insertOne(hulpbron)
+    fun deleteHulpbronRoom(hulpbronId: Int) {
+        viewModelScope.launch {
+            repository.deleteHulpbronRoom(hulpbronId)
+        }
     }
 
     companion object {
