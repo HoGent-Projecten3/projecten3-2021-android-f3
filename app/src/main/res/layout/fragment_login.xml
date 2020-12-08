@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.android.navigation.TitleFragment">
 
@@ -9,31 +10,42 @@
             type="com.example.faith.viewmodels.LoginViewModel" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/hotel_theme"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
+        android:background="@color/hotel_theme">
+
+
+        <!-- LOGO -->
 
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
+            android:id="@+id/image_logo"
+            android:layout_width="512px"
+            android:layout_height="512px"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="20dp"
+            android:layout_marginTop="15dp"
+            android:adjustViewBounds="true"
             android:gravity="center"
-            android:src="@drawable/main_logo" />
+            android:scaleType="fitXY"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/label_welcome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
             android:gravity="center_horizontal"
             android:text="@string/label_welcome"
             android:textColor="#ffffff"
-            android:textSize="30sp" />
+            android:textSize="28sp"
+            app:chainUseRtl="false"
+            app:layout_constrainedWidth="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_logo" />
 
         <TextView
             android:id="@+id/label_emailaddress"
@@ -42,7 +54,14 @@
             android:gravity="center"
             android:text="@string/enter_email_address"
             android:textColor="#ffffff"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            app:layout_constrainedWidth="false"
+            app:layout_constraintBottom_toTopOf="@+id/editTextTextEmailAddress"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label_welcome"
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextTextEmailAddress"
@@ -52,8 +71,15 @@
             android:ems="10"
             android:gravity="center"
             android:inputType="textEmailAddress"
+            android:text="jef.seys.y0431@student.hogent.be"
             android:textColor="#ffffff"
-            android:text="jef.seys.y0431@student.hogent.be"/>
+            app:layout_constrainedWidth="false"
+            app:layout_constraintBottom_toTopOf="@+id/label_password"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label_emailaddress"
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
             android:id="@+id/label_password"
@@ -62,7 +88,14 @@
             android:gravity="center"
             android:text="@string/text_password"
             android:textColor="#ffffff"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            app:layout_constrainedWidth="false"
+            app:layout_constraintBottom_toTopOf="@+id/editTextNumberPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress"
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextNumberPassword"
@@ -73,7 +106,14 @@
             android:gravity="center"
             android:inputType="numberPassword"
             android:text="P@ssword123"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"
+            app:layout_constrainedWidth="false"
+            app:layout_constraintBottom_toTopOf="@+id/button_login"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label_password"
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_login"
@@ -81,10 +121,15 @@
             android:layout_height="wrap_content"
 
             android:layout_gravity="center"
-            android:layout_margin="20dp"
-            android:text="@string/login"
-            android:textAlignment="center" />
+            android:text="@string/text_login"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextNumberPassword"
+            app:layout_constraintVertical_chainStyle="packed" />
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </LinearLayout>
 </layout>

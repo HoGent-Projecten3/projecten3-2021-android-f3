@@ -10,7 +10,7 @@
     <string name="enter_email_address">Email</string>
     <string name="text_login">Login</string>
     <string name="text_password">Wachtwoord</string>
-    <string name="label_welcome">Welkom in het hotel!</string>
+    <string name="label_welcome">Welkom bij hotel kompas!</string>
     <string name="app_description">Faith is de app waarmee jongeren op interactieve manier met hun gevoelens en emoties kunnen omgaan.
                                     Door middel van de kamers van ons hotel kan men een dagboek bijhouden, filmpjes maken en foto\'s maken.</string>
     <string name="app_creators">
@@ -48,4 +48,20 @@
     <string name="verzend">verzend</string>
 
     <string name="delete_button_text">verwijder</string>
+    <string name="login_fragment_name">Login</string>
+    <string name="btVerwijderHulpbron">Verwijder hulpbron</string>
+    <string name="websiteImage">Website</string>
+    <string name="mailImage">Mail</string>
+    <string name="chatImage">Chat</string>
+    <string name="telefoonImage">Bel</string>
+    <string name="upload_hulpbron">Upload hulpbron</string>
+    <string name="jouw_hulpbron">Jouw hulpbron</string>
+    <string name="titelHint">Titel</string>
+    <string name="beschrijvingHint">Beschrijving</string>
+    <string name="emailadresHint">Emailadres</string>
+    <string name="telefoonnummerHint">Telefoonnummer</string>
+    <string name="websiteHint">Website</string>
+    <string name="chatHint">Chat</string>
+    <string name="hulpbron_toevoegen">Hulpbron toevoegen</string>
+    <string name="floatingbutton">add_dagboek</string>
 </resources>

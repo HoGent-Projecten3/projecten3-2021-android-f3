@@ -2,6 +2,8 @@
 <resources>
     <dimen name="marginBetweenButtons">10dp</dimen>
     <dimen name="txtTitleSize">40dp</dimen>
+    <dimen name="titleTextSize">32sp</dimen>
+    <dimen name="regularTextSize">20sp</dimen>
     <dimen name="spaceforviews">450dp</dimen>
     <dimen name="gallery_header_margin">72dp</dimen>
     <dimen name="card_side_margin">12dp</dimen>
@@ -12,5 +14,6 @@
     <dimen name="smallmargin">2dp</dimen>
     <dimen name="spaceforviewsless">350dp</dimen>
     <dimen name="edit_dagboek_margins">15dp</dimen>
+    <dimen name="card_corner_radius">12dp</dimen>
     <dimen name="margin_bt_top">24dp</dimen>
 </resources>

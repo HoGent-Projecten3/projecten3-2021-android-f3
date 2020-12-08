@@ -1,17 +1,11 @@
 package com.example.faith.viewmodels
-
 import android.os.Message
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
-import com.example.faith.data.ApiBericht
 import com.example.faith.data.ApiBerichtSearchResponse
 import com.example.faith.data.BerichtRepository
 import com.example.faith.data.Gebruiker
 import com.example.faith.data.GebruikerRepository
-import kotlinx.coroutines.flow.Flow
 import retrofit2.Call
 
 /**
@@ -30,10 +24,7 @@ class ChatViewModel @ViewModelInject constructor(
         return berichtRepository.verstuurBericht(mijnEmail, andereEmail, mijnNaam, andereNaam, text)
     }
 
-    fun geefBerichten(): Flow<PagingData<ApiBericht>> {
-        return berichtRepository.getBerichten().cachedIn(viewModelScope)
-    }
-    fun geefBerichten2(): Call<ApiBerichtSearchResponse> {
-        return berichtRepository.getBerichten2()
+    fun geefBerichten2(totDatum: String, aantal: Int): Call<ApiBerichtSearchResponse> {
+        return berichtRepository.getBerichten2(totDatum, aantal)
     }
 }

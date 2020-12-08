@@ -5,6 +5,7 @@ import com.example.faith.data.AppDatabase
 import com.example.faith.data.DoelDao
 import com.example.faith.data.HulpbronDao
 import com.example.faith.data.MediumDao
+import com.example.faith.data.MediumRemoteKeyDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,4 +37,9 @@ class DatabaseModule {
     fun provideDoelDao(appDatabase: AppDatabase): DoelDao {
         return appDatabase.DoelDao()
     }*/
+
+    @Provides
+    fun provideMediumRemoteKeysDao(appDatabase: AppDatabase) : MediumRemoteKeyDao {
+        return appDatabase.remoteKeys()
+    }
 }

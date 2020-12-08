@@ -1,6 +1,7 @@
 package com.example.faith.data
 
 import androidx.lifecycle.LiveData
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -12,7 +13,7 @@ import androidx.room.Query
 @Dao
 interface HulpbronDao {
     @Query("SELECT * FROM hulpbronnen ORDER BY titel")
-    fun getAll(): LiveData<List<Hulpbron>>
+    fun getAll(): PagingSource<Int,Hulpbron>
 
     @Query("SELECT * FROM hulpbronnen WHERE id = :hulpbronId")
     fun getOne(hulpbronId: Int): LiveData<Hulpbron>

@@ -17,15 +17,7 @@ class BerichtRepository @Inject constructor(private val service: ApiService) {
 
         return service.verstuurBericht(mijnEmail, andereEmail, mijnNaam, andereNaam, text)
     }
-
-    fun getBerichten(): Flow<PagingData<ApiBericht>> {
-        return Pager(
-            config = PagingConfig(enablePlaceholders = false, pageSize = 10, initialLoadSize = 10, prefetchDistance = 10),
-            pagingSourceFactory = { ApiBerichtPagingSource(service) }
-
-        ).flow
-    }
-    fun getBerichten2(): Call<ApiBerichtSearchResponse> {
-        return service.getBerichten2(0, 100)
+    fun getBerichten2(totDatum: String, aantal: Int): Call<ApiBerichtSearchResponse> {
+        return service.getBerichten(totDatum, aantal)
     }
 }

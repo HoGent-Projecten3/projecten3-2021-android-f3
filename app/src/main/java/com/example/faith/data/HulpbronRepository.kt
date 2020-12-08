@@ -1,7 +1,10 @@
 package com.example.faith.data
 
+import android.os.Message
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations.map
+import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -17,23 +20,51 @@ import retrofit2.Call
  * Repository module for handling data operations.
  */
 @Singleton
-class HulpbronRepository @Inject constructor(private val hulpbronDao: HulpbronDao, private val service: ApiService, private val database : AppDatabase) {
+class HulpbronRepository @Inject constructor(
+    private val hulpbronDao: HulpbronDao,
+    private val service: ApiService,
+    private val db: AppDatabase
+) {
 
-    fun getHulpbronnen() : Flow<PagingData<ApiHulpbron>> {
+    @ExperimentalPagingApi
+    fun getHulpbronnen(
+        textFilter: String,
+        includePublic: Boolean,
+        includePrivate: Boolean,
+        hulpbronNaam: String
+    ): Flow<PagingData<Hulpbron>> {
         return Pager(
-            config = PagingConfig(enablePlaceholders = false, pageSize = 10, initialLoadSize = 10,prefetchDistance = 10),
-            pagingSourceFactory = { ApiHulpbronPagingSource(service) }
+            config = PagingConfig(
+                enablePlaceholders = false,
+                pageSize = 20,
+                initialLoadSize = 20,
+                prefetchDistance = 20
+            ),
+            remoteMediator = HulpbronRemoteMediator(db, service, hulpbronNaam, textFilter, includePublic, includePrivate),
+        ) {
 
-        ).flow
+            hulpbronDao.getAll()
+        }
+            .flow
     }
 
-    fun getHulpbronnen2(): Call<ApiHulpbronSearchResponse> {
-        return service.getHulpbronnen2(0,10)
-    }
     fun getHulpbron(id: Int) = hulpbronDao.getOne(id)
 
+    fun postHulpbron(
+        titel: String,
+        beschrijving: String,
+        url: String,
+        telefoonnummer: String,
+        emailadres: String,
+        chatUrl: String
+    ): Call<Message> {
+        val temp = HulpbronDTO(titel, beschrijving, url, telefoonnummer, emailadres, chatUrl)
+        return service.postHulpbron(temp)
+    }
 
+    fun deleteHulpbron(hulpbronId: Int): Call<Message> {
+        return service.deleteHulpbron(hulpbronId)
+    }
 
     suspend fun insertOne(hulpbron: Hulpbron) = hulpbronDao.insertOne(hulpbron)
-
 }

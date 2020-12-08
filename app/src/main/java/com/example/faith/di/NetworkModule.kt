@@ -18,6 +18,7 @@ import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.Date
 import javax.inject.Singleton
 
 /**
@@ -70,7 +71,9 @@ class NetworkModule() {
     @Provides
     @Singleton
     fun provideGson(): Gson {
-        val gsonBuilder = GsonBuilder()
+        val gsonBuilder = GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+            .registerTypeAdapter(
+                Date::class.java, DateSerializer())
         gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
         return gsonBuilder.create()
     }
