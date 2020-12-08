@@ -25,4 +25,11 @@ class BerichtRepository @Inject constructor(private val service: ApiService, val
     fun getBerichten2(totDatum: String, aantal: Int): Call<ApiBerichtSearchResponse> {
         return service.getBerichten(totDatum, aantal)
     }
+
+    suspend fun deleteBerichten() {
+        return berichtDao.deleteAll()
+    }
+    suspend fun insertOne(bericht:Bericht) {
+        return berichtDao.insertOne(bericht)
+    }
 }

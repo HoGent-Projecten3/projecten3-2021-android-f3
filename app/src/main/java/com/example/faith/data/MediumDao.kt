@@ -15,6 +15,9 @@ interface MediumDao {
     @Query("SELECT * FROM media WHERE mediumType != 4 ORDER BY datum DESC")
     fun getMedia(): PagingSource<Int, Medium>
 
+    @Query("SELECT * FROM media WHERE mediumType != 4 ORDER BY datum DESC")
+    fun getMediaTests(): LiveData<List<Medium>>
+
 
     @Query("SELECT * FROM media WHERE mediumType = 4 ORDER BY datum DESC")
     fun getDagboek(): PagingSource<Int, Medium>

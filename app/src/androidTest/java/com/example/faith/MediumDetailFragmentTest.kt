@@ -38,4 +38,9 @@ class MediumDetailFragmentTest {
             }
         }
     }
+
+    @Test
+    fun testProperties() {
+
+    }
 }
