@@ -86,12 +86,10 @@ public class PenthouseViewModel @ViewModelInject constructor(val repository: Doe
     }
 
     private fun doSyncDoelen(doelen: List<Doel>) {
-        Log.i("PenthouseViewModel", "request: ${doelen}")
         repository.syncDoelen(doelen).enqueue(
             object : Callback<List<Doel>> {
                 override fun onResponse(call: Call<List<Doel>>, response: Response<List<Doel>>) {
                     if (response.isSuccessful) {
-                        Log.i("PenthouseViewModel", "response: ${response.body()}")
                         _doelen.value = response.body()
                     } else {
                         Log.i("PenthouseViewModel", "Failed to SYNC doelen: ${response.code()}, ${response.message()}")
@@ -114,16 +112,13 @@ public class PenthouseViewModel @ViewModelInject constructor(val repository: Doe
     }
 
     public fun verwijderDoel(teVerwijderenDoel: Doel) {
-        Log.i("PenthouseViewModel", "Before remove ${_doelen.value}")
         val doelen = _doelen.value!!.toMutableList()
         if (!doelen.remove(teVerwijderenDoel)) {
             for (doel: Doel in doelen) {
                 doel.verwijderDoel(teVerwijderenDoel)
             }
         }
-        Log.i("PenthouseViewModel", "After remove ${_doelen.value}")
         doSyncDoelen(doelen)
-        Log.i("PenthouseViewModel", "After sync ${_doelen.value}")
     }
 
     public fun setDoelen(doelen: List<Doel>) {
