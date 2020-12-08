@@ -5,7 +5,6 @@ import com.example.faith.data.*
 import com.example.faith.data.ApiBerichtSearchResponse
 import com.example.faith.data.ApiHulpbronSearchResponse
 import com.example.faith.data.ApiMediumSearchResponse
-import com.example.faith.data.DoelDTO
 import com.example.faith.data.Gebruiker
 import com.example.faith.data.HulpbronDTO
 import com.example.faith.data.Login

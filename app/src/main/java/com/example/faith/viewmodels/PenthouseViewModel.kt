@@ -13,7 +13,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-public class PenthouseViewModel @ViewModelInject constructor(val repository: DoelRepository) : ViewModel() {
+class PenthouseViewModel @ViewModelInject constructor(val repository: DoelRepository) :
+    ViewModel() {
 
     init {
         instance = this
@@ -38,7 +39,10 @@ public class PenthouseViewModel @ViewModelInject constructor(val repository: Doe
                         }*/
                         _doelen.value = response.body()
                     } else {
-                        Log.i("PenthouseViewModel", "Failed to SYNC doelen: ${response.code()}, ${response.message()}")
+                        Log.i(
+                            "PenthouseViewModel",
+                            "Failed to SYNC doelen: ${response.code()}, ${response.message()}"
+                        )
                     }
                 }
 
@@ -65,22 +69,6 @@ public class PenthouseViewModel @ViewModelInject constructor(val repository: Doe
         )
     }
 
-    fun syncDoelen2() {
-        repository.postDoelen(_doelen.value!!).enqueue(
-            object : Callback<Boolean> {
-                override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
-                    if (response.body()!!) {
-                        getDoelen()
-                    }
-                }
-
-                override fun onFailure(call: Call<Boolean>, t: Throwable) {
-                    Log.i("PenthouseViewModel", "Failed to POST doelen: $t")
-                }
-            }
-        )
-    }
-
     fun syncDoelen() {
         doSyncDoelen(_doelen.value!!)
     }
@@ -92,7 +80,10 @@ public class PenthouseViewModel @ViewModelInject constructor(val repository: Doe
                     if (response.isSuccessful) {
                         _doelen.value = response.body()
                     } else {
-                        Log.i("PenthouseViewModel", "Failed to SYNC doelen: ${response.code()}, ${response.message()}")
+                        Log.i(
+                            "PenthouseViewModel",
+                            "Failed to SYNC doelen: ${response.code()}, ${response.message()}"
+                        )
                     }
                 }
 
@@ -103,15 +94,15 @@ public class PenthouseViewModel @ViewModelInject constructor(val repository: Doe
         )
     }
 
-    fun getDoel(inhoud: String): Doel?{
-        for( doel: Doel in _doelen.value!!){
+    fun getDoel(inhoud: String): Doel? {
+        for (doel: Doel in _doelen.value!!) {
             val target = doel.getDoel(inhoud)
-            if(target != null) return target
+            if (target != null) return target
         }
         return null
     }
 
-    public fun verwijderDoel(teVerwijderenDoel: Doel) {
+    fun verwijderDoel(teVerwijderenDoel: Doel) {
         val doelen = _doelen.value!!.toMutableList()
         if (!doelen.remove(teVerwijderenDoel)) {
             for (doel: Doel in doelen) {
@@ -121,11 +112,7 @@ public class PenthouseViewModel @ViewModelInject constructor(val repository: Doe
         doSyncDoelen(doelen)
     }
 
-    public fun setDoelen(doelen: List<Doel>) {
-        _doelen.value = doelen
-    }
-
-    public fun addDoel(doel: Doel) {
+    fun addDoel(doel: Doel) {
         val doelen = _doelen.value?.toMutableList()
         doelen?.add(doel)
         _doelen.value = doelen!!

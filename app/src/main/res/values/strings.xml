@@ -64,4 +64,7 @@
     <string name="chatHint">Chat</string>
     <string name="hulpbron_toevoegen">Hulpbron toevoegen</string>
     <string name="floatingbutton">add_dagboek</string>
+    <string name="wat_zijn_jouw_doelen">Wat zijn jouw doelen?</string>
+    <string name="ok">OK</string>
+    <string name="bt_doel_description">add doel</string>
 </resources>

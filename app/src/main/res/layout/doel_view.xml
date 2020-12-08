@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:background="@color/hotel_theme">
+        android:background="@color/hotel_theme_transparant">
 
         <TextView
             android:id="@+id/doel_text"
