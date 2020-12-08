@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.faith.adapters.DoelAdapter
 import com.example.faith.data.Doel
-import com.example.faith.data.Stap
 import com.example.faith.databinding.FragmentPenthouseBinding
 import com.example.faith.viewmodels.PenthouseViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,12 +32,9 @@ class PenthouseFragment : Fragment() {
 
         binding.doelList.itemAnimator = null
 
-        viewModel.doelen.observe(
-            this.viewLifecycleOwner,
-            Observer {
-                adapter.submitList(it)
-            }
-        )
+        viewModel.doelen.observe(this.viewLifecycleOwner, Observer {
+            adapter.submitList(it)
+        })
 
         viewModel.getDoelen()
 
@@ -45,16 +42,19 @@ class PenthouseFragment : Fragment() {
             binding.mainAddConfirmButton.visibility = View.VISIBLE
             binding.mainAddEditText.visibility = View.VISIBLE
             binding.mainAddEditText.bringToFront()
-            //viewModel.setDoelen(adapter.currentList)
-            //viewModel.syncDoelen()
         }
 
         binding.mainAddConfirmButton.setOnClickListener {
-            val doel = Doel(binding.mainAddEditText.text.toString(), false, true)
-            doel.addStap(Stap("Eerste stap", false))
-            viewModel.addDoel(doel)
-            //adapter.notifyDataSetChanged()
-            viewModel.syncDoelen()
+            val inhoud = binding.mainAddEditText.text.toString()
+            if(inhoud.isNullOrEmpty()){
+                Toast.makeText(it.context, "Inhoud mag niet leeg zijn!", Toast.LENGTH_LONG).show()
+            }else if(inhoud.length > 15){
+                Toast.makeText(it.context, "Inhoud mag niet langer dan 15 tekens zijn!", Toast.LENGTH_LONG).show()
+            }else{
+                val doel = Doel(inhoud, false, false, mutableListOf<Doel>())
+                viewModel.addDoel(doel)
+                viewModel.syncDoelen()
+            }
             binding.mainAddConfirmButton.visibility = View.GONE
             binding.mainAddEditText.visibility = View.GONE
         }

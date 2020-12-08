@@ -3,235 +3,307 @@ package com.example.faith.adapters
 
 import android.annotation.SuppressLint
 import android.graphics.Typeface
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.faith.data.Doel
-import com.example.faith.data.IDoel
-import com.example.faith.data.Stap
 import com.example.faith.databinding.DoelViewBinding
-import com.example.faith.databinding.StapViewBinding
 import com.example.faith.viewmodels.PenthouseViewModel
 
 
-class DoelAdapter: ListAdapter<IDoel, DoelAdapter.BaseViewHolder>(DoelDiffCallback()){
+class DoelAdapter: ListAdapter<Doel, DoelAdapter.DoelViewHolder>(DoelDiffCallback()){
 
-    override fun getItemViewType(position: Int): Int {
-        when(getItem(position)){
-            is Doel -> return 1
-            is Stap -> return 0
-            else -> throw Exception("Imposibru")
-        }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DoelViewHolder {
+        return DoelViewHolder.from(parent)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-        when(viewType){
-            0 -> return StapViewHolder.from(parent)
-            1 -> return DoelViewHolder.from(parent)
-            else -> throw Exception("nooooo")
-        }
-    }
-
-    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: DoelViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
     }
 
-    /*
-    override fun getItemCount(): Int {
-        return doel.size
-    }*/
+    class DoelViewHolder(val binding: DoelViewBinding): RecyclerView.ViewHolder(binding.root){
 
-    class StapViewHolder(val binding: StapViewBinding): BaseViewHolder(binding.root){
+        var state: State = NormalState(this)
 
-        override fun bind(item: IDoel) {
+        interface State{
+            fun doLongClick(item: Doel, view: View)
+            fun doClick(item: Doel, view: View)
+            fun doelEditButton(item: Doel, view: View)
+            fun doelConfirmEditButton(item: Doel, view: View)
+            fun doelDeleteButton(item: Doel, view: View)
+            fun doelAddButton(item: Doel, view: View)
+            fun doelAddConfirmButton(item: Doel, view: View)
+            fun doelCheckboxChange(item: Doel, checked: Boolean, view: View)
+        }
 
-            var viewModel = PenthouseViewModel.instance
+        class EditState: State{
 
-            binding.stapText.text = item.getNaam()
-            binding.stapCheckBox.isChecked = item.isChecked()
+            var _doelViewHolder: DoelViewHolder
 
-            binding.stapCheckBox.setOnCheckedChangeListener { buttonView, isChecked ->
-                item.setChecked(isChecked)
-                viewModel!!.syncDoelen()
+            constructor(doelViewHolder: DoelViewHolder){
+                _doelViewHolder = doelViewHolder
+                doelViewHolder.binding.doelEditButton.visibility = View.VISIBLE
+                doelViewHolder.binding.doelDeleteButton.visibility = View.VISIBLE
+                doelViewHolder.binding.doelAddButton.visibility = View.VISIBLE
+                doelViewHolder.binding.doelColapseText.visibility = View.GONE
+                doelViewHolder.binding.doelListSec.visibility = View.VISIBLE
+                doelViewHolder.binding.doelText.typeface = Typeface.DEFAULT
             }
 
-            binding.stapText.setOnLongClickListener( object: View.OnLongClickListener{
-                override fun onLongClick(v: View?): Boolean {
-                    if(binding.stapText.typeface == Typeface.DEFAULT){
-                        binding.stapText.typeface = Typeface.DEFAULT_BOLD
-                        binding.editButton.visibility = View.VISIBLE
-                        binding.deleteButton.visibility = View.VISIBLE
-                    }else{
-                        binding.stapText.typeface = Typeface.DEFAULT
-                        binding.editButton.visibility = View.GONE
-                        binding.deleteButton.visibility = View.GONE
-                    }
-                    return true
+            override fun doLongClick(item: Doel, view: View) {
+                _doelViewHolder.state = NormalState(_doelViewHolder)
+            }
+
+            override fun doClick(item: Doel, view: View) {
+                // nothing should happen here
+            }
+
+            override fun doelEditButton(item: Doel, view: View) {
+                _doelViewHolder.binding.doelText.visibility = View.GONE
+                _doelViewHolder.binding.doelEditButton.visibility = View.GONE
+                _doelViewHolder.binding.doelDeleteButton.visibility = View.GONE
+                _doelViewHolder.binding.doelAddButton.visibility = View.GONE
+                _doelViewHolder.binding.doelEditText.setText(item.inhoud)
+                _doelViewHolder.binding.doelEditText.visibility = View.VISIBLE
+                _doelViewHolder.binding.doelConfirmEditButton.visibility = View.VISIBLE
+            }
+
+            override fun doelConfirmEditButton(item: Doel, view: View) {
+                val nieuweInhoud = _doelViewHolder.binding.doelEditText.text.toString()
+                if(nieuweInhoud.isNullOrEmpty()){
+                    Toast.makeText(view.context, "Inhoud mag niet leeg zijn!", Toast.LENGTH_LONG).show()
+                }else if(nieuweInhoud.length > 15){
+                    Toast.makeText(view.context, "Inhoud mag niet langer dan 15 tekens zijn!", Toast.LENGTH_LONG).show()
+                }else {
+                    val newItem = PenthouseViewModel.instance!!.getDoel(item.inhoud)
+                    if(newItem != null) newItem.inhoud = nieuweInhoud
+                    _doelViewHolder.binding.doelText.setText(item.inhoud)
+                    PenthouseViewModel.instance!!.syncDoelen()
                 }
-            })
-
-            binding.editButton.setOnClickListener{
-                binding.stapText.visibility = View.GONE
-                binding.editButton.visibility = View.GONE
-                binding.deleteButton.visibility = View.GONE
-                binding.stapEditText.setText(item.getNaam())
-                binding.stapEditText.visibility = View.VISIBLE
-                binding.confirmEditButton.visibility = View.VISIBLE
+                _doelViewHolder.binding.doelEditText.visibility = View.GONE
+                _doelViewHolder.binding.doelConfirmEditButton.visibility = View.GONE
+                _doelViewHolder.binding.doelText.visibility = View.VISIBLE
+                _doelViewHolder.binding.doelEditButton.visibility = View.VISIBLE
+                _doelViewHolder.binding.doelDeleteButton.visibility = View.VISIBLE
+                _doelViewHolder.binding.doelAddButton.visibility = View.VISIBLE
             }
 
-            binding.confirmEditButton.setOnClickListener {
-                item.setNaam(binding.stapEditText.text.toString())
-                binding.stapText.setText(item.getNaam())
-                binding.stapEditText.visibility = View.GONE
-                binding.confirmEditButton.visibility = View.GONE
-                binding.stapText.visibility = View.VISIBLE
-                binding.editButton.visibility = View.VISIBLE
-                binding.deleteButton.visibility = View.VISIBLE
-                viewModel!!.syncDoelen()
+            override fun doelDeleteButton(item: Doel, view: View) {
+                PenthouseViewModel.instance!!.verwijderDoel(item)
             }
 
-            binding.deleteButton.setOnClickListener {
-                viewModel!!.verwijderDoel(item)
+            override fun doelAddButton(item: Doel, view: View) {
+                _doelViewHolder.binding.doelAddButton.visibility = View.GONE
+                _doelViewHolder.binding.doelEditButton.visibility = View.GONE
+                _doelViewHolder.binding.doelDeleteButton.visibility = View.GONE
+                _doelViewHolder.binding.doelAddEditText.visibility = View.VISIBLE
+                _doelViewHolder.binding.doelAddConfirmButton.visibility = View.VISIBLE
             }
 
-        }
-
-        companion object{
-            fun from(parent: ViewGroup): BaseViewHolder{
-                val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = StapViewBinding.inflate(layoutInflater, parent, false)
-                return StapViewHolder(binding)
-            }
-        }
-    }
-
-    class DoelViewHolder(val binding: DoelViewBinding): BaseViewHolder(binding.root){
-
-        override fun bind(item: IDoel) {
-
-            var viewModel = PenthouseViewModel.instance
-
-            binding.doelText.text = item.getNaam()
-            val adapter = DoelAdapter()
-            adapter.submitList(item.getStappen())
-            binding.doelListSec.adapter = adapter
-            binding.doelCheckbox.isChecked = item.isChecked()
-
-            if(item.isCollapsed()) {
-                binding.doelListSec.visibility = View.GONE
-                binding.doelText.typeface = Typeface.DEFAULT_BOLD
-                if(binding.doelEditButton.visibility == View.VISIBLE){
-                    binding.doelColapseText.visibility = View.GONE
+            override fun doelAddConfirmButton(item: Doel, view: View) {
+                val inhoud = _doelViewHolder.binding.doelAddEditText.text.toString()
+                if(inhoud.isNullOrEmpty()){
+                    Toast.makeText(view.context, "Inhoud mag niet leeg zijn!", Toast.LENGTH_LONG).show()
+                }else if(inhoud.length > 15){
+                    Toast.makeText(view.context, "Inhoud mag niet langer dan 15 tekens zijn!", Toast.LENGTH_LONG).show()
                 }else{
-                    binding.doelColapseText.text = "${item.getStappen().size} substappen"
-                    binding.doelColapseText.visibility = View.VISIBLE
+                    val newDoel = Doel(inhoud,false,false, mutableListOf<Doel>())
+                    val newItem = PenthouseViewModel.instance!!.getDoel(item.inhoud)
+                    if(newItem != null) newItem.addStap(newDoel)
+                    PenthouseViewModel.instance!!.syncDoelen()
                 }
-            }else{
-                binding.doelListSec.visibility = View.VISIBLE
-                binding.doelText.typeface = Typeface.DEFAULT
-                binding.doelColapseText.visibility = View.GONE
+                _doelViewHolder.binding.doelAddButton.visibility = View.VISIBLE
+                _doelViewHolder.binding.doelEditButton.visibility = View.VISIBLE
+                _doelViewHolder.binding.doelDeleteButton.visibility = View.VISIBLE
+                _doelViewHolder.binding.doelAddEditText.visibility = View.GONE
+                _doelViewHolder.binding.doelAddConfirmButton.visibility = View.GONE
+            }
+
+            override fun doelCheckboxChange(item: Doel, checked: Boolean, view: View) {
+                val newItem = PenthouseViewModel.instance!!.getDoel(item.inhoud)
+                if(newItem != null) newItem.checked = checked
+                PenthouseViewModel.instance!!.syncDoelen()
+            }
+
+        }
+
+        class ColapseState: State{
+
+            var _doelViewHolder: DoelViewHolder
+
+            constructor(doelViewHolder: DoelViewHolder){
+                _doelViewHolder = doelViewHolder
+                doelViewHolder.binding.doelListSec.visibility = View.GONE
+                doelViewHolder.binding.doelText.typeface = Typeface.DEFAULT_BOLD
+                doelViewHolder.binding.doelColapseText.visibility = View.VISIBLE
+                doelViewHolder.binding.doelEditButton.visibility = View.GONE
+                doelViewHolder.binding.doelDeleteButton.visibility = View.GONE
+                doelViewHolder.binding.doelAddButton.visibility = View.GONE
+            }
+
+            override fun doLongClick(item: Doel, view: View) {
+                _doelViewHolder.state = EditState(_doelViewHolder)
+            }
+
+            override fun doClick(item: Doel, view: View) {
+                val newItem = PenthouseViewModel.instance!!.getDoel(item.inhoud)
+                if(newItem != null) newItem.collapsed = false
+                _doelViewHolder.state = NormalState(_doelViewHolder)
+                PenthouseViewModel.instance!!.syncDoelen()
+            }
+
+            override fun doelEditButton(item: Doel, view: View) {
+                Log.w("DoelAdapter.DoelViewHolder.ColapseState", "This was not supposed to happen")
+                Toast.makeText(view.context, "This was not supposed to happen", Toast.LENGTH_LONG).show()
+            }
+
+            override fun doelConfirmEditButton(item: Doel, view: View) {
+                Log.w("DoelAdapter.DoelViewHolder.ColapseState", "This was not supposed to happen")
+                Toast.makeText(view.context, "This was not supposed to happen", Toast.LENGTH_LONG).show()
+            }
+
+            override fun doelDeleteButton(item: Doel, view: View) {
+                Log.w("DoelAdapter.DoelViewHolder.ColapseState", "This was not supposed to happen")
+                Toast.makeText(view.context, "This was not supposed to happen", Toast.LENGTH_LONG).show()
+            }
+
+            override fun doelAddButton(item: Doel, view: View) {
+                Log.w("DoelAdapter.DoelViewHolder.ColapseState", "This was not supposed to happen")
+                Toast.makeText(view.context, "This was not supposed to happen", Toast.LENGTH_LONG).show()
+            }
+
+            override fun doelAddConfirmButton(item: Doel, view: View) {
+                Log.w("DoelAdapter.DoelViewHolder.ColapseState", "This was not supposed to happen")
+                Toast.makeText(view.context, "This was not supposed to happen", Toast.LENGTH_LONG).show()
+            }
+
+            override fun doelCheckboxChange(item: Doel, checked: Boolean, view: View) {
+                val newItem = PenthouseViewModel.instance!!.getDoel(item.inhoud)
+                if(newItem != null) newItem.checked = checked
+                PenthouseViewModel.instance!!.syncDoelen()
+            }
+        }
+
+        class NormalState: State{
+
+            var _doelViewHolder: DoelViewHolder
+
+            constructor(doelViewHolder: DoelViewHolder){
+                _doelViewHolder = doelViewHolder
+                doelViewHolder.binding.doelListSec.visibility = View.VISIBLE
+                doelViewHolder.binding.doelText.typeface = Typeface.DEFAULT
+                doelViewHolder.binding.doelColapseText.visibility = View.GONE
+                doelViewHolder.binding.doelEditButton.visibility = View.GONE
+                doelViewHolder.binding.doelDeleteButton.visibility = View.GONE
+                doelViewHolder.binding.doelAddButton.visibility = View.GONE
+            }
+
+            override fun doLongClick(item: Doel, view: View) {
+                _doelViewHolder.state = EditState(_doelViewHolder)
+            }
+
+            override fun doClick(item: Doel, view: View) {
+                if(!item.stappen.isNullOrEmpty()) {
+                    _doelViewHolder.binding.doelColapseText.text = "${item.aantalStappen} substappen"
+                    val newItem = PenthouseViewModel.instance!!.getDoel(item.inhoud)
+                    if(newItem != null) newItem.collapsed = true
+                    _doelViewHolder.state = ColapseState(_doelViewHolder)
+                    PenthouseViewModel.instance!!.syncDoelen()
+                }
+            }
+
+            override fun doelEditButton(item: Doel, view: View) {
+                Log.w("DoelAdapter.DoelViewHolder.NormalState", "This was not supposed to happen")
+                Toast.makeText(view.context, "This was not supposed to happen", Toast.LENGTH_LONG).show()
+            }
+
+            override fun doelConfirmEditButton(item: Doel, view: View) {
+                Log.w("DoelAdapter.DoelViewHolder.NormalState", "This was not supposed to happen")
+                Toast.makeText(view.context, "This was not supposed to happen", Toast.LENGTH_LONG).show()
+            }
+
+            override fun doelDeleteButton(item: Doel, view: View) {
+                Log.w("DoelAdapter.DoelViewHolder.NormalState", "This was not supposed to happen")
+                Toast.makeText(view.context, "This was not supposed to happen", Toast.LENGTH_LONG).show()
+            }
+
+            override fun doelAddButton(item: Doel, view: View) {
+                Log.w("DoelAdapter.DoelViewHolder.NormalState", "This was not supposed to happen")
+                Toast.makeText(view.context, "This was not supposed to happen", Toast.LENGTH_LONG).show()
+            }
+
+            override fun doelAddConfirmButton(item: Doel, view: View) {
+                Log.w("DoelAdapter.DoelViewHolder.NormalState", "This was not supposed to happen")
+                Toast.makeText(view.context, "This was not supposed to happen", Toast.LENGTH_LONG).show()
+            }
+
+            override fun doelCheckboxChange(item: Doel, checked: Boolean, view: View) {
+                val newItem = PenthouseViewModel.instance!!.getDoel(item.inhoud)
+                if(newItem != null) newItem.checked = checked
+                PenthouseViewModel.instance!!.syncDoelen()
+            }
+        }
+
+        fun bind(item: Doel) {
+
+            //var viewModel = PenthouseViewModel.instance
+
+            binding.doelText.text = item.inhoud
+            val adapter = DoelAdapter()
+            adapter.submitList(item.stappen)
+            binding.doelListSec.adapter = adapter
+            binding.doelCheckbox.isChecked = item.checked
+
+            if(item.collapsed) {
+                binding.doelColapseText.text = "${item.aantalStappen} substappen"
+                state = ColapseState(this)
             }
 
             binding.doelText.setOnLongClickListener( object: View.OnLongClickListener{
                 override fun onLongClick(v: View?): Boolean {
-                    if(binding.doelEditButton.visibility == View.VISIBLE){
-                        binding.doelEditButton.visibility = View.GONE
-                        binding.doelDeleteButton.visibility = View.GONE
-                        binding.doelAddButton.visibility = View.GONE
-                        if(item.isCollapsed())
-                            binding.doelColapseText.visibility = View.VISIBLE
-                    }else{
-                        binding.doelEditButton.visibility = View.VISIBLE
-                        binding.doelDeleteButton.visibility = View.VISIBLE
-                        binding.doelAddButton.visibility = View.VISIBLE
-                        binding.doelColapseText.visibility = View.GONE
-                    }
+                    state.doLongClick(item, v!!)
                     return true
                 }
             })
 
             binding.doelText.setOnClickListener {
-                if(binding.doelText.typeface == Typeface.DEFAULT_BOLD){
-                    binding.doelListSec.visibility = View.VISIBLE
-                    binding.doelText.typeface = Typeface.DEFAULT
-                    binding.doelColapseText.visibility = View.GONE
-                    item.setCollapsed(false)
-                }else{
-                    binding.doelListSec.visibility = View.GONE
-                    binding.doelText.typeface = Typeface.DEFAULT_BOLD
-                    if(binding.doelEditButton.visibility == View.VISIBLE){
-                        binding.doelColapseText.visibility = View.GONE
-                    }else{
-                        binding.doelColapseText.text = "${item.getStappen().size} substappen"
-                        binding.doelColapseText.visibility = View.VISIBLE
-                    }
-                    item.setCollapsed(true)
-                }
-                viewModel!!.syncDoelen()
+                state.doClick(item, it)
             }
 
             binding.doelEditButton.setOnClickListener{
-                binding.doelText.visibility = View.GONE
-                binding.doelEditButton.visibility = View.GONE
-                binding.doelDeleteButton.visibility = View.GONE
-                binding.doelEditText.setText(item.getNaam())
-                binding.doelEditText.visibility = View.VISIBLE
-                binding.doelConfirmEditButton.visibility = View.VISIBLE
+                state.doelEditButton(item, it)
             }
 
             binding.doelConfirmEditButton.setOnClickListener {
-                item.setNaam(binding.doelEditText.text.toString())
-                binding.doelText.setText(item.getNaam())
-                binding.doelEditText.visibility = View.GONE
-                binding.doelConfirmEditButton.visibility = View.GONE
-                binding.doelText.visibility = View.VISIBLE
-                binding.doelEditButton.visibility = View.VISIBLE
-                binding.doelDeleteButton.visibility = View.VISIBLE
-                viewModel!!.syncDoelen()
+                state.doelConfirmEditButton(item, it)
             }
 
             binding.doelDeleteButton.setOnClickListener {
-                viewModel!!.verwijderDoel(item)
+                state.doelDeleteButton(item, it)
+                adapter.notifyDataSetChanged()
             }
 
             binding.doelAddButton.setOnClickListener {
-                binding.doelAddButton.visibility = View.GONE
-                binding.doelAddEditText.visibility = View.VISIBLE
-                binding.doelAddDoelButton.visibility = View.VISIBLE
-                binding.doelAddStapButton.visibility = View.VISIBLE
+                state.doelAddButton(item, it)
             }
 
-            binding.doelAddDoelButton.setOnClickListener {
-                val naam = binding.doelAddEditText.text.toString()
-                val newDoel = Doel(naam,false,false)
-                newDoel.addStap(Stap("Een eerste substap", false))
-                item.addStap(newDoel)
-                adapter.notifyDataSetChanged()
-                binding.doelAddButton.visibility = View.VISIBLE
-                binding.doelAddEditText.visibility = View.GONE
-                binding.doelAddDoelButton.visibility = View.GONE
-                binding.doelAddStapButton.visibility = View.GONE
-                viewModel!!.syncDoelen()
+            binding.doelAddConfirmButton.setOnClickListener {
+                state.doelAddConfirmButton(item, it)
             }
 
-            binding.doelAddStapButton.setOnClickListener {
-                val naam = binding.doelAddEditText.text.toString()
-                val newStap = Stap(naam,false)
-                item.addStap(newStap)
-                binding.doelAddButton.visibility = View.VISIBLE
-                binding.doelAddEditText.visibility = View.GONE
-                binding.doelAddDoelButton.visibility = View.GONE
-                binding.doelAddStapButton.visibility = View.GONE
-                viewModel!!.syncDoelen()
+            binding.doelCheckbox.setOnClickListener {
+                state.doelCheckboxChange(item,binding.doelCheckbox.isChecked, it)
             }
         }
 
         companion object{
-            fun from(parent: ViewGroup): BaseViewHolder{
+            fun from(parent: ViewGroup): DoelViewHolder{
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = DoelViewBinding.inflate(layoutInflater, parent, false)
                 return DoelViewHolder(binding)
@@ -239,18 +311,14 @@ class DoelAdapter: ListAdapter<IDoel, DoelAdapter.BaseViewHolder>(DoelDiffCallba
         }
     }
 
-    abstract class BaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        abstract fun bind(item: IDoel)
-    }
-
-    class DoelDiffCallback : DiffUtil.ItemCallback<IDoel>() {
-        override fun areItemsTheSame(oldItem: IDoel, newItem: IDoel): Boolean {
-            return oldItem.isChecked() == newItem.isChecked()
+    class DoelDiffCallback : DiffUtil.ItemCallback<Doel>() {
+        override fun areItemsTheSame(oldItem: Doel, newItem: Doel): Boolean {
+            return oldItem.inhoud == newItem.inhoud
         }
 
         @SuppressLint("DiffUtilEquals")
-        override fun areContentsTheSame(oldItem: IDoel, newItem: IDoel): Boolean {
-            return oldItem == newItem
+        override fun areContentsTheSame(oldItem: Doel, newItem: Doel): Boolean {
+            return oldItem === newItem
         }
     }
 

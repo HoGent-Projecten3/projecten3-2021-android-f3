@@ -1,6 +1,7 @@
 package com.example.faith.api
 
 import android.os.Message
+import com.example.faith.data.*
 import com.example.faith.data.ApiBerichtSearchResponse
 import com.example.faith.data.ApiHulpbronSearchResponse
 import com.example.faith.data.ApiMediumSearchResponse
@@ -94,15 +95,15 @@ interface ApiService {
     fun postHulpbron(@Body hulpbron: HulpbronDTO): Call<Message>
 
     @GET("Client/GetDoelen")
-    fun getDoelen(): Call<List<DoelDTO>>
+    fun getDoelen(): Call<List<Doel>>
 
     @Headers("Content-Type: application/json")
     @POST("Client/PostDoelen")
-    fun postDoelen(@Body doelenDTO: List<DoelDTO>): Call<Boolean>
+    fun postDoelen(@Body doelen: List<Doel>): Call<Boolean>
 
     @Headers("Content-Type: application/json")
     @POST("Client/SyncDoelen")
-    fun syncDoelen(@Body doelenDTO: List<DoelDTO>): Call<List<DoelDTO>>
+    fun syncDoelen(@Body doelen: List<Doel>): Call<List<Doel>>
 
     @DELETE("Cinema")
     fun removeMedium(@Query("mediumId") id: Int): Call<Medium>
