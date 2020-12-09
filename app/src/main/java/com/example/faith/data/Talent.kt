@@ -11,8 +11,9 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "Items")
 data class Talent (
     @PrimaryKey @ColumnInfo(name = "id") val talentId: Int,
-    val inhoud: String
-
+    val inhoud: String,
+    val type: Int,
+    val auteur: Gebruiker
     ) {
 
     override fun toString() = inhoud

@@ -13,17 +13,19 @@ import com.example.faith.data.ApiDagboek
 import com.example.faith.data.ApiTalent
 import com.example.faith.databinding.ListItemDagboekBinding
 import com.example.faith.databinding.ListItemTrofeeBinding
+import com.example.faith.viewmodels.TrofeekamerListViewModel
 
 /**
  * @author Arne De Schrijver
  */
 
 class TrofeeAdapter : PagingDataAdapter<ApiTalent, TrofeeAdapter.TrofeeViewHolder>(TrofeeDiffCallback()) {
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): TrofeeAdapter.TrofeeViewHolder {
-        return TrofeeAdapter.TrofeeViewHolder(
+    ): TrofeeViewHolder {
+        return TrofeeViewHolder(
             ListItemTrofeeBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -38,8 +40,7 @@ class TrofeeAdapter : PagingDataAdapter<ApiTalent, TrofeeAdapter.TrofeeViewHolde
         init {
             binding.setClickListener {
                 binding.talent?.let {
-                        talent ->
-                    navigateToTrofee(talent, it)
+                        talent -> navigateToTrofee(talent, it)
                 }
             }
         }
@@ -56,6 +57,7 @@ class TrofeeAdapter : PagingDataAdapter<ApiTalent, TrofeeAdapter.TrofeeViewHolde
         fun bind(item: ApiTalent) {
             binding.apply {
                 talent = item
+                val viewModel = TrofeekamerListViewModel.instance
                 executePendingBindings()
             }
         }

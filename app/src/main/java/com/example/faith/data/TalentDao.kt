@@ -1,6 +1,7 @@
 package com.example.faith.data
 
 import androidx.lifecycle.LiveData
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -19,7 +20,7 @@ interface TalentDao {
     fun insertAll(talenten: List<Talent>)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOne(talent: Talent)
-    @Query("DELETE FROM Items WHERE id = :talentId")
-    suspend fun deleteTalent(talentId: Int)
+    @Delete
+    suspend fun deleteTalent(talent: Talent)
 
 }

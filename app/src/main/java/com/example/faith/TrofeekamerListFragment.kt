@@ -14,7 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.faith.adapters.TrofeeAdapter
 import com.example.faith.data.ApiTalentSearchResponse
 import com.example.faith.databinding.FragmentTrofeeListBinding
-import com.example.faith.viewmodels.TalentViewModel
+import com.example.faith.viewmodels.TrofeekamerListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
@@ -31,7 +31,7 @@ import retrofit2.Response
 @AndroidEntryPoint
 class TrofeekamerListFragment: Fragment() {
 
-    private val viewModel: TalentViewModel by viewModels()
+    private val viewModel: TrofeekamerListViewModel by viewModels()
     private var searchJob: Job? = null
     private var adapter = TrofeeAdapter()
 
@@ -44,7 +44,6 @@ class TrofeekamerListFragment: Fragment() {
         context ?: return binding.root
         binding.trofeeList.adapter = adapter
 
-        insertNewTalents()
         getTalent()
         setHasOptionsMenu(true)
 
@@ -66,30 +65,6 @@ class TrofeekamerListFragment: Fragment() {
         val direction = TrofeekamerListFragmentDirections.actionTrofeekamerListFragmentToTrofeekamerFragment()
         val navController = findNavController()
         navController.navigate(direction)
-    }
-
-    fun insertNewTalents() {
-        viewModel.getTalenten2().enqueue(
-            object : Callback<ApiTalentSearchResponse?> {
-                override fun onFailure(call: Call<ApiTalentSearchResponse?>, t: Throwable) {
-                    TODO("Not yet implemented")
-                }
-
-                override fun onResponse(
-                    call: Call<ApiTalentSearchResponse?>,
-                    responseTalent: Response<ApiTalentSearchResponse?>
-                ) {
-                    var fotoj = responseTalent.body()?.resultaten
-                    fotoj?.forEach {
-                        GlobalScope.async {
-                            viewModel.voegTalentToe(
-                                it.inhoud
-                            )
-                        }
-                    }
-                }
-            }
-        )
     }
 
     private fun getTalent() {

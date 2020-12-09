@@ -1,7 +1,6 @@
 package com.example.faith
 
 import android.os.Bundle
-import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +11,11 @@ import androidx.navigation.fragment.navArgs
 import com.example.faith.data.Talent
 import com.example.faith.databinding.FragmentTalentDetailBinding
 import com.example.faith.viewmodels.TalentDetailViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import javax.inject.Inject
+import androidx.navigation.fragment.findNavController
 /**
  * @author Arne De Schrijver
  */
@@ -26,6 +27,7 @@ class TalentDetailFragment: Fragment() {
 
     @Inject
     lateinit var talentDetailViewModelFactory: TalentDetailViewModel.AssistedFactory
+    lateinit var binding: FragmentTalentDetailBinding
 
     private val talentDetailViewModel: TalentDetailViewModel by viewModels {
         TalentDetailViewModel.provideFactory(
@@ -61,19 +63,29 @@ class TalentDetailFragment: Fragment() {
         return binding.root
     }
     fun removeTalent(){
-        val call: Call<Message> = talentDetailViewModel.removeTalentApi()
-        talentDetailViewModel.deleteTalentRoom(args.talentId)
+        val call: Call<Talent> = talentDetailViewModel.removeTalentApi()
+        talentDetailViewModel.deleteTalentRoom()
         call.enqueue(
-            object : retrofit2.Callback<Message?> {
-                override fun onFailure(call: Call<Message?>, t: Throwable) {
-                    println(call.toString())
+            object : retrofit2.Callback<Talent?> {
+                override fun onResponse(call: Call<Talent?>, response: retrofit2.Response<Talent?>) {
+                    activity?.let { Snackbar.make(it.findViewById(R.id.main_activity_coordinator),"Verwijderd",Snackbar.LENGTH_LONG).show() }
+                    navigateToTalent()
+
+                }
+                override fun onFailure(call: Call<Talent?>, t: Throwable) {
+                    activity?.let { Snackbar.make(it.findViewById(R.id.main_activity_coordinator),"Verwijderen mislukt",Snackbar.LENGTH_LONG).show() }
+
                 }
 
-                override fun onResponse(call: Call<Message?>, response: retrofit2.Response<Message?>) {
-                    println(call.toString())
-                }
             }
         )
+    }
+
+    private fun navigateToTalent() {
+        val direction = TalentDetailFragmentDirections.actionTalentDetailFragmentToTrofeekamerListFragment()
+        val navController = findNavController()
+        navController.navigate(direction)
+
     }
 
     fun interface Callback {

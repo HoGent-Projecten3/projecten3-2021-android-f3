@@ -16,13 +16,6 @@ class TalentViewModel @ViewModelInject constructor(
     private val repository: TalentRepository
 ): ViewModel() {
 
-    fun getTalenten(): Flow<PagingData<ApiTalent>> {
-        return repository.getTalenten()
-    }
-    fun getTalenten2(): Call<ApiTalentSearchResponse> {
-        return repository.getTalenten2()
-    }
-
     fun voegTalentToe(inhoud: String): Call<Message> {
         return repository.postTalent(inhoud);
     }

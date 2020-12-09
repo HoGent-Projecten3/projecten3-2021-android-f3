@@ -22,7 +22,8 @@
         android:onClick="@{clickListener}"
         app:cardElevation="@dimen/card_elevation"
         app:cardPreventCornerOverlap="false"
-        app:shapeAppearanceOverlay="@style/Widget.MaterialComponents.CardView">
+        app:shapeAppearanceOverlay="@style/Widget.MaterialComponents.CardView"
+        android:backgroundTint="@color/hotel_theme">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout

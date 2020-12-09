@@ -8,12 +8,34 @@ import retrofit2.Call
 import kotlinx.coroutines.flow.Flow
 import android.os.Message
 import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * @author Arne De Schrijver
  */
 
-public class TalentRepository @Inject constructor(private val talentDao: TalentDao, private val service: ApiService){
+@Singleton
+class TalentRepository @Inject constructor(
+    private val talentDao: TalentDao,
+    private val service: ApiService,
+    private val db: AppDatabase
+) {
+
+    fun getTalenten(
+        textFilter: String,
+        includePublic: Boolean,
+        includePrivate: Boolean
+    ): Flow<PagingData<ApiTalent>> {
+        return Pager(
+            config = PagingConfig(
+                enablePlaceholders = false,
+                pageSize = 20,
+                initialLoadSize = 20,
+                prefetchDistance = 20
+            ),
+            pagingSourceFactory = { ApiTalentPagingSource(service, textFilter, includePublic, includePrivate) }
+        ).flow
+    }
 
     fun getTalent(id: Int) = talentDao.getTalent(id)
 
@@ -21,21 +43,12 @@ public class TalentRepository @Inject constructor(private val talentDao: TalentD
         return service.postTalent(inhoud);
     }
 
-    fun getTalenten(): Flow<PagingData<ApiTalent>> {
-        return Pager(
-            config = PagingConfig(enablePlaceholders = false, pageSize = 10, initialLoadSize = 10, prefetchDistance = 10),
-            pagingSourceFactory = { ApiTalentPagingSource(service) }
-        ).flow
-    }
-
-    fun getTalenten2(): Call<ApiTalentSearchResponse> {
-        return service.getTalenten2(0, 100);
-    }
-
-    fun removeTalent(id: Int):Call<Message>{
+    fun deleteTalent(id: Int):Call<Talent>{
         return service.removeTalent(id)
     }
 
-    suspend fun deleteTalentRoom(talentId:Int)=talentDao.deleteTalent(talentId)
+    suspend fun deleteTalentRoom(talent: Talent) = talentDao.deleteTalent(talent)
+
+    suspend fun insertOne(talent: Talent) = talentDao.insertOne(talent)
 
 }

@@ -23,18 +23,22 @@ class TalentDetailViewModel @AssistedInject constructor(
 
     var talent = repository.getTalent(talentId)
 
-    fun deleteTalentRoom(talentId: Int){
-        viewModelScope.launch {
-            repository.deleteTalentRoom(talentId)
-        }
-    }
-    fun removeTalentApi(): Call<Message> {
-        return repository.removeTalent(talent.value!!.talentId)
-    }
-
     @AssistedInject.Factory
     interface AssistedFactory {
         fun create(talentId: Int): TalentDetailViewModel
+    }
+
+    fun removeTalentApi(): Call<Talent> {
+        return repository.deleteTalent(talent.value!!.talentId)
+    }
+
+    fun deleteTalentRoom() {
+        viewModelScope.launch {
+            if(talent!=null){
+                repository.deleteTalentRoom(talent.value!!)
+            }
+
+        }
     }
 
     companion object {
