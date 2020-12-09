@@ -18,7 +18,7 @@ import javax.inject.Inject
  * @author Jef Seys
  */
 class BerichtRepository @Inject constructor(private val service: ApiService, val berichtDao: BerichtDao) {
-    fun verstuurBericht(mijnEmail: String, andereEmail: String, mijnNaam: String, andereNaam: String, text: String): Call<Message> {
+    fun verstuurBericht(mijnEmail: String, andereEmail: String, mijnNaam: String, andereNaam: String, text: String): Call<Bericht> {
 
         return service.verstuurBericht(mijnEmail, andereEmail, mijnNaam, andereNaam, text)
     }

@@ -47,7 +47,7 @@ interface ApiService {
         @Query("ontvangerNaam") ontvangerNaam: String,
         @Query("text") text: String
 
-    ): Call<Message>
+    ): Call<Bericht>
 
     @GET("Chat/GetBerichtenMetBegeleider")
     fun getBerichten(

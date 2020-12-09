@@ -35,7 +35,7 @@ class ChatViewModel @ViewModelInject constructor(
         mijnNaam: String,
         andereNaam: String,
         text: String
-    ): Call<Message> {
+    ): Call<Bericht> {
         return berichtRepository.verstuurBericht(mijnEmail, andereEmail, mijnNaam, andereNaam, text)
     }
 

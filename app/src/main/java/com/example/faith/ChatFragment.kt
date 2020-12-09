@@ -123,7 +123,7 @@ class ChatFragment : Fragment() {
         )
         messageAdapter.add(SendMessageItem(bericht))
 
-        var call: Call<Message>? = viewModel.verstuurBericht(
+        var call: Call<Bericht>? = viewModel.verstuurBericht(
             mijnEmail,
             andereEmail,
             mijnNaam,
@@ -131,12 +131,13 @@ class ChatFragment : Fragment() {
             txfEditBericht.text.toString()
         )
         call!!.enqueue(
-            object : Callback<Message?> {
-                override fun onFailure(call: Call<Message?>, t: Throwable) {}
+            object : Callback<Bericht?> {
+                override fun onFailure(call: Call<Bericht?>, t: Throwable) {}
                 override fun onResponse(
-                    call: Call<Message?>,
-                    response: retrofit2.Response<Message?>
+                    call: Call<Bericht?>,
+                    response: retrofit2.Response<Bericht?>
                 ) {
+                    println(response.toString())
                 }
             }
         )
