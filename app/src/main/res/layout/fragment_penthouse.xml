@@ -51,36 +51,32 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|start"
             android:layout_margin="16dp"
-            android:background="@color/hotel_theme">
+            android:background="@color/hotel_theme"
+            android:orientation="horizontal"
+            android:gravity="start">
 
-            <EditText
+
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/main_add_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:padding="@dimen/small_padding" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/main_add_confirm_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text=""
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/main_add_confirm_button"
-                android:layout_width="54dp"
-                android:layout_height="wrap_content"
                 android:text="@string/ok"
-                android:padding="@dimen/small_padding"
-                android:visibility="gone"
-                app:layout_constraintBaseline_toBaselineOf="@+id/main_add_edit_text"
-                app:layout_constraintStart_toEndOf="@+id/main_add_edit_text" />
+                android:visibility="gone" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/main_add_button"
