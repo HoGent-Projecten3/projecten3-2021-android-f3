@@ -22,9 +22,6 @@ class TalentRepository @Inject constructor(
 ) {
 
     fun getTalenten(
-        textFilter: String,
-        includePublic: Boolean,
-        includePrivate: Boolean
     ): Flow<PagingData<ApiTalent>> {
         return Pager(
             config = PagingConfig(
@@ -33,7 +30,19 @@ class TalentRepository @Inject constructor(
                 initialLoadSize = 20,
                 prefetchDistance = 20
             ),
-            pagingSourceFactory = { ApiTalentPagingSource(service, textFilter, includePublic, includePrivate) }
+            pagingSourceFactory = { ApiTalentPagingSource(service,0) }
+        ).flow
+    }
+
+    fun getGedeeldeTalenten(): Flow<PagingData<ApiTalent>> {
+        return Pager(
+            config = PagingConfig(
+                enablePlaceholders = false,
+                pageSize = 20,
+                initialLoadSize = 20,
+                prefetchDistance = 20
+            ),
+        pagingSourceFactory = { ApiTalentPagingSource(service,1) }
         ).flow
     }
 

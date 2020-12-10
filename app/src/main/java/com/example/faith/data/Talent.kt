@@ -13,7 +13,7 @@ data class Talent (
     @PrimaryKey @ColumnInfo(name = "id") val talentId: Int,
     val inhoud: String,
     val type: Int,
-    val auteur: Gebruiker
+    val auteur: String
     ) {
 
     override fun toString() = inhoud

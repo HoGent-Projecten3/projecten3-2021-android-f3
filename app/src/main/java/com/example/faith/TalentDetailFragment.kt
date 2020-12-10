@@ -16,6 +16,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import javax.inject.Inject
 import androidx.navigation.fragment.findNavController
+import com.example.faith.viewmodels.TalentDetailViewModel.Companion.provideFactory
+
 /**
  * @author Arne De Schrijver
  */
@@ -27,10 +29,9 @@ class TalentDetailFragment: Fragment() {
 
     @Inject
     lateinit var talentDetailViewModelFactory: TalentDetailViewModel.AssistedFactory
-    lateinit var binding: FragmentTalentDetailBinding
 
     private val talentDetailViewModel: TalentDetailViewModel by viewModels {
-        TalentDetailViewModel.provideFactory(
+        provideFactory(
             talentDetailViewModelFactory,
             args.talentId
         )

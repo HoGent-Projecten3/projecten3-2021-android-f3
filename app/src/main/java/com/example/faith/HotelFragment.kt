@@ -4,6 +4,9 @@ import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -14,7 +17,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.example.faith.databinding.FragmentHotelBinding
 import com.example.faith.viewmodels.DagboekListViewModel
 import com.example.faith.viewmodels.LoginViewModel
@@ -206,6 +211,40 @@ class HotelFragment : Fragment() {
         binding.imageEntrance.apply { setBackgroundResource(R.drawable.final_entrance_idle)
         entranceIdleAnimation = background as AnimationDrawable }
         entranceIdleAnimation.start()
+    }
+    /**
+     * Allows for a global insertion of the menu
+     */
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+
+        inflater.inflate(R.menu.overflow_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+
+
+    /**
+     * Handler for specific selections in the menu bar
+     */
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.aboutFragment -> {
+                NavigationUI.onNavDestinationSelected(item, this.findNavController())
+            }
+            R.id.loginFragment -> {
+                viewModel.logout()
+                NavigationUI.onNavDestinationSelected(item, this.findNavController())
+
+            }
+
+
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
 

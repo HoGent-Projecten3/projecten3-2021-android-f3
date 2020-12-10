@@ -7,8 +7,8 @@ import com.google.gson.annotations.SerializedName
  */
 
 data class ApiTalentSearchResponse (
-    @field: SerializedName("resultaten") val resultaten: List<ApiTalent>,
-    @field: SerializedName("aantal_paginas") val totalPages: Int,
+    @field: SerializedName("results") val resultaten: List<ApiTalent>,
+    @field: SerializedName("total_pages") val totalPages: Int,
     @field:SerializedName("last") val last: String?,
     @field:SerializedName("next") val next: String?
 )

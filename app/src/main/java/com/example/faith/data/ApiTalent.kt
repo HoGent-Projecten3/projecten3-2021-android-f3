@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
  */
 
 data class ApiTalent (
-    @field: SerializedName("talentId") val talentId: Int,
+    @field: SerializedName("trofeeId") val talentId: Int,
     @field: SerializedName("inhoud") val inhoud: String,
     @field: SerializedName("type") val type: Int,
     @field: SerializedName("auteur") val auteur: Gebruiker

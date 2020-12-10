@@ -7,11 +7,8 @@ import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.faith.DagboekListFragmentDirections
 import com.example.faith.TrofeekamerListFragmentDirections
-import com.example.faith.data.ApiDagboek
 import com.example.faith.data.ApiTalent
-import com.example.faith.databinding.ListItemDagboekBinding
 import com.example.faith.databinding.ListItemTrofeeBinding
 import com.example.faith.viewmodels.TrofeekamerListViewModel
 

@@ -115,18 +115,18 @@ interface ApiService {
     )
 
     @GET("Client/GetTrofeesPaging")
-    fun getTalenten(
-        @Query("textFilter") textFilter: String,
-        @Query("includePublic") includePublic: Boolean,
-        @Query("includePrivate") includePrivate: Boolean,
-        @Query("page") page:Int,
+    suspend fun getTalenten(
+        @Query("page") page: Int,
         @Query("aantal") perPage: Int
     ): ApiTalentSearchResponse
+
+    @GET("Client/GetGedeeldeTrofee")
+    suspend fun getGedeeldeTalenten(@Query("page") page: Int,
+        @Query("aantal") perPage: Int): ApiTalentSearchResponse
 
     @POST("Client/Talent")
     fun postTalent(@Query("inhoud") inhoud: String): Call<Message>
 
     @DELETE("Client/id")
-    fun removeTalent(@Query("talentId") id:Int) : Call<Talent>
-
+    fun removeTalent(@Query("talentId") id: Int): Call<Talent>
 }

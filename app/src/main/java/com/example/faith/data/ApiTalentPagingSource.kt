@@ -10,16 +10,23 @@ import com.example.faith.api.ApiService
 private const val API_STARTING_PAGE_INDEX = 0
 
 class ApiTalentPagingSource(
-    private val service: ApiService,
-    private val textFilter: String,
-    private val includePublic: Boolean,
-    private val includePrivate: Boolean
+    private val service: ApiService, private val soort: Int
+
 
 ) : PagingSource<Int, ApiTalent>()  {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ApiTalent> {
         val page = params.key ?: API_STARTING_PAGE_INDEX
         return try {
-            val response = service.getTalenten(textFilter, includePublic, includePrivate, page, params.loadSize)
+            var response:ApiTalentSearchResponse;
+            if(soort==0){
+                response = service.getTalenten( page, params.loadSize)
+            }
+            else{
+                response = service.getGedeeldeTalenten(page,params.loadSize)
+
+            }
+
+
             val talenten = response.resultaten
             LoadResult.Page(
                 data = talenten,

@@ -52,10 +52,13 @@ class TrofeekamerListViewModel @ViewModelInject constructor(
         }
 
     fun getTalenten(): Flow<PagingData<ApiTalent>> {
-        return repository.getTalenten(textFilter.value!!, includePublic.value!!, includePrivate.value!!)
+        return repository.getTalenten()
+    }
+    fun getGedeeldeTalenten(): Flow<PagingData<ApiTalent>> {
+        return repository.getGedeeldeTalenten()
     }
 
-    fun deleteTalent(id: Int): Call<Message> {
+    fun deleteTalent(id: Int): Call<Talent> {
         return repository.deleteTalent(id)
     }
 

@@ -32,7 +32,6 @@
             android:clipToPadding="true"
             android:paddingEnd="@dimen/card_side_margin"
             android:paddingStart="@dimen/card_side_margin"
-            android:paddingTop="@dimen/gallery_header_margin"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             app:spanCount="2"
             tools:context="com.example.faith.MainActivity"

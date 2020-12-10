@@ -35,7 +35,6 @@
             android:clipToPadding="true"
             android:paddingEnd="@dimen/card_side_margin"
             android:paddingStart="@dimen/card_side_margin"
-            android:paddingTop="@dimen/gallery_header_margin"
 
             android:layout_marginTop="?actionBarSize"
             android:layout_marginBottom="?actionBarSize"
