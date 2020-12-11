@@ -2,6 +2,7 @@ package com.example.faith.data
 
 import androidx.paging.PagingSource
 import com.example.faith.api.ApiService
+import javax.inject.Inject
 
 /**
  * @author Arne De Schrijver

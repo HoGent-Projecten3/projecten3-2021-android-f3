@@ -1,6 +1,7 @@
 package com.example.faith
 
 import android.os.Bundle
+import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -64,16 +65,16 @@ class TalentDetailFragment: Fragment() {
         return binding.root
     }
     fun removeTalent(){
-        val call: Call<Talent> = talentDetailViewModel.removeTalentApi()
+        val call: Call<Message> = talentDetailViewModel.removeTalentApi()
         talentDetailViewModel.deleteTalentRoom()
         call.enqueue(
-            object : retrofit2.Callback<Talent?> {
-                override fun onResponse(call: Call<Talent?>, response: retrofit2.Response<Talent?>) {
+            object : retrofit2.Callback<Message?> {
+                override fun onResponse(call: Call<Message?>, response: retrofit2.Response<Message?>) {
                     activity?.let { Snackbar.make(it.findViewById(R.id.main_activity_coordinator),"Verwijderd",Snackbar.LENGTH_LONG).show() }
                     navigateToTalent()
 
                 }
-                override fun onFailure(call: Call<Talent?>, t: Throwable) {
+                override fun onFailure(call: Call<Message?>, t: Throwable) {
                     activity?.let { Snackbar.make(it.findViewById(R.id.main_activity_coordinator),"Verwijderen mislukt",Snackbar.LENGTH_LONG).show() }
 
                 }

@@ -7,8 +7,9 @@ import kotlin.properties.Delegates
 
 @Entity(tableName = "doelen")
 data class Doel(
+    @PrimaryKey
     @SerializedName("inhoud")
-    @PrimaryKey @ColumnInfo(name = "inhoud") @NonNull
+    @ColumnInfo(name = "inhoud") @NonNull
     var inhoud: String,
     @SerializedName("checked")
     @ColumnInfo(name = "checked") @NonNull

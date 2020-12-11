@@ -47,7 +47,7 @@ class TrofeeAdapter : PagingDataAdapter<ApiTalent, TrofeeAdapter.TrofeeViewHolde
             view: View
         ) {
             val direction = TrofeekamerListFragmentDirections.actionTrofeekamerListFragmentToTalentDetailFragment(
-                talent.talentId
+                talent.trofeeId
             )
             view.findNavController().navigate(direction)
         }
@@ -70,7 +70,7 @@ class TrofeeAdapter : PagingDataAdapter<ApiTalent, TrofeeAdapter.TrofeeViewHolde
 
 private class TrofeeDiffCallback : DiffUtil.ItemCallback<ApiTalent>() {
     override fun areItemsTheSame(oldItem: ApiTalent, newItem: ApiTalent): Boolean {
-        return oldItem.talentId == newItem.talentId
+        return oldItem.trofeeId == newItem.trofeeId
     }
 
     override fun areContentsTheSame(oldItem: ApiTalent, newItem: ApiTalent): Boolean {

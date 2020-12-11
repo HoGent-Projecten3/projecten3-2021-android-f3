@@ -127,6 +127,9 @@ interface ApiService {
     @POST("Client/Talent")
     fun postTalent(@Query("inhoud") inhoud: String): Call<Message>
 
-    @DELETE("Client/id")
-    fun removeTalent(@Query("talentId") id: Int): Call<Talent>
+    @DELETE("Client/VerwijderItem")
+    fun removeTalent(@Query("id") id: Int): Call<Message>
+
+    @GET("Client/GetItem")
+    fun getItem(@Query("id") id: Int): Call<ApiTalent>
 }

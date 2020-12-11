@@ -7,6 +7,7 @@ import com.example.faith.api.ApiService
 import retrofit2.Call
 import kotlinx.coroutines.flow.Flow
 import android.os.Message
+import androidx.paging.ExperimentalPagingApi
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -46,13 +47,31 @@ class TalentRepository @Inject constructor(
         ).flow
     }
 
-    fun getTalent(id: Int) = talentDao.getTalent(id)
+
+    @ExperimentalPagingApi
+    fun getTalentenPaging(talentNaam:String): Flow<PagingData<Talent>> {
+        return Pager(config = PagingConfig(
+            enablePlaceholders = false,
+            pageSize = 20,
+            initialLoadSize = 20,
+            prefetchDistance = 20
+        ),
+        remoteMediator = TalentRemoteMediator(db, service,talentNaam)
+            ) {
+            talentDao.getAll()
+        }
+            .flow
+    }
+
+    fun getTalent(id: Int) = service.getItem(id)
+    fun getTalentRoom(id: Int) = talentDao.getTalent(id)
+
 
     fun postTalent(inhoud:String): Call<Message> {
         return service.postTalent(inhoud);
     }
 
-    fun deleteTalent(id: Int):Call<Talent>{
+    fun deleteTalent(id: Int):Call<Message>{
         return service.removeTalent(id)
     }
 

@@ -8,7 +8,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagingData
 import com.example.faith.data.ApiTalent
-import com.example.faith.data.ApiTalentSearchResponse
 import com.example.faith.data.Talent
 import com.example.faith.data.TalentRepository
 import kotlinx.coroutines.flow.Flow
@@ -58,7 +57,7 @@ class TrofeekamerListViewModel @ViewModelInject constructor(
         return repository.getGedeeldeTalenten()
     }
 
-    fun deleteTalent(id: Int): Call<Talent> {
+    fun deleteTalent(id: Int): Call<Message> {
         return repository.deleteTalent(id)
     }
 

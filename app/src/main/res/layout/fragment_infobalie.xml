@@ -25,7 +25,6 @@ tools:layout="@layout/fragment_infobalie">
         android:layout_marginBottom="?actionBarSize"
         android:clipToPadding="false"
         android:paddingStart="@dimen/card_side_margin"
-        android:paddingTop="@dimen/gallery_header_margin"
         android:paddingEnd="@dimen/card_side_margin"
         app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
         app:spanCount="1"

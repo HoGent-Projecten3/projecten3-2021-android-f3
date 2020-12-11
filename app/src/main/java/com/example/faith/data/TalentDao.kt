@@ -22,5 +22,6 @@ interface TalentDao {
     suspend fun insertOne(talent: Talent)
     @Delete
     suspend fun deleteTalent(talent: Talent)
-
+    @Query("SELECT * FROM Items")
+    fun getAll(): PagingSource<Int, Talent>
 }
