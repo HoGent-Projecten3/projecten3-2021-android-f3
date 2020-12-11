@@ -20,8 +20,8 @@ interface TalentDao {
     fun insertAll(talenten: List<Talent>)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOne(talent: Talent)
-    @Delete
-    suspend fun deleteTalent(talent: Talent)
+    @Query("DELETE FROM Items WHERE id = :talentId")
+    suspend fun deleteTalent(talentId: Int)
     @Query("SELECT * FROM Items")
     fun getAll(): PagingSource<Int, Talent>
 }

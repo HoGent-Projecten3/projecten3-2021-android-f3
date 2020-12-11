@@ -8,7 +8,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.faith.TrofeekamerListFragmentDirections
-import com.example.faith.data.ApiTalent
+import com.example.faith.data.Talent
 import com.example.faith.databinding.ListItemTrofeeBinding
 import com.example.faith.viewmodels.TrofeekamerListViewModel
 
@@ -16,7 +16,7 @@ import com.example.faith.viewmodels.TrofeekamerListViewModel
  * @author Arne De Schrijver
  */
 
-class TrofeeAdapter : PagingDataAdapter<ApiTalent, TrofeeAdapter.TrofeeViewHolder>(TrofeeDiffCallback()) {
+class TrofeeAdapter : PagingDataAdapter<Talent, TrofeeAdapter.TrofeeViewHolder>(TrofeeDiffCallback()) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -43,15 +43,15 @@ class TrofeeAdapter : PagingDataAdapter<ApiTalent, TrofeeAdapter.TrofeeViewHolde
         }
 
         private fun navigateToTrofee(
-            talent: ApiTalent,
+            talent: Talent,
             view: View
         ) {
             val direction = TrofeekamerListFragmentDirections.actionTrofeekamerListFragmentToTalentDetailFragment(
-                talent.trofeeId
+                talent.talentId
             )
             view.findNavController().navigate(direction)
         }
-        fun bind(item: ApiTalent) {
+        fun bind(item: Talent) {
             binding.apply {
                 talent = item
                 val viewModel = TrofeekamerListViewModel.instance
@@ -68,12 +68,12 @@ class TrofeeAdapter : PagingDataAdapter<ApiTalent, TrofeeAdapter.TrofeeViewHolde
     }
 }
 
-private class TrofeeDiffCallback : DiffUtil.ItemCallback<ApiTalent>() {
-    override fun areItemsTheSame(oldItem: ApiTalent, newItem: ApiTalent): Boolean {
-        return oldItem.trofeeId == newItem.trofeeId
+private class TrofeeDiffCallback : DiffUtil.ItemCallback<Talent>() {
+    override fun areItemsTheSame(oldItem: Talent, newItem: Talent): Boolean {
+        return oldItem.talentId == newItem.talentId
     }
 
-    override fun areContentsTheSame(oldItem: ApiTalent, newItem: ApiTalent): Boolean {
+    override fun areContentsTheSame(oldItem: Talent, newItem: Talent): Boolean {
         return oldItem == newItem
     }
 }

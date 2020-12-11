@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.ExperimentalPagingApi
 import com.example.faith.adapters.TrofeeAdapter
 import com.example.faith.databinding.FragmentTrofeekamerListBinding
 import com.example.faith.viewmodels.TrofeekamerListViewModel
@@ -18,6 +19,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_trofeekamer_list.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -34,6 +36,7 @@ class TrofeekamerListFragment : Fragment() {
     private var adapter = TrofeeAdapter()
     private var adapter2 = TrofeeAdapter()
 
+    @ExperimentalPagingApi
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -43,13 +46,12 @@ class TrofeekamerListFragment : Fragment() {
         context ?: return binding.root
         binding.trofeeList.adapter = adapter
         binding.gedeeldeTrofeeLijst.adapter = adapter2
-
-        getTalent()
         setHasOptionsMenu(true)
 
         binding.btAddTalent.setOnClickListener {
             navigateToTalent()
         }
+        getTalentPaging()
 
         binding.tabTrofee.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
@@ -57,7 +59,7 @@ class TrofeekamerListFragment : Fragment() {
                 if (tab.position == 0) {
                     binding.gedeeldeTrofeeLijst.visibility = View.GONE
                     binding.trofeeList.visibility = View.VISIBLE
-                    getTalent()
+                    getTalentPaging()
                 } else if (tab.position == 1) {
                     binding.gedeeldeTrofeeLijst.visibility = View.VISIBLE
                     binding.trofeeList.visibility = View.GONE
@@ -92,14 +94,18 @@ class TrofeekamerListFragment : Fragment() {
         navController.navigate(direction)
     }
 
-    private fun getTalent() {
-        searchJob?.cancel()
-        searchJob = lifecycleScope.launch {
-            viewModel.getTalenten().collectLatest {
+
+    @ExperimentalPagingApi
+    private fun getTalentPaging() {
+
+        lifecycleScope.launchWhenCreated {
+            @OptIn(ExperimentalCoroutinesApi::class)
+            viewModel.posts.collectLatest {
                 adapter.submitData(it)
             }
         }
     }
+
 
     private fun getGedeeldeTalenten() {
 

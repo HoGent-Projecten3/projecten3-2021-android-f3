@@ -21,6 +21,7 @@ import androidx.work.WorkerParameters
 import com.example.faith.data.AppDatabase
 import com.example.faith.data.Hulpbron
 import com.example.faith.data.Medium
+import com.example.faith.data.Talent
 import com.example.faith.utilities.MEDIA_DATA_FILENAME
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -46,8 +47,12 @@ class SeedDatabaseWorker(
                     val hulpbronType = object : TypeToken<List<Hulpbron>>() {}.type
                     val hulpbronList: List<Hulpbron> = Gson().fromJson(jsonReader, hulpbronType)
 
+                    val talentType = object : TypeToken<List<Talent>>() {}.type
+                    val talentList: List<Talent> = Gson().fromJson(jsonReader, talentType)
+
                     val database = AppDatabase.getInstance(applicationContext)
 
+                    database.talentDao().insertAll(talentList)
                     database.mediumDao().insertAll(mediumList)
                     database.hulpbronDao().insertAll(hulpbronList)
 

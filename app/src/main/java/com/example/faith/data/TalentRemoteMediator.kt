@@ -63,10 +63,9 @@ val talentNaam: String
                 items.forEach {
                     talentDao.insertOne(
                         Talent(
-                            it.trofeeId,
+                            it.talentId,
                             it.inhoud,
-                            it.type,
-                            it.auteur.email.toString()
+                            it.type
                         )
                     )
                 }

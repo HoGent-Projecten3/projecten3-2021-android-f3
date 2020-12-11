@@ -10,7 +10,7 @@
             type="android.view.View.OnClickListener"/>
         <variable
             name="talent"
-            type="com.example.faith.data.ApiTalent"/>
+            type="com.example.faith.data.Talent"/>
     </data>
 
     <com.google.android.material.card.MaterialCardView

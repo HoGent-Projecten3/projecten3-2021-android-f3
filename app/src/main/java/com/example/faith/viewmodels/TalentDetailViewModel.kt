@@ -4,12 +4,7 @@ import android.os.Message
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.faith.R
-import com.example.faith.data.ApiTalent
-import com.example.faith.data.MediumRepository
-import com.example.faith.data.Talent
 import com.example.faith.data.TalentRepository
-import com.google.android.material.snackbar.Snackbar
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
 import kotlinx.coroutines.launch
@@ -38,7 +33,7 @@ class TalentDetailViewModel @AssistedInject constructor(
     fun deleteTalentRoom() {
         viewModelScope.launch {
             if(talent!=null){
-                repository.deleteTalentRoom(talent.value!!)
+                repository.deleteTalentRoom(talent.value!!.talentId)
             }
 
         }

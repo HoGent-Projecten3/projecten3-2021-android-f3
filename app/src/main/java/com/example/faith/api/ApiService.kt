@@ -108,12 +108,6 @@ interface ApiService {
     @POST("Account/login")
     fun login(@Body login: Login): Call<LoginResponse>
 
-    data class LoginResponseModel(
-        val token: String,
-        val
-        refreshToken: String
-    )
-
     @GET("Client/GetTrofeesPaging")
     suspend fun getTalenten(
         @Query("page") page: Int,
@@ -131,5 +125,5 @@ interface ApiService {
     fun removeTalent(@Query("id") id: Int): Call<Message>
 
     @GET("Client/GetItem")
-    fun getItem(@Query("id") id: Int): Call<ApiTalent>
+    fun getItem(@Query("id") id: Int): Call<Talent>
 }

@@ -23,7 +23,7 @@ class TalentRepository @Inject constructor(
 ) {
 
     fun getTalenten(
-    ): Flow<PagingData<ApiTalent>> {
+    ): Flow<PagingData<Talent>> {
         return Pager(
             config = PagingConfig(
                 enablePlaceholders = false,
@@ -35,7 +35,7 @@ class TalentRepository @Inject constructor(
         ).flow
     }
 
-    fun getGedeeldeTalenten(): Flow<PagingData<ApiTalent>> {
+    fun getGedeeldeTalenten(): Flow<PagingData<Talent>> {
         return Pager(
             config = PagingConfig(
                 enablePlaceholders = false,
@@ -75,7 +75,7 @@ class TalentRepository @Inject constructor(
         return service.removeTalent(id)
     }
 
-    suspend fun deleteTalentRoom(talent: Talent) = talentDao.deleteTalent(talent)
+    suspend fun deleteTalentRoom(talentId: Int) = talentDao.deleteTalent(talentId)
 
     suspend fun insertOne(talent: Talent) = talentDao.insertOne(talent)
 

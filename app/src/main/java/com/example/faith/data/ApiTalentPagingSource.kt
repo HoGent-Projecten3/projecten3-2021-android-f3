@@ -14,8 +14,8 @@ class ApiTalentPagingSource(
     private val service: ApiService, private val soort: Int
 
 
-) : PagingSource<Int, ApiTalent>()  {
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ApiTalent> {
+) : PagingSource<Int, Talent>()  {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Talent> {
         val page = params.key ?: API_STARTING_PAGE_INDEX
         return try {
             var response:ApiTalentSearchResponse;

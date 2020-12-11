@@ -45,7 +45,7 @@
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <data>
-        <import type="com.example.faith.data.ApiTalent"/>
+        <import type="com.example.faith.data.Talent"/>
         <variable
             name="viewModel"
             type="com.example.faith.viewmodels.TalentDetailViewModel" />

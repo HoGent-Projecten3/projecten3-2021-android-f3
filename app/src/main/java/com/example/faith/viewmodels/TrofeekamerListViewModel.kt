@@ -6,11 +6,22 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asFlow
+import androidx.lifecycle.viewModelScope
+import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingData
-import com.example.faith.data.ApiTalent
+import androidx.paging.cachedIn
 import com.example.faith.data.Talent
 import com.example.faith.data.TalentRepository
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flattenMerge
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.receiveAsFlow
 import retrofit2.Call
 
 class TrofeekamerListViewModel @ViewModelInject constructor(
@@ -21,7 +32,7 @@ class TrofeekamerListViewModel @ViewModelInject constructor(
     private var _textFilter = MutableLiveData<String>()
     private var _includePublic = MutableLiveData<Boolean>()
     private var _includePrivate = MutableLiveData<Boolean>()
-
+    private val clearListCh = Channel<Unit>(Channel.CONFLATED)
     init {
         if (!savedStateHandle.contains(KEY_START_PAGE)) {
             savedStateHandle.set(KEY_START_PAGE, DEFAULT_PAGE)
@@ -31,6 +42,20 @@ class TrofeekamerListViewModel @ViewModelInject constructor(
         _includePrivate.value = true
         instance = this;
     }
+    @ExperimentalPagingApi
+    @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
+    val posts = flowOf(
+        clearListCh.receiveAsFlow().map { PagingData.empty<Talent>() },
+        savedStateHandle.getLiveData<String>(HulpbronListViewModel.KEY_START_PAGE)
+            .asFlow()
+            .flatMapLatest {
+                repository.getTalentenPaging(
+                     it
+                )
+            }
+            .cachedIn(viewModelScope)
+    ).flattenMerge(2)
+
 
     var textFilter: MutableLiveData<String>
         get() = _textFilter
@@ -50,10 +75,10 @@ class TrofeekamerListViewModel @ViewModelInject constructor(
             _includePrivate = value;
         }
 
-    fun getTalenten(): Flow<PagingData<ApiTalent>> {
+    fun getTalenten(): Flow<PagingData<Talent>> {
         return repository.getTalenten()
     }
-    fun getGedeeldeTalenten(): Flow<PagingData<ApiTalent>> {
+    fun getGedeeldeTalenten(): Flow<PagingData<Talent>> {
         return repository.getGedeeldeTalenten()
     }
 
