@@ -13,9 +13,8 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_trofee"
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            >
+            android:layout_height="wrap_content">
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/eigen_trofee_tab"
@@ -32,12 +31,27 @@
 
         </com.google.android.material.tabs.TabLayout>
 
+        <!--- IMAGE-->
+        <ImageView
+            android:id="@+id/trophyIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="183dp"
+            android:layout_gravity="clip_vertical|center_horizontal"
+            android:baselineAlignBottom="false"
+            android:clipToPadding="false"
+            android:paddingStart="@dimen/card_side_margin"
+            android:paddingTop="@dimen/gallery_header_margin"
+            android:paddingEnd="@dimen/card_side_margin"
+            tools:srcCompat="@tools:sample/avatars" />
+
+
+        <!--- LIST -->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/trofee_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="false"
+            android:clipToPadding="true"
             android:paddingEnd="@dimen/card_side_margin"
             android:paddingStart="@dimen/card_side_margin"
             android:paddingTop="@dimen/gallery_header_margin"
@@ -45,8 +59,10 @@
             app:spanCount="2"
             tools:context="com.example.faith.MainActivity"
             tools:listitem="@layout/list_item_trofee"
-            android:layout_marginTop="?actionBarSize"
+            android:layout_marginTop="120dp"
             android:layout_marginBottom="25dp" />
+
+        <!--- DEPRECATED -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/gedeelde_trofee_lijst"
             android:layout_width="match_parent"

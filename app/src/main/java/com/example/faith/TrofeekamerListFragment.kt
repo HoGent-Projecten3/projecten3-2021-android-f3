@@ -1,5 +1,6 @@
 package com.example.faith
 
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -31,6 +32,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class TrofeekamerListFragment : Fragment() {
 
+    private lateinit var trophyIdleAnimation: AnimationDrawable
     private val viewModel: TrofeekamerListViewModel by viewModels()
     private var searchJob: Job? = null
     private var adapter = TrofeeAdapter()
@@ -73,6 +75,11 @@ class TrofeekamerListFragment : Fragment() {
                 override fun onTabReselected(tab: TabLayout.Tab) {}
             }
         )
+
+        //Activeer de logo animatie
+        binding.trophyIcon.apply { setBackgroundResource(R.drawable.trophy_idle)
+        trophyIdleAnimation = background as AnimationDrawable } 
+        trophyIdleAnimation.start()
 
         return binding.root
     }
