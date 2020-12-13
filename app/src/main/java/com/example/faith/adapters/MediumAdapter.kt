@@ -78,6 +78,7 @@ class MediumAdapter : PagingDataAdapter<Medium, MediumAdapter.MediumViewHolder>(
                             override fun onResponse(call: Call<Medium?>, response: retrofit2.Response<Medium?>) {
                                 viewModel!!.deleteMediumRoom(binding.photo!!.mediumId)
 
+
                             }
                             override fun onFailure(call: Call<Medium?>, t: Throwable) {
 
@@ -89,7 +90,8 @@ class MediumAdapter : PagingDataAdapter<Medium, MediumAdapter.MediumViewHolder>(
                     )
 
                     this@MediumViewHolder.bindingAdapter
-                    bindingAdapter?.notifyItemRemoved(this@MediumViewHolder.absoluteAdapterPosition) // Item wordt verwijderd maar aangezien er niet echt meteen iets weg is add hij het laatste item nog is?
+                    bindingAdapter?.notifyItemRemoved(this@MediumViewHolder.absoluteAdapterPosition)
+                    bindingAdapter?.notifyDataSetChanged()
                 }
 
 

@@ -97,6 +97,7 @@ class DagboekAdapter : PagingDataAdapter<Medium, DagboekAdapter.DagboekViewHolde
 
                     this@DagboekViewHolder.bindingAdapter
                     bindingAdapter?.notifyItemRemoved(this@DagboekViewHolder.absoluteAdapterPosition) // Item wordt verwijderd maar aangezien er niet echt meteen iets weg is add hij het laatste item nog is?
+                    bindingAdapter?.notifyDataSetChanged()
                 }
 
 

@@ -102,6 +102,7 @@ class HulpbronAdapter : PagingDataAdapter<Hulpbron, HulpbronAdapter.HulpbronView
                     )
                     this@HulpbronViewHolder.bindingAdapter
                     bindingAdapter?.notifyItemRemoved(this@HulpbronViewHolder.absoluteAdapterPosition) // Item wordt verwijderd maar aangezien er niet echt meteen iets weg is add hij het laatste item nog is?
+                    bindingAdapter?.notifyDataSetChanged()
                 }
                 executePendingBindings()
             }
