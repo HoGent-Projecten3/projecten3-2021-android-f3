@@ -14,9 +14,8 @@ data class Talent(
     @PrimaryKey @ColumnInfo(name = "id") @field: SerializedName("trofeeId") val talentId: Int,
     @field: SerializedName("inhoud") val inhoud: String,
     @field: SerializedName("type") val type: Int,
-    //@field: SerializedName("auteur") val auteur: String
+    // @field: SerializedName("auteur") val auteur: String
 ) {
 
     override fun toString() = inhoud
 }
-

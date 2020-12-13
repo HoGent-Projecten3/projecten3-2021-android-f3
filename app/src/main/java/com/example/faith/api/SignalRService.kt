@@ -31,13 +31,10 @@ class SignalRService {
                 }
 
             ).build()
-        hubConnection.keepAliveInterval=3600000
+        hubConnection.keepAliveInterval = 3600000
         hubConnection.start().blockingAwait()
         init(email)
-
     }
-
-
 
     fun stop() {
         hubConnection.stop()

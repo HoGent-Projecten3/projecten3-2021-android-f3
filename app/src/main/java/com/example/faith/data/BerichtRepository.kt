@@ -1,17 +1,7 @@
 package com.example.faith.data
 
-import android.os.Message
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
 import com.example.faith.api.ApiService
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.Flow
 import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import javax.inject.Inject
 
 /**
@@ -29,7 +19,7 @@ class BerichtRepository @Inject constructor(private val service: ApiService, val
     suspend fun deleteBerichten() {
         return berichtDao.deleteAll()
     }
-    suspend fun insertOne(bericht:Bericht) {
+    suspend fun insertOne(bericht: Bericht) {
         return berichtDao.insertOne(bericht)
     }
 }

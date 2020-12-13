@@ -1,7 +1,6 @@
 package com.example.faith
 
 import android.os.Bundle
-import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -81,7 +80,6 @@ class ChatFragment : Fragment() {
 
         mijnEmail = loginViewModel.gebruikerEmail.value.toString()
 
-
         try {
             initSignalR()
         } catch (e: Exception) {
@@ -144,7 +142,7 @@ class ChatFragment : Fragment() {
 
         txfEditBericht.setText("")
         messageAdapter.notifyDataSetChanged()
-        messages_list.smoothScrollToPosition(messageAdapter.itemCount - 1);
+        messages_list.smoothScrollToPosition(messageAdapter.itemCount - 1)
     }
 
     /***
@@ -160,13 +158,14 @@ class ChatFragment : Fragment() {
             messageAdapter.notifyDataSetChanged()
 
             println(messageAdapter.itemCount)
-            messages_list.smoothScrollToPosition(messageAdapter.itemCount - 1);
+            messages_list.smoothScrollToPosition(messageAdapter.itemCount - 1)
         }
     }
 
     private fun getBerichten() {
         lifecycleScope.launch {
-            viewModel.geefBerichten(totDatum.toString(), aantal).observe(viewLifecycleOwner,
+            viewModel.geefBerichten(totDatum.toString(), aantal).observe(
+                viewLifecycleOwner,
                 {
                     it?.let {
                         it.forEach {
@@ -209,8 +208,8 @@ class ChatFragment : Fragment() {
                             }
                         }
                     }
-                })
-
+                }
+            )
         }
     }
 }

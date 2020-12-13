@@ -20,7 +20,6 @@ class MediumRepository @Inject constructor(
     private val db: AppDatabase
 ) {
 
-
     suspend fun insertOne(medium: Medium) = mediumDao.insertOne(medium)
 
     fun getMedium(id: Int) = mediumDao.getMedium(id)
@@ -36,7 +35,7 @@ class MediumRepository @Inject constructor(
             ),
             remoteMediator = MediumRemoteMediator(db, service, mediumNaam),
 
-            ) {
+        ) {
             mediumDao.getMedia()
         }.flow
     }

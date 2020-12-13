@@ -13,7 +13,11 @@ class MediumTest {
     @Before
     fun setUp() {
         medium = Medium(
-            1, "naammedium", "leukefoto", "www.foto.be", 1,
+            1,
+            "naammedium",
+            "leukefoto",
+            "www.foto.be",
+            1,
 
             Date.from(LocalDate.of(2020, 5, 5).atStartOfDay().toInstant(ZoneOffset.UTC))
         )

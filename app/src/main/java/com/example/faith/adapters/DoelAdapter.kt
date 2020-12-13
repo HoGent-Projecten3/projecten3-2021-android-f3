@@ -1,6 +1,5 @@
 package com.example.faith.adapters
 
-
 import android.annotation.SuppressLint
 import android.graphics.Typeface
 import android.util.Log
@@ -15,8 +14,7 @@ import com.example.faith.data.Doel
 import com.example.faith.databinding.DoelViewBinding
 import com.example.faith.viewmodels.PenthouseViewModel
 
-
-class DoelAdapter: ListAdapter<Doel, DoelAdapter.DoelViewHolder>(DoelDiffCallback()){
+class DoelAdapter : ListAdapter<Doel, DoelAdapter.DoelViewHolder>(DoelDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DoelViewHolder {
         return DoelViewHolder.from(parent)
@@ -27,11 +25,11 @@ class DoelAdapter: ListAdapter<Doel, DoelAdapter.DoelViewHolder>(DoelDiffCallbac
         holder.bind(item)
     }
 
-    class DoelViewHolder(val binding: DoelViewBinding): RecyclerView.ViewHolder(binding.root){
+    class DoelViewHolder(val binding: DoelViewBinding) : RecyclerView.ViewHolder(binding.root) {
 
         var state: State = NormalState(this)
 
-        interface State{
+        interface State {
             fun doLongClick(item: Doel, view: View)
             fun doClick(item: Doel, view: View)
             fun doelEditButton(item: Doel, view: View)
@@ -42,11 +40,11 @@ class DoelAdapter: ListAdapter<Doel, DoelAdapter.DoelViewHolder>(DoelDiffCallbac
             fun doelCheckboxChange(item: Doel, checked: Boolean, view: View)
         }
 
-        class EditState: State{
+        class EditState : State {
 
             var _doelViewHolder: DoelViewHolder
 
-            constructor(doelViewHolder: DoelViewHolder){
+            constructor(doelViewHolder: DoelViewHolder) {
                 _doelViewHolder = doelViewHolder
                 doelViewHolder.binding.doelEditButton.visibility = View.VISIBLE
                 doelViewHolder.binding.doelDeleteButton.visibility = View.VISIBLE
@@ -76,13 +74,13 @@ class DoelAdapter: ListAdapter<Doel, DoelAdapter.DoelViewHolder>(DoelDiffCallbac
 
             override fun doelConfirmEditButton(item: Doel, view: View) {
                 val nieuweInhoud = _doelViewHolder.binding.doelEditText.text.toString()
-                if(nieuweInhoud.isNullOrEmpty()){
+                if (nieuweInhoud.isNullOrEmpty()) {
                     Toast.makeText(view.context, "Inhoud mag niet leeg zijn!", Toast.LENGTH_LONG).show()
-                }else if(nieuweInhoud.length > 15){
+                } else if (nieuweInhoud.length > 15) {
                     Toast.makeText(view.context, "Inhoud mag niet langer dan 15 tekens zijn!", Toast.LENGTH_LONG).show()
-                }else {
+                } else {
                     val newItem = PenthouseViewModel.instance!!.getDoel(item.inhoud)
-                    if(newItem != null) newItem.inhoud = nieuweInhoud
+                    if (newItem != null) newItem.inhoud = nieuweInhoud
                     _doelViewHolder.binding.doelText.setText(item.inhoud)
                     PenthouseViewModel.instance!!.syncDoelen()
                 }
@@ -108,14 +106,14 @@ class DoelAdapter: ListAdapter<Doel, DoelAdapter.DoelViewHolder>(DoelDiffCallbac
 
             override fun doelAddConfirmButton(item: Doel, view: View) {
                 val inhoud = _doelViewHolder.binding.doelAddEditText.text.toString()
-                if(inhoud.isNullOrEmpty()){
+                if (inhoud.isNullOrEmpty()) {
                     Toast.makeText(view.context, "Inhoud mag niet leeg zijn!", Toast.LENGTH_LONG).show()
-                }else if(inhoud.length > 15){
+                } else if (inhoud.length > 15) {
                     Toast.makeText(view.context, "Inhoud mag niet langer dan 15 tekens zijn!", Toast.LENGTH_LONG).show()
-                }else{
-                    val newDoel = Doel(inhoud,false,false, mutableListOf<Doel>())
+                } else {
+                    val newDoel = Doel(inhoud, false, false, mutableListOf<Doel>())
                     val newItem = PenthouseViewModel.instance!!.getDoel(item.inhoud)
-                    if(newItem != null) newItem.addStap(newDoel)
+                    if (newItem != null) newItem.addStap(newDoel)
                     PenthouseViewModel.instance!!.syncDoelen()
                 }
                 _doelViewHolder.binding.doelAddButton.visibility = View.VISIBLE
@@ -127,17 +125,16 @@ class DoelAdapter: ListAdapter<Doel, DoelAdapter.DoelViewHolder>(DoelDiffCallbac
 
             override fun doelCheckboxChange(item: Doel, checked: Boolean, view: View) {
                 val newItem = PenthouseViewModel.instance!!.getDoel(item.inhoud)
-                if(newItem != null) newItem.checked = checked
+                if (newItem != null) newItem.checked = checked
                 PenthouseViewModel.instance!!.syncDoelen()
             }
-
         }
 
-        class ColapseState: State{
+        class ColapseState : State {
 
             var _doelViewHolder: DoelViewHolder
 
-            constructor(doelViewHolder: DoelViewHolder){
+            constructor(doelViewHolder: DoelViewHolder) {
                 _doelViewHolder = doelViewHolder
                 doelViewHolder.binding.doelListSec.visibility = View.GONE
                 doelViewHolder.binding.doelText.typeface = Typeface.DEFAULT_BOLD
@@ -153,7 +150,7 @@ class DoelAdapter: ListAdapter<Doel, DoelAdapter.DoelViewHolder>(DoelDiffCallbac
 
             override fun doClick(item: Doel, view: View) {
                 val newItem = PenthouseViewModel.instance!!.getDoel(item.inhoud)
-                if(newItem != null) newItem.collapsed = false
+                if (newItem != null) newItem.collapsed = false
                 _doelViewHolder.state = NormalState(_doelViewHolder)
                 PenthouseViewModel.instance!!.syncDoelen()
             }
@@ -185,16 +182,16 @@ class DoelAdapter: ListAdapter<Doel, DoelAdapter.DoelViewHolder>(DoelDiffCallbac
 
             override fun doelCheckboxChange(item: Doel, checked: Boolean, view: View) {
                 val newItem = PenthouseViewModel.instance!!.getDoel(item.inhoud)
-                if(newItem != null) newItem.checked = checked
+                if (newItem != null) newItem.checked = checked
                 PenthouseViewModel.instance!!.syncDoelen()
             }
         }
 
-        class NormalState: State{
+        class NormalState : State {
 
             var _doelViewHolder: DoelViewHolder
 
-            constructor(doelViewHolder: DoelViewHolder){
+            constructor(doelViewHolder: DoelViewHolder) {
                 _doelViewHolder = doelViewHolder
                 doelViewHolder.binding.doelListSec.visibility = View.VISIBLE
                 doelViewHolder.binding.doelText.typeface = Typeface.DEFAULT
@@ -209,10 +206,10 @@ class DoelAdapter: ListAdapter<Doel, DoelAdapter.DoelViewHolder>(DoelDiffCallbac
             }
 
             override fun doClick(item: Doel, view: View) {
-                if(!item.stappen.isNullOrEmpty()) {
+                if (!item.stappen.isNullOrEmpty()) {
                     _doelViewHolder.binding.doelColapseText.text = "${item.aantalStappen} substappen"
                     val newItem = PenthouseViewModel.instance!!.getDoel(item.inhoud)
-                    if(newItem != null) newItem.collapsed = true
+                    if (newItem != null) newItem.collapsed = true
                     _doelViewHolder.state = ColapseState(_doelViewHolder)
                     PenthouseViewModel.instance!!.syncDoelen()
                 }
@@ -245,14 +242,14 @@ class DoelAdapter: ListAdapter<Doel, DoelAdapter.DoelViewHolder>(DoelDiffCallbac
 
             override fun doelCheckboxChange(item: Doel, checked: Boolean, view: View) {
                 val newItem = PenthouseViewModel.instance!!.getDoel(item.inhoud)
-                if(newItem != null) newItem.checked = checked
+                if (newItem != null) newItem.checked = checked
                 PenthouseViewModel.instance!!.syncDoelen()
             }
         }
 
         fun bind(item: Doel) {
 
-            //var viewModel = PenthouseViewModel.instance
+            // var viewModel = PenthouseViewModel.instance
 
             binding.doelText.text = item.inhoud
             val adapter = DoelAdapter()
@@ -260,23 +257,25 @@ class DoelAdapter: ListAdapter<Doel, DoelAdapter.DoelViewHolder>(DoelDiffCallbac
             binding.doelListSec.adapter = adapter
             binding.doelCheckbox.isChecked = item.checked
 
-            if(item.collapsed) {
+            if (item.collapsed) {
                 binding.doelColapseText.text = "${item.aantalStappen} substappen"
                 state = ColapseState(this)
             }
 
-            binding.doelText.setOnLongClickListener( object: View.OnLongClickListener{
-                override fun onLongClick(v: View?): Boolean {
-                    state.doLongClick(item, v!!)
-                    return true
+            binding.doelText.setOnLongClickListener(
+                object : View.OnLongClickListener {
+                    override fun onLongClick(v: View?): Boolean {
+                        state.doLongClick(item, v!!)
+                        return true
+                    }
                 }
-            })
+            )
 
             binding.doelText.setOnClickListener {
                 state.doClick(item, it)
             }
 
-            binding.doelEditButton.setOnClickListener{
+            binding.doelEditButton.setOnClickListener {
                 state.doelEditButton(item, it)
             }
 
@@ -298,12 +297,12 @@ class DoelAdapter: ListAdapter<Doel, DoelAdapter.DoelViewHolder>(DoelDiffCallbac
             }
 
             binding.doelCheckbox.setOnClickListener {
-                state.doelCheckboxChange(item,binding.doelCheckbox.isChecked, it)
+                state.doelCheckboxChange(item, binding.doelCheckbox.isChecked, it)
             }
         }
 
-        companion object{
-            fun from(parent: ViewGroup): DoelViewHolder{
+        companion object {
+            fun from(parent: ViewGroup): DoelViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = DoelViewBinding.inflate(layoutInflater, parent, false)
                 return DoelViewHolder(binding)
@@ -321,5 +320,4 @@ class DoelAdapter: ListAdapter<Doel, DoelAdapter.DoelViewHolder>(DoelDiffCallbac
             return oldItem === newItem
         }
     }
-
 }

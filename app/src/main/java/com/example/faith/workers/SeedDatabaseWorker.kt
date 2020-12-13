@@ -37,10 +37,6 @@ class SeedDatabaseWorker(
             applicationContext.assets.open(MEDIA_DATA_FILENAME).use { inputStream ->
                 JsonReader(inputStream.reader()).use { jsonReader ->
 
-
-
-
-
                     val mediumType = object : TypeToken<List<Medium>>() {}.type
                     val mediumList: List<Medium> = Gson().fromJson(jsonReader, mediumType)
 

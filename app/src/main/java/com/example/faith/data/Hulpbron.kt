@@ -4,8 +4,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
-import java.time.DateTimeException
-import java.util.*
 @Entity(tableName = "hulpbronnen")
 data class Hulpbron(
     @PrimaryKey @ColumnInfo(name = "id")
@@ -26,8 +24,7 @@ data class Hulpbron(
     @field:SerializedName("datum")
     val datum: String?,
     @field:SerializedName("auteurType")
-    val auteurType:String,
-)
-{
+    val auteurType: String,
+) {
     override fun toString() = titel
 }

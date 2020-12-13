@@ -1,23 +1,19 @@
 package com.example.faith
 
 import android.os.Bundle
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.faith.data.Medium
 import com.example.faith.databinding.FragmentMediumDetailBinding
 import com.example.faith.viewmodels.MediumDetailViewModel
 import com.example.faith.viewmodels.MediumDetailViewModel.Companion.provideFactory
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_medium_detail.*
-import retrofit2.Call
 import javax.inject.Inject
 
 /**

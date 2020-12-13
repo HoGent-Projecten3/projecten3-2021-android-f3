@@ -19,7 +19,6 @@ import com.example.faith.viewmodels.DagboekListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_dagboek_list.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -74,7 +73,8 @@ class DagboekListFragment : Fragment() {
                     filter(newText)
                     return false
                 }
-            })
+            }
+        )
     }
 
     /**

@@ -32,9 +32,12 @@ class PenthouseFragment : Fragment() {
 
         binding.doelList.itemAnimator = null
 
-        viewModel.doelen.observe(this.viewLifecycleOwner, Observer {
-            adapter.submitList(it)
-        })
+        viewModel.doelen.observe(
+            this.viewLifecycleOwner,
+            Observer {
+                adapter.submitList(it)
+            }
+        )
 
         viewModel.getDoelen()
 
@@ -46,11 +49,11 @@ class PenthouseFragment : Fragment() {
 
         binding.mainAddConfirmButton.setOnClickListener {
             val inhoud = binding.mainAddEditText.text.toString()
-            if(inhoud.isNullOrEmpty()){
+            if (inhoud.isNullOrEmpty()) {
                 Toast.makeText(it.context, "Inhoud mag niet leeg zijn!", Toast.LENGTH_LONG).show()
-            }else if(inhoud.length > 15){
+            } else if (inhoud.length > 15) {
                 Toast.makeText(it.context, "Inhoud mag niet langer dan 15 tekens zijn!", Toast.LENGTH_LONG).show()
-            }else{
+            } else {
                 val doel = Doel(inhoud, false, false, mutableListOf<Doel>())
                 viewModel.addDoel(doel)
                 viewModel.syncDoelen()

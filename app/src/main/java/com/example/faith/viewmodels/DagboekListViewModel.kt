@@ -28,7 +28,8 @@ import retrofit2.Call
  * @author Remi Mestdagh
  */
 class DagboekListViewModel @ViewModelInject constructor(
-    private val repository: MediumRepository, @Assisted private val savedStateHandle: SavedStateHandle
+    private val repository: MediumRepository,
+    @Assisted private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     companion object {
@@ -42,12 +43,10 @@ class DagboekListViewModel @ViewModelInject constructor(
             savedStateHandle.set(KEY_START_PAGE, DEFAULT_PAGE)
         }
 
-        instance = this;
+        instance = this
     }
 
     private val clearListCh = Channel<Unit>(Channel.CONFLATED)
-
-
 
     @ExperimentalPagingApi
     @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
@@ -60,28 +59,24 @@ class DagboekListViewModel @ViewModelInject constructor(
     ).flattenMerge(2)
 
     @ExperimentalPagingApi
-    fun filter(query:String): Flow<PagingData<Medium>> {
-        if(query.isNullOrEmpty()){
+    fun filter(query: String): Flow<PagingData<Medium>> {
+        if (query.isNullOrEmpty()) {
             return posts
         }
-       return posts.map { pagingData ->
+        return posts.map { pagingData ->
             pagingData.filter {
-                it.naam.startsWith(query,true)
+                it.naam.startsWith(query, true)
             }
         }.cachedIn(viewModelScope)
     }
 
-
-    fun deleteMediumRoom(id:Int) {
+    fun deleteMediumRoom(id: Int) {
         viewModelScope.launch {
 
-                repository.deleteMediumRoom(id)
-
-
+            repository.deleteMediumRoom(id)
         }
     }
     fun removeMediumApi(id: Int): Call<Medium> {
         return repository.removeMedium(id)
     }
-
 }

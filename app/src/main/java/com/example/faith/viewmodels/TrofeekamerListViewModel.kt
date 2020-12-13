@@ -40,7 +40,7 @@ class TrofeekamerListViewModel @ViewModelInject constructor(
         textFilter.value = ""
         _includePublic.value = true
         _includePrivate.value = true
-        instance = this;
+        instance = this
     }
     @ExperimentalPagingApi
     @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
@@ -50,29 +50,28 @@ class TrofeekamerListViewModel @ViewModelInject constructor(
             .asFlow()
             .flatMapLatest {
                 repository.getTalentenPaging(
-                     it
+                    it
                 )
             }
             .cachedIn(viewModelScope)
     ).flattenMerge(2)
 
-
     var textFilter: MutableLiveData<String>
         get() = _textFilter
         set(value) {
-            _textFilter = value;
+            _textFilter = value
         }
 
     var includePublic: MutableLiveData<Boolean>
         get() = _includePublic
         set(value) {
-            _includePublic = value;
+            _includePublic = value
         }
 
     var includePrivate: MutableLiveData<Boolean>
         get() = _includePrivate
         set(value) {
-            _includePrivate = value;
+            _includePrivate = value
         }
 
     fun getTalenten(): Flow<PagingData<Talent>> {
@@ -95,5 +94,4 @@ class TrofeekamerListViewModel @ViewModelInject constructor(
         const val KEY_START_PAGE = "startkey"
         const val DEFAULT_PAGE = "0"
     }
-
 }

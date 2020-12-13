@@ -13,8 +13,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
-import androidx.paging.LoadState
-import com.example.faith.adapters.DagboekAdapter
 import com.example.faith.adapters.MediumAdapter
 import com.example.faith.databinding.FragmentMediumListBinding
 import com.example.faith.viewmodels.MediumListViewModel
@@ -22,10 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_dagboek_list.*
 import kotlinx.android.synthetic.main.fragment_medium_list.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.launch
 
 /**
@@ -53,7 +48,6 @@ class MediumListFragment : Fragment() {
         }
         initAdapter()
 
-
         return binding.root
     }
 
@@ -80,7 +74,8 @@ class MediumListFragment : Fragment() {
                     filter(newText)
                     return false
                 }
-            })
+            }
+        )
     }
 
     /**

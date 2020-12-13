@@ -10,11 +10,12 @@ import retrofit2.HttpException
 import java.io.IOException
 
 @ExperimentalPagingApi
-data class TalentRemoteMediator
-    (
-    private val db: AppDatabase, private
-val service: ApiService, private
-val talentNaam: String
+data class TalentRemoteMediator(
+    private val db: AppDatabase,
+    private
+    val service: ApiService,
+    private
+    val talentNaam: String
 ) : RemoteMediator<Int, Talent>() {
 
     private val talentDao: TalentDao = db.talentDao()
@@ -53,7 +54,8 @@ val talentNaam: String
                 page = when (loadType) {
                     LoadType.REFRESH -> 0
                     else -> loadKey!!.toInt()
-                }, perPage = 20
+                },
+                perPage = 20
             )
 
             val items = data.resultaten
@@ -69,9 +71,7 @@ val talentNaam: String
                         )
                     )
                 }
-
             }
-
 
             return MediatorResult.Success(endOfPaginationReached = items.isEmpty())
         } catch (e: IOException) {

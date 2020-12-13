@@ -3,9 +3,7 @@ package com.example.faith.viewmodels
 import android.os.Message
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
-import androidx.paging.PagingData
-import com.example.faith.data.*
-import kotlinx.coroutines.flow.Flow
+import com.example.faith.data.TalentRepository
 import retrofit2.Call
 
 /**
@@ -14,9 +12,9 @@ import retrofit2.Call
 
 class TalentViewModel @ViewModelInject constructor(
     private val repository: TalentRepository
-): ViewModel() {
+) : ViewModel() {
 
     fun voegTalentToe(inhoud: String): Call<Message> {
-        return repository.postTalent(inhoud);
+        return repository.postTalent(inhoud)
     }
 }

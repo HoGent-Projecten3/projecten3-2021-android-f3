@@ -1,7 +1,5 @@
 package com.example.faith.adapters
 
-import android.graphics.Typeface
-import android.os.Message
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,20 +11,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.faith.HulpbronListFragmentDirections
 import com.example.faith.data.Hulpbron
 import com.example.faith.databinding.ListItemHulpbronBinding
-import com.example.faith.viewmodels.HulpbronDetailViewModel
 import com.example.faith.viewmodels.HulpbronListViewModel
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_dagboek.*
 import kotlinx.android.synthetic.main.fragment_infobalie.view.*
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.filter
-import okhttp3.internal.notify
 import retrofit2.Call
 import retrofit2.Callback
-import retrofit2.await
-import java.io.Console
-import javax.inject.Inject
 
 class HulpbronAdapter : PagingDataAdapter<Hulpbron, HulpbronAdapter.HulpbronViewHolder>(
     HulpbronDiffCallback()
@@ -54,12 +43,10 @@ class HulpbronAdapter : PagingDataAdapter<Hulpbron, HulpbronAdapter.HulpbronView
                 true
             }
 
-
             binding.setClickListener {
                 binding.hulpbron?.let { hulpbron ->
                     navigateToHulpbron(hulpbron, it)
                 }
-
             }
         }
 

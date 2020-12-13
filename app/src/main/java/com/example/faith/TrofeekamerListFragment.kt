@@ -53,31 +53,29 @@ class TrofeekamerListFragment : Fragment() {
         }
         getTalentPaging()
 
-        binding.tabTrofee.addOnTabSelectedListener(object : OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                println(tab.position)
-                if (tab.position == 0) {
-                    binding.gedeeldeTrofeeLijst.visibility = View.GONE
-                    binding.trofeeList.visibility = View.VISIBLE
-                    getTalentPaging()
-                } else if (tab.position == 1) {
-                    binding.gedeeldeTrofeeLijst.visibility = View.VISIBLE
-                    binding.trofeeList.visibility = View.GONE
-                   getGedeeldeTalenten()
-
-                } else {
-
+        binding.tabTrofee.addOnTabSelectedListener(
+            object : OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab) {
+                    println(tab.position)
+                    if (tab.position == 0) {
+                        binding.gedeeldeTrofeeLijst.visibility = View.GONE
+                        binding.trofeeList.visibility = View.VISIBLE
+                        getTalentPaging()
+                    } else if (tab.position == 1) {
+                        binding.gedeeldeTrofeeLijst.visibility = View.VISIBLE
+                        binding.trofeeList.visibility = View.GONE
+                        getGedeeldeTalenten()
+                    } else {
+                    }
                 }
-            }
 
-            override fun onTabUnselected(tab: TabLayout.Tab) {}
-            override fun onTabReselected(tab: TabLayout.Tab) {}
-        })
+                override fun onTabUnselected(tab: TabLayout.Tab) {}
+                override fun onTabReselected(tab: TabLayout.Tab) {}
+            }
+        )
 
         return binding.root
     }
-
-
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
@@ -94,7 +92,6 @@ class TrofeekamerListFragment : Fragment() {
         navController.navigate(direction)
     }
 
-
     @ExperimentalPagingApi
     private fun getTalentPaging() {
 
@@ -105,7 +102,6 @@ class TrofeekamerListFragment : Fragment() {
             }
         }
     }
-
 
     private fun getGedeeldeTalenten() {
 

@@ -40,7 +40,7 @@ class DatabaseModule {
     }*/
 
     @Provides
-    fun provideMediumRemoteKeysDao(appDatabase: AppDatabase) : MediumRemoteKeyDao {
+    fun provideMediumRemoteKeysDao(appDatabase: AppDatabase): MediumRemoteKeyDao {
         return appDatabase.remoteKeys()
     }
     @Provides

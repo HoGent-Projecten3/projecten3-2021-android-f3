@@ -2,7 +2,6 @@ package com.example.faith.viewmodels
 
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
@@ -29,7 +28,8 @@ import retrofit2.Call
  * @author Remi Mestdagh
  */
 class MediumListViewModel @ViewModelInject constructor(
-    private val apiRepository: MediumRepository,  @Assisted private val savedStateHandle: SavedStateHandle
+    private val apiRepository: MediumRepository,
+    @Assisted private val savedStateHandle: SavedStateHandle
 
 ) : ViewModel() {
     companion object {
@@ -42,13 +42,10 @@ class MediumListViewModel @ViewModelInject constructor(
         if (!savedStateHandle.contains(KEY_START_PAGE)) {
             savedStateHandle.set(KEY_START_PAGE, DEFAULT_PAGE)
         }
-        instance=this;
-
+        instance = this
     }
 
     private val clearListCh = Channel<Unit>(Channel.CONFLATED)
-
-
 
     @ExperimentalPagingApi
     @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
@@ -60,31 +57,24 @@ class MediumListViewModel @ViewModelInject constructor(
             .cachedIn(viewModelScope)
     ).flattenMerge(2)
 
-
     @ExperimentalPagingApi
-    fun filter(query:String): Flow<PagingData<Medium>> {
-        if(query.isNullOrEmpty()){
+    fun filter(query: String): Flow<PagingData<Medium>> {
+        if (query.isNullOrEmpty()) {
             return posts
         }
         return posts.map { pagingData ->
             pagingData.filter {
-                it.naam.startsWith(query,true)
+                it.naam.startsWith(query, true)
             }
         }.cachedIn(viewModelScope)
     }
-    fun deleteMediumRoom(id:Int) {
+    fun deleteMediumRoom(id: Int) {
         viewModelScope.launch {
 
             apiRepository.deleteMediumRoom(id)
-
-
         }
     }
     fun removeMediumApi(id: Int): Call<Medium> {
         return apiRepository.removeMedium(id)
     }
-
-
-
-
 }

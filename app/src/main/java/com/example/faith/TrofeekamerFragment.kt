@@ -2,29 +2,28 @@ package com.example.faith
 
 import android.os.Bundle
 import android.os.Message
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.faith.R
+import androidx.navigation.fragment.findNavController
 import com.example.faith.databinding.FragmentTalentBinding
 import com.example.faith.viewmodels.TalentViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_dagboek.*
+import kotlinx.android.synthetic.main.fragment_talent.*
 import retrofit2.Call
 import retrofit2.Callback
-import androidx.navigation.fragment.findNavController
-import kotlinx.android.synthetic.main.fragment_talent.*
 
 /**
  * @author Arne De Schrijver
  */
 
 @AndroidEntryPoint
-class TrofeekamerFragment: Fragment() {
+class TrofeekamerFragment : Fragment() {
 
     private val viewModel: TalentViewModel by viewModels()
 
@@ -57,7 +56,8 @@ class TrofeekamerFragment: Fragment() {
     private fun showMessage(message: String) {
         activity?.let {
             Snackbar.make(
-                it.findViewById(R.id.main_activity_coordinator), message,
+                it.findViewById(R.id.main_activity_coordinator),
+                message,
                 Snackbar.LENGTH_LONG
             ).show()
         }
@@ -65,7 +65,6 @@ class TrofeekamerFragment: Fragment() {
 
     private fun uploadTalent() {
         if (validateInput(textInputInhoud.text.toString())) {
-
 
             var call: Call<Message> = viewModel.voegTalentToe(
                 textInputInhoud.text.toString()

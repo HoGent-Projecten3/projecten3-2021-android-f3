@@ -1,15 +1,18 @@
 package com.example.faith.api
 
 import android.os.Message
-import com.example.faith.data.*
 import com.example.faith.data.ApiBerichtSearchResponse
 import com.example.faith.data.ApiHulpbronSearchResponse
 import com.example.faith.data.ApiMediumSearchResponse
+import com.example.faith.data.ApiTalentSearchResponse
+import com.example.faith.data.Bericht
+import com.example.faith.data.Doel
 import com.example.faith.data.Gebruiker
 import com.example.faith.data.HulpbronDTO
 import com.example.faith.data.Login
 import com.example.faith.data.LoginResponse
 import com.example.faith.data.Medium
+import com.example.faith.data.Talent
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -115,8 +118,10 @@ interface ApiService {
     ): ApiTalentSearchResponse
 
     @GET("Client/GetGedeeldeTrofee")
-    suspend fun getGedeeldeTalenten(@Query("page") page: Int,
-        @Query("aantal") perPage: Int): ApiTalentSearchResponse
+    suspend fun getGedeeldeTalenten(
+        @Query("page") page: Int,
+        @Query("aantal") perPage: Int
+    ): ApiTalentSearchResponse
 
     @POST("Client/Talent")
     fun postTalent(@Query("inhoud") inhoud: String): Call<Message>

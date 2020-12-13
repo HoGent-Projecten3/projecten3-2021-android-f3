@@ -1,7 +1,6 @@
 package com.example.faith.adapters
 
 import android.os.Message
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,13 +9,9 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.faith.DagboekListFragmentDirections
-import com.example.faith.R
 import com.example.faith.data.Medium
 import com.example.faith.databinding.ListItemDagboekBinding
-import com.example.faith.viewmodels.DagboekDetailViewModel
 import com.example.faith.viewmodels.DagboekListViewModel
-import com.example.faith.viewmodels.HulpbronListViewModel
-import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
 
@@ -72,10 +67,6 @@ class DagboekAdapter : PagingDataAdapter<Medium, DagboekAdapter.DagboekViewHolde
             binding.apply {
                 dagboek = item
 
-
-
-
-
                 val viewModel = DagboekListViewModel.instance
                 binding.btVerwijderDagboek.setOnClickListener {
                     val call: Call<Medium> =
@@ -83,15 +74,10 @@ class DagboekAdapter : PagingDataAdapter<Medium, DagboekAdapter.DagboekViewHolde
                     call.enqueue(
                         object : retrofit2.Callback<Medium?> {
                             override fun onResponse(call: Call<Medium?>, response: retrofit2.Response<Medium?>) {
-                                viewModel!!.deleteMediumRoom(binding.dagboek!!.mediumId)
-
+                                viewModel.deleteMediumRoom(binding.dagboek!!.mediumId)
                             }
                             override fun onFailure(call: Call<Medium?>, t: Throwable) {
-
-
                             }
-
-
                         }
                     )
 
@@ -99,11 +85,6 @@ class DagboekAdapter : PagingDataAdapter<Medium, DagboekAdapter.DagboekViewHolde
                     bindingAdapter?.notifyItemRemoved(this@DagboekViewHolder.absoluteAdapterPosition) // Item wordt verwijderd maar aangezien er niet echt meteen iets weg is add hij het laatste item nog is?
                     bindingAdapter?.notifyDataSetChanged()
                 }
-
-
-
-
-
 
                 executePendingBindings()
             }
@@ -116,7 +97,6 @@ class DagboekAdapter : PagingDataAdapter<Medium, DagboekAdapter.DagboekViewHolde
             holder.bind(medium)
         }
     }
-
 }
 
 private fun <T> Call<T>.enqueue(callback: Callback<Message?>) {

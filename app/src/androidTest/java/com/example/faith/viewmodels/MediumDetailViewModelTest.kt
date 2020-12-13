@@ -9,13 +9,10 @@ import com.example.faith.utilities.testMedium
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.After
-import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
-import org.junit.Test
 import org.junit.rules.RuleChain
 import javax.inject.Inject
-import kotlin.jvm.Throws
 
 @HiltAndroidTest
 class MediumDetailViewModelTest {

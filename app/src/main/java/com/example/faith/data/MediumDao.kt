@@ -3,7 +3,6 @@ package com.example.faith.data
 import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -17,7 +16,6 @@ interface MediumDao {
 
     @Query("SELECT * FROM media WHERE mediumType != 4 ORDER BY datum DESC")
     fun getMediaTests(): LiveData<List<Medium>>
-
 
     @Query("SELECT * FROM media WHERE mediumType = 4 ORDER BY datum DESC")
     fun getDagboek(): PagingSource<Int, Medium>

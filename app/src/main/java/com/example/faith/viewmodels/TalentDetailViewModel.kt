@@ -32,10 +32,7 @@ class TalentDetailViewModel @AssistedInject constructor(
 
     fun deleteTalentRoom() {
         viewModelScope.launch {
-            if(talent!=null){
                 repository.deleteTalentRoom(talent.value!!.talentId)
-            }
-
         }
     }
 
@@ -50,5 +47,4 @@ class TalentDetailViewModel @AssistedInject constructor(
             }
         }
     }
-
 }

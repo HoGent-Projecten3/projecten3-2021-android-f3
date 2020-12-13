@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.faith.MediumListFragmentDirections
 import com.example.faith.data.Medium
 import com.example.faith.databinding.ListItemMediumBinding
-import com.example.faith.viewmodels.DagboekListViewModel
 import com.example.faith.viewmodels.MediumListViewModel
 import retrofit2.Call
 
@@ -43,8 +42,6 @@ class MediumAdapter : PagingDataAdapter<Medium, MediumAdapter.MediumViewHolder>(
                 true
             }
 
-
-
             binding.setClickListener {
                 binding.photo?.let { photo ->
                     navigateToMedium(photo, it)
@@ -67,8 +64,6 @@ class MediumAdapter : PagingDataAdapter<Medium, MediumAdapter.MediumViewHolder>(
             binding.apply {
                 photo = item
 
-
-
                 val viewModel = MediumListViewModel.instance
                 binding.btVerwijderMedium.setOnClickListener {
                     val call: Call<Medium> =
@@ -76,16 +71,10 @@ class MediumAdapter : PagingDataAdapter<Medium, MediumAdapter.MediumViewHolder>(
                     call.enqueue(
                         object : retrofit2.Callback<Medium?> {
                             override fun onResponse(call: Call<Medium?>, response: retrofit2.Response<Medium?>) {
-                                viewModel!!.deleteMediumRoom(binding.photo!!.mediumId)
-
-
+                                viewModel.deleteMediumRoom(binding.photo!!.mediumId)
                             }
                             override fun onFailure(call: Call<Medium?>, t: Throwable) {
-
-
                             }
-
-
                         }
                     )
 
@@ -93,11 +82,6 @@ class MediumAdapter : PagingDataAdapter<Medium, MediumAdapter.MediumViewHolder>(
                     bindingAdapter?.notifyItemRemoved(this@MediumViewHolder.absoluteAdapterPosition)
                     bindingAdapter?.notifyDataSetChanged()
                 }
-
-
-
-
-
 
                 executePendingBindings()
             }

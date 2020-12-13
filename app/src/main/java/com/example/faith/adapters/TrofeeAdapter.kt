@@ -37,7 +37,8 @@ class TrofeeAdapter : PagingDataAdapter<Talent, TrofeeAdapter.TrofeeViewHolder>(
         init {
             binding.setClickListener {
                 binding.talent?.let {
-                        talent -> navigateToTrofee(talent, it)
+                    talent ->
+                    navigateToTrofee(talent, it)
                 }
             }
         }
