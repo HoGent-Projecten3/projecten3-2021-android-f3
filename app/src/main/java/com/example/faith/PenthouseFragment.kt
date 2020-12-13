@@ -1,5 +1,6 @@
 package com.example.faith
 
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class PenthouseFragment : Fragment() {
 
+    private lateinit var palmIdleAnimation: AnimationDrawable
     private val viewModel: PenthouseViewModel by viewModels()
 
     override fun onCreateView(
@@ -61,6 +63,11 @@ class PenthouseFragment : Fragment() {
             binding.mainAddConfirmButton.visibility = View.GONE
             binding.mainAddEditText.visibility = View.GONE
         }
+
+        //Activeer de logo animatie
+        binding.palmIcon.apply { setBackgroundResource(R.drawable.palm_idle)
+        palmIdleAnimation = background as AnimationDrawable }
+        palmIdleAnimation.start()
 
         return binding.root
     }

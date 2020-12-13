@@ -6,50 +6,54 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/hotel_theme"
         android:fitsSystemWindows="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_marginBottom="?actionBarSize"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="?actionBarSize"
-            android:paddingTop="@dimen/margin_big">
+            android:layout_marginBottom="?actionBarSize">
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clipToPadding="true"
                 android:text="@string/wat_zijn_jouw_doelen"
                 android:textAlignment="center"
                 android:textSize="36sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:clipToPadding="true"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
             <!--android:layout_marginTop="?actionBarSize"-->
+
+
+            <ImageView
+                android:id="@+id/palmIcon"
+                android:layout_width="103dp"
+                android:layout_height="98dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                tools:srcCompat="@tools:sample/avatars" />
+
             <View
                 android:id="@+id/divider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="?android:attr/listDivider"
-                app:layout_constraintBottom_toTopOf="@+id/doel_list"
-                app:layout_constraintTop_toBottomOf="@+id/textView"
-                tools:layout_editor_absoluteX="16dp" />
+                app:layout_constraintTop_toBottomOf="@+id/palmIcon"
+                tools:layout_editor_absoluteX="-16dp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/doel_list"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="16dp"
+                android:layout_height="609dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
+                app:layout_constraintTop_toBottomOf="@+id/palmIcon" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,16 +61,16 @@
             android:layout_gravity="bottom|start"
             android:layout_margin="16dp"
             android:background="@color/hotel_theme"
-            android:orientation="horizontal"
-            android:gravity="start">
+            android:gravity="start"
+            android:orientation="horizontal">
 
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/main_add_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:padding="@dimen/small_padding" />
+                android:padding="@dimen/small_padding"
+                android:visibility="gone" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/main_add_confirm_button"
@@ -82,10 +86,9 @@
             android:id="@+id/main_add_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
             android:layout_gravity="bottom|end"
-            app:srcCompat="@drawable/ic_add_black_24dp"
-            android:contentDescription="@string/bt_doel_description" />
-
+            android:layout_margin="16dp"
+            android:contentDescription="@string/bt_doel_description"
+            app:srcCompat="@drawable/ic_add_black_24dp" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
