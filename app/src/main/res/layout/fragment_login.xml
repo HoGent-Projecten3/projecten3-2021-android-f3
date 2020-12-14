@@ -88,6 +88,7 @@
             android:gravity="center"
             android:textColor="#ffffff"
             android:textSize="20sp"
+            android:text="@string/text_password"
             app:layout_constrainedWidth="false"
             app:layout_constraintBottom_toTopOf="@+id/editTextNumberPassword"
             app:layout_constraintEnd_toEndOf="parent"
