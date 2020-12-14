@@ -12,35 +12,41 @@
 
         >
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/hulpbron_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:paddingTop="24dp"
-                android:paddingStart="@dimen/card_side_margin"
-                android:paddingEnd="@dimen/card_side_margin"
-                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-                app:spanCount="1"
-                tools:listitem="@layout/list_item_hulpbron"
-                android:layout_marginTop="?actionBarSize"
-                android:layout_marginBottom="?actionBarSize"/>
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/bottomAppBar"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/hulpbron_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
-            app:navigationIcon="@drawable/ic_filter"
-            />
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btnAddHulpbron"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/hulpbron_toevoegen"
-            app:srcCompat="@drawable/ic_add"
-            app:layout_anchor="@id/bottomAppBar"
-            />
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingTop="24dp"
+            android:paddingStart="@dimen/card_side_margin"
+            android:paddingEnd="@dimen/card_side_margin"
+            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+            app:spanCount="1"
+            tools:listitem="@layout/list_item_hulpbron"
+            android:layout_marginBottom="?actionBarSize" />
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_anchorGravity="center"
+            app:layout_anchor="@id/hulpbron_list">
+
+            <com.google.android.material.bottomappbar.BottomAppBar
+                android:id="@+id/bottomAppBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
+                app:navigationIcon="@drawable/ic_filter" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btnAddHulpbron"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/hulpbron_toevoegen"
+                app:srcCompat="@drawable/ic_add"
+                app:layout_anchor="@id/bottomAppBar" />
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    </layout>
+</layout>

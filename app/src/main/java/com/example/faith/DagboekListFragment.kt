@@ -29,7 +29,7 @@ import kotlinx.coroutines.launch
  */
 @AndroidEntryPoint
 class DagboekListFragment : Fragment() {
-    private lateinit var bookIdleAnimation: AnimationDrawable
+    private var bookIdleAnimation: AnimationDrawable? = null
     private val viewModel: DagboekListViewModel by viewModels()
     private var adapter = DagboekAdapter()
 
@@ -50,9 +50,10 @@ class DagboekListFragment : Fragment() {
         }
 
         //Activeer de logo animatie
-        binding.bookIcon.apply { setBackgroundResource(R.drawable.book_idle)
-        bookIdleAnimation = background as AnimationDrawable }
-        bookIdleAnimation.start()
+        binding.bookIcon?.apply { setBackgroundResource(R.drawable.book_idle)
+            bookIdleAnimation = background as AnimationDrawable }
+        bookIdleAnimation?.start()
+
 
         initAdapter()
         return binding.root
