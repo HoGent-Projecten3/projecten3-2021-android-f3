@@ -1,5 +1,6 @@
 package com.example.faith
 
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -19,7 +20,6 @@ import com.example.faith.viewmodels.DagboekListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_dagboek_list.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -29,6 +29,7 @@ import kotlinx.coroutines.launch
  */
 @AndroidEntryPoint
 class DagboekListFragment : Fragment() {
+    private var bookIdleAnimation: AnimationDrawable? = null
     private val viewModel: DagboekListViewModel by viewModels()
     private var adapter = DagboekAdapter()
 
@@ -47,6 +48,13 @@ class DagboekListFragment : Fragment() {
         binding.btAddDagboek.setOnClickListener {
             navigateToDagboek()
         }
+
+        //Activeer de logo animatie
+        binding.bookIcon?.apply { setBackgroundResource(R.drawable.book_idle)
+            bookIdleAnimation = background as AnimationDrawable }
+        bookIdleAnimation?.start()
+
+
         initAdapter()
         return binding.root
     }
@@ -74,7 +82,8 @@ class DagboekListFragment : Fragment() {
                     filter(newText)
                     return false
                 }
-            })
+            }
+        )
     }
 
     /**

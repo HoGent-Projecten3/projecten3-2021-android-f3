@@ -73,7 +73,9 @@ class NetworkModule() {
     fun provideGson(): Gson {
         val gsonBuilder = GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
             .registerTypeAdapter(
-                Date::class.java, DateSerializer())
+                Date::class.java,
+                DateSerializer()
+            )
         gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
         return gsonBuilder.create()
     }
@@ -83,7 +85,6 @@ class NetworkModule() {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create(gson))
             .baseUrl("http://192.168.1.37:45455/api/")
-            //.baseUrl("http://192.168.56.1:45455/api/")
             .client(okHttpClient)
             .build()
     }

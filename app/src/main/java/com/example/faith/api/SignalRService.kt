@@ -22,7 +22,7 @@ class SignalRService {
 
     fun start(email: String?, chatFragment: ChatFragment) {
         this.chatFragment = chatFragment
-        hubConnection = HubConnectionBuilder.create("http://192.168.1.37/connectionHub/")
+        hubConnection = HubConnectionBuilder.create("http://192.168.1.37:45455/connectionHub/")
             .withAccessTokenProvider(
                 Single.defer {
                     Single.just(
@@ -31,6 +31,7 @@ class SignalRService {
                 }
 
             ).build()
+        hubConnection.keepAliveInterval = 3600000
         hubConnection.start().blockingAwait()
         init(email)
     }

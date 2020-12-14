@@ -1,24 +1,26 @@
 package com.example.faith.viewmodels
 
-import android.os.Message
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asFlow
+import androidx.lifecycle.viewModelScope
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import androidx.paging.filter
-import com.example.faith.data.*
+import com.example.faith.data.Hulpbron
+import com.example.faith.data.HulpbronRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flattenMerge
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.flow.switchMap
+import kotlinx.coroutines.launch
 import retrofit2.Call
 
 class HulpbronListViewModel @ViewModelInject constructor(
@@ -39,25 +41,25 @@ class HulpbronListViewModel @ViewModelInject constructor(
         textFilter.value = ""
         _includePublic.value = true
         _includePrivate.value = true
-        instance = this;
+        instance = this
     }
 
     var textFilter: MutableLiveData<String>
         get() = _textFilter
         set(value) {
-            _textFilter = value;
+            _textFilter = value
         }
 
     var includePublic: MutableLiveData<Boolean>
         get() = _includePublic
         set(value) {
-            _includePublic = value;
+            _includePublic = value
         }
 
     var includePrivate: MutableLiveData<Boolean>
         get() = _includePrivate
         set(value) {
-            _includePrivate = value;
+            _includePrivate = value
         }
 
     fun cycleFilter() {
@@ -68,28 +70,32 @@ class HulpbronListViewModel @ViewModelInject constructor(
     @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
     val posts = flowOf(
         clearListCh.receiveAsFlow().map { PagingData.empty<Hulpbron>() },
-        savedStateHandle.getLiveData<String>(MediumListViewModel.KEY_START_PAGE)
+        savedStateHandle.getLiveData<String>(KEY_START_PAGE)
             .asFlow()
             .flatMapLatest {
                 repository.getHulpbronnen(
-                    textFilter.value!!, includePublic.value!!,
-                    includePrivate.value!!, it
+                    textFilter.value!!,
+                    includePublic.value!!,
+                    includePrivate.value!!,
+                    it
                 )
             }
             .cachedIn(viewModelScope)
     ).flattenMerge(2)
 
-    fun deleteHulpbron(id: Int): Call<Message> {
+    fun deleteHulpbron(id: Int): Call<Boolean> {
         return repository.deleteHulpbron(id)
     }
 
-    suspend fun saveOne(hulpbron: Hulpbron) {
-        repository.insertOne(hulpbron)
+    fun deleteHulpbronRoom(hulpbronId: Int) {
+        viewModelScope.launch {
+            repository.deleteHulpbronRoom(hulpbronId)
+        }
     }
 
     companion object {
         var instance: HulpbronListViewModel? = null
         const val KEY_START_PAGE = "startkey"
-        const val DEFAULT_PAGE = "0"
+        const val DEFAULT_PAGE = "hulpbron"
     }
 }

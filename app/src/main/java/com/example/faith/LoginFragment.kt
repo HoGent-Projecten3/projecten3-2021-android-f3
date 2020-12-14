@@ -1,6 +1,5 @@
 package com.example.faith
 
-import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.util.TypedValue
@@ -12,7 +11,6 @@ import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.faith.data.Login
@@ -28,10 +26,10 @@ class LoginFragment : Fragment() {
     private lateinit var compassIdleAnimation: AnimationDrawable
     private val viewModel: LoginViewModel by activityViewModels()
 
-    override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        //Modelbinding
-        val binding: FragmentLoginBinding =   DataBindingUtil.inflate(  inflater, R.layout.fragment_login, container, false )
+        // Modelbinding
+        val binding: FragmentLoginBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
 
         // val viewModel: LoginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         binding.viewModel = viewModel
@@ -47,12 +45,13 @@ class LoginFragment : Fragment() {
             viewModel.login(login)
         }
 
-        //Activeer de logo animatie
-        binding.imageLogo.apply { setBackgroundResource(R.drawable.compass_idle)
+        // Activeer de logo animatie
+        binding.imageLogo.apply {
+            setBackgroundResource(R.drawable.compass_idle)
 
-        compassIdleAnimation = background as AnimationDrawable }
+            compassIdleAnimation = background as AnimationDrawable
+        }
         compassIdleAnimation.start()
-
 
         return binding.root
     }
@@ -90,16 +89,14 @@ class LoginFragment : Fragment() {
         )
     }
 
-
     private fun scaleLogo() {
-
 
         // Obtain screen width & height DP
         val screenWidthDp = resources.configuration.screenWidthDp
         val screenHeightDp = resources.configuration.screenHeightDp
 
         // Define new size based on the screen DP. Height can be half the screen width, width has to then keep its ratio.
-        //val newHeight = (screenWidthDp * 0.60).toInt() // height half the screen width
+        // val newHeight = (screenWidthDp * 0.60).toInt() // height half the screen width
         val newWidth = (screenWidthDp * 0.75).toInt()
 
         val newHeight = (screenHeightDp * 0.40).toInt() // height half the screen width
@@ -111,19 +108,11 @@ class LoginFragment : Fragment() {
         */
 
         // Updating the dimensions for all rooms in DP
-        val dimensionHeightInDp = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, newHeight.toFloat(),resources.displayMetrics).toInt() // new DP height
-        val dimensionWidthInDp = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, newWidth.toFloat(),resources.displayMetrics).toInt() // new DP height
-
+        val dimensionHeightInDp = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, newHeight.toFloat(), resources.displayMetrics).toInt() // new DP height
+        TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, newWidth.toFloat(), resources.displayMetrics).toInt() // new DP height
 
         // Only update height. these are constant. Width updated automatically, as wrap_content, and adjustviewbounds keeps ratio intact.
-        image_logo.layoutParams.width= dimensionHeightInDp
-        image_logo.layoutParams.height= dimensionHeightInDp
-
-
-
+        image_logo.layoutParams.width = dimensionHeightInDp
+        image_logo.layoutParams.height = dimensionHeightInDp
     }
-
 }
-
-
-

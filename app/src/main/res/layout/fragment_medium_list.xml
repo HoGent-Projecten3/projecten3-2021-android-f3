@@ -29,15 +29,13 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="@dimen/small_padding"
             android:id="@+id/medium_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="true"
             android:paddingEnd="@dimen/card_side_margin"
             android:paddingStart="@dimen/card_side_margin"
-            android:paddingTop="@dimen/gallery_header_margin"
-
-            android:layout_marginTop="?actionBarSize"
             android:layout_marginBottom="?actionBarSize"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             app:spanCount="@integer/grid_columns"
@@ -52,7 +50,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_anchorGravity="center"
-            app:layout_anchor="@+id/medium_list">
+            app:layout_anchor="@+id/medium_list"
+            android:fitsSystemWindows="true">
 
             <com.google.android.material.bottomappbar.BottomAppBar
                 android:id="@+id/bottomAppBarBib"

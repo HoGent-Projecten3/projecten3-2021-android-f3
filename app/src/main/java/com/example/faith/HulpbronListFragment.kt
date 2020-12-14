@@ -1,8 +1,12 @@
 package com.example.faith
 
-
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -10,29 +14,23 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
 import com.example.faith.adapters.HulpbronAdapter
-import com.example.faith.data.*
 import com.example.faith.databinding.FragmentHulpbronListBinding
 import com.example.faith.viewmodels.HulpbronListViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-
 
 @AndroidEntryPoint
 class HulpbronListFragment : Fragment() {
 
     private val viewModel: HulpbronListViewModel by viewModels()
-    private var searchJob: Job? =null
     private val adapter = HulpbronAdapter()
     lateinit var binding: FragmentHulpbronListBinding
 
-
     @ExperimentalPagingApi
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHulpbronListBinding.inflate(inflater, container, false)
@@ -59,16 +57,18 @@ class HulpbronListFragment : Fragment() {
         val searchView = SearchView(context)
         searchItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
         searchItem.setActionView(searchView)
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                return false
+        searchView.setOnQueryTextListener(
+            object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String): Boolean {
+                    return false
+                }
+                override fun onQueryTextChange(newText: String): Boolean {
+                    viewModel.textFilter.value = newText
+                    getHulpbronnen()
+                    return false
+                }
             }
-            override fun onQueryTextChange(newText: String): Boolean {
-                viewModel.textFilter.value = newText
-                getHulpbronnen()
-                return false
-            }
-        })
+        )
     }
 
     private fun navigateToHulpbron() {
@@ -90,5 +90,4 @@ class HulpbronListFragment : Fragment() {
             }
         }
     }
-
 }

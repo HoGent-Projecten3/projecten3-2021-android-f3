@@ -18,45 +18,62 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/dagboek_coordinator"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        android:orientation="vertical">
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/dagboek_list"
+        <ImageView
+            android:id="@+id/bookIcon"
+            android:layout_width="194dp"
+            android:layout_height="128dp"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/book_animatie" />
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/dagboek_coordinator"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="true"
-            android:paddingEnd="@dimen/card_side_margin"
-            android:paddingStart="@dimen/card_side_margin"
-            android:paddingTop="@dimen/gallery_header_margin"
-            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-            app:spanCount="2"
-            tools:context="com.example.faith.MainActivity"
-            tools:listitem="@layout/list_item_dagboek"
-            android:layout_marginTop="?actionBarSize"
-            android:layout_marginBottom="?actionBarSize"/>
-
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/bottomAppBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
-            app:navigationIcon="@drawable/ic_menu_black_24dp" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btAddDagboek"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_add_black_24dp"
-            app:layout_anchor="@id/bottomAppBar"
-            android:contentDescription="@string/floatingbutton" />
+            android:fitsSystemWindows="true">
 
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginTop="@dimen/small_padding"
+                android:id="@+id/dagboek_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="?actionBarSize"
+                android:clipToPadding="true"
+                android:paddingStart="@dimen/card_side_margin"
+                android:paddingEnd="@dimen/card_side_margin"
+                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                app:spanCount="@integer/grid_columns"
+                tools:context="com.example.faith.MainActivity"
+                tools:listitem="@layout/list_item_dagboek" />
 
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true">
+
+                <com.google.android.material.bottomappbar.BottomAppBar
+                    android:id="@+id/bottomAppBar"
+                    style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    app:navigationIcon="@drawable/ic_menu_black_24dp" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/btAddDagboek"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/floatingbutton"
+                    app:layout_anchor="@id/bottomAppBar"
+                    app:srcCompat="@drawable/ic_add_black_24dp" />
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </LinearLayout>
 </layout>

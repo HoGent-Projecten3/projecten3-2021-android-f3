@@ -3,7 +3,6 @@ package com.example.faith.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.faith.data.HulpbronRepository
-import com.example.faith.data.MediumRepository
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
 
@@ -17,7 +16,6 @@ class HulpbronDetailViewModel @AssistedInject constructor(
     @AssistedInject.Factory
     interface AssistedFactory {
         fun create(hulpbronId: Int): HulpbronDetailViewModel
-
     }
     companion object {
         fun provideFactory(

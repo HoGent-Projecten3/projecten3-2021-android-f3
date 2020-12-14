@@ -24,8 +24,10 @@
     </string>
     <string name="txf_default">Beschrijving</string>
     <string name="cinema">Cinema</string>
+    <string name="trofeekamerList">TrofeekamerList</string>
+    <string name="talentDetail">TalentDetail</string>
     <string name="bibliotheek">Bibliotheek</string>
-    <string name="trofeekamer">trofeekamer</string>
+    <string name="trofeekamer">Trofeekamer</string>
     <string name="receptie">Receptie</string>
     <string name="bar">Bar</string>
     <string name="penthouse">Penthouse</string>
@@ -39,6 +41,7 @@
     <string name="login">Login</string>
     <string name="dagboek_nieuw">Nieuw dagboekbericht</string>
     <string name="media_nieuw">Nieuw</string>
+    <string name="talent_nieuw">Nieuw Talent</string>
     <string name="nav_to_dagboek">DAGBOEK</string>
     <string name="content_description_search">zoeken</string>
     <string name="content_description_more">meer</string>
@@ -67,4 +70,7 @@
     <string name="wat_zijn_jouw_doelen">Wat zijn jouw doelen?</string>
     <string name="ok">OK</string>
     <string name="bt_doel_description">add doel</string>
+    <string name="mijn_trofee_n">Mijn trofeeën</string>
+    <string name="ontdekken">Ontdekken</string>
+    <string name="book_animatie">animatie van een boek</string>
 </resources>

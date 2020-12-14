@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2020 Google LLC
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,15 +18,18 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="clickListener"
-            type="android.view.View.OnClickListener"/>
+            type="android.view.View.OnClickListener" />
+
         <variable
             name="dagboek"
-            type="com.example.faith.data.Medium"/>
+            type="com.example.faith.data.Medium" />
     </data>
 
     <com.example.faith.views.MaskedCardView
+        android:id="@+id/dagboek_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/card_side_margin"
@@ -37,43 +39,46 @@
         app:cardElevation="2dp"
         app:cardPreventCornerOverlap="false"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Sunflower.Card"
-        android:backgroundTint="@color/hotel_theme"
-        >
+        android:backgroundTint="@color/hotel_theme">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-<TextView
-    android:id="@+id/dagboek_dag"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:gravity="left"
-    android:text="@{dagboek.toSimpleString()}"
-    android:textAppearance="?attr/textAppearanceListItem"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintBottom_toTopOf="@+id/naam"
-    tools:text="titel"
-    android:textSize="18sp"
-    android:textStyle="bold"/>
             <TextView
-                android:id="@+id/naam"
-                android:layout_width="0dp"
+                android:id="@+id/dagboek_dag"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="@{dagboek.naam}"
+                android:gravity="left"
+                android:text="@{dagboek.toSimpleString()}"
                 android:textAppearance="?attr/textAppearanceListItem"
-                app:layout_constraintTop_toBottomOf="@id/dagboek_dag"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:text="een dagboek entry"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/naam"
+                tools:text="titel"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:orientation="vertical">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btVerwijderDagboek"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/delete_button_text"
+                    app:icon="@drawable/ic_delete"
+                    app:iconSize="24dp"
+                    style="?attr/borderlessButtonStyle" />
+            </LinearLayout>
+        </LinearLayout>
 
     </com.example.faith.views.MaskedCardView>
 

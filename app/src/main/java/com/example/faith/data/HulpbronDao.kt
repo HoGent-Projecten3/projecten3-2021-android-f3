@@ -13,7 +13,7 @@ import androidx.room.Query
 @Dao
 interface HulpbronDao {
     @Query("SELECT * FROM hulpbronnen ORDER BY titel")
-    fun getAll(): PagingSource<Int,Hulpbron>
+    fun getAll(): PagingSource<Int, Hulpbron>
 
     @Query("SELECT * FROM hulpbronnen WHERE id = :hulpbronId")
     fun getOne(hulpbronId: Int): LiveData<Hulpbron>
@@ -22,4 +22,6 @@ interface HulpbronDao {
     suspend fun insertAll(hulpbronnen: List<Hulpbron>)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOne(hulpbron: Hulpbron)
+    @Query("DELETE FROM hulpbronnen WHERE id=:hulpbronId")
+    suspend fun removeHulpbron(hulpbronId: Int)
 }

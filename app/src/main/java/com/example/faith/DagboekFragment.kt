@@ -2,24 +2,20 @@ package com.example.faith
 
 import android.os.Bundle
 import android.os.Message
-import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.faith.R.layout.fragment_dagboek
-import com.example.faith.data.Medium
 import com.example.faith.databinding.FragmentDagboekBinding
 import com.example.faith.viewmodels.DagboekViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_cinema.*
 import kotlinx.android.synthetic.main.fragment_dagboek.*
-import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 
@@ -63,7 +59,8 @@ class DagboekFragment : Fragment() {
     private fun showMessage(message: String) {
         activity?.let {
             Snackbar.make(
-                it.findViewById(R.id.main_activity_coordinator), message,
+                it.findViewById(R.id.main_activity_coordinator),
+                message,
                 Snackbar.LENGTH_LONG
             ).show()
         }
@@ -72,28 +69,27 @@ class DagboekFragment : Fragment() {
     private fun uploadText() {
         if (validateInput(textInputTitel.text.toString(), textInputDescription.text.toString())) {
 
+            var call: Call<Message> = viewModel.uploadDagboekPost(
+                textInputTitel.text.toString(),
+                textInputDescription.text.toString()
+            )
+            call.enqueue(
+                object : Callback<Message?> {
+                    override fun onFailure(call: Call<Message?>, t: Throwable) {
+                        showMessage("Bewaren mislukt")
+                        navigateToDagboek()
+                    }
 
-        var call: Call<Message> = viewModel.uploadDagboekPost(
-            textInputTitel.text.toString(),
-            textInputDescription.text.toString()
-        )
-        call.enqueue(
-            object : Callback<Message?> {
-                override fun onFailure(call: Call<Message?>, t: Throwable) {
-                    showMessage("Bewaren mislukt")
-                    navigateToDagboek()
+                    override fun onResponse(
+                        call: Call<Message?>,
+                        response: retrofit2.Response<Message?>
+                    ) {
+                        showMessage("Bewaren gelukt")
+                        navigateToDagboek()
+                    }
                 }
-
-                override fun onResponse(
-                    call: Call<Message?>,
-                    response: retrofit2.Response<Message?>
-                ) {
-                    showMessage("Bewaren gelukt")
-                    navigateToDagboek()
-                }
-            }
-        )
-    }
+            )
+        }
     }
 
     private fun navigateToDagboek() {

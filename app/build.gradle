@@ -12,12 +12,8 @@ allprojects {
         jcenter()
     }
 }
-androidExtensions {
-    experimental = true
-}
 android {
     dexOptions {
-        incremental true
         javaMaxHeapSize "4g"
         preDexLibraries true
         dexInProcess = true
@@ -95,7 +91,7 @@ dependencies {
 
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.4.20"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.4.21"
     implementation 'androidx.core:core-ktx:1.3.2'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
@@ -110,8 +106,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
-    implementation "android.arch.navigation:navigation-fragment-ktx:$nav_version"
-    implementation "android.arch.navigation:navigation-ui-ktx:$nav_version"
+    implementation "android.arch.navigation:navigation-fragment-ktx:2.3.2"
+    implementation "android.arch.navigation:navigation-ui-ktx:2.3.2"
 
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
