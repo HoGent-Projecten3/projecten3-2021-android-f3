@@ -86,26 +86,26 @@
                     android:padding="1dp"
                     android:layout_height="18dp"
                     android:src="@drawable/website_icon"
-                    app:isGone="@{hulpbron.url.empty}"/>
+                    app:isGone="@{hulpbron.url == null}"/>
                 <ImageView
                     android:layout_width="18dp"
                     android:padding="1dp"
                     android:layout_height="18dp"
                     android:src="@drawable/chat_icon"
-                    app:isGone="@{hulpbron.chatUrl.empty}"/>
+                    app:isGone="@{hulpbron.chatUrl == null}"/>
                 <ImageView
                     android:layout_width="18dp"
                     android:padding="1dp"
                     android:layout_height="18dp"
 
                     android:src="@drawable/phone_icon"
-                    app:isGone="@{hulpbron.telefoonnummer.empty}"/>
+                    app:isGone="@{hulpbron.telefoonnummer == null}"/>
                 <ImageView
                     android:layout_width="18dp"
                     android:padding="1dp"
                     android:layout_height="18dp"
                     android:src="@drawable/email_icon"
-                    app:isGone="@{hulpbron.emailadres.empty}"/>
+                    app:isGone="@{hulpbron.emailadres == null}"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"

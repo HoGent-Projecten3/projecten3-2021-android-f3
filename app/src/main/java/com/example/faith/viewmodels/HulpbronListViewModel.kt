@@ -1,5 +1,6 @@
 package com.example.faith.viewmodels
 
+import android.util.Log
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
@@ -10,16 +11,14 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import androidx.paging.filter
 import com.example.faith.data.Hulpbron
 import com.example.faith.data.HulpbronRepository
+import com.example.faith.data.Medium
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flattenMerge
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import retrofit2.Call
 
@@ -83,7 +82,30 @@ class HulpbronListViewModel @ViewModelInject constructor(
             .cachedIn(viewModelScope)
     ).flattenMerge(2)
 
-    fun deleteHulpbron(id: Int): Call<Boolean> {
+    @ExperimentalPagingApi
+    fun filter(): Flow<PagingData<Hulpbron>> {
+        return posts.map { pagingData ->
+            pagingData.filter {
+                if (textFilter.value.isNullOrEmpty()) {
+                    if (includePublic.value == true)
+                    {
+                        true
+                    } else {
+                       it.auteurType.equals("Client")
+                    }
+                } else {
+                    if (includePublic.value == true)
+                    {
+                        it.titel.startsWith(textFilter.value!!, true)
+                    } else {
+                        it.titel.startsWith(textFilter.value!!, true).and(it.auteurType == "Client")
+                    }
+                }
+            }
+        }.cachedIn(viewModelScope)
+    }
+
+    fun deleteHulpbron(id: Int): Call<Int> {
         return repository.deleteHulpbron(id)
     }
 

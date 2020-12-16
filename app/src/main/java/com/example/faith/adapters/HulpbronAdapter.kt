@@ -34,22 +34,6 @@ class HulpbronAdapter : PagingDataAdapter<Hulpbron, HulpbronAdapter.HulpbronView
     class HulpbronViewHolder(
         private val binding: ListItemHulpbronBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        init {
-            binding.hulpbronCardView.setOnLongClickListener {
-                if (binding.btVerwijder.visibility == View.GONE)
-                    binding.btVerwijder.visibility = View.VISIBLE
-                else if (binding.btVerwijder.visibility == View.VISIBLE)
-                    binding.btVerwijder.visibility = View.GONE
-                true
-            }
-
-            binding.setClickListener {
-                binding.hulpbron?.let { hulpbron ->
-                    navigateToHulpbron(hulpbron, it)
-                }
-            }
-        }
-
         private fun navigateToHulpbron(
             hulpbron: Hulpbron,
             view: View
@@ -65,31 +49,42 @@ class HulpbronAdapter : PagingDataAdapter<Hulpbron, HulpbronAdapter.HulpbronView
             binding.apply {
                 hulpbron = item
                 val viewModel = HulpbronListViewModel.instance
+                if (binding.hulpbron?.auteurType.toString() == "Client")
+                {
+                    binding.hulpbronCardView.setOnLongClickListener {
+                        if (binding.btVerwijder.visibility == View.GONE)
+                            binding.btVerwijder.visibility = View.VISIBLE
+                        else if (binding.btVerwijder.visibility == View.VISIBLE)
+                            binding.btVerwijder.visibility = View.GONE
+                        true
+                    }
+                }
+                binding.setClickListener {
+                    binding.hulpbron?.let { hulpbron ->
+                        Log.d("Auteurtype 2: ", binding.hulpbron?.auteurType.toString())
+                        navigateToHulpbron(hulpbron, it)
+                    }
+                }
                 binding.btVerwijder.setOnClickListener {
-                    val call: Call<Boolean> =
+                    val call: Call<Int> =
                         viewModel!!.deleteHulpbron(binding.hulpbron!!.hulpbronId)
                     call.enqueue(
-                        object : Callback<Boolean?> {
-                            override fun onFailure(call: Call<Boolean?>, t: Throwable) {
+                        object : Callback<Int?> {
+                            override fun onFailure(call: Call<Int?>, t: Throwable) {
                                 Log.d("Failure", call.toString())
                             }
-
                             override fun onResponse(
-                                call: Call<Boolean?>,
-                                response: retrofit2.Response<Boolean?>
+                                call: Call<Int?>,
+                                response: retrofit2.Response<Int?>
                             ) {
                                 viewModel.deleteHulpbronRoom(binding.hulpbron!!.hulpbronId)
-                                Log.d("Succes", call.toString())
+                                this@HulpbronViewHolder.bindingAdapter
+                                bindingAdapter?.notifyItemRemoved(this@HulpbronViewHolder.absoluteAdapterPosition)
+                                bindingAdapter?.notifyDataSetChanged()
+                                Log.d("Succes", response.body().toString())
                             }
                         }
                     )
-                    Log.d(
-                        "ADAPTERPOSITION",
-                        this@HulpbronViewHolder.absoluteAdapterPosition.toString()
-                    )
-                    this@HulpbronViewHolder.bindingAdapter
-                    bindingAdapter?.notifyItemRemoved(this@HulpbronViewHolder.absoluteAdapterPosition) // Item wordt verwijderd maar aangezien er niet echt meteen iets weg is add hij het laatste item nog is?
-                    bindingAdapter?.notifyDataSetChanged()
                 }
                 executePendingBindings()
             }
