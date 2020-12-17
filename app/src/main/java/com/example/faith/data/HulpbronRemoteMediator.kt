@@ -55,11 +55,15 @@ class HulpbronRemoteMediator(
                 }
             }
 
-            val data = service.getHulpbronnen(textFilter,includePublic,includePrivate,
+            val data = service.getHulpbronnen(
+                textFilter,
+                includePublic,
+                includePrivate,
                 page = when (loadType) {
                     LoadType.REFRESH -> 0
                     else -> loadKey!!.toInt()
-                }, perPage = 20
+                },
+                perPage = 20
             )
 
             val items = data.results
@@ -68,12 +72,10 @@ class HulpbronRemoteMediator(
                 remoteKeyDao.insert(MediumRemoteKey(hulpbronNaam, data.next))
                 items.forEach {
                     hulpbronDao.insertOne(
-                        Hulpbron(it.hulpbronId,it.titel,it.inhoud,it.url,it.telefoonnummer,it.emailadres,it.chatUrl,it.datum,it.auteurType)
+                        Hulpbron(it.hulpbronId, it.titel, it.inhoud, it.url, it.telefoonnummer, it.emailadres, it.chatUrl, it.datum, it.auteurType)
                     )
                 }
-
             }
-
 
             return MediatorResult.Success(endOfPaginationReached = items.isEmpty())
         } catch (e: IOException) {

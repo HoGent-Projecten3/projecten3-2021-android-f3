@@ -2,13 +2,9 @@ package com.example.faith.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
-import com.example.faith.data.Medium
 import com.example.faith.data.MediumRepository
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
-import kotlinx.coroutines.launch
-import retrofit2.Call
 
 /**
  * @author Remi Mestdagh
@@ -20,20 +16,6 @@ class MediumDetailViewModel @AssistedInject constructor(
 ) : ViewModel() {
 
     var medium = mediumRepository.getMedium(mediumId)
-
-    fun deleteMediumRoom() {
-        viewModelScope.launch {
-            if(medium!=null){
-                medium.value?.let { mediumRepository.deleteMediumRoom(it) }
-            }
-
-        }
-    }
-
-    fun removeMedium(): Call<Medium>? {
-
-        return medium.value?.let { mediumRepository.removeMedium(it.mediumId) }
-    }
 
     @AssistedInject.Factory
     interface AssistedFactory {

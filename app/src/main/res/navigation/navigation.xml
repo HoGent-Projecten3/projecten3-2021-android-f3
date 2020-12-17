@@ -54,6 +54,9 @@
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_hotelFragment_to_trofeekamerListFragment"
+            app:destination="@id/trofeekamerListFragment" />
 
     </fragment>
     <fragment
@@ -266,4 +269,40 @@
         app:exitAnim="@anim/slide_out_right"
         app:popEnterAnim="@anim/slide_in_left"
         app:popExitAnim="@anim/slide_out_right" />
+
+    <fragment
+        android:id="@+id/trofeekamerListFragment"
+        android:name="com.example.faith.TrofeekamerListFragment"
+        android:label="@string/trofeekamerList"
+        tools:layout="@layout/fragment_trofeekamer_list" >
+        <action
+            android:id="@+id/action_trofeekamerListFragment_to_trofeekamerFragment"
+            app:destination="@id/trofeekamerFragment" />
+        <action
+            android:id="@+id/action_trofeekamerListFragment_to_talentDetailFragment"
+            app:destination="@id/talentDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/trofeekamerFragment"
+        android:name="com.example.faith.TrofeekamerFragment"
+        android:label="@string/trofeekamer"
+        tools:layout="@layout/fragment_trofeekamer_list" >
+        <action
+            android:id="@+id/action_trofeekamerFragment_to_trofeekamerListFragment"
+            app:destination="@id/trofeekamerListFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/talentDetailFragment"
+        android:name="com.example.faith.TalentDetailFragment"
+        android:label="@string/talentDetail"
+        tools:layout="@layout/fragment_talent_detail" >
+        <action
+            android:id="@+id/action_talentDetailFragment_to_trofeekamerListFragment"
+            app:destination="@id/trofeekamerListFragment" />
+        <argument
+            android:name="talentId"
+            app:argType="integer" />
+    </fragment>
 </navigation>

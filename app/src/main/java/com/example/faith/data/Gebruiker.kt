@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class Gebruiker(
     @SerializedName("voornaam")
     val voornaam: String?,
-    @SerializedName("acthernaam")
+    @SerializedName("achternaam")
     val achternaam: String?,
     @SerializedName("email")
     val email: String?

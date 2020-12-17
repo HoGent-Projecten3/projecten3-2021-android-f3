@@ -15,10 +15,9 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.nio.charset.Charset
 
-
 class LoginViewModel @ViewModelInject constructor(
-        val repository: GebruikerRepository,
-        val interceptor: MyServiceInterceptor
+    val repository: GebruikerRepository,
+    val interceptor: MyServiceInterceptor
 ) : ViewModel() {
 
     private val _loginSuccesvol = MutableLiveData<Boolean>(false)
@@ -35,42 +34,48 @@ class LoginViewModel @ViewModelInject constructor(
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
-
     private fun getJson(strEncoded: String): String? {
-        val decodedBytes: ByteArray = Base64.decode(strEncoded, Base64.DEFAULT);
+        val decodedBytes: ByteArray = Base64.decode(strEncoded, Base64.DEFAULT)
         return String(decodedBytes, Charset.defaultCharset())
     }
+
     fun login(login: Login) {
 
         repository.login(login).enqueue(
-                object : Callback<LoginResponse> {
+            object : Callback<LoginResponse> {
 
-                    override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                override fun onResponse(
+                    call: Call<LoginResponse>,
+                    response: Response<LoginResponse>
+                ) {
 
-                        if (response.isSuccessful) {
-                            interceptor.setSessionToken(response.body()?.authToken)
-                            val parsedToken = JSONObject(response.body()?.authToken?.split(".")?.get(1)?.let { getJson(it) })
-                            val rol = parsedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]
-                            if(!rol.equals("Customer")){
-                                _loginSuccesvol.value = false
-                                _errorMessage.value = "Login failed"
-                            } else{
-                                _gebruikerEmail.value = parsedToken["unique_name"] as String
-                                _loginSuccesvol.value = true
-                            }
-
-                        } else {
+                    if (response.isSuccessful) {
+                        interceptor.setSessionToken(response.body()?.authToken)
+                        val parsedToken = JSONObject(
+                            response.body()?.authToken?.split(".")?.get(1)?.let { getJson(it) }
+                        )
+                        val rol =
+                            parsedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]
+                        if (!rol.equals("Customer")) {
                             _loginSuccesvol.value = false
                             _errorMessage.value = "Login failed"
+                        } else {
+                            _gebruikerEmail.value = parsedToken["unique_name"] as String
+                            _loginSuccesvol.value = true
                         }
-                    }
-
-                    override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                        _errorMessage.value = "Failure: " + t.message
+                    } else {
+                        _loginSuccesvol.value = false
+                        _errorMessage.value = "Login failed"
                     }
                 }
+
+                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                    _errorMessage.value = "Failure: " + t.message
+                }
+            }
         )
     }
+
     fun logout() {
         _loginSuccesvol.value = false
         _gebruikerEmail.value = ""

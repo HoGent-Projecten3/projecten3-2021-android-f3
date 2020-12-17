@@ -1,70 +1,89 @@
 package com.example.faith.data
 
-class Doel(
-    private var naam: String,
-    private var checked: Boolean,
-    private var collapsed: Boolean
+import androidx.annotation.NonNull
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 
-) : IDoel {
+@Entity(tableName = "doelen")
+data class Doel(
+    @PrimaryKey
+    @SerializedName("inhoud")
+    @ColumnInfo(name = "inhoud") @NonNull
+    var inhoud: String,
+    @SerializedName("checked")
+    @ColumnInfo(name = "checked") @NonNull
+    var checked: Boolean,
+    @SerializedName("collapsed")
+    @ColumnInfo(name = "collapsed") @NonNull
+    var collapsed: Boolean,
+    @SerializedName("stappen")
+    @Ignore
+    var stappen: MutableList<Doel>
+) {
 
-    private val stappen: MutableList<IDoel> = mutableListOf<IDoel>()
-
-    override fun getNaam(): String {
-        return naam
-    }
-
-    override fun setNaam(naam: String) {
-        this.naam = naam
-    }
-
-    override fun addStap(stap: IDoel) {
-        stappen.add(stap)
-    }
-
-    override fun getStappen(): List<IDoel> {
-        return stappen
-    }
-
-    override fun isChecked(): Boolean {
-        /*for (stap in stappen){
-            if(!stap.isChecked())
-                checked = false
+    val aantalStappen: Int
+        get() {
+            if (stappen.isNullOrEmpty()) return 0
+            return stappen.size
         }
-        checked = true*/
-        return checked
-    }
 
-    override fun setChecked(flag: Boolean) {
-        throw Exception("Can't set checked on doel")
-    }
+    constructor(inhoud: String, checked: Boolean, collapsed: Boolean) :
+        this(inhoud, checked, collapsed, mutableListOf<Doel>()) {}
 
-    override fun isCollapsed(): Boolean {
-        return collapsed
-    }
-
-    override fun setCollapsed(flag: Boolean) {
-        this.collapsed = flag
-    }
-
-    override fun verwijderDoel(doel: IDoel) {
-        if (!stappen.remove(doel)) {
-            for (stap: IDoel in stappen) {
-                if (stap is Doel) {
+    fun verwijderDoel(doel: Doel) {
+        if (!stappen.isNullOrEmpty()) {
+            if (!stappen.remove(doel)) {
+                for (stap: Doel in stappen) {
                     stap.verwijderDoel(doel)
                 }
             }
         }
     }
 
-    fun getDoelenDTO(): List<DoelDTO> {
-        val stappenDTO = mutableListOf<DoelDTO>()
-        for (stap: IDoel in stappen) {
-            if (stap is Doel) {
-                stappenDTO.add(DoelDTO(stap as Doel))
-            } else if (stap is Stap) {
-                stappenDTO.add(DoelDTO(stap as Stap))
+    fun addStap(stap: Doel) {
+        if (stappen.isNullOrEmpty()) {
+            stappen = mutableListOf<Doel>()
+        }
+        stappen.add(stap)
+    }
+
+    fun getDoel(inhoud: String): Doel? {
+        if (this.inhoud.equals(inhoud)) return this
+        if (!stappen.isNullOrEmpty()) {
+            for (doel: Doel in stappen) {
+                val target = doel.getDoel(inhoud)
+                if (target != null) return target
             }
         }
-        return stappenDTO
+        return null
     }
 }
+
+/*
+@Entity(tableName = "doel_entity_table")
+data class DoelEntity(
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "doelId") @NonNull
+    var doelId: Long,
+    @ColumnInfo(name = "inhoud") @NonNull
+    var inhoud: String,
+    @ColumnInfo(name = "checked") @NonNull
+    var checked: Boolean,
+    @ColumnInfo(name = "collapsed") @NonNull
+    var collapsed: Boolean,
+    @ColumnInfo(name = "parentId")
+    var parentId: Long
+)
+
+@Entity(tableName = "doelen")
+data class DoelWithStappenEntity(
+    @Embedded
+    val parent: DoelEntity,
+    @Relation(
+        parentColumn = "doelId",
+        entityColumn = "parentId"
+    )
+    val stappen: List<DoelEntity>
+)*/

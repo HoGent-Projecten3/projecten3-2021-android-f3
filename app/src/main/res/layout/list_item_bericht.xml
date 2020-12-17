@@ -24,7 +24,7 @@
             type="android.view.View.OnClickListener"/>
         <variable
             name="bericht"
-            type="com.example.faith.data.ApiBericht"/>
+            type="com.example.faith.data.Bericht"/>
     </data>
 
     <com.google.android.material.card.MaterialCardView

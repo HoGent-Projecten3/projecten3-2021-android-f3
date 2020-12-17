@@ -310,11 +310,11 @@ class CinemaFragment : Fragment() {
         if (photoURI != Uri.EMPTY) {
             createImageData(photoURI)
         }
-        if(videoURI != Uri.EMPTY) {
+        if (videoURI != Uri.EMPTY) {
             createImageData(videoURI)
         }
 
-        var kindOfMedia = ""
+        var kindOfMedia: String
         if (lastCode == 1 || lastCode == 0) {
             kindOfMedia = "image/*"
         } else {
@@ -336,13 +336,23 @@ class CinemaFragment : Fragment() {
         call!!.enqueue(
             object : Callback<Message?> {
                 override fun onFailure(call: Call<Message?>, t: Throwable) {
-                    activity?.let { Snackbar.make(it.findViewById(R.id.main_activity_coordinator),"Opslaan mislukt",
-                        Snackbar.LENGTH_LONG).show() }
+                    activity?.let {
+                        Snackbar.make(
+                            it.findViewById(R.id.main_activity_coordinator),
+                            "Opslaan mislukt",
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                    }
                     navigateBack()
                 }
                 override fun onResponse(call: Call<Message?>, response: retrofit2.Response<Message?>) {
-                    activity?.let { Snackbar.make(it.findViewById(R.id.main_activity_coordinator),"Opgeslagen",
-                        Snackbar.LENGTH_LONG).show() }
+                    activity?.let {
+                        Snackbar.make(
+                            it.findViewById(R.id.main_activity_coordinator),
+                            "Opgeslagen",
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                    }
                     navigateBack()
                 }
             }
@@ -351,6 +361,5 @@ class CinemaFragment : Fragment() {
     private fun navigateBack() {
         val navController = findNavController()
         navController.popBackStack()
-
     }
 }

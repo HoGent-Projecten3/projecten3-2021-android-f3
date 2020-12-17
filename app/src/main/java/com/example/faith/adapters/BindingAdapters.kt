@@ -4,8 +4,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import java.text.SimpleDateFormat
-import java.util.*
-
+import java.util.Locale
 
 @BindingAdapter("isGone")
 fun bindIsGone(view: View, isGone: Boolean) {

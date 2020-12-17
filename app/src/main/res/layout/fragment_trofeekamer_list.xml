@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/trofee_coordinator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_trofee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/eigen_trofee_tab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mijn_trofee_n" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/gedeelde_trofee_tab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ontdekken" />
+
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <!--- IMAGE-->
+        <ImageView
+            android:id="@+id/trophyIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="clip_vertical|center_horizontal"
+            tools:srcCompat="@tools:sample/avatars" />
+
+
+        <!--- LIST -->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/trofee_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="120dp"
+            android:layout_marginBottom="?actionBarSize"
+            android:clipToPadding="true"
+            android:paddingStart="@dimen/card_side_margin"
+            android:paddingTop="@dimen/small_padding"
+            android:paddingEnd="@dimen/card_side_margin"
+            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+            app:spanCount="2"
+            tools:context="com.example.faith.MainActivity"
+
+            tools:listitem="@layout/list_item_trofee" />
+
+        <!--- DEPRECATED -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/gedeelde_trofee_lijst"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?actionBarSize"
+            android:layout_marginBottom="25dp"
+            android:clipToPadding="false"
+            android:paddingStart="@dimen/card_side_margin"
+            android:paddingTop="@dimen/gallery_header_margin"
+            android:paddingEnd="@dimen/card_side_margin"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+            app:spanCount="2"
+            tools:context="com.example.faith.MainActivity"
+            tools:listitem="@layout/list_item_trofee" />
+
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottomAppBar"
+            style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:navigationIcon="@drawable/ic_menu_black_24dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btAddTalent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_anchor="@id/bottomAppBar"
+            app:srcCompat="@drawable/ic_add_black_24dp" />
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

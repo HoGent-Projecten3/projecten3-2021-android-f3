@@ -52,7 +52,8 @@ class MediumRemoteMediator(private val db: AppDatabase, private val service: Api
                 page = when (loadType) {
                     LoadType.REFRESH -> 0
                     else -> loadKey!!.toInt()
-                }, perPage = 20
+                },
+                perPage = 20
             )
 
             val items = data.results
@@ -61,12 +62,10 @@ class MediumRemoteMediator(private val db: AppDatabase, private val service: Api
                 remoteKeyDao.insert(MediumRemoteKey(mediumName, data.next))
                 items.forEach {
                     mediumDao.insertOne(
-                        Medium(it.mediumId,it.naam,it.url,it.beschrijving,it.mediumType,it.datum)
+                        Medium(it.mediumId, it.naam, it.url, it.beschrijving, it.mediumType, it.datum)
                     )
                 }
-
             }
-
 
             return MediatorResult.Success(endOfPaginationReached = items.isEmpty())
         } catch (e: IOException) {

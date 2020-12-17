@@ -4,12 +4,15 @@ import android.os.Message
 import com.example.faith.data.ApiBerichtSearchResponse
 import com.example.faith.data.ApiHulpbronSearchResponse
 import com.example.faith.data.ApiMediumSearchResponse
-import com.example.faith.data.DoelDTO
+import com.example.faith.data.ApiTalentSearchResponse
+import com.example.faith.data.Bericht
+import com.example.faith.data.Doel
 import com.example.faith.data.Gebruiker
 import com.example.faith.data.HulpbronDTO
 import com.example.faith.data.Login
 import com.example.faith.data.LoginResponse
 import com.example.faith.data.Medium
+import com.example.faith.data.Talent
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -47,7 +50,7 @@ interface ApiService {
         @Query("ontvangerNaam") ontvangerNaam: String,
         @Query("text") text: String
 
-    ): Call<Message>
+    ): Call<Bericht>
 
     @GET("Chat/GetBerichtenMetBegeleider")
     fun getBerichten(
@@ -70,48 +73,62 @@ interface ApiService {
         @Query("aantal") perPage: Int
     ): ApiMediumSearchResponse
 
-
     @GET("Cinema/Dagboek")
     suspend fun getDagboek(
         @Query("page") page: Int,
         @Query("aantal") perPage: Int
     ): ApiMediumSearchResponse
 
-
     @GET("Infobalie/getHulpbronnen")
     suspend fun getHulpbronnen(
-            @Query("textFilter") textFilter:String,
-            @Query("includePublic") includePublic:Boolean,
-            @Query("includePrivate") includePrivate:Boolean,
-            @Query("page") page:Int,
-            @Query("aantal") perPage:Int
-    ) : ApiHulpbronSearchResponse
+        @Query("textFilter") textFilter: String,
+        @Query("includePublic") includePublic: Boolean,
+        @Query("includePrivate") includePrivate: Boolean,
+        @Query("page") page: Int,
+        @Query("aantal") perPage: Int
+    ): ApiHulpbronSearchResponse
 
     @DELETE("Infobalie")
-    fun deleteHulpbron(@Query("hulpbronId") id: Int): Call<Message>
+    fun deleteHulpbron(@Query("hulpbronId") id: Int): Call<Boolean>
 
     @POST("Infobalie")
     fun postHulpbron(@Body hulpbron: HulpbronDTO): Call<Message>
 
     @GET("Client/GetDoelen")
-    fun getDoelen(): Call<List<DoelDTO>>
+    fun getDoelen(): Call<List<Doel>>
 
     @Headers("Content-Type: application/json")
     @POST("Client/PostDoelen")
-    fun postDoelen(@Body doelenDTO: List<DoelDTO>): Call<Boolean>
+    fun postDoelen(@Body doelen: List<Doel>): Call<Boolean>
 
     @Headers("Content-Type: application/json")
     @POST("Client/SyncDoelen")
-    fun syncDoelen(@Body doelenDTO: List<DoelDTO>): Call<List<DoelDTO>>
+    fun syncDoelen(@Body doelen: List<Doel>): Call<List<Doel>>
 
     @DELETE("Cinema")
     fun removeMedium(@Query("mediumId") id: Int): Call<Medium>
+
     @POST("Account/login")
     fun login(@Body login: Login): Call<LoginResponse>
 
-    data class LoginResponseModel(
-        val token: String,
-        val
-        refreshToken: String
-    )
+    @GET("Client/GetTrofeesPaging")
+    suspend fun getTalenten(
+        @Query("page") page: Int,
+        @Query("aantal") perPage: Int
+    ): ApiTalentSearchResponse
+
+    @GET("Client/GetGedeeldeTrofee")
+    suspend fun getGedeeldeTalenten(
+        @Query("page") page: Int,
+        @Query("aantal") perPage: Int
+    ): ApiTalentSearchResponse
+
+    @POST("Client/Talent")
+    fun postTalent(@Query("inhoud") inhoud: String): Call<Message>
+
+    @DELETE("Client/VerwijderItem")
+    fun removeTalent(@Query("id") id: Int): Call<Message>
+
+    @GET("Client/GetItem")
+    fun getItem(@Query("id") id: Int): Call<Talent>
 }
