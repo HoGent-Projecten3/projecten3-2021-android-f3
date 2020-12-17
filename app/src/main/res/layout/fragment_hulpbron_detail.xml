@@ -37,8 +37,6 @@
                         android:background="@color/colorPrimaryDark"
                         android:gravity="center"
                         android:padding="@dimen/margin_normal">
-
-
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -74,7 +72,7 @@
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:gravity="center"
-                app:isGone="@{viewModel.hulpbron.url.empty}">
+                app:isGone="@{viewModel.hulpbron.url == null}">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -91,7 +89,7 @@
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:gravity="center"
-                app:isGone="@{viewModel.hulpbron.emailadres.empty}"
+                app:isGone="@{(viewModel.hulpbron.emailadres == null)}"
                 >
 
                 <ImageView
@@ -108,7 +106,7 @@
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:gravity="center"
-                app:isGone="@{viewModel.hulpbron.chatUrl.empty}"
+                app:isGone="@{viewModel.hulpbron.chatUrl == null}"
                 >
 
                 <ImageView
@@ -125,7 +123,7 @@
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:gravity="center"
-                app:isGone="@{viewModel.hulpbron.telefoonnummer.empty}"
+                app:isGone="@{viewModel.hulpbron.telefoonnummer == null}"
                 >
 
                 <ImageView

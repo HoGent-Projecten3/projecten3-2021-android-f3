@@ -15,15 +15,17 @@
             android:layout_height="match_parent">
 
             <com.google.android.material.button.MaterialButton
-                android:text="@string/upload_hulpbron"
+                android:id="@+id/btnSaveHulpbron"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/btnSaveHulpbron"
-                app:layout_constraintTop_toBottomOf="@+id/card"
+                android:text="@string/upload_hulpbron"
+                app:backgroundTint="@color/button_color"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
-                app:backgroundTint="@color/button_color" />
+                app:layout_constraintTop_toBottomOf="@+id/card"
+                app:layout_constraintVertical_bias="0.0" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card"
@@ -152,15 +154,10 @@
                             android:id="@+id/textInputChatUrl"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:backgroundTint="@color/white"
-
-                            />
+                            android:backgroundTint="@color/white"/>
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
-
             </com.google.android.material.card.MaterialCardView>
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

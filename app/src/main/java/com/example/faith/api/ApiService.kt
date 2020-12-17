@@ -15,14 +15,7 @@ import com.example.faith.data.Medium
 import com.example.faith.data.Talent
 import okhttp3.MultipartBody
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.DELETE
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.Multipart
-import retrofit2.http.POST
-import retrofit2.http.Part
-import retrofit2.http.Query
+import retrofit2.http.*
 
 /**
  * @author Remi Mestdagh
@@ -88,8 +81,8 @@ interface ApiService {
         @Query("aantal") perPage: Int
     ): ApiHulpbronSearchResponse
 
-    @DELETE("Infobalie")
-    fun deleteHulpbron(@Query("hulpbronId") id: Int): Call<Boolean>
+    @DELETE("Infobalie/{id}")
+    fun deleteHulpbron(@Path("id") id: Int): Call<Int>
 
     @POST("Infobalie")
     fun postHulpbron(@Body hulpbron: HulpbronDTO): Call<Message>

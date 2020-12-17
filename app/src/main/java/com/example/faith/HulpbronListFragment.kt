@@ -17,14 +17,16 @@ import com.example.faith.adapters.HulpbronAdapter
 import com.example.faith.databinding.FragmentHulpbronListBinding
 import com.example.faith.viewmodels.HulpbronListViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_infobalie.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HulpbronListFragment : Fragment() {
 
     private val viewModel: HulpbronListViewModel by viewModels()
-    private val adapter = HulpbronAdapter()
+    private var adapter = HulpbronAdapter()
     lateinit var binding: FragmentHulpbronListBinding
 
     @ExperimentalPagingApi
@@ -43,7 +45,7 @@ class HulpbronListFragment : Fragment() {
         }
         binding.bottomAppBar.setNavigationOnClickListener {
             viewModel.cycleFilter()
-            getHulpbronnen()
+            filter()
         }
         setHasOptionsMenu(true)
         return binding.root
@@ -55,7 +57,7 @@ class HulpbronListFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
         val searchItem: MenuItem = menu.findItem(com.example.faith.R.id.search)
         val searchView = SearchView(context)
-        searchItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
+        searchItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW or MenuItem.SHOW_AS_ACTION_IF_ROOM)
         searchItem.setActionView(searchView)
         searchView.setOnQueryTextListener(
             object : SearchView.OnQueryTextListener {
@@ -64,7 +66,7 @@ class HulpbronListFragment : Fragment() {
                 }
                 override fun onQueryTextChange(newText: String): Boolean {
                     viewModel.textFilter.value = newText
-                    getHulpbronnen()
+                    filter();
                     return false
                 }
             }
@@ -76,13 +78,29 @@ class HulpbronListFragment : Fragment() {
         val navController = findNavController()
         navController.navigate(direction)
     }
+    @ExperimentalPagingApi
+    private fun filter() {
+        adapter = HulpbronAdapter()
+        hulpbron_list.adapter = adapter
+        lifecycleScope.launch {
+            viewModel.filter().collectLatest {
+                adapter.submitData(it)
+            }
+        }
+    }
+
+    @ExperimentalPagingApi
+    override fun onResume() {
+        super.onResume()
+        adapter.refresh()
+    }
+
 
     /**
      * adapter instellen
      */
     @ExperimentalPagingApi
     private fun getHulpbronnen() {
-
         lifecycleScope.launchWhenCreated {
             @OptIn(ExperimentalCoroutinesApi::class)
             viewModel.posts.collectLatest {
@@ -90,4 +108,5 @@ class HulpbronListFragment : Fragment() {
             }
         }
     }
+
 }

@@ -7,36 +7,32 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        android:backgroundTint="@color/hotel_theme"
-        android:background="@color/hotel_theme"
-
-        >
+        android:background="@color/hotel_theme">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/hulpbron_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="false"
+            android:clipToPadding="true"
             android:paddingTop="24dp"
             android:paddingStart="@dimen/card_side_margin"
             android:paddingEnd="@dimen/card_side_margin"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             app:spanCount="1"
             tools:listitem="@layout/list_item_hulpbron"
-            android:layout_marginBottom="?actionBarSize" />
+            android:layout_marginBottom="70dp" />
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_anchorGravity="center"
-            app:layout_anchor="@id/hulpbron_list">
+            android:fitsSystemWindows="true">
 
             <com.google.android.material.bottomappbar.BottomAppBar
                 android:id="@+id/bottomAppBar"
+                style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
                 app:navigationIcon="@drawable/ic_filter" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -44,8 +40,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/hulpbron_toevoegen"
-                app:srcCompat="@drawable/ic_add"
-                app:layout_anchor="@id/bottomAppBar" />
+                app:layout_anchor="@id/bottomAppBar"
+                app:srcCompat="@drawable/ic_add" />
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

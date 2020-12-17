@@ -12,7 +12,7 @@ import androidx.room.Query
  */
 @Dao
 interface HulpbronDao {
-    @Query("SELECT * FROM hulpbronnen ORDER BY titel")
+    @Query("SELECT * FROM hulpbronnen ORDER BY datum DESC")
     fun getAll(): PagingSource<Int, Hulpbron>
 
     @Query("SELECT * FROM hulpbronnen WHERE id = :hulpbronId")

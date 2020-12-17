@@ -10,14 +10,23 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.ExperimentalPagingApi
+import com.example.faith.adapters.DagboekAdapter
+import com.example.faith.adapters.HulpbronAdapter
 import com.example.faith.databinding.FragmentHulpbronBinding
 import com.example.faith.viewmodels.HulpbronViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_cinema.*
+import kotlinx.android.synthetic.main.fragment_dagboek_list.*
 import kotlinx.android.synthetic.main.fragment_hulpbron.*
 import kotlinx.android.synthetic.main.fragment_hulpbron_list.view.*
+import kotlinx.android.synthetic.main.fragment_infobalie.*
 import kotlinx.android.synthetic.main.fragment_penthouse.*
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 
@@ -44,9 +53,8 @@ class HulpbronFragment : Fragment() {
     }
 
     private fun navigateToHulpbronList() {
-        val direction = HulpbronFragmentDirections.actionHulpbronFragmentToHulpbronListFragment()
         val navController = findNavController()
-        navController.navigate(direction)
+        navController.popBackStack()
     }
 
     private fun uploadHulpbron() {
@@ -73,6 +81,7 @@ class HulpbronFragment : Fragment() {
             navigateToHulpbronList()
         }
     }
+
     private fun validateInput(titel: String, beschrijving: String, url: String, telefoonnummer: String, emailadres: String, chatUrl: String): Boolean {
         if (titel.isNullOrEmpty()) {
             showMessage("Gelieve een titel mee te geven")
@@ -96,13 +105,19 @@ class HulpbronFragment : Fragment() {
             return false
         }
         if (!Patterns.PHONE.matcher(telefoonnummer).matches() and telefoonnummer.isNotEmpty()) {
-            showMessage("gelieve een geldige chat URL op te geven")
+            showMessage("gelieve een geldig telefoonnummer op te geven")
             return false
         }
         return true
     }
 
-    private fun showMessage(text: String) {
-        Log.d("Validation", text)
+    private fun showMessage(message: String) {
+        activity?.let {
+            Snackbar.make(
+                    it.findViewById(R.id.main_activity_coordinator),
+                    message,
+                    Snackbar.LENGTH_LONG
+            ).show()
+        }
     }
 }

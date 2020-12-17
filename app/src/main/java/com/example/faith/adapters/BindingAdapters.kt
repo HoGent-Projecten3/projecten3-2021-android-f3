@@ -18,14 +18,10 @@ fun bindIsGone(view: View, isGone: Boolean) {
 @BindingAdapter("bindServerDate")
 fun bindServerDate(textView: TextView, date: String) {
     val locale = Locale("nl", "NL")
-
     var inputPattern = "yyyy-MM-dd'T'HH:mm:ss"
     val inputDateFormat = SimpleDateFormat(inputPattern, locale)
-
     val inputDate = inputDateFormat.parse(date)
-
     val outputPattern = "dd MMM yyyy"
     val outputDateFormat = SimpleDateFormat(outputPattern, locale)
-
     textView.text = outputDateFormat.format(inputDate)
 }
