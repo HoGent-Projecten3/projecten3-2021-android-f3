@@ -67,10 +67,10 @@ class DagboekFragment : Fragment() {
     }
 
     private fun uploadText() {
-        if (validateInput(textInputTitel.text.toString(), textInputDescription.text.toString())) {
+        if (validateInput(textInputTitelDagboek.text.toString(), textInputDescription.text.toString())) {
 
             var call: Call<Message> = viewModel.uploadDagboekPost(
-                textInputTitel.text.toString(),
+                textInputTitelDagboek.text.toString(),
                 textInputDescription.text.toString()
             )
             call.enqueue(

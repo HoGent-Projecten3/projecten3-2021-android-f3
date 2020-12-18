@@ -1,6 +1,7 @@
 package com.example.faith.di
 
 import android.app.Application
+import com.example.faith.MainApplication
 import com.example.faith.api.ApiService
 import com.example.faith.api.MyServiceInterceptor
 import com.example.faith.api.SignalRService

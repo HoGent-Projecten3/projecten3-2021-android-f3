@@ -6,4 +6,7 @@ import dagger.hilt.android.HiltAndroidApp
  * @author Remi Mestdagh
  */
 @HiltAndroidApp
-class MainApplication : Application()
+open class MainApplication : Application() {
+    open fun getBaseUrl() = "http://192.168.1.37:45455/api/"
+}
+
