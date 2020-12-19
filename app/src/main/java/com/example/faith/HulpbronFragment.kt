@@ -70,42 +70,43 @@ class HulpbronFragment : Fragment() {
             call.enqueue(
                 object : Callback<Message?> {
                     override fun onFailure(call: Call<Message?>, t: Throwable) {
-                        println(call.toString())
+                        showMessage("Opslaan mislukt")
+                        navigateToHulpbronList()
                     }
 
                     override fun onResponse(call: Call<Message?>, response: retrofit2.Response<Message?>) {
-                        println(call.toString())
+                        showMessage("Bewaren gelukt")
+                        navigateToHulpbronList()
                     }
                 }
             )
-            navigateToHulpbronList()
         }
     }
 
     private fun validateInput(titel: String, beschrijving: String, url: String, telefoonnummer: String, emailadres: String, chatUrl: String): Boolean {
         if (titel.isNullOrEmpty()) {
-            showMessage("Gelieve een titel mee te geven")
+            showMessage(resources.getString(R.string.legeTitel))
             return false
         }
         if (beschrijving.isNullOrEmpty()) {
-            showMessage("Gelieve een beschrijving mee te geven")
+            showMessage(resources.getString(R.string.legeBeschrijving))
             return false
         }
 
         if (!Patterns.EMAIL_ADDRESS.matcher(emailadres).matches() and emailadres.isNotEmpty()) {
-            showMessage("gelieve een geldig emailadres op te geven")
+            showMessage(resources.getString(R.string.ongeldigEmailadres))
             return false
         }
         if (!Patterns.WEB_URL.matcher(url).matches() and url.isNotEmpty()) {
-            showMessage("gelieve een geldige URL op te geven")
+            showMessage(resources.getString(R.string.ongeldigeUrl))
             return false
         }
         if (!Patterns.WEB_URL.matcher(chatUrl).matches() and chatUrl.isNotEmpty()) {
-            showMessage("gelieve een geldige chat URL op te geven")
+            showMessage(resources.getString(R.string.ongeldigeChatUrl))
             return false
         }
         if (!Patterns.PHONE.matcher(telefoonnummer).matches() and telefoonnummer.isNotEmpty()) {
-            showMessage("gelieve een geldig telefoonnummer op te geven")
+            showMessage(resources.getString(R.string.ongeldigTelefoonnummer))
             return false
         }
         return true

@@ -29,17 +29,14 @@ class HulpbronListViewModel @ViewModelInject constructor(
 
     private val clearListCh = Channel<Unit>(Channel.CONFLATED)
 
-    private var _textFilter = MutableLiveData<String>()
-    private var _includePublic = MutableLiveData<Boolean>()
-    private var _includePrivate = MutableLiveData<Boolean>()
+    private var _textFilter = MutableLiveData<String>("")
+    private var _includePublic = MutableLiveData<Boolean>(true)
+    private var _includePrivate = MutableLiveData<Boolean>(true)
 
     init {
         if (!savedStateHandle.contains(KEY_START_PAGE)) {
             savedStateHandle.set(KEY_START_PAGE, DEFAULT_PAGE)
         }
-        textFilter.value = ""
-        _includePublic.value = true
-        _includePrivate.value = true
         instance = this
     }
 
@@ -49,20 +46,8 @@ class HulpbronListViewModel @ViewModelInject constructor(
             _textFilter = value
         }
 
-    var includePublic: MutableLiveData<Boolean>
-        get() = _includePublic
-        set(value) {
-            _includePublic = value
-        }
-
-    var includePrivate: MutableLiveData<Boolean>
-        get() = _includePrivate
-        set(value) {
-            _includePrivate = value
-        }
-
     fun cycleFilter() {
-        includePublic.value = includePublic.value == false
+        this._includePublic.value = this._includePublic.value == false
     }
 
     @ExperimentalPagingApi
@@ -74,8 +59,8 @@ class HulpbronListViewModel @ViewModelInject constructor(
             .flatMapLatest {
                 repository.getHulpbronnen(
                     textFilter.value!!,
-                    includePublic.value!!,
-                    includePrivate.value!!,
+                    this._includePublic.value!!,
+                    this._includePrivate.value!!,
                     it
                 )
             }
@@ -87,14 +72,14 @@ class HulpbronListViewModel @ViewModelInject constructor(
         return posts.map { pagingData ->
             pagingData.filter {
                 if (textFilter.value.isNullOrEmpty()) {
-                    if (includePublic.value == true)
+                    if (this._includePublic.value == true)
                     {
                         true
                     } else {
                        it.auteurType.equals("Client")
                     }
                 } else {
-                    if (includePublic.value == true)
+                    if (this._includePublic.value == true)
                     {
                         it.titel.startsWith(textFilter.value!!, true)
                     } else {
