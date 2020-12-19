@@ -28,6 +28,15 @@ class MediumTest {
         val medium2 = Medium(2, "henk", url = "", "", 4, Date())
         assertEquals("", medium2.url)
     }
+    @Test
+    fun test_constructor() {
+        val medium2 = Medium(2, "henk", url = "", "", 4, Date())
+        assertEquals("", medium2.url)
+        assertEquals(2,medium2.mediumId)
+        assertEquals("henk",medium2.naam)
+        assertEquals("",medium2.beschrijving)
+        assertEquals(4,medium2.mediumType)
+    }
 
     @Test
     fun test_toString() {
