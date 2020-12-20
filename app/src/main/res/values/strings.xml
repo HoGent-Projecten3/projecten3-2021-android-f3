@@ -49,7 +49,6 @@
     <string name="txf_chat">Bericht sturen</string>
     <string name="chat_hint">Typ uw bericht</string>
     <string name="verzend">verzend</string>
-
     <string name="delete_button_text">verwijder</string>
     <string name="login_fragment_name">Login</string>
     <string name="btVerwijderHulpbron">Verwijder hulpbron</string>
@@ -73,4 +72,12 @@
     <string name="mijn_trofee_n">Mijn trofeeën</string>
     <string name="ontdekken">Ontdekken</string>
     <string name="book_animatie">animatie van een boek</string>
+
+    <string name ="legeTitel">Gelieve een titel op te geven</string>
+    <string name ="legeBeschrijving">Gelieve een beschrijving op te geven</string>
+    <string name ="ongeldigTelefoonnummer">Gelieve een geldig telefoonnummer op te geven</string>
+    <string name ="ongeldigeUrl">Gelieve een geldige url op te geven</string>
+    <string name ="ongeldigeChatUrl">Gelieve een geldige chat url op te geven</string>
+    <string name ="ongeldigEmailadres">Gelieve een geldig emailadres op te geven</string>
+
 </resources>

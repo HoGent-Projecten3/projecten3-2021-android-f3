@@ -20,6 +20,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_hotel.*
 import kotlinx.android.synthetic.main.fragment_login.*
 
+/**
+ * @author iedereen
+ */
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
 

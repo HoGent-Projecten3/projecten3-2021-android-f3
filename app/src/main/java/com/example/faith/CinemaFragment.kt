@@ -35,6 +35,7 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Date
 import kotlin.jvm.Throws
+
 /**
  * @author Remi Mestdagh
  */
@@ -111,7 +112,11 @@ class CinemaFragment : Fragment() {
     }
 
     private fun checkPermission() {
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
             ActivityCompat.requestPermissions(
                 requireActivity(),
                 arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
@@ -119,7 +124,11 @@ class CinemaFragment : Fragment() {
             )
         }
 
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
             ActivityCompat.requestPermissions(
                 requireActivity(),
                 arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
@@ -127,8 +136,16 @@ class CinemaFragment : Fragment() {
             )
         }
 
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.CAMERA), 1)
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.CAMERA
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.CAMERA),
+                1
+            )
         }
     }
 
@@ -149,6 +166,9 @@ class CinemaFragment : Fragment() {
         }
     }
 
+    /**
+     * maakt bestand aan op schijf
+     */
     private fun createFile() {
         val photoFile: File? = try {
             if (lastCode == 1) {
@@ -170,6 +190,9 @@ class CinemaFragment : Fragment() {
         }
     }
 
+    /**
+     * intent om camera te openen voor foto
+     */
     private fun openCameraPicture() {
         hidePreviews()
         lastCode = 1
@@ -189,6 +212,9 @@ class CinemaFragment : Fragment() {
         }
     }
 
+    /**
+     * intent om camera te openen voor video's
+     */
     private fun openCameraVideo() {
         hidePreviews()
         lastCode = 2
@@ -202,11 +228,17 @@ class CinemaFragment : Fragment() {
         }
     }
 
+    /**
+     * verberg views die niet nodig zijn
+     */
     private fun hidePreviews() {
         ivImage.visibility = View.GONE
         videoView.visibility = View.GONE
     }
 
+    /**
+     * intent om galerij te openen
+     */
     private fun openGallery() {
         hidePreviews()
         lastCode = 0
@@ -229,6 +261,9 @@ class CinemaFragment : Fragment() {
         }
     }
 
+    /**
+     * slaat een file op de schijf op
+     */
     @Throws(IOException::class)
     private fun createVideoFile(): File {
         // Create an image file name
@@ -244,6 +279,9 @@ class CinemaFragment : Fragment() {
         }
     }
 
+    /**
+     * slaat een file op de schijf op
+     */
     @Throws(IOException::class)
     private fun createImageFile(): File {
         // Create an image file name
@@ -259,6 +297,9 @@ class CinemaFragment : Fragment() {
         }
     }
 
+    /**
+     * vangt de intents op en verwerkt
+     */
     override fun onActivityResult(requestCode: Int, resultCode: Int, theIntent: Intent?) {
         super.onActivityResult(requestCode, resultCode, theIntent)
         if (resultCode == AppCompatActivity.RESULT_OK) {
@@ -286,6 +327,9 @@ class CinemaFragment : Fragment() {
         }
     }
 
+    /**
+     * maakt een stream van de data zodat ze naar de api gestruurd kan worden
+     */
     @Throws(IOException::class)
     private fun createImageData(uri: Uri) {
         val inputStream = contentResolver!!.openInputStream(uri)
@@ -295,6 +339,9 @@ class CinemaFragment : Fragment() {
         }
     }
 
+    /**
+     * maakt een naam voor het bestand
+     */
     private fun randomName(): String {
         var timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         if (lastCode == 1 || lastCode == 0) {
@@ -306,6 +353,9 @@ class CinemaFragment : Fragment() {
         return timeStamp
     }
 
+    /**
+     * uploaden naar api van het medium
+     */
     private fun upload() {
         if (photoURI != Uri.EMPTY) {
             createImageData(photoURI)
@@ -332,7 +382,8 @@ class CinemaFragment : Fragment() {
                 it
             )
         }
-        var call: Call<Message>? = part?.let { viewModel.uploadMedia(it, txfBericht.text?.toString()) }
+        var call: Call<Message>? =
+            part?.let { viewModel.uploadMedia(it, txfBericht.text?.toString()) }
         call!!.enqueue(
             object : Callback<Message?> {
                 override fun onFailure(call: Call<Message?>, t: Throwable) {
@@ -345,7 +396,11 @@ class CinemaFragment : Fragment() {
                     }
                     navigateBack()
                 }
-                override fun onResponse(call: Call<Message?>, response: retrofit2.Response<Message?>) {
+
+                override fun onResponse(
+                    call: Call<Message?>,
+                    response: retrofit2.Response<Message?>
+                ) {
                     activity?.let {
                         Snackbar.make(
                             it.findViewById(R.id.main_activity_coordinator),
@@ -358,6 +413,10 @@ class CinemaFragment : Fragment() {
             }
         )
     }
+
+    /**
+     * navigeert terug naar het vorige fragment als klaar
+     */
     private fun navigateBack() {
         val navController = findNavController()
         navController.popBackStack()

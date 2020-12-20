@@ -8,7 +8,7 @@ import com.example.faith.data.ApiTalentSearchResponse
 import com.example.faith.data.Bericht
 import com.example.faith.data.Doel
 import com.example.faith.data.Gebruiker
-import com.example.faith.data.HulpbronDTO
+import com.example.faith.data.HulpbronBody
 import com.example.faith.data.Login
 import com.example.faith.data.LoginResponse
 import com.example.faith.data.Medium
@@ -85,7 +85,7 @@ interface ApiService {
     fun deleteHulpbron(@Path("id") id: Int): Call<Int>
 
     @POST("Infobalie")
-    fun postHulpbron(@Body hulpbron: HulpbronDTO): Call<Message>
+    fun postHulpbron(@Body hulpbron: HulpbronBody): Call<Message>
 
     @GET("Client/GetDoelen")
     fun getDoelen(): Call<List<Doel>>

@@ -53,8 +53,7 @@ class HulpbronRepository @Inject constructor(
         emailadres: String,
         chatUrl: String
     ): Call<Message> {
-        val temp = HulpbronDTO(titel, beschrijving, url, telefoonnummer, emailadres, chatUrl)
-        return service.postHulpbron(temp)
+        return service.postHulpbron(HulpbronBody(titel, beschrijving, url, telefoonnummer, emailadres, chatUrl))
     }
 
     fun deleteHulpbron(hulpbronId: Int): Call<Int> {
