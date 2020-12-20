@@ -12,8 +12,8 @@ Clone this repository and import into **Android Studio**
 ```bash
 git clone
 ```
-Change ip in networkmodule to connect to backend
-Change ip in signalrservice to connect to chat websocket
+ - Change ip in networkmodule to connect to backend
+ - Change ip in signalrservice to connect to chat websocket
 
 ## Libraries
 - room
@@ -31,12 +31,13 @@ Change ip in signalrservice to connect to chat websocket
 gradlew assembleDebug
 ```
 
-## Generating signed APK
-under construction, use:
-```bash
-gradlew assembleDebug
-```
-for now
+
+## End to end tests
+
+https://github.com/remimestdagh/e2e_android
+ - Built with Appium
+ - Java was nodig om deze te schrijven. Ze staan om deze reden in een aparte repository.
+
 ## Maintainers
 This project is mantained by:
  - Remi Mestdagh (remi.mestdagh@student.hogent.be)
