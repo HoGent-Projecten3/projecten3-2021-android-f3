@@ -79,6 +79,7 @@ class HulpbronListFragment : Fragment() {
             }
         )
     }
+    
 
     /**
      * Navigeren naar het hulpbron fragment

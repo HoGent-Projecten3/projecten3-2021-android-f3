@@ -47,7 +47,7 @@ import javax.inject.Singleton
 
 @HiltAndroidTest
 @UninstallModules(NetworkModule::class)
-class MediumListFragmentTest {
+class DagboekListFragmentTest {
 
     @Module
     @InstallIn(ApplicationComponent::class)
@@ -121,11 +121,12 @@ class MediumListFragmentTest {
         "TESTTITEL",
         "TESTINHOUD",
         "WWW.TEST.BE",
-        1,
+        4,
         Date()
     )
     var media = listOf(medium)
     private var response1 = ApiMediumSearchResponse(media, 0, "0", "-1")
+    private var response0 = ApiMediumSearchResponse(listOf(), 0, "0", "-1")
     private val hiltRule = HiltAndroidRule(this)
     private val activityTestRule = ActivityTestRule(MainActivity::class.java)
 
@@ -147,19 +148,19 @@ class MediumListFragmentTest {
     @ExperimentalPagingApi
     fun testGetAMediumShowIt() {
         runBlocking {
-            whenever(mockRepo.getMedia(any(), any())).thenReturn(response1)
+            whenever(mockRepo.getDagboek(any(), any())).thenReturn(response1)
 
         }
 
         ActivityScenario.launch(MainActivity::class.java)
         activityTestRule.activity.apply {
             runOnUiThread {
-                findNavController(R.id.myNavHostFragment).navigate(R.id.mediumListFragment)
+                findNavController(R.id.myNavHostFragment).navigate(R.id.dagboekListFragment2)
             }
         }
-        Espresso.onView(ViewMatchers.withId(R.id.medium_list))
+        Espresso.onView(ViewMatchers.withId(R.id.dagboek_list))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withId(R.id.medium_list))
+        Espresso.onView(ViewMatchers.withId(R.id.dagboek_list))
             .check(RecyclerViewItemCountAssertion(1));
     }
 
@@ -167,19 +168,19 @@ class MediumListFragmentTest {
     @ExperimentalPagingApi
     fun testGetNoMediumEmptyList() {
         runBlocking {
-            whenever(mockRepo.getMedia(any(), any())).thenReturn(ApiMediumSearchResponse(listOf(),0,"0","-1"))
+            whenever(mockRepo.getDagboek(any(), any())).thenReturn(ApiMediumSearchResponse(listOf(),0,"0","-1"))
 
         }
 
         ActivityScenario.launch(MainActivity::class.java)
         activityTestRule.activity.apply {
             runOnUiThread {
-                findNavController(R.id.myNavHostFragment).navigate(R.id.mediumListFragment)
+                findNavController(R.id.myNavHostFragment).navigate(R.id.dagboekListFragment2)
             }
         }
-        Espresso.onView(ViewMatchers.withId(R.id.medium_list))
+        Espresso.onView(ViewMatchers.withId(R.id.dagboek_list))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withId(R.id.medium_list))
+        Espresso.onView(ViewMatchers.withId(R.id.dagboek_list))
             .check(RecyclerViewItemCountAssertion(0));
     }
 }

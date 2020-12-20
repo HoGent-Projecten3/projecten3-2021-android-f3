@@ -9,6 +9,7 @@
         android:fitsSystemWindows="true"
         android:background="@color/hotel_theme">
 
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/hulpbron_list"
             android:layout_width="match_parent"

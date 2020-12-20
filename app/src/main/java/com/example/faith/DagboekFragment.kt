@@ -44,6 +44,9 @@ class DagboekFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * validatie zodat de velden niet leeg zijn
+     */
     private fun validateInput(titel: String, beschrijving: String): Boolean {
         if (titel.isNullOrEmpty()) {
             showMessage("Gelieve een titel in te voeren")
@@ -56,6 +59,9 @@ class DagboekFragment : Fragment() {
         return true
     }
 
+    /**
+     * snackbar print als iets lukt of mislukt
+     */
     private fun showMessage(message: String) {
         activity?.let {
             Snackbar.make(
@@ -66,8 +72,15 @@ class DagboekFragment : Fragment() {
         }
     }
 
+    /**
+     * methode ter communicatie met de backend
+     */
     private fun uploadText() {
-        if (validateInput(textInputTitelDagboek.text.toString(), textInputDescription.text.toString())) {
+        if (validateInput(
+                textInputTitelDagboek.text.toString(),
+                textInputDescription.text.toString()
+            )
+        ) {
 
             var call: Call<Message> = viewModel.uploadDagboekPost(
                 textInputTitelDagboek.text.toString(),
@@ -92,6 +105,9 @@ class DagboekFragment : Fragment() {
         }
     }
 
+    /**
+     * terug naar vorig fragment als gelukt
+     */
     private fun navigateToDagboek() {
 
         val navController = findNavController()

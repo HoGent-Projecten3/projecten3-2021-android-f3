@@ -37,22 +37,6 @@ import org.mockito.junit.MockitoJUnitRunner
 
 @HiltAndroidTest
 class DagboekFragmentTest {
-    private val testJson = """{
-  "results": [
-    {
-      "naam": "string",
-      "url": "string",
-      "beschrijving": "string",
-      "mediumId": 0,
-      "mediumType": 1,
-      "datum": "2020-12-17T17:48:12.870Z"
-    }
-  ],
-  "naam": "string",
-  "total_pages": 0,
-  "next": 0,
-  "last": 0
-}"""
 
     private val hiltRule = HiltAndroidRule(this)
     private val activityTestRule = ActivityTestRule(MainActivity::class.java)
@@ -81,7 +65,7 @@ class DagboekFragmentTest {
         Espresso.closeSoftKeyboard()
         onView(withId(R.id.textInputDescription)).perform(ViewActions.typeText("tekst"))
         Espresso.closeSoftKeyboard()
-        Espresso.onView(ViewMatchers.withId(R.id.btSaveDagboek)).perform(ViewActions.click())
+        onView(withId(R.id.btSaveDagboek)).perform(ViewActions.click())
     }
 
 }
