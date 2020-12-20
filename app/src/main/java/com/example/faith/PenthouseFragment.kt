@@ -13,6 +13,7 @@ import com.example.faith.adapters.DoelAdapter
 import com.example.faith.data.Doel
 import com.example.faith.databinding.FragmentPenthouseBinding
 import com.example.faith.viewmodels.PenthouseViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -52,9 +53,9 @@ class PenthouseFragment : Fragment() {
         binding.mainAddConfirmButton.setOnClickListener {
             val inhoud = binding.mainAddEditText.text.toString()
             if (inhoud.isNullOrEmpty()) {
-                Toast.makeText(it.context, "Inhoud mag niet leeg zijn!", Toast.LENGTH_LONG).show()
+                showMessage("Inhoud mag niet leeg zijn!")
             } else if (inhoud.length > 15) {
-                Toast.makeText(it.context, "Inhoud mag niet langer dan 15 tekens zijn!", Toast.LENGTH_LONG).show()
+                showMessage("Inhoud mag niet langer dan 15 tekens zijn!")
             } else {
                 val doel = Doel(inhoud, false, false, mutableListOf<Doel>())
                 viewModel.addDoel(doel)
@@ -70,5 +71,15 @@ class PenthouseFragment : Fragment() {
         palmIdleAnimation.start()
 
         return binding.root
+    }
+
+    private fun showMessage(message: String) {
+        activity?.let {
+            Snackbar.make(
+                it.findViewById(R.id.main_activity_coordinator),
+                message,
+                Snackbar.LENGTH_LONG
+            ).show()
+        }
     }
 }

@@ -32,13 +32,6 @@ import org.junit.rules.RuleChain
 class HulpbronFragmentTest {
     private val hiltRule = HiltAndroidRule(this)
     private val activityTestRule = ActivityTestRule(MainActivity::class.java)
-    private val apiService: ApiService = mock()
-    private val appDB: AppDatabase = mock()
-    var hulpbronDao: HulpbronDao = mock()
-    var hulpbronRepository: HulpbronRepository = HulpbronRepository(hulpbronDao,apiService,appDB)
-    var hulpbronViewModel: HulpbronViewModel = HulpbronViewModel(hulpbronRepository)
-    private val message: Message = Message();
-
 
     @get:Rule
     val rule = RuleChain
@@ -47,7 +40,6 @@ class HulpbronFragmentTest {
 
     @Before
     fun initHulpbronFragment() {
-        this.hulpbronViewModel = HulpbronViewModel(hulpbronRepository)
         activityTestRule.activity.apply {
             runOnUiThread {
                 findNavController(R.id.myNavHostFragment).navigate(R.id.hulpbronFragment)
@@ -55,9 +47,6 @@ class HulpbronFragmentTest {
         }
     }
 
-    @After
-    fun tearDown() {
-    }
 
     @Test
     fun ValidInputNavigateToList() {

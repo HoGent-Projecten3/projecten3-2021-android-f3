@@ -15,4 +15,13 @@ fun bindIsGone(view: View, isGone: Boolean) {
     }
 }
 
+@BindingAdapter("isGoneString")
+fun bindIsGoneString(view: View, input: String?) {
+    view.visibility = if (input.isNullOrEmpty()) {
+        View.GONE
+    } else {
+        View.VISIBLE
+    }
+}
+
 

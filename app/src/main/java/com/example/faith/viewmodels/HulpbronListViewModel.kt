@@ -1,6 +1,5 @@
 package com.example.faith.viewmodels
 
-import android.util.Log
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
@@ -46,10 +45,6 @@ class HulpbronListViewModel @ViewModelInject constructor(
             _textFilter = value
         }
 
-    fun cycleFilter() {
-        this._includePublic.value = this._includePublic.value == false
-    }
-
     @ExperimentalPagingApi
     @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
     val posts = flowOf(
@@ -81,9 +76,9 @@ class HulpbronListViewModel @ViewModelInject constructor(
                 } else {
                     if (this._includePublic.value == true)
                     {
-                        it.titel.startsWith(textFilter.value!!, true)
+                        it.titel.contains(textFilter.value!!, true)
                     } else {
-                        it.titel.startsWith(textFilter.value!!, true).and(it.auteurType == "Client")
+                        it.titel.contains(textFilter.value!!, true).and(it.auteurType == "Client")
                     }
                 }
             }
@@ -98,6 +93,10 @@ class HulpbronListViewModel @ViewModelInject constructor(
         viewModelScope.launch {
             repository.deleteHulpbronRoom(hulpbronId)
         }
+    }
+
+    fun cycleFilter() {
+        this._includePublic.value = this._includePublic.value == false
     }
 
     companion object {

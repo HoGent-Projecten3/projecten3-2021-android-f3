@@ -52,11 +52,17 @@ class HulpbronFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Terug naar de lijst navigeren
+     */
     private fun navigateToHulpbronList() {
         val navController = findNavController()
         navController.popBackStack()
     }
 
+    /**
+     * Een hulpbron aanmaken
+     */
     private fun uploadHulpbron() {
         val titel = textInputTitel.text.toString()
         val beschrijving = textInputBeschrijving.text.toString()
@@ -83,6 +89,9 @@ class HulpbronFragment : Fragment() {
         }
     }
 
+    /**
+     * Valideren of de input van de hulpbron geldig is
+     */
     private fun validateInput(titel: String, beschrijving: String, url: String, telefoonnummer: String, emailadres: String, chatUrl: String): Boolean {
         if (titel.isNullOrEmpty()) {
             showMessage(resources.getString(R.string.legeTitel))
@@ -112,6 +121,9 @@ class HulpbronFragment : Fragment() {
         return true
     }
 
+    /**
+     * Boodschap geven aan gebruiker
+     */
     private fun showMessage(message: String) {
         activity?.let {
             Snackbar.make(

@@ -1,6 +1,7 @@
 package com.example.faith
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -13,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
+import androidx.paging.flatMap
 import com.example.faith.adapters.HulpbronAdapter
 import com.example.faith.databinding.FragmentHulpbronListBinding
 import com.example.faith.viewmodels.HulpbronListViewModel
@@ -38,8 +40,8 @@ class HulpbronListFragment : Fragment() {
         binding = FragmentHulpbronListBinding.inflate(inflater, container, false)
         context ?: return binding.root
         binding.hulpbronList.adapter = adapter
+        initAdapter()
 
-        getHulpbronnen()
         binding.btnAddHulpbron.setOnClickListener {
             navigateToHulpbron()
         }
@@ -50,6 +52,11 @@ class HulpbronListFragment : Fragment() {
         setHasOptionsMenu(true)
         return binding.root
     }
+
+
+    /**
+     * Zoek optie instellen op de appbar
+     */
     @ExperimentalPagingApi
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
@@ -73,11 +80,17 @@ class HulpbronListFragment : Fragment() {
         )
     }
 
+    /**
+     * Navigeren naar het hulpbron fragment
+     */
     private fun navigateToHulpbron() {
-        val direction = HulpbronListFragmentDirections.actionHulpbronListFragmentToHulpbronFragment()
         val navController = findNavController()
-        navController.navigate(direction)
+        navController.navigate(HulpbronListFragmentDirections.actionHulpbronListFragmentToHulpbronFragment())
     }
+
+    /**
+     * Filteren op titel en type hulpbron
+     */
     @ExperimentalPagingApi
     private fun filter() {
         adapter = HulpbronAdapter()
@@ -89,6 +102,9 @@ class HulpbronListFragment : Fragment() {
         }
     }
 
+    /**
+     * Data refreshen
+     */
     @ExperimentalPagingApi
     override fun onResume() {
         super.onResume()
@@ -100,7 +116,7 @@ class HulpbronListFragment : Fragment() {
      * adapter instellen
      */
     @ExperimentalPagingApi
-    private fun getHulpbronnen() {
+    private fun initAdapter() {
         lifecycleScope.launchWhenCreated {
             @OptIn(ExperimentalCoroutinesApi::class)
             viewModel.posts.collectLatest {
