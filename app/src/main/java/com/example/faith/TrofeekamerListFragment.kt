@@ -53,7 +53,7 @@ class TrofeekamerListFragment : Fragment() {
         binding.btAddTalent.setOnClickListener {
             navigateToTalent()
         }
-        getTalentPaging()
+        initAdapter()
 
         binding.tabTrofee.addOnTabSelectedListener(
             object : OnTabSelectedListener {
@@ -62,7 +62,7 @@ class TrofeekamerListFragment : Fragment() {
                     if (tab.position == 0) {
                         binding.gedeeldeTrofeeLijst.visibility = View.GONE
                         binding.trofeeList.visibility = View.VISIBLE
-                        getTalentPaging()
+                        initAdapter()
                     } else if (tab.position == 1) {
                         binding.gedeeldeTrofeeLijst.visibility = View.VISIBLE
                         binding.trofeeList.visibility = View.GONE
@@ -100,7 +100,13 @@ class TrofeekamerListFragment : Fragment() {
     }
 
     @ExperimentalPagingApi
-    private fun getTalentPaging() {
+    override fun onResume() {
+        super.onResume()
+        adapter.refresh()
+    }
+
+    @ExperimentalPagingApi
+    private fun initAdapter() {
 
         lifecycleScope.launchWhenCreated {
             @OptIn(ExperimentalCoroutinesApi::class)

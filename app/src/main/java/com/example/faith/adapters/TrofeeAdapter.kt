@@ -1,8 +1,10 @@
 package com.example.faith.adapters
 
+import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -47,9 +49,21 @@ class TrofeeAdapter : PagingDataAdapter<Talent, TrofeeAdapter.TrofeeViewHolder>(
             talent: Talent,
             view: View
         ) {
-            val direction = TrofeekamerListFragmentDirections.actionTrofeekamerListFragmentToTalentDetailFragment(
-                talent.talentId
-            )
+
+            val direction : NavDirections
+
+            if (talent.type == 2) {
+                direction = TrofeekamerListFragmentDirections.actionTrofeekamerListFragmentToTalentDetailFragment(
+                    talent.talentId
+                )
+            }
+            else {
+                direction = TrofeekamerListFragmentDirections.actionTrofeekamerListFragmentToPrestatieDetailFragment(
+                    talent.talentId
+                )
+            }
+
+
             view.findNavController().navigate(direction)
         }
         fun bind(item: Talent) {

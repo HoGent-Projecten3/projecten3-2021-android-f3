@@ -273,7 +273,7 @@
     <fragment
         android:id="@+id/trofeekamerListFragment"
         android:name="com.example.faith.TrofeekamerListFragment"
-        android:label="@string/trofeekamerList"
+        android:label="@string/trofeekamer"
         tools:layout="@layout/fragment_trofeekamer_list" >
         <action
             android:id="@+id/action_trofeekamerListFragment_to_trofeekamerFragment"
@@ -281,6 +281,9 @@
         <action
             android:id="@+id/action_trofeekamerListFragment_to_talentDetailFragment"
             app:destination="@id/talentDetailFragment" />
+        <action
+            android:id="@+id/action_trofeekamerListFragment_to_prestatieDetailFragment"
+            app:destination="@id/prestatieDetailFragment" />
     </fragment>
 
     <fragment
@@ -300,6 +303,19 @@
         tools:layout="@layout/fragment_talent_detail" >
         <action
             android:id="@+id/action_talentDetailFragment_to_trofeekamerListFragment"
+            app:destination="@id/trofeekamerListFragment" />
+        <argument
+            android:name="talentId"
+            app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/prestatieDetailFragment"
+        android:name="com.example.faith.PrestatieDetailFragment"
+        android:label="@string/prestatieDetail"
+        tools:layout="@layout/fragment_prestatie_detail" >
+        <action
+            android:id="@+id/action_prestatieDetailFragment_to_trofeekamerListFragment"
             app:destination="@id/trofeekamerListFragment" />
         <argument
             android:name="talentId"
