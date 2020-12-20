@@ -3,7 +3,6 @@ package com.example.faith
 import android.app.Application
 import androidx.navigation.findNavController
 import androidx.paging.ExperimentalPagingApi
-import androidx.paging.PagingData
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.assertion.ViewAssertions
@@ -14,7 +13,6 @@ import com.example.faith.api.MyServiceInterceptor
 import com.example.faith.api.SignalRService
 import com.example.faith.data.ApiMediumSearchResponse
 import com.example.faith.data.Medium
-import com.example.faith.data.MediumRepository
 import com.example.faith.di.DateSerializer
 import com.example.faith.di.NetworkModule
 import com.example.faith.utilities.RecyclerViewItemCountAssertion
@@ -32,7 +30,6 @@ import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import okhttp3.Cache
 import okhttp3.Interceptor
@@ -43,18 +40,14 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.RuleChain
-import org.mockito.Mock
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.Date
-import javax.inject.Inject
 import javax.inject.Singleton
 
 @HiltAndroidTest
 @UninstallModules(NetworkModule::class)
 class MediumListFragmentTest {
-
-
 
     @Module
     @InstallIn(ApplicationComponent::class)
@@ -121,11 +114,7 @@ class MediumListFragmentTest {
                 .client(okHttpClient)
                 .build()
         }
-
     }
-
-
-
 
     var medium = Medium(
         1,
@@ -136,26 +125,30 @@ class MediumListFragmentTest {
         Date()
     )
     var media = listOf(medium)
-    private var response  = ApiMediumSearchResponse(media,0,"0","-1")
+    private var response1 = ApiMediumSearchResponse(media, 0, "0", "-1")
+    private var response0 = ApiMediumSearchResponse(listOf(), 0, "0", "-1")
     private val hiltRule = HiltAndroidRule(this)
     private val activityTestRule = ActivityTestRule(MainActivity::class.java)
+
     @get:Rule
     val rule = RuleChain
         .outerRule(hiltRule)
         .around(activityTestRule)
+
     @Before
-    fun init(){
+    fun init() {
         hiltRule.inject()
     }
-    @BindValue @JvmField
+
+    @BindValue
+    @JvmField
     var mockRepo: ApiService = mock()
 
-    @ExperimentalPagingApi
     @Test
-    fun test1(){
+    @ExperimentalPagingApi
+    fun testGetAMediumShowIt() {
         runBlocking {
-            //whenever(mockRepo.getSearchResultStream(any())).thenReturn(flowOf(PagingData.empty()))
-            whenever(mockRepo.getMedia(any(),any())).thenReturn(response)
+            whenever(mockRepo.getMedia(any(), any())).thenReturn(response1)
 
         }
 
@@ -171,4 +164,23 @@ class MediumListFragmentTest {
             .check(RecyclerViewItemCountAssertion(1));
     }
 
+    @Test
+    @ExperimentalPagingApi
+    fun testGetNoMediumEmptyList() {
+        runBlocking {
+            whenever(mockRepo.getMedia(any(), any())).thenReturn(response0)
+
+        }
+
+        ActivityScenario.launch(MainActivity::class.java)
+        activityTestRule.activity.apply {
+            runOnUiThread {
+                findNavController(R.id.myNavHostFragment).navigate(R.id.mediumListFragment)
+            }
+        }
+        Espresso.onView(ViewMatchers.withId(R.id.medium_list))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(ViewMatchers.withId(R.id.medium_list))
+            .check(RecyclerViewItemCountAssertion(0));
+    }
 }
