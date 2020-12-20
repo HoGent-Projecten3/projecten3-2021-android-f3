@@ -61,7 +61,6 @@ class HulpbronAdapter : PagingDataAdapter<Hulpbron, HulpbronAdapter.HulpbronView
                 }
                 binding.setClickListener {
                     binding.hulpbron?.let { hulpbron ->
-                        Log.d("Auteurtype 2: ", binding.hulpbron?.auteurType.toString())
                         navigateToHulpbron(hulpbron, it)
                     }
                 }
@@ -70,21 +69,18 @@ class HulpbronAdapter : PagingDataAdapter<Hulpbron, HulpbronAdapter.HulpbronView
                         viewModel!!.deleteHulpbron(binding.hulpbron!!.hulpbronId)
                     call.enqueue(
                         object : Callback<Int?> {
-                            override fun onFailure(call: Call<Int?>, t: Throwable) {
-                                Log.d("Failure", call.toString())
-                            }
+                            override fun onFailure(call: Call<Int?>, t: Throwable) {}
                             override fun onResponse(
                                 call: Call<Int?>,
                                 response: retrofit2.Response<Int?>
                             ) {
                                 viewModel.deleteHulpbronRoom(binding.hulpbron!!.hulpbronId)
-                                this@HulpbronViewHolder.bindingAdapter
-                                bindingAdapter?.notifyItemRemoved(this@HulpbronViewHolder.absoluteAdapterPosition)
-                                bindingAdapter?.notifyDataSetChanged()
-                                Log.d("Succes", response.body().toString())
                             }
                         }
                     )
+                    //this@HulpbronViewHolder.bindingAdapter
+                    bindingAdapter?.notifyItemRemoved(this@HulpbronViewHolder.absoluteAdapterPosition)
+                    bindingAdapter?.notifyDataSetChanged()
                 }
                 executePendingBindings()
             }

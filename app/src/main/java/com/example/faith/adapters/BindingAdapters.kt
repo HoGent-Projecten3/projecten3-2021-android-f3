@@ -4,7 +4,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import java.text.SimpleDateFormat
-import java.util.Locale
+import java.util.*
 
 @BindingAdapter("isGone")
 fun bindIsGone(view: View, isGone: Boolean) {
@@ -15,13 +15,13 @@ fun bindIsGone(view: View, isGone: Boolean) {
     }
 }
 
-@BindingAdapter("bindServerDate")
-fun bindServerDate(textView: TextView, date: String) {
-    val locale = Locale("nl", "NL")
-    var inputPattern = "yyyy-MM-dd'T'HH:mm:ss"
-    val inputDateFormat = SimpleDateFormat(inputPattern, locale)
-    val inputDate = inputDateFormat.parse(date)
-    val outputPattern = "dd MMM yyyy"
-    val outputDateFormat = SimpleDateFormat(outputPattern, locale)
-    textView.text = outputDateFormat.format(inputDate)
+@BindingAdapter("isGoneString")
+fun bindIsGoneString(view: View, input: String?) {
+    view.visibility = if (input.isNullOrEmpty()) {
+        View.GONE
+    } else {
+        View.VISIBLE
+    }
 }
+
+

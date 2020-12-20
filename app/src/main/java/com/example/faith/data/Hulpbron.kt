@@ -4,6 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import java.util.*
+
 @Entity(tableName = "hulpbronnen")
 data class Hulpbron(
     @PrimaryKey @ColumnInfo(name = "id")
@@ -22,7 +24,7 @@ data class Hulpbron(
     @field:SerializedName("chatUrl")
     val chatUrl: String?,
     @field:SerializedName("datum")
-    val datum: String?,
+    val datum: Date,
     @field:SerializedName("auteurType")
     val auteurType: String,
 ) {

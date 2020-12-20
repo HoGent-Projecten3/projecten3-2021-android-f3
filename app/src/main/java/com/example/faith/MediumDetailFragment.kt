@@ -34,6 +34,9 @@ class MediumDetailFragment : Fragment() {
         )
     }
 
+    /**
+     * zorgen dat een medium dat een video bevat begint te spelen
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

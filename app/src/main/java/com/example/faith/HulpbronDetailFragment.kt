@@ -52,15 +52,16 @@ class HulpbronDetailFragment : Fragment() {
                 }
             }
         }
-
         createLayout()
-
         setHasOptionsMenu(true)
         return binding.root
     }
 
-    private fun createLayout() {
 
+    /**
+     * OnClickListeners instellen
+     */
+    private fun createLayout() {
         binding.linLayTelefoon.setOnClickListener() {
             startActivity(
                 Intent(

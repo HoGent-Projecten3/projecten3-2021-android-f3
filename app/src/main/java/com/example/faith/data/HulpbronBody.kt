@@ -2,7 +2,7 @@ package com.example.faith.data
 
 import com.google.gson.annotations.SerializedName
 
-class HulpbronDTO(
+class HulpbronBody(
     @SerializedName("titel") val titel: String,
     @SerializedName("inhoud") val inhoud: String?,
     @SerializedName("url") val url: String?,
