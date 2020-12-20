@@ -28,6 +28,7 @@ import com.nhaarman.mockitokotlin2.spy
 import com.nhaarman.mockitokotlin2.whenever
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import kotlinx.coroutines.runBlocking
 import org.junit.Rule
 import org.junit.rules.RuleChain
 import java.util.regex.Pattern.matches
@@ -68,17 +69,17 @@ class ChatTest {
     }
 
     @Test
-    fun not() {
+    fun verstuurBericht() {
         whenever(this.berichtRepo.getBerichten2(datum, 20)).thenAnswer {
             return@thenAnswer berichtResponse
         }
         whenever(this.berichtRepo.verstuurBericht("", "", "", "", "")).thenAnswer {
             return@thenAnswer bericht1
         }
-        onView(withId(R.id.txfEditBericht)).perform(ViewActions.typeText("Hallo ik ben Bejamin"))
+        onView(withId(R.id.txfEditBericht)).perform(ViewActions.typeText("test"))
         onView(withId(R.id.btSendMessage)).perform(click())
 
         onView(withId(R.id.messages_list))
-            .check(RecyclerViewItemCountAssertion(1));
+                .check(RecyclerViewItemCountAssertion(1));
     }
 }
